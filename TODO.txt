@@ -7,6 +7,9 @@ GameManager.cpp
 	};
 		
 
+Game.h
+	sizes e what not, 
+
 
 GameManager.h
 	constantes e what not	
@@ -15,4 +18,24 @@ GameManager.h
 	static void Rehsape(lwl)
 	static void Display)
 
+	construtor dos butter, pneus, cars, loool
+
+
+
+
+
+Dentro do ciclo do mainLoop, temos de implementar a display e update ucntions
+
+
+dentro do display fazemos:
+	clear
+	GL_MODELVIEW
+	GL_PROJECTION
+
+dentro do update fazemos:
+	update da velocidade e posicao do carro
+		
+
+
+## segunda ou terceira temos colisoes
 
