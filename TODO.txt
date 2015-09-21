@@ -1,0 +1,18 @@
+TODO LIST
+
+GameManager.cpp
+
+	GameManager::GameManager(){;}
+	GameManager::Reshape(float w, float h){
+	};
+		
+
+
+GameManager.h
+	constantes e what not	
+	definir a classe e metodos publicos  e privados
+
+	static void Rehsape(lwl)
+	static void Display)
+
+
