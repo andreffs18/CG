@@ -55,7 +55,55 @@ void myDisplay(void) {
     
     
     // draw cube with 1unit as size
-    glutSolidCube(1.0f);
+    // glutSolidCube(1.0f);
+    glBegin(GL_POLYGON);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(-0.500000, -0.500000, 0.500000);
+    glVertex3f(0.500000, -0.500000, 0.500000);
+    glVertex3f(0.500000, 0.500000, 0.500000);
+    glVertex3f(-0.500000, 0.500000, 0.500000);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(1.0f, 1.0f, 0.0f);
+    glVertex3f(-0.500000, 0.500000, 0.500000);
+    glVertex3f(0.500000, 0.500000, 0.500000);
+    glVertex3f(0.500000, 0.500000, -0.500000);
+    glVertex3f(-0.500000, -0.500000, 0.500000);
+    glEnd();
+    
+    // FRONT
+    glBegin(GL_POLYGON);
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex3f(-0.500000, 0.500000, -0.500000);
+    glVertex3f(0.500000, 0.500000, -0.500000);
+    glVertex3f(0.500000, -0.500000, -0.500000);
+    glVertex3f(-0.500000, -0.500000, -0.500000);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(0.0f, 1.0f, 1.0f);
+    glVertex3f(-0.500000, -0.500000, -0.500000);
+    glVertex3f(0.500000, -0.500000, -0.500000);
+    glVertex3f(0.500000, -0.500000, 0.500000);
+    glVertex3f(-0.500000, -0.500000, 0.500000);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex3f(0.500000, -0.500000, 0.500000);
+    glVertex3f(0.500000, -0.500000, -0.500000);
+    glVertex3f(0.500000, 0.500000, -0.500000);
+    glVertex3f(0.500000, 0.500000, 0.500000);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex3f(-0.500000, -0.500000,-0.500000);
+    glVertex3f(-0.500000, -0.500000, 0.500000);
+    glVertex3f(-0.500000, 0.500000, 0.500000);
+    glVertex3f(-0.500000, 0.500000, -0.500000);
+    glEnd();
     
     // force the execution of the GL commands
     glFlush();
@@ -86,6 +134,13 @@ void myReshape(GLsizei w, GLsizei h) {
 
     // Fixing resizing of the window
     glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
+    
+    // apply translate to change camera's position
+    glTranslatef(0.0f, 0.0f, 0.0f);
+    // glRotatef(180, 1, 0, 0);
+    //glRotatef(20, 0, 1, 0);
+    
+    gluLookAt(1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
     
 }
 
