@@ -77,7 +77,7 @@ void myReshape(GLsizei w, GLsizei h) {
     glMatrixMode(GL_MODELVIEW);
     // and set's the top matrix of that stack to be the Identity Matrix
     glLoadIdentity();
-       
+    
     
     // This call here defines the volume of the projection
     // args: left, right, bottom, top, nearVal, farVal;
