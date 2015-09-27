@@ -1,14 +1,20 @@
 //
-//  GameManager.h
-//  project_1_entrega
-//
-//  Created by André Silva on 9/25/15.
-//
+//  project_1_entrega - GameManager.h
 //
 
 #ifndef __project_1_entrega__GameManager__
 #define __project_1_entrega__GameManager__
 
 #include <stdio.h>
+#include <GLUT/glut.h>
+
+class GameManager{
+private:
+public:
+    GameManager();
+    ~GameManager();
+    static void onReshape(GLsizei w, GLsizei h);
+    static void onDisplay();
+};
 
 #endif /* defined(__project_1_entrega__GameManager__) */
