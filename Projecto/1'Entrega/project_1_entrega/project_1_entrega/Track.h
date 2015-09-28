@@ -13,6 +13,9 @@
 
 class Track{
 private:
+	float pos_x = -1.5;
+	float pos_y = -1.5;
+	float pos_z = 0.0;
 public:
     Track();
     ~Track();

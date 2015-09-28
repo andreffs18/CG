@@ -13,10 +13,11 @@
 
 class Cheerios{
 private:
+	
 public:
     Cheerios();
     ~Cheerios();
-    void draw();
+    void draw(float, float, float);
 };
 
 #endif /* defined(__project_1_entrega__Cheerios__) */

@@ -7,7 +7,6 @@
 //
 
 #include <iostream>
-#include <iostream>
 #include <stdlib.h>
 #include <GLUT/glut.h>
 
