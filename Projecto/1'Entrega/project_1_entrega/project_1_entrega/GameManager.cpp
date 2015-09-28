@@ -1,12 +1,16 @@
 //
 //  project_1_entrega - GameManager.cpp
 //
-
+#ifndef project_1_entrega_Logger_h
 #include "Logger.h"
+#endif
+
 #include "GameManager.h"
 #include "GameObjects.h"
 #include <GLUT/glut.h>
 #include <iostream>
+#include "Cheerios.h"
+#include "Track.h"
 
 // initialize log object
 Log logger = Log();
@@ -51,7 +55,7 @@ void GameManager::onReshape(GLsizei w, GLsizei h){
     
     // This call here defines the volume of the projection
     // args: left, right, bottom, top, nearVal, farVal;
-    // glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
+    /glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
     // Fixing resizing of the window
 
     // TESTING
@@ -83,8 +87,14 @@ void GameManager::onDisplay(){
     
     // draw objects
     GameObjects objs = GameObjects();
-    objs.customSolidCube();    
-        
+    objs.customSolidCube();
+    
+    Cheerios c = Cheerios();
+    c.draw();
+    Track t = Track();
+    t.draw();
+    
+    
     // force the execution of the GL commands
     glFlush();
 };

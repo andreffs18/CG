@@ -1,6 +1,6 @@
 //
 //  project_1_entrega
-//  Created by Ana Galvão, André Silva, Daniel on 25/9/15.
+//  Created by Ana Galvão, André Silva, Daniel Pinho on 25/9/15.
 //
 
 //  ------------------------------------------------------ Global Variables
