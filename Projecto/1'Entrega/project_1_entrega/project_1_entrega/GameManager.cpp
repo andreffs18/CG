@@ -35,19 +35,34 @@ void GameManager::onReshape(GLsizei w, GLsizei h){
     glLoadIdentity();
     
     
+    
+    
+    float xmin = -2.0, xmax = 2.0, ymin = -2.0, ymax = 2.0;
+    float ratio = (xmax - xmin) / (ymax - ymin);
+    float aspect = (float)w / h;
+    if (aspect > ratio)
+        glViewport((w - h*ratio) / 2, 0, h*ratio, h);
+    else
+        glViewport(0, (h - w / ratio) / 2, w, w / ratio);
+    
+    gluOrtho2D(xmin, xmax, ymin, ymax);
+    
+    
+    
     // This call here defines the volume of the projection
     // args: left, right, bottom, top, nearVal, farVal;
-    glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
+    // glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
     // Fixing resizing of the window
 
     // TESTING
     // apply translate to change camera's position
     glTranslatef(0.0f, 0.0f, 0.0f);
     // apply rotations
-    // glRotatef(180, 1, 0, 0);
-    // glRotatef(20, 0, 1, 0);
+    glRotatef(180, 1, 0, 0);
+    glRotatef(20, 0, 1, 0);
+    glRotatef(20, 0, 0, 1);
     // this does all of it
-    gluLookAt(1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+    //gluLookAt(1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
     
 };
 
