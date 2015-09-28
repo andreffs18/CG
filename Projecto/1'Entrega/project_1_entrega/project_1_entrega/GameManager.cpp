@@ -55,20 +55,22 @@ void GameManager::onReshape(GLsizei w, GLsizei h){
     
     // This call here defines the volume of the projection
     // args: left, right, bottom, top, nearVal, farVal;
-    /glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
+    //glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
     // Fixing resizing of the window
 
     // TESTING
     // apply translate to change camera's position
     glTranslatef(0.0f, 0.0f, 0.0f);
     // apply rotations
-    glRotatef(180, 1, 0, 0);
-    glRotatef(20, 0, 1, 0);
-    glRotatef(20, 0, 0, 1);
+  //  glRotatef(180, 1, 0, 0);
+   // glRotatef(20, 0, 1, 0);
+  //  glRotatef(20, 0, 0, 1);
     // this does all of it
     //gluLookAt(1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
     
 };
+
+    
 
 //  ----------------------------------------------------------- onDisplay()
 //  Custom display function used when event "glutDisplayFunc" is
@@ -89,10 +91,31 @@ void GameManager::onDisplay(){
     GameObjects objs = GameObjects();
     objs.customSolidCube();
     
-    Cheerios c = Cheerios();
-    c.draw();
     Track t = Track();
     t.draw();
+    
+    glMatrixMode (GL_PROJECTION );
+    glLoadIdentity();
+    int w = glutGet (GLUT_WINDOW_WIDTH);
+    int h = glutGet (GLUT_WINDOW_HEIGHT);
+    gluPerspective (40, w / h, 0.1, 100);
+    
+    glMatrixMode (GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt
+    (
+     3, 3, 3,
+     0, 0, 0,
+     0, 0, 1
+     );
+    
+    //test for rotation and perspective
+    glRotatef (45.0, 0.0, 0.0, 1.0);
+    glRotatef(145.0, 0.0, 1.0, 0.0);
+    
+    
+    glutSwapBuffers();
+
     
     
     // force the execution of the GL commands

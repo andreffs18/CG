@@ -8,7 +8,7 @@
 
 #include "Cheerios.h"
 #include <iostream>
-#include <GL\glut.h>
+#include <GLUT/glut.h>
 
 Cheerios::Cheerios(){};
 Cheerios::~Cheerios(){};
