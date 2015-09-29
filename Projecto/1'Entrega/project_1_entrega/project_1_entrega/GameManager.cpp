@@ -1,20 +1,14 @@
 //
 //  project_1_entrega - GameManager.cpp
 //
-#ifndef project_1_entrega_Logger_h
-#include "Logger.h"
-#endif
-
-#include "GameManager.h"
-#include "GameObjects.h"
 #include <GLUT/glut.h>
 #include <iostream>
+#include "Game.h"
+#include "GameManager.h"
+#include "GameObjects.h"
 #include "Cheerios.h"
 #include "Track.h"
 #include "Car.h"
-
-// initialize log object
-Log logger = Log();
 
 GameManager::GameManager(){logger.debug("GameManager::GameManager()");};
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
@@ -38,8 +32,6 @@ void GameManager::onReshape(GLsizei w, GLsizei h){
     glMatrixMode(GL_MODELVIEW);
     // and set's the top matrix of that stack to be the Identity Matrix
     glLoadIdentity();
-    
-    
     
     
     float xmin = -2.0, xmax = 2.0, ymin = -2.0, ymax = 2.0;
@@ -86,17 +78,15 @@ void GameManager::onDisplay(){
     // actually cleans buffer (Color buffer)
     glClear(GL_COLOR_BUFFER_BIT);
     
-    // draw objects
-    GameObjects objs = GameObjects();
-    objs.customSolidCube();
-    
-    Cheerios c = Cheerios();
-    c.draw();
+//    // draw objects
+//    GameObjects objs = GameObjects();
+//    objs.customSolidCube();
+//    
+//    Cheerios c = Cheerios();
+//    c.draw();
     Track t = Track();
     t.draw();
 
-    Car car = Car();
-    std::cout << car.getSpeed() << std::endl;;
     
     // force the execution of the GL commands
     glFlush();

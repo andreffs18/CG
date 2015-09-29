@@ -10,9 +10,8 @@
 #define __project_1_entrega__Car__
 
 #include <stdio.h>
-#include "DynamicObject.h"
 
-class Car : public DynamicObject{
+class Car{
 private:
 public:
     Car();

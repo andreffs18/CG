@@ -11,7 +11,4 @@
 Car::Car(){};
 Car::~Car(){};
 
-float Car::getSpeed(){
-    return 1.0f;
-};
 

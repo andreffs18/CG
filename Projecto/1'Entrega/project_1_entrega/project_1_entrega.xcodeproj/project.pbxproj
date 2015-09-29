@@ -89,10 +89,10 @@
 			children = (
 				0E2D30971BB5F73C00F9AC4D /* Game.cpp */,
 				0EA87E1B1BB7FE6E004BD956 /* Game.h */,
-				0E2D30A21BB5F7F400F9AC4D /* GameManager.cpp */,
-				0E2D30A31BB5F7F400F9AC4D /* GameManager.h */,
 				0EA87E1C1BB8065A004BD956 /* Logger.cpp */,
 				0EA87E1D1BB8065A004BD956 /* Logger.h */,
+				0E2D30A21BB5F7F400F9AC4D /* GameManager.cpp */,
+				0E2D30A31BB5F7F400F9AC4D /* GameManager.h */,
 				0EA87E1F1BB813DD004BD956 /* GameObjects.cpp */,
 				0EA87E201BB813DD004BD956 /* GameObjects.h */,
 				0EA87E271BB96605004BD956 /* Cheerios.cpp */,
