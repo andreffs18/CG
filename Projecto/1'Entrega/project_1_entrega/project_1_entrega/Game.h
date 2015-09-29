@@ -29,5 +29,9 @@ extern bool ERROR_LOG;
 // Initialize Logger object
 extern Log logger;
 
+extern float g_rotate_X;
+extern float g_rotate_speed;
+extern bool ENABLE_ROTATION;
+
 #endif /* defined(__project_1_entrega__Game__) */
 

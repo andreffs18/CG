@@ -34,7 +34,7 @@ void GameManager::onReshape(GLsizei w, GLsizei h){
     glLoadIdentity();
     
     
-    float xmin = -2.0, xmax = 2.0, ymin = -2.0, ymax = 2.0;
+    float xmin = -4.0, xmax = 4.0, ymin = -4.0, ymax = 4.0;
     float ratio = (xmax - xmin) / (ymax - ymin);
     float aspect = (float)w / h;
     if (aspect > ratio)
@@ -43,21 +43,21 @@ void GameManager::onReshape(GLsizei w, GLsizei h){
         glViewport(0, (h - w / ratio) / 2, w, w / ratio);
     
     gluOrtho2D(xmin, xmax, ymin, ymax);
-    
-    
+        glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -8.0f, 8.0f);
+//    }
     
     // This call here defines the volume of the projection
     // args: left, right, bottom, top, nearVal, farVal;
-    //glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
+
     // Fixing resizing of the window
 
     // TESTING
     // apply translate to change camera's position
-    glTranslatef(0.0f, 0.0f, 0.0f);
-    // apply rotations
-    glRotatef(180, 1, 0, 0);
-    glRotatef(20, 0, 1, 0);
-    glRotatef(20, 0, 0, 1);
+//    glTranslatef(0.0f, 0.0f, 0.0f);
+//    // apply rotations
+//    glRotatef(0, 1, 0, 0);
+//    glRotatef(0, 0, 1, 0);
+//    glRotatef(0, 0, 0, 1);
     // this does all of it
     //gluLookAt(1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
     
@@ -78,14 +78,24 @@ void GameManager::onDisplay(){
     // actually cleans buffer (Color buffer)
     glClear(GL_COLOR_BUFFER_BIT);
     
+    if(ENABLE_ROTATION){
+        glRotatef( g_rotate_X, 1.0f, 0, 0 );
+//glRotatef( g_rotate_X, 0, 0, 1.0f );
+        std::cout << "somtext sometext " << g_rotate_X << std::endl;
+        g_rotate_X += g_rotate_speed;
+        if(g_rotate_X > 1.0)
+            g_rotate_X = 0.0;
+        glutPostRedisplay();
+    }
+
 //    // draw objects
 //    GameObjects objs = GameObjects();
 //    objs.customSolidCube();
 //    
 //    Cheerios c = Cheerios();
 //    c.draw();
-    Track t = Track();
-    t.draw();
+    Car c = Car();
+    c.draw();
 
     
     // force the execution of the GL commands

@@ -16,7 +16,7 @@ private:
 public:
     Car();
     ~Car();
-    void draw();
+    void draw(float cube_size = 2.0f);
     void update();
 };
 
