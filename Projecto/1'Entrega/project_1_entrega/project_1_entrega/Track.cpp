@@ -9,11 +9,63 @@
 #include "Track.h"
 #include "Cheerios.h"
 #include <iostream>
+#include <GLUT/GLUT.h>
 
 Track::Track(){};
 Track::~Track(){};
 
 void Track::draw(){
+    //table
+    glBegin(GL_POLYGON);
+    glColor3f(0.5f, 0.35f, 0.05f);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(0.5f, 0.35f, 0.05f);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glEnd();
+    
+    // FRONT
+    glBegin(GL_POLYGON);
+    glColor3f(0.5f, 0.35f, 0.05f);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(0.5f, 0.35f, 0.05f);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(0.5f, 0.35f, 0.05f);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(0.5f, 0.35f, 0.05f);
+    glVertex3f(-1.0, -1.0,-1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+    
+    
 	//Exterior da pista
 	while (pos_y < 1.7) {
 		pos_y += 0.2;
@@ -101,6 +153,6 @@ void Track::draw(){
 		Cheerios c = Cheerios();
 		c.draw(pos_x, pos_y, pos_z);
 	}
-
+    
     std::cout << "Track::draw()" << std::endl;
 };

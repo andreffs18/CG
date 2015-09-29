@@ -27,7 +27,7 @@ int main(int argc, char * argv[]) {
     // initialise glut library
     glutInit(&argc, argv);
     // request a RGBA display mode, and we want single buffering
-    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
+    glutInitDisplayMode (GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     // set the initial window size
     glutInitWindowSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     // set the initial window position

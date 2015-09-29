@@ -8,58 +8,57 @@
 GameObjects::GameObjects(){};
 GameObjects::~GameObjects(){};
 
-void GameObjects::customSolidCube(){
-    glColor3f(0.5f, 0.35f, 0.05f);
+/*void GameObjects::customSolidCube(){
     
     // draw cube with 1unit as size
     // glutSolidCube(1.0f);
-    glBegin(GL_POLYGON);
+     glBegin(GL_POLYGON);
     glColor3f(0.5f, 0.35f, 0.05f);
-    glVertex3f(-0.500000, -0.500000, 0.500000);
-    glVertex3f(0.500000, -0.500000, 0.500000);
-    glVertex3f(0.500000, 0.500000, 0.500000);
-    glVertex3f(-0.500000, 0.500000, 0.500000);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
     glEnd();
     
     glBegin(GL_POLYGON);
     glColor3f(0.5f, 0.35f, 0.05f);
-    glVertex3f(-0.500000, 0.500000, 0.500000);
-    glVertex3f(0.500000, 0.500000, 0.500000);
-    glVertex3f(0.500000, 0.500000, -0.500000);
-    glVertex3f(-0.500000, -0.500000, 0.500000);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
     glEnd();
     
     // FRONT
     glBegin(GL_POLYGON);
     glColor3f(0.5f, 0.35f, 0.05f);
-    glVertex3f(-0.500000, 0.500000, -0.500000);
-    glVertex3f(0.500000, 0.500000, -0.500000);
-    glVertex3f(0.500000, -0.500000, -0.500000);
-    glVertex3f(-0.500000, -0.500000, -0.500000);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
     glEnd();
     
     glBegin(GL_POLYGON);
     glColor3f(0.5f, 0.35f, 0.05f);
-    glVertex3f(-0.500000, -0.500000, -0.500000);
-    glVertex3f(0.500000, -0.500000, -0.500000);
-    glVertex3f(0.500000, -0.500000, 0.500000);
-    glVertex3f(-0.500000, -0.500000, 0.500000);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
     glEnd();
     
     glBegin(GL_POLYGON);
     glColor3f(0.5f, 0.35f, 0.05f);
-    glVertex3f(0.500000, -0.500000, 0.500000);
-    glVertex3f(0.500000, -0.500000, -0.500000);
-    glVertex3f(0.500000, 0.500000, -0.500000);
-    glVertex3f(0.500000, 0.500000, 0.500000);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, 1.0);
     glEnd();
     
     glBegin(GL_POLYGON);
     glColor3f(0.5f, 0.35f, 0.05f);
-    glVertex3f(-0.500000, -0.500000,-0.500000);
-    glVertex3f(-0.500000, -0.500000, 0.500000);
-    glVertex3f(-0.500000, 0.500000, 0.500000);
-    glVertex3f(-0.500000, 0.500000, -0.500000);
+    glVertex3f(-1.0, -1.0,-1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
     glEnd();
     
     
@@ -95,4 +94,4 @@ void GameObjects::customWhiteSquare(){
     glVertex3f(1.0f, 1.0f, 0.0f);
     glVertex3f(-1.0f, 1.0f, 0.0f);
     glEnd();
-};
+}; */

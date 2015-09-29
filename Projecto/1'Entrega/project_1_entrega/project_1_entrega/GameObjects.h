@@ -17,10 +17,10 @@ public:
     GameObjects();
     ~GameObjects();
     // foooling around - tests
-    void customSolidCube();
+   /* void customSolidCube();
     void customRedRectangle();
     void customGreenRectangle();
-    void customWhiteSquare();
+    void customWhiteSquare();*/
 };
 
 #endif /* defined(__project_1_entrega__GameObjects__) */

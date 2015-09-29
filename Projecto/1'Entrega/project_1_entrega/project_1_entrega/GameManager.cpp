@@ -75,8 +75,10 @@ void GameManager::onReshape(GLsizei w, GLsizei h){
 //  ----------------------------------------------------------- onDisplay()
 //  Custom display function used when event "glutDisplayFunc" is
 //  executed. This handles the drawing of the scenes
+
 void GameManager::onDisplay(){
     logger.debug("GameManager::onDisplay()");
+    
     // Fundamental steps
     // #1 Clear all buffers
     // #2 Draw all lines, dots and polygons
@@ -89,7 +91,7 @@ void GameManager::onDisplay(){
     
     // draw objects
     GameObjects objs = GameObjects();
-    objs.customSolidCube();
+    //objs.customSolidCube();
     
     Track t = Track();
     t.draw();
@@ -98,10 +100,12 @@ void GameManager::onDisplay(){
     glLoadIdentity();
     int w = glutGet (GLUT_WINDOW_WIDTH);
     int h = glutGet (GLUT_WINDOW_HEIGHT);
-    gluPerspective (40, w / h, 0.1, 100);
+    gluPerspective (60, w / h, 0.1, 100);
     
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity();
+    
+    
     gluLookAt
     (
      3, 3, 3,
@@ -112,7 +116,6 @@ void GameManager::onDisplay(){
     //test for rotation and perspective
     glRotatef (45.0, 0.0, 0.0, 1.0);
     glRotatef(145.0, 0.0, 1.0, 0.0);
-    
     
     glutSwapBuffers();
 
