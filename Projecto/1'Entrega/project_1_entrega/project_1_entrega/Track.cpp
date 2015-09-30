@@ -15,6 +15,8 @@ Track::Track(){};
 Track::~Track(){};
 
 void Track::draw(){
+    glScalef(1.5, 1.5, 0);
+    
     //table
     glBegin(GL_POLYGON);
     glColor3f(0.5f, 0.35f, 0.05f);
@@ -64,6 +66,21 @@ void Track::draw(){
     glVertex3f(-1.0, 1.0, 1.0);
     glVertex3f(-1.0, 1.0, -1.0);
     glEnd();
+    
+    
+    //texture table - just playing
+  /*  GLuint tex;
+
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    OIL_load_image("img.png", &width, &height, 0, SOIL_LOAD_RGB);
+    
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+                 GL_UNSIGNED_BYTE, image); */
+    
     
     
 	//Exterior da pista
