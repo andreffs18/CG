@@ -29,6 +29,9 @@ extern bool ERROR_LOG;
 // Initialize Logger object
 extern Log logger;
 
+// Turn on axis on objects
+extern bool ENABLE_AXIS;
+
 extern float g_rotate_X;
 extern float g_rotate_speed;
 extern bool ENABLE_ROTATION;

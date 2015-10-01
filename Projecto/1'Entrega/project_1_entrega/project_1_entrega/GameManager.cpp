@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "GameManager.h"
 #include "GameObjects.h"
-#include "Cheerios.h"
+#include "Cheerio.h"
 #include "Track.h"
 #include "Car.h"
 
@@ -72,15 +72,16 @@ void GameManager::onDisplay(){
     // #1 Clear all buffers
     // #2 Draw all lines, dots and polygons
     // #3 Force drawing
-    
     // set color to black when buffer get clean
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     // actually cleans buffer (Color buffer)
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // glClear(GL_COLOR_BUFFER_BIT);
     
     if(ENABLE_ROTATION){
         glRotatef( g_rotate_X, 1.0f, 0, 0 );
-//glRotatef( g_rotate_X, 0, 0, 1.0f );
+        glRotatef( g_rotate_X, 0, 1.0f, 0 );
+        glRotatef( g_rotate_X, 0, 0, 1.0f );
         std::cout << "somtext sometext " << g_rotate_X << std::endl;
         g_rotate_X += g_rotate_speed;
         if(g_rotate_X > 1.0)
@@ -92,11 +93,10 @@ void GameManager::onDisplay(){
 //    GameObjects objs = GameObjects();
 //    objs.customSolidCube();
 //    
-//    Cheerios c = Cheerios();
+//    Cheerio c = Cheerio();
 //    c.draw();
     Car c = Car();
     c.draw();
-
     
     // force the execution of the GL commands
     glFlush();

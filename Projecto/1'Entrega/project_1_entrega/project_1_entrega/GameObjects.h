@@ -10,6 +10,7 @@
 #define __project_1_entrega__GameObjects__
 
 #include <stdio.h>
+#include <GLUT/glut.h>
 
 class GameObjects{
 private:
@@ -21,6 +22,7 @@ public:
     void customRedRectangle();
     void customGreenRectangle();
     void customWhiteSquare();
+    void axis(GLdouble size = 2.0f);
 };
 
 #endif /* defined(__project_1_entrega__GameObjects__) */

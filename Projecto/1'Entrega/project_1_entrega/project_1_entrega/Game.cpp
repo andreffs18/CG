@@ -14,9 +14,10 @@ int WINDOW_Y_POS = -1;
 bool DEBUG_LOG = true;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
+bool ENABLE_AXIS = false;
 
 float g_rotate_X = 0.0f;
-float g_rotate_speed = 0.2f;
+float g_rotate_speed = 0.1f;
 bool ENABLE_ROTATION = true;
 #include "Logger.h"
 // initialize gloabl log object
@@ -35,7 +36,8 @@ int main(int argc, char * argv[]) {
     // initialise glut library
     glutInit(&argc, argv);
     // request a RGBA display mode, and we want single buffering
-    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
+    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB|GLUT_DEPTH);
+    // glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
     // set the initial window size
     glutInitWindowSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     // set the initial window position
@@ -46,6 +48,10 @@ int main(int argc, char * argv[]) {
     glutDisplayFunc(gm.onDisplay);
     // set the callback function to handle changes in screen size
     glutReshapeFunc(gm.onReshape);
+    
+    // enable depth
+    glEnable(GL_DEPTH_TEST);
+    
     // this function runs a forever in a loop to keep the program running
     glutMainLoop();
     return 0;

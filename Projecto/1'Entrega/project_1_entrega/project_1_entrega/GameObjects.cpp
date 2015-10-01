@@ -92,3 +92,24 @@ void GameObjects::customWhiteSquare(){
     glVertex3f(-1.0f, 1.0f, 0.0f);
     glEnd();
 };
+void  GameObjects::axis(GLdouble size){
+    glBegin(GL_LINES);
+    glTranslatef(0.0f, 0.0f, 0.0f);
+    glScalef(1.0f, 1.0f, 1.0f);
+    glRotatef(0, 0.0f, 0.0f, 0.0f);
+    
+    // draw line for x axis
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex3f(0.0, 0.0, 0.0);
+    glVertex3f(size, 0.0, 0.0);
+    // draw line for y axis
+    glColor3f(0.0, 1.0 , 0.0);
+    glVertex3f(0.0, 0.0, 0.0);
+    glVertex3f(0.0, size, 0.0);
+    // draw line for Z axis
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex3f(0.0, 0.0, 0.0);
+    glVertex3f(0.0, 0.0, size);
+    glEnd();    
+    
+};
