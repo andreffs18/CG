@@ -27,8 +27,6 @@ bool ENABLE_ROTATION_Z = true;
 float ROTATION_SPEED = 0.1f;
 float ROTATION_POS = 0.0f;
 
-float YOLO = 1.0f;
-
 // initialize gloabl log object
 #include "Logger.h"
 Log logger = Log();
