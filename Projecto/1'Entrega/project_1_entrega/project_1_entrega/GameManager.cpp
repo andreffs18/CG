@@ -115,14 +115,11 @@ void GameManager::onDisplay(){
     glRotatef(145.0, 0.0, 1.0, 0.0);*/
     
     
-    if(ENABLE_ROTATION){
-        //glRotatef( g_rotate_X, 1.0f, 0, 0 );
-        glRotatef( g_rotate_X, 0, 1.0f, 0 );
-        //glRotatef( g_rotate_X, 0, 0, 1.0f );
-        std::cout << "somtext sometext " << g_rotate_X << std::endl;
-        g_rotate_X += g_rotate_speed;
-        if(g_rotate_X > 1.0)
-            g_rotate_X = 0.0;
+    if(ENABLE_ROTATION_X||ENABLE_ROTATION_Y||ENABLE_ROTATION_Z){
+        if(ENABLE_ROTATION_X) glRotatef(ROTATION_POS, 1.0f, 0.0f, 0.0f);
+        if(ENABLE_ROTATION_Y) glRotatef(ROTATION_POS, 0.0f, 1.0f, 0.0f);
+        if(ENABLE_ROTATION_Z) glRotatef(ROTATION_POS, 0.0f, 0.0f, 1.0f);
+        ROTATION_POS += (ROTATION_POS > 1.0) ? -1.0 : ROTATION_SPEED;
         glutPostRedisplay();
     }
     

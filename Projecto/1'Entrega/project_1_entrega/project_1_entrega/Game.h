@@ -29,12 +29,20 @@ extern bool ERROR_LOG;
 // Initialize Logger object
 extern Log logger;
 
-// Turn on axis on objects
+// Turn on/off axis on objects
 extern bool ENABLE_AXIS;
+// Turn on/off depth of field on 3Dobjs
+extern bool ENABLE_DEPTH;
 
-extern float g_rotate_X;
-extern float g_rotate_speed;
-extern bool ENABLE_ROTATION;
+// Turn on/off 3D rotation for each var
+extern bool ENABLE_ROTATION_X;
+extern bool ENABLE_ROTATION_Y;
+extern bool ENABLE_ROTATION_Z;
+// Specific velocity
+extern float ROTATION_SPEED;
+// Global rotation (initialized @ zero)
+extern float ROTATION_POS;
+
 
 #endif /* defined(__project_1_entrega__Game__) */
 
