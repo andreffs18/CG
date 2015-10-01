@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include "Logger.h"
 
 #ifndef project_1_entrega_Game_h
 #define project_1_entrega_Game_h
@@ -25,6 +26,15 @@ extern const char * WINDOW_NAME;
 extern bool DEBUG_LOG;
 extern bool INFO_LOG;
 extern bool ERROR_LOG;
+// Initialize Logger object
+extern Log logger;
+
+// Turn on axis on objects
+extern bool ENABLE_AXIS;
+
+extern float g_rotate_X;
+extern float g_rotate_speed;
+extern bool ENABLE_ROTATION;
 
 #endif /* defined(__project_1_entrega__Game__) */
 

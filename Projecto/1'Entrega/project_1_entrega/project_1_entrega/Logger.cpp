@@ -2,8 +2,8 @@
 //  project_1_entrega - Logger.cpp
 //
 
-#include "Game.h"
 #include "Logger.h"
+#include "Game.h"
 #include <iostream>
 
 Log::Log(){

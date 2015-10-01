@@ -1,0 +1,300 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E2D30981BB5F73C00F9AC4D /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D30971BB5F73C00F9AC4D /* Game.cpp */; };
+		0E2D309D1BB5F74B00F9AC4D /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2D309C1BB5F74B00F9AC4D /* GLUT.framework */; };
+		0E2D309F1BB5F74F00F9AC4D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2D309E1BB5F74F00F9AC4D /* OpenGL.framework */; };
+		0E2D30A41BB5F7F400F9AC4D /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D30A21BB5F7F400F9AC4D /* GameManager.cpp */; };
+		0E6284971BBD59DD00EC5600 /* Orange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6284951BBD59DD00EC5600 /* Orange.cpp */; };
+		0EA87E1E1BB8065A004BD956 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E1C1BB8065A004BD956 /* Logger.cpp */; };
+		0EA87E211BB813DD004BD956 /* GameObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E1F1BB813DD004BD956 /* GameObjects.cpp */; };
+		0EA87E291BB96605004BD956 /* Cheerio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E271BB96605004BD956 /* Cheerio.cpp */; };
+		0EA87E2C1BB96755004BD956 /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E2A1BB96755004BD956 /* Track.cpp */; };
+		0EA87E2F1BB96D8B004BD956 /* DynamicObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E2D1BB96D8B004BD956 /* DynamicObject.cpp */; };
+		0EA87E321BB96DF5004BD956 /* Car.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E301BB96DF5004BD956 /* Car.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0E2D30921BB5F73C00F9AC4D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0E2D30941BB5F73C00F9AC4D /* project_1_entrega */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = project_1_entrega; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E2D30971BB5F73C00F9AC4D /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		0E2D309C1BB5F74B00F9AC4D /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		0E2D309E1BB5F74F00F9AC4D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		0E2D30A21BB5F7F400F9AC4D /* GameManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = GameManager.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		0E2D30A31BB5F7F400F9AC4D /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
+		0E6284951BBD59DD00EC5600 /* Orange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Orange.cpp; sourceTree = "<group>"; };
+		0E6284961BBD59DD00EC5600 /* Orange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orange.h; sourceTree = "<group>"; };
+		0EA87E1B1BB7FE6E004BD956 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		0EA87E1C1BB8065A004BD956 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
+		0EA87E1D1BB8065A004BD956 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		0EA87E1F1BB813DD004BD956 /* GameObjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObjects.cpp; sourceTree = "<group>"; };
+		0EA87E201BB813DD004BD956 /* GameObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObjects.h; sourceTree = "<group>"; };
+		0EA87E271BB96605004BD956 /* Cheerio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Cheerio.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		0EA87E281BB96605004BD956 /* Cheerio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Cheerio.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0EA87E2A1BB96755004BD956 /* Track.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Track.cpp; sourceTree = "<group>"; };
+		0EA87E2B1BB96755004BD956 /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
+		0EA87E2D1BB96D8B004BD956 /* DynamicObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicObject.cpp; sourceTree = "<group>"; };
+		0EA87E2E1BB96D8B004BD956 /* DynamicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicObject.h; sourceTree = "<group>"; };
+		0EA87E301BB96DF5004BD956 /* Car.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Car.cpp; sourceTree = "<group>"; };
+		0EA87E311BB96DF5004BD956 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0E2D30911BB5F73C00F9AC4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E2D309F1BB5F74F00F9AC4D /* OpenGL.framework in Frameworks */,
+				0E2D309D1BB5F74B00F9AC4D /* GLUT.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E2D30891BB5F70E00F9AC4D = {
+			isa = PBXGroup;
+			children = (
+				0E2D309E1BB5F74F00F9AC4D /* OpenGL.framework */,
+				0E2D309C1BB5F74B00F9AC4D /* GLUT.framework */,
+				0E2D30961BB5F73C00F9AC4D /* project_1_entrega */,
+				0E2D30951BB5F73C00F9AC4D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0E2D30951BB5F73C00F9AC4D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E2D30941BB5F73C00F9AC4D /* project_1_entrega */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E2D30961BB5F73C00F9AC4D /* project_1_entrega */ = {
+			isa = PBXGroup;
+			children = (
+				0E2D30971BB5F73C00F9AC4D /* Game.cpp */,
+				0EA87E1B1BB7FE6E004BD956 /* Game.h */,
+				0EA87E1C1BB8065A004BD956 /* Logger.cpp */,
+				0EA87E1D1BB8065A004BD956 /* Logger.h */,
+				0E2D30A21BB5F7F400F9AC4D /* GameManager.cpp */,
+				0E2D30A31BB5F7F400F9AC4D /* GameManager.h */,
+				0EA87E1F1BB813DD004BD956 /* GameObjects.cpp */,
+				0EA87E201BB813DD004BD956 /* GameObjects.h */,
+				0EA87E271BB96605004BD956 /* Cheerio.cpp */,
+				0EA87E281BB96605004BD956 /* Cheerio.h */,
+				0EA87E2A1BB96755004BD956 /* Track.cpp */,
+				0EA87E2B1BB96755004BD956 /* Track.h */,
+				0EA87E2D1BB96D8B004BD956 /* DynamicObject.cpp */,
+				0EA87E2E1BB96D8B004BD956 /* DynamicObject.h */,
+				0EA87E301BB96DF5004BD956 /* Car.cpp */,
+				0EA87E311BB96DF5004BD956 /* Car.h */,
+				0E6284951BBD59DD00EC5600 /* Orange.cpp */,
+				0E6284961BBD59DD00EC5600 /* Orange.h */,
+			);
+			path = project_1_entrega;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E2D30931BB5F73C00F9AC4D /* project_1_entrega */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E2D30991BB5F73C00F9AC4D /* Build configuration list for PBXNativeTarget "project_1_entrega" */;
+			buildPhases = (
+				0E2D30901BB5F73C00F9AC4D /* Sources */,
+				0E2D30911BB5F73C00F9AC4D /* Frameworks */,
+				0E2D30921BB5F73C00F9AC4D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = project_1_entrega;
+			productName = project_1_entrega;
+			productReference = 0E2D30941BB5F73C00F9AC4D /* project_1_entrega */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0E2D308A1BB5F70E00F9AC4D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				TargetAttributes = {
+					0E2D30931BB5F73C00F9AC4D = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = 0E2D308D1BB5F70E00F9AC4D /* Build configuration list for PBXProject "project_1_entrega" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0E2D30891BB5F70E00F9AC4D;
+			productRefGroup = 0E2D30951BB5F73C00F9AC4D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0E2D30931BB5F73C00F9AC4D /* project_1_entrega */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0E2D30901BB5F73C00F9AC4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EA87E2F1BB96D8B004BD956 /* DynamicObject.cpp in Sources */,
+				0EA87E211BB813DD004BD956 /* GameObjects.cpp in Sources */,
+				0E2D30981BB5F73C00F9AC4D /* Game.cpp in Sources */,
+				0EA87E1E1BB8065A004BD956 /* Logger.cpp in Sources */,
+				0EA87E2C1BB96755004BD956 /* Track.cpp in Sources */,
+				0EA87E291BB96605004BD956 /* Cheerio.cpp in Sources */,
+				0EA87E321BB96DF5004BD956 /* Car.cpp in Sources */,
+				0E2D30A41BB5F7F400F9AC4D /* GameManager.cpp in Sources */,
+				0E6284971BBD59DD00EC5600 /* Orange.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0E2D308E1BB5F70E00F9AC4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0E2D308F1BB5F70E00F9AC4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		0E2D309A1BB5F73C00F9AC4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		0E2D309B1BB5F73C00F9AC4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E2D308D1BB5F70E00F9AC4D /* Build configuration list for PBXProject "project_1_entrega" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E2D308E1BB5F70E00F9AC4D /* Debug */,
+				0E2D308F1BB5F70E00F9AC4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E2D30991BB5F73C00F9AC4D /* Build configuration list for PBXNativeTarget "project_1_entrega" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E2D309A1BB5F73C00F9AC4D /* Debug */,
+				0E2D309B1BB5F73C00F9AC4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0E2D308A1BB5F70E00F9AC4D /* Project object */;
+}
