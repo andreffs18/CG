@@ -15,6 +15,7 @@ Track::Track(){};
 Track::~Track(){};
 
 void Track::draw(){
+    glPushMatrix();
     glScalef(1.5, 1.5, 0);
     
     //table
@@ -170,6 +171,6 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 		Cheerios c = Cheerios();
 		c.draw(pos_x, pos_y, pos_z);
 	}
-    
+    glPopMatrix();
     std::cout << "Track::draw()" << std::endl;
 };
