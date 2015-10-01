@@ -15,7 +15,6 @@ bool DEBUG_LOG = true;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 bool ENABLE_AXIS = false;
-
 float g_rotate_X = 0.0f;
 float g_rotate_speed = 0.1f;
 bool ENABLE_ROTATION = true;
