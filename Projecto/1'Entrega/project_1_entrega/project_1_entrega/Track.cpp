@@ -134,4 +134,5 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
     glPushMatrix();
     Car car = Car();
     car.draw();
+    glPopMatrix();
 };
