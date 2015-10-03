@@ -15,6 +15,8 @@ public:
     ~GameManager();
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();
+    static void onKeyboard(unsigned char key, int x, int y);
+    static void onMouse(int button, int state, int x, int y);
 };
 
 #endif /* defined(__project_1_entrega__GameManager__) */

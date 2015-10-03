@@ -114,6 +114,5 @@ void GameObjects::axis(GLdouble size){
     glColor3f(0.0, 0.0, 1.0);
     glVertex3f(0.0, 0.0, 0.0);
     glVertex3f(0.0, 0.0, size);
-    glEnd();    
-    
+    glEnd();
 };

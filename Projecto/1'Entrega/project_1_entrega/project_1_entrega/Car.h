@@ -13,8 +13,9 @@ private:
 public:
     Car();
     ~Car();
-    void draw(float cube_size = 2.0f);
+    void draw();
     void update();
+
 };
 
 #endif /* defined(__project_1_entrega__Car__) */
