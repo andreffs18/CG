@@ -9,77 +9,87 @@
 Car::Car(){};
 Car::~Car(){};
 
-void Car::draw(float cube_size){
+void Car::draw(){
+    
+    
+    glTranslatef(0.0f, 0.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
+    glRotatef(90, 1.0f, 0.0f, 0.0f);
+    
+    // the size of the tores (depth) and the
+    // amount of rings (how round you want it
+    GLint t_sizes = 8;
+    GLint t_rings = 20;
+    // size of front and back wheels (betwenn inner and outer circle)
+    GLdouble t_front_inner_size = 0.2f,
+             t_front_outer_size = 0.4f,
+             t_back_inner_size = 0.4f,
+             t_back_outer_size = 0.8f;
+    
+    // position of front wheels in X, Y, Z space
+    GLdouble t_front_pos_x = -2.5f,
+             t_front_pos_y = t_front_outer_size,
+             t_front_pos_z = 1.0f;
+    // position of back wheels in X, Y, Z space
+    GLdouble t_back_pos_x = 2.5f,
+             t_back_pos_y = t_back_outer_size + 0.2f,// don't know why.
+             t_back_pos_z = 1.2f;
+    
     logger.debug("Car::draw()");
     GameObjects go = GameObjects();
-//    // draw front triangle
-//    glPushMatrix();
-//    glTranslatef(0.0f, -0.5f, 0.0f);
-//    glScalef(2.0f, 0.5f, 0.0f);
-//    glutSolidCube(cube_size);
-//    glPopMatrix();
 
-    if(ENABLE_AXIS) go.axis((GLdouble)10.0f);
+    // Draw Car
+    if(ENABLE_AXIS){glPushMatrix(); go.axis(); glPopMatrix();}
     
-    // draw back cube
-   
-    // draw body square
-    glPushMatrix();
-    glColor3d(123, 123, 123);
-    glTranslatef(0.0f, -0.5f, 0.0f);
-    glRotatef(10, 0.0f, 0.0f, 1.0f);
-    glScalef(2.0f, 0.5f, 1.3f);
-    glutSolidCube(cube_size);
-    if(ENABLE_AXIS) go.axis();
-    glPopMatrix();
-
     // draw wheels
     glPushMatrix();
-        // front wheels
-        // left
+    glColor3d(255, 255, 255);
+        // front left
         glPushMatrix();
-            glColor3d(255, 0, 255);
-            glTranslatef(-2.0f, -0.5f, 1.5f);
-            glutSolidTorus(0.2f, 0.5f, 100, 24);
-            if(ENABLE_AXIS) go.axis();
+        glTranslatef(t_front_pos_x, t_front_pos_y, t_front_pos_z);
+        glutSolidTorus(t_front_inner_size, t_front_outer_size, t_sizes, t_rings);
         glPopMatrix();
-        // right
+        // front right
         glPushMatrix();
-            glColor3d(255, 0, 255);
-            glTranslatef(-2.0f, -0.5f, -1.5f);
-            glutSolidTorus(0.2f, 0.5f, 100, 24);
-            if(ENABLE_AXIS) go.axis();
+        glTranslatef(t_front_pos_x, t_front_pos_y, t_front_pos_z * (-1));
+        glutSolidTorus(t_front_inner_size, t_front_outer_size, t_sizes, t_rings);
         glPopMatrix();
-
-        // back wheels
-        // left
+    glColor3d(0, 255, 255);
+        // back left
         glPushMatrix();
-            glColor3d(0, 255, 0);
-            glTranslatef(2.5f, 0.4f, 2.7f);
-            glutSolidTorus(0.5f, 1.2f, 200, 24);
-            if(ENABLE_AXIS) go.axis();
+        glTranslatef(t_back_pos_x, t_back_pos_y, t_back_pos_z);
+        glutSolidTorus(t_back_inner_size, t_back_outer_size, t_sizes, t_rings);
         glPopMatrix();
-        // right
+        // back right
         glPushMatrix();
-            glColor3d(0, 255, 0);
-            glTranslatef(2.5f, 0.4f, -2.7f);
-            glutSolidTorus(0.5f, 1.2f, 200, 24);
-            if(ENABLE_AXIS) go.axis();
+        glTranslatef(t_back_pos_x, t_back_pos_y, t_back_pos_z * (-1));
+        glutSolidTorus(t_back_inner_size, t_back_outer_size, t_sizes, t_rings);
         glPopMatrix();
     glPopMatrix();
     
-    
-    // draw back cube
+    // draw body
     glPushMatrix();
-    glColor3d(255, 255, 0);
-    glTranslatef(3.0f, 2.0f, 0.0f);
-    glScalef(2.0f, 2.0f, 2.0f);
-    go.customSolidCube();
-    if(ENABLE_AXIS) go.axis();
-    // glutSolidCube(cube_size);
-    glPopMatrix();    
-   
+        glColor3d(0, 0, 255);
+        glRotatef(5, 0.0f, 0.0f, 1.0f);
+        glTranslatef(0.0f, 0.8f, 0.0f);
+        glScalef(3.0f, 0.4f, 0.8f);
+        glutSolidCube(2.0f);
+    glPopMatrix();
     
+    // Draw spoiler
+    glPushMatrix();
+        // Draw top spoiler
+        glTranslatef(2.5f, 2.5f, 0.0f);
+        glScalef(1.0f, 0.1f, 4.0f);
+        glutSolidCube(1);
+    
+        // Draw handle for spoiler
+        glColor3d(255, 0, 0);
+        glTranslatef(0.0f, -4.5f, 0.0f);
+        glScalef(1.0f, 12.0f, 0.025f);
+        glutSolidCube(1);
+    glPopMatrix();
+
 };
 
 

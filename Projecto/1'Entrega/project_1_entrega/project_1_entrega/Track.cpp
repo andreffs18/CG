@@ -9,6 +9,7 @@
 #include "Track.h"
 #include "GameObjects.h"
 #include "Cheerio.h"
+#include "Car.h"
 #include <iostream>
 #include <GLUT/GLUT.h>
 
@@ -126,5 +127,12 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 		Cheerio c = Cheerio();
 		c.draw(pos_x, pos_y, pos_z);
 	}
+    glPopMatrix();
+    
+    
+    
+    glPushMatrix();
+    Car car = Car();
+    car.draw();
     glPopMatrix();
 };
