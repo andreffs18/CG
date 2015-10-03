@@ -68,7 +68,7 @@ void colorcube()
     quad (0,1,5,4);
 }
 
-/* double rotate_y = 0;
+double rotate_y = 0;
 double rotate_x = 0;
  
 // ------------------------ specialKeys() defines rotation keys ------------------------
@@ -83,7 +83,7 @@ void specialKeys (int key, int x, int y)
     else if (key == GLUT_KEY_DOWN)
         rotate_x -= 5;
     glutPostRedisplay();
-} */
+}
 
 // ------------------------ display() creates the display ------------------------
 void display()
@@ -107,11 +107,10 @@ void display()
      );
     
     // specialKeys
-    //  glRotatef(rotate_x, 1.0, 0.0, 0.0);
-   //   glRotatef(rotate_y, 0.0, 1.0, 0.0);
+    glRotatef(rotate_x, 1.0, 0.0, 0.0);
+    glRotatef(rotate_y, 0.0, 1.0, 0.0);
   
     //test for rotation and perspective
-    glRotatef (90.0, 30.0, 30.0, 0.0);
     colorcube();
     
     glutSwapBuffers();
@@ -141,7 +140,7 @@ int main (int argc, char **argv)
     glutInitWindowSize (640, 480);
     glutCreateWindow ("CUBE");
     glutDisplayFunc (display);
-  //  glutSpecialFunc (specialKeys);
+    glutSpecialFunc (specialKeys);
     glutReshapeFunc(reshape);
     glEnable (GL_DEPTH_TEST);
     glutMainLoop();

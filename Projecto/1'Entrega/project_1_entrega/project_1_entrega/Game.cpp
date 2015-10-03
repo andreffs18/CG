@@ -18,12 +18,12 @@ bool DEBUG_LOG = true;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
-bool ENABLE_AXIS = true;
+bool ENABLE_AXIS = false;
 bool ENABLE_DEPTH = true;
 
-bool ENABLE_ROTATION_X = true;
-bool ENABLE_ROTATION_Y = true;
-bool ENABLE_ROTATION_Z = true;
+bool ENABLE_ROTATION_X = false;
+bool ENABLE_ROTATION_Y = false;
+bool ENABLE_ROTATION_Z = false;
 float ROTATION_SPEED = 0.1f;
 float ROTATION_POS = 0.0f;
 
