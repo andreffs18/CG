@@ -29,12 +29,12 @@ bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
 bool ENABLE_AXIS = false;
-bool ENABLE_DEPTH = true;
+bool ENABLE_DEPTH = false;
 
 bool ENABLE_ROTATION_X = false;
 bool ENABLE_ROTATION_Y = false;
 bool ENABLE_ROTATION_Z = false;
-float ROTATION_SPEED = 0.1f;
+float ROTATION_SPEED = 0.5f;
 float ROTATION_POS = 0.0f;
 
 // initialize gloabl log object
@@ -64,6 +64,7 @@ int main(int argc, char * argv[]) {
     glutReshapeFunc(gm.onReshape);
     // set the keyboard function to handle keyboard events
     glutKeyboardFunc(gm.onKeyboard);
+    glutSpecialFunc(gm.onSpecialKeys);
     // set the mouse function to handle mouse stuff
     // glutMouseFunc(gm.onMouse);
     

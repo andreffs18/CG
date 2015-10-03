@@ -100,9 +100,28 @@ void GameManager::onDisplay(){
 //  ---------------------------------------------------------- onKeyboard()
 //  Custom keyboard function used when "glutKeyboardFunc"
 //  triggers an event. This handles the keyboardPress
+
 void GameManager::onKeyboard(unsigned char key, int x, int y){
-    // Ana put your shit here
+    
+    if (key == 'A')
+        logger.debug("Wireframe");
+       glutPostRedisplay();
 };
+
+void GameManager::onSpecialKeys(int key, int x, int y){
+    
+    if (key == GLUT_KEY_RIGHT)
+        logger.debug("Moved right");
+    else if (key == GLUT_KEY_LEFT)
+        logger.debug("Moved left");
+    else if (key == GLUT_KEY_UP)
+        logger.debug("Moved up");
+    else if (key == GLUT_KEY_DOWN)
+        logger.debug("Moved down");
+    
+    glutPostRedisplay();
+}
+
 
 //  ------------------------------------------------------------- onMouse()
 //  Custom keyboard function used when "glutMouseFunc" triggers

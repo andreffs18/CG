@@ -15,9 +15,6 @@ public:
     ~Car();
     void draw();
     void update();
-    void keyUp();
-    void keyDown();
-    void keyRight();
 };
 
 #endif /* defined(__project_1_entrega__Car__) */
