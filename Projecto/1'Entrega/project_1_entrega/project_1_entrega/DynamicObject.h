@@ -9,16 +9,17 @@
 #ifndef __project_1_entrega__DynamicObject__
 #define __project_1_entrega__DynamicObject__
 
+#include "GameObject.h"
 #include <stdio.h>
 
-class DynamicObject{
+class DynamicObject: public GameObject{
 private:
-    float speed;
+    float _pos_x, _pos_y, _pos_z;
+    float _speed_x, _speed_y, _speed_z;
 public:
     DynamicObject();
     ~DynamicObject();
-    void update();
-    void setSpeed(float);
+    void setSpeed(float x, float y, float z);
     float getSpeed();
 };
 

@@ -6,6 +6,7 @@
 //  ------------------------------------------------------ Global Variables
 
 #include "GameManager.h"
+#include "Track.h"
 #include <iostream>
 #include <stdlib.h>
 #include <GLUT/glut.h>
@@ -27,20 +28,25 @@ GLdouble P_FAR = 100.0f;
 bool DEBUG_LOG = true;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
-
 bool ENABLE_AXIS = false;
 bool ENABLE_DEPTH = false;
-
+bool ENABLE_DOUBLE_BUFFER = false;
 bool ENABLE_ROTATION_X = false;
 bool ENABLE_ROTATION_Y = false;
 bool ENABLE_ROTATION_Z = false;
 float ROTATION_SPEED = 0.5f;
 float ROTATION_POS = 0.0f;
 
+// Track track = Track();
+
 // initialize gloabl log object
 #include "Logger.h"
 Log logger = Log();
 #endif
+
+
+
+// if depth enable enable depth test in init and also glut double buffer
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {
@@ -50,7 +56,9 @@ int main(int argc, char * argv[]) {
     // initialise glut library
     glutInit(&argc, argv);
     // request a RGBA display mode, and we want single buffering
-    glutInitDisplayMode((ENABLE_DEPTH) ? GLUT_SINGLE|GLUT_RGB|GLUT_DEPTH : GLUT_SINGLE|GLUT_RGB);
+    unsigned int BUFFER = (ENABLE_DOUBLE_BUFFER) ? GLUT_DOUBLE : GLUT_SINGLE;
+    unsigned int DEPTH = (ENABLE_DEPTH) ? GLUT_DEPTH : 0;
+    glutInitDisplayMode(GLUT_RGB|BUFFER|DEPTH);
     // set the initial window size
     glutInitWindowSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     // set the initial window position

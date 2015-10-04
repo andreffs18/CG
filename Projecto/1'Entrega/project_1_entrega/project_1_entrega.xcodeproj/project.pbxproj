@@ -13,7 +13,7 @@
 		0E2D30A41BB5F7F400F9AC4D /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D30A21BB5F7F400F9AC4D /* GameManager.cpp */; };
 		0E6284971BBD59DD00EC5600 /* Orange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6284951BBD59DD00EC5600 /* Orange.cpp */; };
 		0EA87E1E1BB8065A004BD956 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E1C1BB8065A004BD956 /* Logger.cpp */; };
-		0EA87E211BB813DD004BD956 /* GameObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E1F1BB813DD004BD956 /* GameObjects.cpp */; };
+		0EA87E211BB813DD004BD956 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E1F1BB813DD004BD956 /* GameObject.cpp */; };
 		0EA87E291BB96605004BD956 /* Cheerio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E271BB96605004BD956 /* Cheerio.cpp */; };
 		0EA87E2C1BB96755004BD956 /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E2A1BB96755004BD956 /* Track.cpp */; };
 		0EA87E2F1BB96D8B004BD956 /* DynamicObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E2D1BB96D8B004BD956 /* DynamicObject.cpp */; };
@@ -44,8 +44,8 @@
 		0EA87E1B1BB7FE6E004BD956 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		0EA87E1C1BB8065A004BD956 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
 		0EA87E1D1BB8065A004BD956 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
-		0EA87E1F1BB813DD004BD956 /* GameObjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObjects.cpp; sourceTree = "<group>"; };
-		0EA87E201BB813DD004BD956 /* GameObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObjects.h; sourceTree = "<group>"; };
+		0EA87E1F1BB813DD004BD956 /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
+		0EA87E201BB813DD004BD956 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		0EA87E271BB96605004BD956 /* Cheerio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Cheerio.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		0EA87E281BB96605004BD956 /* Cheerio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Cheerio.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0EA87E2A1BB96755004BD956 /* Track.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Track.cpp; sourceTree = "<group>"; };
@@ -96,16 +96,16 @@
 				0EA87E1D1BB8065A004BD956 /* Logger.h */,
 				0E2D30A21BB5F7F400F9AC4D /* GameManager.cpp */,
 				0E2D30A31BB5F7F400F9AC4D /* GameManager.h */,
-				0EA87E1F1BB813DD004BD956 /* GameObjects.cpp */,
-				0EA87E201BB813DD004BD956 /* GameObjects.h */,
+				0EA87E1F1BB813DD004BD956 /* GameObject.cpp */,
+				0EA87E201BB813DD004BD956 /* GameObject.h */,
 				0EA87E2D1BB96D8B004BD956 /* DynamicObject.cpp */,
 				0EA87E2E1BB96D8B004BD956 /* DynamicObject.h */,
+				0EA87E301BB96DF5004BD956 /* Car.cpp */,
+				0EA87E311BB96DF5004BD956 /* Car.h */,
 				0EA87E271BB96605004BD956 /* Cheerio.cpp */,
 				0EA87E281BB96605004BD956 /* Cheerio.h */,
 				0EA87E2A1BB96755004BD956 /* Track.cpp */,
 				0EA87E2B1BB96755004BD956 /* Track.h */,
-				0EA87E301BB96DF5004BD956 /* Car.cpp */,
-				0EA87E311BB96DF5004BD956 /* Car.h */,
 				0E6284951BBD59DD00EC5600 /* Orange.cpp */,
 				0E6284961BBD59DD00EC5600 /* Orange.h */,
 			);
@@ -168,7 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EA87E2F1BB96D8B004BD956 /* DynamicObject.cpp in Sources */,
-				0EA87E211BB813DD004BD956 /* GameObjects.cpp in Sources */,
+				0EA87E211BB813DD004BD956 /* GameObject.cpp in Sources */,
 				0E2D30981BB5F73C00F9AC4D /* Game.cpp in Sources */,
 				0EA87E1E1BB8065A004BD956 /* Logger.cpp in Sources */,
 				0EA87E2C1BB96755004BD956 /* Track.cpp in Sources */,

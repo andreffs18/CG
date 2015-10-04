@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "Logger.h"
+#include "Track.h"
 
 #ifndef project_1_entrega_Game_h
 #define project_1_entrega_Game_h
@@ -36,8 +37,10 @@ extern bool ERROR_LOG;
 extern Log logger;
 // Turn on/off axis on objects
 extern bool ENABLE_AXIS;
-// Turn on/off depth of field on 3Dobjs
+// Turn on/off depth of field on 3D objs
 extern bool ENABLE_DEPTH;
+// Turn on/off double buffer
+extern bool ENABLE_DOUBLE_BUFFER;
 // Turn on/off 3D rotation for each var
 extern bool ENABLE_ROTATION_X;
 extern bool ENABLE_ROTATION_Y;
@@ -46,6 +49,11 @@ extern bool ENABLE_ROTATION_Z;
 extern float ROTATION_SPEED;
 // Global rotation (initialized @ zero)
 extern float ROTATION_POS;
+
+//
+extern Track track;
+
+
 
 #endif /* defined(__project_1_entrega__Game__) */
 

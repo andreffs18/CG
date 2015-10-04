@@ -1,14 +1,15 @@
 //
-//  project_1_entrega - GameObjects.cpp
+//  project_1_entrega - GameObject.cpp
 //
 
-#include "GameObjects.h"
+#include "Game.h"
+#include "GameObject.h"
 #include <GLUT/glut.h>
 
-GameObjects::GameObjects(){};
-GameObjects::~GameObjects(){};
+GameObject::GameObject(){};
+GameObject::~GameObject(){};
 
-void GameObjects::customSolidCube(){
+void GameObject::customSolidCube(){
     
     // draw cube with 1unit as size
     // glutSolidCube(1.0f);
@@ -64,7 +65,7 @@ void GameObjects::customSolidCube(){
     
 
 };
-void GameObjects::customRedRectangle(){
+void GameObject::customRedRectangle(){
     // start drawing green polygon
     glBegin(GL_POLYGON);
     glColor3f(0.0f, 1.0f, 0.0f);
@@ -74,7 +75,7 @@ void GameObjects::customRedRectangle(){
     glVertex3f(0.0f, -1.0f, 0.0f);
     glEnd();
 };
-void GameObjects::customGreenRectangle(){
+void GameObject::customGreenRectangle(){
     // start drawing red polygon
     glBegin(GL_POLYGON);
     glColor3f(1.0f, 0.0f, 0.0f);
@@ -84,7 +85,7 @@ void GameObjects::customGreenRectangle(){
     glVertex3f(0.0f, 1.0f, 0.0f);
     glEnd();
 };
-void GameObjects::customWhiteSquare(){
+void GameObject::customWhiteSquare(){
     // delimit the vertices of a primitive or a group of like primitives
     glBegin(GL_POLYGON);
     // define white square
@@ -96,7 +97,7 @@ void GameObjects::customWhiteSquare(){
     glEnd();
 
 };
-void GameObjects::axis(GLdouble size){
+void GameObject::axis(GLdouble size){
     glBegin(GL_LINES);
     glTranslatef(0.0f, 0.0f, 0.0f);
     glScalef(1.0f, 1.0f, 1.0f);

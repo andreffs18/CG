@@ -5,13 +5,29 @@
 #include <iostream>
 #include "Game.h"
 #include "GameManager.h"
-#include "GameObjects.h"
+#include "GameObject.h"
 #include "Cheerio.h"
 #include "Track.h"
 #include "Car.h"
 
 GameManager::GameManager(){logger.debug("GameManager::GameManager()");};
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
+
+//pages = range(195, 257)
+//front = []
+//back = []
+//c = 0
+//for i in pages:
+//    c += 1
+//    if c in [1, 2]:
+//        front.append(i)
+//    elif c in [3, 4]:
+//        back.append(i)
+//    if c == 4:
+//        c = 0
+//print(", ".join(map(lambda x: str(x), front)))
+//print(", ".join(map(lambda x: str(x), back)))
+
 
 //  ----------------------------------------------------------- onReshape()
 //  Custom reshape function used when "glutReshapeFunc"
@@ -80,9 +96,8 @@ void GameManager::onDisplay(){
               0.0f, 1.0f, 0.0f); // which axis is the up
 
     // draw objects
-    GameObjects objs = GameObjects();
-    Track t = Track();
-    t.draw();
+    Track track = Track();
+    track.draw();
     
     // for testing, this enable rotation on screen for the 3 axi
     if(ENABLE_ROTATION_X||ENABLE_ROTATION_Y||ENABLE_ROTATION_Z){
@@ -94,7 +109,8 @@ void GameManager::onDisplay(){
         glutPostRedisplay();
     }
     // force the execution of the GL commands
-    glFlush();
+    (ENABLE_DOUBLE_BUFFER) ? glutSwapBuffers() : glFlush();
+    
 };
 
 //  ---------------------------------------------------------- onKeyboard()

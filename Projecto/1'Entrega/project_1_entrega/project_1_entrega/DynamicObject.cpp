@@ -8,7 +8,3 @@
 
 #include "DynamicObject.h"
 
-
-float DynamicObject::getSpeed(){
-    return speed;
-};
