@@ -9,7 +9,7 @@
 #include "Track.h"
 #include <iostream>
 #include <stdlib.h>
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 #ifndef project_1_entrega_Game_h
 // description of each global var in Game.h
 #include "Game.h"

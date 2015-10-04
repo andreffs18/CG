@@ -8,7 +8,7 @@
 #include "Game.h"
 #include "Cheerio.h"
 #include <iostream>
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 
 Cheerio::Cheerio(){};
 Cheerio::~Cheerio(){};

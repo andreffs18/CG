@@ -6,7 +6,7 @@
 #define __project_1_entrega__GameManager__
 
 #include <stdio.h>
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 
 class GameManager{
 private:

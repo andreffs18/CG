@@ -8,8 +8,8 @@
 #include "Game.h"
 #include "Car.h"
 #include "Axis.h"
-#include "GameObjects.h"
-#include <GLUT/glut.h>
+#include "GameObject.h"
+#include <GL\glut.h>
 
 
 Axis::Axis(){};

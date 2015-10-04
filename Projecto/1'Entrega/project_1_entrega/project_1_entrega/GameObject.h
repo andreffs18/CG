@@ -10,7 +10,7 @@
 #define __project_1_entrega__GameObject__
 
 #include <stdio.h>
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 
 class GameObject{
 private:

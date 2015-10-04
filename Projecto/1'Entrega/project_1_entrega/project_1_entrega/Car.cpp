@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Car.h"
 #include "GameObject.h"
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 
 Car::Car(){};
 Car::~Car(){};
@@ -18,7 +18,7 @@ Car::~Car(){};
 void Car::draw(){
     
 //    glTranslatef(0.0f, 0.0f, 0.0f);
-//    glScalef(0.1f, 0.1f, 0.1f);
+//    glScalef(0.5f, 0.5f, 0.5f);
 //    glRotatef(90, 1.0f, 0.0f, 0.0f);
     
     // the size of the tores (depth) and the

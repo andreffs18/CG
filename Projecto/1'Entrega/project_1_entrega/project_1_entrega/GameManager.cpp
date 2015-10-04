@@ -1,7 +1,7 @@
 //
 //  project_1_entrega - GameManager.cpp
 //
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 #include <iostream>
 #include "Game.h"
 #include "GameManager.h"
@@ -9,6 +9,13 @@
 #include "Cheerio.h"
 #include "Track.h"
 #include "Car.h"
+#include "Butter.h"
+#include "Orange.h"
+
+int i;
+float pos_x = -0.25;
+float pos_y = 0.0;
+float pos_z = 1.1;
 
 GameManager::GameManager(){logger.debug("GameManager::GameManager()");};
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
@@ -98,6 +105,55 @@ void GameManager::onDisplay(){
     // draw objects
     Track track = Track();
     track.draw();
+
+	for (i = 0; i < 3; i++) {
+		if (i == 1) {
+			pos_x = -0.2;
+			pos_y = 0.4;
+		}
+		else if (i == 2) {
+			pos_x = 0.8;
+			pos_y = -0.5;
+		}
+		glPushMatrix();
+		glScalef(5.5, 5.5, 1.5);
+		glTranslatef(pos_x, pos_y, pos_z);
+		Orange o = Orange();
+		o.draw();
+		glPopMatrix();
+	}
+
+	pos_x = -2.0;
+	pos_y = 2.0;
+	pos_z = 5.0;
+
+	for (i = 0; i < 5; i++) {
+		if (i == 1) {
+			pos_x = -1.5;
+			pos_y = -1.0;
+		}
+		else if (i == 2) {
+			pos_x = 1.8;
+			pos_y = 0.8;
+		}
+		else if (i == 3) {
+			pos_x = -0.7;
+			pos_y = -0.5;
+		}
+		else if (i == 4) {
+			pos_x = -1.0;
+			pos_y = 0.5;
+		}
+		else if (i == 5) {
+			pos_x = 0.7;
+			pos_y = -1.0;
+		}
+		glPushMatrix();
+		glTranslatef(pos_x, pos_y, pos_z);
+		Butter b = Butter();
+		b.draw();
+		glPopMatrix();
+	}
     
     // for testing, this enable rotation on screen for the 3 axi
     if(ENABLE_ROTATION_X||ENABLE_ROTATION_Y||ENABLE_ROTATION_Z){
