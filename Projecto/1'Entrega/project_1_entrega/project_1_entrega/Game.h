@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Logger.h"
 #include "Track.h"
+#include "Car.h"
 
 #ifndef project_1_entrega_Game_h
 #define project_1_entrega_Game_h
@@ -52,7 +53,7 @@ extern float ROTATION_POS;
 
 //
 extern Track track;
-
+extern Car car;
 
 
 #endif /* defined(__project_1_entrega__Game__) */

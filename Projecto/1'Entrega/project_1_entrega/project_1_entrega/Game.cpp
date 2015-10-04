@@ -3,10 +3,9 @@
 //  Created by Ana Galvão, André Silva, Daniel Pinho on 25/9/15.
 //
 
-//  ------------------------------------------------------ Global Variables
-
 #include "GameManager.h"
 #include "Track.h"
+#include "Car.h"
 #include <iostream>
 #include <stdlib.h>
 #include <GLUT/glut.h>
@@ -14,7 +13,6 @@
 // description of each global var in Game.h
 #include "Game.h"
 const char * WINDOW_NAME = "Projecto #1 Entrega";
-
 int VIEWPORT_WIDTH = 600;
 int VIEWPORT_HEIGHT = 600;
 int WINDOW_X_POS = -1;
@@ -28,25 +26,24 @@ GLdouble P_FAR = 100.0f;
 bool DEBUG_LOG = true;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
+
 bool ENABLE_AXIS = false;
 bool ENABLE_DEPTH = false;
 bool ENABLE_DOUBLE_BUFFER = false;
+
 bool ENABLE_ROTATION_X = false;
 bool ENABLE_ROTATION_Y = false;
 bool ENABLE_ROTATION_Z = false;
 float ROTATION_SPEED = 0.5f;
 float ROTATION_POS = 0.0f;
 
-// Track track = Track();
+// Player Car
+Car car;
 
 // initialize gloabl log object
 #include "Logger.h"
 Log logger = Log();
 #endif
-
-
-
-// if depth enable enable depth test in init and also glut double buffer
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {

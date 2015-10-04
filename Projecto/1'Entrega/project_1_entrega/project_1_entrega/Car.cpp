@@ -9,17 +9,45 @@
 Car::Car(){};
 Car::~Car(){};
 
-//void Car::draw(){
-//    Car::Dy
-//    logger.debug("OMG CAR DRAW");
-//}
+void Car::setPos(GLdouble x, GLdouble y, GLdouble z){
+    car.pos_x = x;
+    car.pos_y = y;
+    car.pos_z = z;
+};
 
+void Car::setRot(GLdouble angle, GLdouble x, GLdouble y, GLdouble z){
+    car.rot_angle = angle;
+    car.rot_x = x;
+    car.rot_y = y;
+    car.rot_z = z;
+};
+
+// FAKE AS F$#%, just to test if works
+GLdouble STEP = 0.5f;
+void Car::move_left(){
+    car.setPos(car.pos_x - STEP, car.pos_y, car.pos_z);
+    // car.setRot(90.0, 0.0f, 1.0f, 0.0f);
+};
+void Car::move_right(){
+    car.setPos(car.pos_x + STEP, car.pos_y, car.pos_z);
+    // car.setRot(-90.0, 0.0f, 1.0f, 0.0f);
+};
+void Car::move_forward(){
+    car.setPos(car.pos_x, car.pos_y + STEP, car.pos_z);
+    // car.setRot(90.0, 1.0f, 0.0f, 0.0f);
+};
+void Car::move_backwards(){
+    car.setPos(car.pos_x, car.pos_y - STEP, car.pos_z);
+    //car.setRot(360.0, 1.0f, 0.0f, 0.0f);
+};
+
+void Car::update(){};
 
 void Car::draw(){
-    
-//    glTranslatef(0.0f, 0.0f, 0.0f);
-//    glScalef(0.1f, 0.1f, 0.1f);
-//    glRotatef(90, 1.0f, 0.0f, 0.0f);
+    glTranslatef(car.pos_x, car.pos_y, car.pos_z);
+    glScalef(0.1f, 0.1f, 0.1f);
+    glRotatef(car.rot_angle, car.rot_x, car.rot_y, car.rot_z);
+    glRotatef(-car.rot_angle, 0.0f, 1.0f, 0.0f);
     
     // the size of the tores (depth) and the
     // amount of rings (how round you want it

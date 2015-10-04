@@ -1,10 +1,7 @@
 //
-//  Cheerio.cpp
-//  project_1_entrega
+//  project_1_entrega - Cheerio.cpp
 //
-//  Created by André Silva on 9/28/15.
-//
-//
+
 #include "Game.h"
 #include "Cheerio.h"
 #include <iostream>

@@ -1,10 +1,7 @@
 //
-//  Orange.cpp
-//  project_1_entrega
+//  project_1_entrega - Orange.cpp
 //
-//  Created by André Silva on 10/1/15.
-//
-//
+
 #include "Game.h"
 #include "Orange.h"
 
