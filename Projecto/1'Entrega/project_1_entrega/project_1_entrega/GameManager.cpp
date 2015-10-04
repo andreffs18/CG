@@ -117,8 +117,38 @@ void GameManager::onDisplay(){
 //  Custom keyboard function used when "glutKeyboardFunc"
 //  triggers an event. This handles the keyboardPress
 void GameManager::onKeyboard(unsigned char key, int x, int y){
-    // Ana put your shit here
+    // change to wireframe
+    if (key == 'A' || key == 'a'){
+        GLint polygonMode;
+        glGetIntegerv(GL_POLYGON_MODE, &polygonMode);
+        if (polygonMode == GL_LINE){
+            logger.debug("Changin to GL_FILL (Polygons)");
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        } else{
+            logger.debug("Changin to GL_LINE (Wireframe)");
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        }
+        glutPostRedisplay();
+    }
 };
+
+//  ------------------------------------------------------- onSpecialKeys()
+//  Custom keyboard function used when "glutSpecialFunc"
+//  triggers an event. This handles the special keys like
+//  F1, Esc, Left arrow, Right Arrow...
+void GameManager::onSpecialKeys(int key, int x, int y){
+    if (key == GLUT_KEY_RIGHT)
+        logger.debug("Moved right");
+    else if (key == GLUT_KEY_LEFT)
+        logger.debug("Moved left");
+    else if (key == GLUT_KEY_UP)
+        logger.debug("Moved up");
+    else if (key == GLUT_KEY_DOWN)
+        logger.debug("Moved down");
+    
+    glutPostRedisplay();
+}
+
 
 //  ------------------------------------------------------------- onMouse()
 //  Custom keyboard function used when "glutMouseFunc" triggers

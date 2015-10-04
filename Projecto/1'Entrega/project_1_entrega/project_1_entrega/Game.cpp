@@ -72,6 +72,8 @@ int main(int argc, char * argv[]) {
     glutReshapeFunc(gm.onReshape);
     // set the keyboard function to handle keyboard events
     glutKeyboardFunc(gm.onKeyboard);
+    // set the keyboard function to handle special keys events
+    glutSpecialFunc(gm.onSpecialKeys);
     // set the mouse function to handle mouse stuff
     // glutMouseFunc(gm.onMouse);
     

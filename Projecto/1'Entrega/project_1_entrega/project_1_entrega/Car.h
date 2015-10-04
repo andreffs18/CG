@@ -15,6 +15,7 @@ public:
     Car();
     ~Car();
     void draw();
+    void update();
 };
 
 #endif /* defined(__project_1_entrega__Car__) */
