@@ -1,9 +1,5 @@
 //
-//  Track.h
-//  project_1_entrega
-//
-//  Created by André Silva on 9/28/15.
-//
+//  project_1_entrega - Track.h
 //
 
 #ifndef __project_1_entrega__Track__

@@ -20,22 +20,6 @@ float pos_z = 1.1;
 GameManager::GameManager(){logger.debug("GameManager::GameManager()");};
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
-//pages = range(195, 257)
-//front = []
-//back = []
-//c = 0
-//for i in pages:
-//    c += 1
-//    if c in [1, 2]:
-//        front.append(i)
-//    elif c in [3, 4]:
-//        back.append(i)
-//    if c == 4:
-//        c = 0
-//print(", ".join(map(lambda x: str(x), front)))
-//print(", ".join(map(lambda x: str(x), back)))
-
-
 //  ----------------------------------------------------------- onReshape()
 //  Custom reshape function used when "glutReshapeFunc"
 //  triggers an event. This handles the change in screen size
@@ -155,6 +139,9 @@ void GameManager::onDisplay(){
 		glPopMatrix();
 	}
     
+    
+    car.draw();
+    
     // for testing, this enable rotation on screen for the 3 axi
     if(ENABLE_ROTATION_X||ENABLE_ROTATION_Y||ENABLE_ROTATION_Z){
         if(ENABLE_ROTATION_X) glRotatef(ROTATION_POS, 1.0f, 0.0f, 0.0f);
@@ -175,7 +162,7 @@ void GameManager::onDisplay(){
 void GameManager::onKeyboard(unsigned char key, int x, int y){
     // change to wireframe
     if (key == 'A' || key == 'a'){
-        GLint polygonMode;
+        int polygonMode;
         glGetIntegerv(GL_POLYGON_MODE, &polygonMode);
         if (polygonMode == GL_LINE){
             logger.debug("Changin to GL_FILL (Polygons)");
@@ -193,18 +180,21 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
 //  triggers an event. This handles the special keys like
 //  F1, Esc, Left arrow, Right Arrow...
 void GameManager::onSpecialKeys(int key, int x, int y){
-    if (key == GLUT_KEY_RIGHT)
+    if (key == GLUT_KEY_RIGHT){
         logger.debug("Moved right");
-    else if (key == GLUT_KEY_LEFT)
+        car.move_right();
+    } else if (key == GLUT_KEY_LEFT) {
         logger.debug("Moved left");
-    else if (key == GLUT_KEY_UP)
+        car.move_left();
+    } else if (key == GLUT_KEY_UP) {
         logger.debug("Moved up");
-    else if (key == GLUT_KEY_DOWN)
+        car.move_forward();
+    } else if (key == GLUT_KEY_DOWN) {
         logger.debug("Moved down");
-    
+        car.move_backwards();
+    }
     glutPostRedisplay();
 }
-
 
 //  ------------------------------------------------------------- onMouse()
 //  Custom keyboard function used when "glutMouseFunc" triggers

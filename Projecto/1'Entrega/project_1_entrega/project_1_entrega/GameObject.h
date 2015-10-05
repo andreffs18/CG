@@ -1,9 +1,5 @@
 //
-//  GameObject.h
-//  project_1_entrega
-//
-//  Created by André Silva on 9/27/15.
-//
+//  project_1_entrega - GameObject.h
 //
 
 #ifndef __project_1_entrega__GameObject__
@@ -20,16 +16,8 @@ public:
     void draw();
     void update();
     
-    
-    
-    
-    
-    
     // foooling around - tests
     void customSolidCube();
-    void customRedRectangle();
-    void customGreenRectangle();
-    void customWhiteSquare();
     void axis(GLdouble size = 2.0f);
 };
 

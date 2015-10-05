@@ -1,9 +1,5 @@
 //
-//  Orange.h
-//  project_1_entrega
-//
-//  Created by André Silva on 10/1/15.
-//
+//  project_1_entrega - Orange.h
 //
 
 #ifndef __project_1_entrega__Orange__
@@ -18,6 +14,5 @@ public:
     ~Orange();
     void draw();
 };
-
 
 #endif /* defined(__project_1_entrega__Orange__) */

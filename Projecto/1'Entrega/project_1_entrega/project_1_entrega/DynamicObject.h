@@ -1,9 +1,5 @@
 //
-//  DynamicObject.h
-//  project_1_entrega
-//
-//  Created by André Silva on 9/28/15.
-//
+//  project_1_entrega - DynamicObject.h
 //
 
 #ifndef __project_1_entrega__DynamicObject__
