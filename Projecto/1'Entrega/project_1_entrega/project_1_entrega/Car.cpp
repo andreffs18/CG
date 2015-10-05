@@ -23,7 +23,7 @@ void Car::setRot(GLdouble angle, GLdouble x, GLdouble y, GLdouble z){
 };
 
 // FAKE AS F$#%, just to test if works
-GLdouble STEP = 0.5f;
+GLdouble STEP = 0.1f;
 void Car::move_left(){
     car.setPos(car.pos_x - STEP, car.pos_y, car.pos_z);
     // car.setRot(90.0, 0.0f, 1.0f, 0.0f);
@@ -33,12 +33,18 @@ void Car::move_right(){
     // car.setRot(-90.0, 0.0f, 1.0f, 0.0f);
 };
 void Car::move_forward(){
+    logger.info("IN CAR FORWARD");
     car.setPos(car.pos_x, car.pos_y + STEP, car.pos_z);
     // car.setRot(90.0, 1.0f, 0.0f, 0.0f);
 };
 void Car::move_backwards(){
     car.setPos(car.pos_x, car.pos_y - STEP, car.pos_z);
     //car.setRot(360.0, 1.0f, 0.0f, 0.0f);
+};
+
+void Car::stop(){
+    logger.info("IN CAR STOP");
+    car.setPos(car.pos_x, car.pos_y, car.pos_z);
 };
 
 void Car::update(){};

@@ -26,6 +26,7 @@ public:
     void move_right();
     void move_forward();
     void move_backwards();
+    void stop();
 };
 
 #endif /* defined(__project_1_entrega__Car__) */

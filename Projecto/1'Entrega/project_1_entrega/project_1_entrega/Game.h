@@ -55,6 +55,8 @@ extern float ROTATION_POS;
 extern Track track;
 extern Car car;
 
+extern int CAR_DIRECTION;
+
 
 #endif /* defined(__project_1_entrega__Game__) */
 

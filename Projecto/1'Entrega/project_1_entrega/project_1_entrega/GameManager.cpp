@@ -123,18 +123,38 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
 //  triggers an event. This handles the special keys like
 //  F1, Esc, Left arrow, Right Arrow...
 void GameManager::onSpecialKeys(int key, int x, int y){
-    if (key == GLUT_KEY_RIGHT){
-        logger.debug("Moved right");
-        car.move_right();
-    } else if (key == GLUT_KEY_LEFT) {
-        logger.debug("Moved left");
-        car.move_left();
-    } else if (key == GLUT_KEY_UP) {
-        logger.debug("Moved up");
+    CAR_DIRECTION = key;
+
+}
+
+void GameManager::onSpecialKeysUp(int key, int x, int y){
+    if(key == GLUT_KEY_UP){
+        CAR_DIRECTION = 0;
+    } else if(key == GLUT_KEY_DOWN){
+        CAR_DIRECTION = 0;
+    } else if(key == GLUT_KEY_LEFT){
+        CAR_DIRECTION = 0;
+    } else if(key == GLUT_KEY_RIGHT){
+        CAR_DIRECTION = 0;
+    }
+}
+
+//  -------------------------------------------------------------- onIdle()
+//  Custom keyboard function used when "glutIdleFunc" triggers
+//  an event. This runs all logic inside if glut has no events
+//  to run
+void GameManager::onIdle(){
+    if(CAR_DIRECTION == GLUT_KEY_UP){
         car.move_forward();
-    } else if (key == GLUT_KEY_DOWN) {
-        logger.debug("Moved down");
+    } else if (CAR_DIRECTION == GLUT_KEY_RIGHT){
+        car.move_right();
+    } else if (CAR_DIRECTION == GLUT_KEY_LEFT) {
+        car.move_left();
+    } else if (CAR_DIRECTION == GLUT_KEY_DOWN) {
         car.move_backwards();
+    } else{
+        logger.info("NOT LCIKING IN ANYTHING");
+        car.stop();
     }
     glutPostRedisplay();
 }

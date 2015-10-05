@@ -23,7 +23,7 @@ GLdouble P_ASPECT_RATIO = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
 GLdouble P_NEAR = 0.1f;
 GLdouble P_FAR = 100.0f;
 
-bool DEBUG_LOG = true;
+bool DEBUG_LOG = false;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
@@ -38,8 +38,9 @@ float ROTATION_SPEED = 0.5f;
 float ROTATION_POS = 0.0f;
 
 // Player Car
+// Track track;
 Car car;
-
+int CAR_DIRECTION = 0;
 // initialize gloabl log object
 #include "Logger.h"
 Log logger = Log();
@@ -71,9 +72,12 @@ int main(int argc, char * argv[]) {
     glutKeyboardFunc(gm.onKeyboard);
     // set the keyboard function to handle special keys events
     glutSpecialFunc(gm.onSpecialKeys);
+    glutSpecialUpFunc(gm.onSpecialKeysUp);
+    // when glut has no events to proccess
+    glutIdleFunc(gm.onIdle);
+
     // set the mouse function to handle mouse stuff
     // glutMouseFunc(gm.onMouse);
-    
     // runs forever in a loop to keep the program running
     glutMainLoop();
     return 0;
