@@ -9,6 +9,10 @@
 GameObject::GameObject(){};
 GameObject::~GameObject(){};
 
+void GameObject::draw(){
+    
+};
+
 void GameObject::customSolidCube(){
     
     // draw cube with 1unit as size

@@ -10,9 +10,8 @@
 #include <GLUT/glut.h>
 #include <stdio.h>
 #include <iostream>
+#include "GameManager.h"
 #include "Logger.h"
-#include "Track.h"
-#include "Car.h"
 
 #ifndef project_1_entrega_Game_h
 #define project_1_entrega_Game_h
@@ -36,27 +35,23 @@ extern bool INFO_LOG;
 extern bool ERROR_LOG;
 // Initialize Logger object
 extern Log logger;
+// Initialize GameManager object
+extern GameManager gm;
 // Turn on/off axis on objects
 extern bool ENABLE_AXIS;
 // Turn on/off depth of field on 3D objs
 extern bool ENABLE_DEPTH;
 // Turn on/off double buffer
 extern bool ENABLE_DOUBLE_BUFFER;
-// Turn on/off 3D rotation for each var
-extern bool ENABLE_ROTATION_X;
-extern bool ENABLE_ROTATION_Y;
-extern bool ENABLE_ROTATION_Z;
+// Global Position for the camera
+extern GLdouble G_CAMERA_POS_X;
+extern GLdouble G_CAMERA_POS_Y;
+extern GLdouble G_CAMERA_POS_Z;
+extern GLdouble AXIS[3];
 // Specific velocity
 extern float ROTATION_SPEED;
 // Global rotation (initialized @ zero)
 extern float ROTATION_POS;
-
-//
-extern Track track;
-extern Car car;
-
-extern int CAR_DIRECTION;
-
 
 #endif /* defined(__project_1_entrega__Game__) */
 

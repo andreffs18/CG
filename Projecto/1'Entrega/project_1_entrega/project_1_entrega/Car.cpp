@@ -6,54 +6,82 @@
 #include "GameObject.h"
 #include <GLUT/glut.h>
 
-Car::Car(){};
+Car::Car(){
+    // car is not moving
+    _move_up = false;
+    _move_down = false;
+    _move_left = false;
+    _move_right = false;
+    // car is @ the origin of the world
+    _pos_x = 0.0f;
+    _pos_y = 0.0f;
+    _pos_z = 0.0f;
+};
 Car::~Car(){};
 
-void Car::setPos(GLdouble x, GLdouble y, GLdouble z){
-    car.pos_x = x;
-    car.pos_y = y;
-    car.pos_z = z;
+//  ------------------------------------------------------------ keyPress()
+//  handles which direction was clicked. changes the state of
+//  the variable in question.
+void Car::keyPress(int key){
+    if(key == GLUT_KEY_UP)
+        this->_move_up = true;
+    if(key == GLUT_KEY_DOWN)
+        this->_move_down = true;
+    if(key == GLUT_KEY_LEFT)
+        this->_move_left = true;
+    if(key == GLUT_KEY_RIGHT)
+        this->_move_right = true;
+}
+
+//  ---------------------------------------------------------- keyRelease()
+//  handles which direction was released. changes the state of
+//  the variable in question.
+void Car::keyRelease(int key){
+    if(key == GLUT_KEY_UP)
+        this->_move_up = false;
+    if(key == GLUT_KEY_DOWN)
+        this->_move_down = false;
+    if(key == GLUT_KEY_LEFT)
+        this->_move_left = false;
+    if(key == GLUT_KEY_RIGHT)
+        this->_move_right = false;
+}
+
+//  --------------------------------------------------------- setPosition()
+//  wrapper to manipulate car's position variables
+void Car::setPosition(GLdouble x, GLdouble y, GLdouble z){
+    this->_pos_x = x;
+    this->_pos_y = y;
+    this->_pos_z = z;
 };
 
-void Car::setRot(GLdouble angle, GLdouble x, GLdouble y, GLdouble z){
-    car.rot_angle = angle;
-    car.rot_x = x;
-    car.rot_y = y;
-    car.rot_z = z;
+//  ---------------------------------------------------------------- update()
+//  updates car's position, velocity and rotation
+void Car::update(){
+    logger.debug("Car::update()");
+    
+    GLdouble new_x = this->_pos_x;
+    GLdouble new_y = this->_pos_y;
+    GLdouble new_z = this->_pos_z;
+    
+    if(this->_move_up)
+        logger.debug("UP");
+    if(this->_move_down)
+        logger.debug("Down");
+    if(this->_move_left)
+        logger.debug("Left");
+    if(this->_move_right)
+        logger.debug("Right");
 };
 
-// FAKE AS F$#%, just to test if works
-GLdouble STEP = 0.1f;
-void Car::move_left(){
-    car.setPos(car.pos_x - STEP, car.pos_y, car.pos_z);
-    // car.setRot(90.0, 0.0f, 1.0f, 0.0f);
-};
-void Car::move_right(){
-    car.setPos(car.pos_x + STEP, car.pos_y, car.pos_z);
-    // car.setRot(-90.0, 0.0f, 1.0f, 0.0f);
-};
-void Car::move_forward(){
-    logger.info("IN CAR FORWARD");
-    car.setPos(car.pos_x, car.pos_y + STEP, car.pos_z);
-    // car.setRot(90.0, 1.0f, 0.0f, 0.0f);
-};
-void Car::move_backwards(){
-    car.setPos(car.pos_x, car.pos_y - STEP, car.pos_z);
-    //car.setRot(360.0, 1.0f, 0.0f, 0.0f);
-};
-
-void Car::stop(){
-    logger.info("IN CAR STOP");
-    car.setPos(car.pos_x, car.pos_y, car.pos_z);
-};
-
-void Car::update(){};
-
+//  ------------------------------------------------------------------ draw()
+//  draws car in screen
 void Car::draw(){
-    glTranslatef(car.pos_x, car.pos_y, car.pos_z);
-    glScalef(0.1f, 0.1f, 0.1f);
-    glRotatef(car.rot_angle, car.rot_x, car.rot_y, car.rot_z);
-    glRotatef(-car.rot_angle, 0.0f, 1.0f, 0.0f);
+    logger.debug("Car::draw()");
+    
+    glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
+//glScalef(0.1f, 0.1f, 0.1f);
+    glRotatef(0, 0.0f, 1.0f, 0.0f);
     
     // the size of the tores (depth) and the
     // amount of rings (how round you want it
@@ -79,7 +107,6 @@ void Car::draw(){
              t_back_pos_y = t_back_height,
              t_back_pos_z = 1.5f;
     
-    logger.debug("Car::draw()");
     GameObject go = GameObject();
 
     // Draw Car

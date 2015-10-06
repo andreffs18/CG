@@ -16,7 +16,6 @@
 		0EA87E211BB813DD004BD956 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E1F1BB813DD004BD956 /* GameObject.cpp */; };
 		0EA87E291BB96605004BD956 /* Cheerio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E271BB96605004BD956 /* Cheerio.cpp */; };
 		0EA87E2C1BB96755004BD956 /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E2A1BB96755004BD956 /* Track.cpp */; };
-		0EA87E2F1BB96D8B004BD956 /* DynamicObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E2D1BB96D8B004BD956 /* DynamicObject.cpp */; };
 		0EA87E321BB96DF5004BD956 /* Car.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E301BB96DF5004BD956 /* Car.cpp */; };
 /* End PBXBuildFile section */
 
@@ -50,8 +49,6 @@
 		0EA87E281BB96605004BD956 /* Cheerio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Cheerio.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0EA87E2A1BB96755004BD956 /* Track.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Track.cpp; sourceTree = "<group>"; };
 		0EA87E2B1BB96755004BD956 /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
-		0EA87E2D1BB96D8B004BD956 /* DynamicObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicObject.cpp; sourceTree = "<group>"; };
-		0EA87E2E1BB96D8B004BD956 /* DynamicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicObject.h; sourceTree = "<group>"; };
 		0EA87E301BB96DF5004BD956 /* Car.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Car.cpp; sourceTree = "<group>"; };
 		0EA87E311BB96DF5004BD956 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,8 +95,6 @@
 				0E2D30A31BB5F7F400F9AC4D /* GameManager.h */,
 				0EA87E1F1BB813DD004BD956 /* GameObject.cpp */,
 				0EA87E201BB813DD004BD956 /* GameObject.h */,
-				0EA87E2D1BB96D8B004BD956 /* DynamicObject.cpp */,
-				0EA87E2E1BB96D8B004BD956 /* DynamicObject.h */,
 				0EA87E301BB96DF5004BD956 /* Car.cpp */,
 				0EA87E311BB96DF5004BD956 /* Car.h */,
 				0EA87E271BB96605004BD956 /* Cheerio.cpp */,
@@ -167,7 +162,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EA87E2F1BB96D8B004BD956 /* DynamicObject.cpp in Sources */,
 				0EA87E211BB813DD004BD956 /* GameObject.cpp in Sources */,
 				0E2D30981BB5F73C00F9AC4D /* Game.cpp in Sources */,
 				0EA87E1E1BB8065A004BD956 /* Logger.cpp in Sources */,

@@ -2,14 +2,10 @@
 //  project_1_entrega
 //  Created by Ana Galvão, André Silva, Daniel Pinho on 25/9/15.
 //
-
-#include "GameManager.h"
-#include "Track.h"
-#include "Car.h"
+#ifndef project_1_entrega_Game_h
 #include <iostream>
 #include <stdlib.h>
 #include <GLUT/glut.h>
-#ifndef project_1_entrega_Game_h
 // description of each global var in Game.h
 #include "Game.h"
 const char * WINDOW_NAME = "Projecto #1 Entrega";
@@ -31,26 +27,24 @@ bool ENABLE_AXIS = false;
 bool ENABLE_DEPTH = false;
 bool ENABLE_DOUBLE_BUFFER = false;
 
-bool ENABLE_ROTATION_X = false;
-bool ENABLE_ROTATION_Y = false;
-bool ENABLE_ROTATION_Z = false;
-float ROTATION_SPEED = 0.5f;
-float ROTATION_POS = 0.0f;
+GLdouble G_CAMERA_POS_X = 0.0f;
+GLdouble G_CAMERA_POS_Y = 0.0f;
+GLdouble G_CAMERA_POS_Z = 10.0f;
 
-// Player Car
-// Track track;
-Car car;
-int CAR_DIRECTION = 0;
+float ROTATION_SPEED = 0.5f;
+
+GLdouble AXIS[3] = {0.0f, 0.0f, 0.0f};
+
 // initialize gloabl log object
 #include "Logger.h"
 Log logger = Log();
+#include "GameManager.h"
+// initialize game manager
+GameManager gm = GameManager();
 #endif
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {
-    // Game manager instance.
-    GameManager gm = GameManager();
-    
     // initialise glut library
     glutInit(&argc, argv);
     // request a RGBA display mode, and we want single buffering
@@ -65,19 +59,18 @@ int main(int argc, char * argv[]) {
     glutCreateWindow(WINDOW_NAME);
     
     // set the callback function to use to draw our scene
-    glutDisplayFunc(gm.onDisplay);
+    glutDisplayFunc(GameManager::onDisplay);
     // set the callback function to handle changes in screen size
-    glutReshapeFunc(gm.onReshape);
+    glutReshapeFunc(GameManager::onReshape);
     // set the keyboard function to handle keyboard events
-    glutKeyboardFunc(gm.onKeyboard);
+    glutKeyboardFunc(GameManager::onKeyboard);
     // set the keyboard function to handle special keys events
-    glutSpecialFunc(gm.onSpecialKeys);
-    glutSpecialUpFunc(gm.onSpecialKeysUp);
+    glutSpecialFunc(GameManager::onSpecialKeys);
+    // set the keyboard function to handle the release of special keys events
+    glutSpecialUpFunc(GameManager::onSpecialKeysUp);
     // when glut has no events to proccess
-    glutIdleFunc(gm.onIdle);
+    glutIdleFunc(GameManager::onIdle);
 
-    // set the mouse function to handle mouse stuff
-    // glutMouseFunc(gm.onMouse);
     // runs forever in a loop to keep the program running
     glutMainLoop();
     return 0;

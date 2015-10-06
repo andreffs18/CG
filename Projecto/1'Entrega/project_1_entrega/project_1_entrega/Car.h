@@ -6,27 +6,23 @@
 #ifndef __project_1_entrega__Car__
 #define __project_1_entrega__Car__
 
-#include "DynamicObject.h"
+#include "GameObject.h"
 #include <stdio.h>
 
-class Car{
+class Car: public GameObject{
 private:
-    GLdouble pos_x = 0.0f, pos_y = 0.0f, pos_z = 0.0f;
-    GLdouble rot_angle = 90.0f, rot_x = 1.0f, rot_y = 0.0f, rot_z = 0.0f;
-    void setRot(GLdouble angle, GLdouble x, GLdouble y, GLdouble z);
-    void setPos(GLdouble x, GLdouble y, GLdouble z);
+    GLdouble _pos_x, _pos_y, _pos_z;
+    bool _move_up, _move_down, _move_left, _move_right;
+    
+    void setPosition(GLdouble, GLdouble, GLdouble);
 public:
     Car();
     ~Car();
     void draw();
     void update();
     
-    
-    void move_left();
-    void move_right();
-    void move_forward();
-    void move_backwards();
-    void stop();
+    void keyPress(int key);
+    void keyRelease(int key);
 };
 
 #endif /* defined(__project_1_entrega__Car__) */
