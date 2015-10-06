@@ -4,7 +4,7 @@
 
 #include "Game.h"
 #include "GameObject.h"
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 
 GameObject::GameObject(){};
 GameObject::~GameObject(){};

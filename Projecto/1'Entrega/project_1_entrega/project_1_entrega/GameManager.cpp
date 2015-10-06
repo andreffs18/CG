@@ -1,7 +1,7 @@
 //
 //  project_1_entrega - GameManager.cpp
 //
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 #include <iostream>
 #include "Game.h"
 #include "GameManager.h"
@@ -129,7 +129,7 @@ void GameManager::onIdle(){
 void GameManager::onKeyboard(unsigned char key, int x, int y){
     // change to wireframe
     if (key == 'A' || key == 'a'){
-        GLint polygonMode;
+        int polygonMode;
         glGetIntegerv(GL_POLYGON_MODE, &polygonMode);
         if (polygonMode == GL_LINE){
             logger.debug("Changin to GL_FILL (Polygons)");

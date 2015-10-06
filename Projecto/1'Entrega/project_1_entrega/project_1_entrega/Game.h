@@ -7,7 +7,7 @@
 //   #1 - Add variable in Game.h like below
 //   #2 - Define variable value in Game.cpp.
 
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 #include <stdio.h>
 #include <iostream>
 #include "GameManager.h"

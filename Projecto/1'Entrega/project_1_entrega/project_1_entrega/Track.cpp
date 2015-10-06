@@ -7,7 +7,7 @@
 #include "Cheerio.h"
 #include "Car.h"
 #include <iostream>
-#include <GLUT/GLUT.h>
+#include <GL\glut.h>
 
 Track::Track(){};
 Track::~Track(){};
@@ -16,8 +16,8 @@ void Track::draw(){
     logger.debug("Track::draw()");
     GameObject go = GameObject();
     
-    glPushMatrix();
-    glScalef(5.5, 5.5, 1.5f);
+	glPushMatrix();
+	glScalef(5.5, 5.5, 1.5f);
     go.customSolidCube();
     if(ENABLE_AXIS) go.axis((GLdouble)10.f);
     
@@ -111,3 +111,4 @@ void Track::draw(){
     glPopMatrix();
     
 };
+

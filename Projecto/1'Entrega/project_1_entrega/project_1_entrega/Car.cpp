@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Car.h"
 #include "GameObject.h"
-#include <GLUT/glut.h>
+#include <GL\glut.h>
 
 Car::Car(){
     // car is not moving
