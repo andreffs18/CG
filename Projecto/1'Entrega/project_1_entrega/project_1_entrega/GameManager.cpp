@@ -1,15 +1,21 @@
 //
 //  project_1_entrega - GameManager.cpp
 //
+#ifdef _WIN32
+//define something for Windows (32-bit and 64-bit, this part is common)
 #include <GL\glut.h>
-#include <iostream>
+#elif __APPLE__
+// Other kinds of Mac OS
+#include <GLUT/glut.h>
+#endif
 #include "Game.h"
 #include "GameManager.h"
-
+#include <iostream>
 
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
     car = Car();
+    track = Track();
 };
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
@@ -30,6 +36,7 @@ void GameManager::keyRelease(int key){
 void GameManager::drawAll(){
     logger.debug("GameManager::drawAll()");
     car.draw();
+    track.draw();
 };
 
 //  ----------------------------------------------------------- updateAll()
@@ -38,6 +45,7 @@ void GameManager::drawAll(){
 void GameManager::updateAll(){
     logger.debug("GameManager::updateAll()");
     car.update();
+    track.update();
 };
 
 //  ----------------------------------------------------------- onReshape()

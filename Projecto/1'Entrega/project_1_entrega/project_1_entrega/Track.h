@@ -16,6 +16,7 @@ public:
     Track();
     ~Track();
     void draw();
+    void update();
 };
 
 #endif /* defined(__project_1_entrega__Track__) */

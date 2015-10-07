@@ -3,9 +3,15 @@
 //  Created by Ana Galvão, André Silva, Daniel Pinho on 25/9/15.
 //
 #ifndef project_1_entrega_Game_h
+#ifdef _WIN32
+//define something for Windows (32-bit and 64-bit, this part is common)
+#include <GL\glut.h>
+#elif __APPLE__
+// Other kinds of Mac OS
+#include <GLUT/glut.h>
+#endif
 #include <iostream>
 #include <stdlib.h>
-#include <GLUT/glut.h>
 // description of each global var in Game.h
 #include "Game.h"
 const char * WINDOW_NAME = "Projecto #1 Entrega";
@@ -24,16 +30,16 @@ bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
 bool ENABLE_AXIS = false;
-bool ENABLE_DEPTH = false;
+bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = false;
 
 GLdouble G_CAMERA_POS_X = 0.0f;
 GLdouble G_CAMERA_POS_Y = 0.0f;
 GLdouble G_CAMERA_POS_Z = 10.0f;
-
 float ROTATION_SPEED = 0.5f;
-
 GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};
+
+bool ON_MAC_OS = true;
 
 // initialize gloabl log object
 #include "Logger.h"

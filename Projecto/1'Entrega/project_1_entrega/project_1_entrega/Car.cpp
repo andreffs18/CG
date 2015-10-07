@@ -1,10 +1,16 @@
 //
 //  project_1_entrega - Car.cpp
 //
+#ifdef _WIN32
+//define something for Windows (32-bit and 64-bit, this part is common)
+#include <GL\glut.h>
+#elif __APPLE__
+// Other kinds of Mac OS
+#include <GLUT/glut.h>
+#endif
 #include "Game.h"
 #include "Car.h"
 #include "GameObject.h"
-#include <GL\glut.h>
 
 Car::Car(){
     // car is not moving
@@ -78,11 +84,6 @@ void Car::update(){
 //  draws car in screen
 void Car::draw(){
     logger.debug("Car::draw()");
-    
-    glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
-//glScalef(0.1f, 0.1f, 0.1f);
-    glRotatef(0, 0.0f, 1.0f, 0.0f);
-    
     // the size of the tores (depth) and the
     // amount of rings (how round you want it
     GLint t_sizes = 8;
@@ -108,7 +109,13 @@ void Car::draw(){
              t_back_pos_z = 1.5f;
     
     GameObject go = GameObject();
-
+    glPushMatrix();
+    
+    glTranslatef(0.0f,0.0f, 3.0f);
+    glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
+    glScalef(0.1f, 0.1f, 0.1f);
+    glRotatef(0, 0.0f, 1.0f, 0.0f);
+    
     // Draw Car
     if(ENABLE_AXIS){glPushMatrix(); go.axis(); glPopMatrix();}
     
@@ -159,6 +166,8 @@ void Car::draw(){
         glTranslatef(0.0f, -2.5f, 0.0f);
         glScalef(1.0f, 5.0f, 0.1f);
         glutSolidCube(1.0f);
+    glPopMatrix();
+    
     glPopMatrix();
 
 };

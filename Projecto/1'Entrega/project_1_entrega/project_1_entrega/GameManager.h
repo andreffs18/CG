@@ -4,9 +4,14 @@
 
 #ifndef __project_1_entrega__GameManager__
 #define __project_1_entrega__GameManager__
-
-#include <stdio.h>
+#ifdef _WIN32
+//define something for Windows (32-bit and 64-bit, this part is common)
+#include <GL\glut.h>
+#elif __APPLE__
+// Other kinds of Mac OS
 #include <GLUT/glut.h>
+#endif
+#include <stdio.h>
 #include "Track.h"
 #include "Car.h"
 #include "Cheerio.h"
@@ -14,6 +19,7 @@
 class GameManager{
 private:
     Car car;
+    Track track;
 public:
     GameManager();
     ~GameManager();

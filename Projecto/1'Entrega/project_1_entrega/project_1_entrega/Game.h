@@ -7,7 +7,14 @@
 //   #1 - Add variable in Game.h like below
 //   #2 - Define variable value in Game.cpp.
 
+
+#ifdef _WIN32
+//define something for Windows (32-bit and 64-bit, this part is common)
 #include <GL\glut.h>
+#elif TARGET_OS_MAC
+// Other kinds of Mac OS
+#include <GLUT/glut.h>
+#endif
 #include <stdio.h>
 #include <iostream>
 #include "GameManager.h"
@@ -52,6 +59,8 @@ extern GLdouble AXIS[3];
 extern float ROTATION_SPEED;
 // Global rotation (initialized @ zero)
 extern float ROTATION_POS;
+//
+extern bool ON_MAC_OS;
 
 #endif /* defined(__project_1_entrega__Game__) */
 

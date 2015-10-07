@@ -1,10 +1,15 @@
 //
 //  project_1_entrega - Orange.cpp
 //
-
+#ifdef _WIN32
+//define something for Windows (32-bit and 64-bit, this part is common)
+#include <GL\glut.h>
+#elif __APPLE__
+// Other kinds of Mac OS
+#include <GLUT/glut.h>
+#endif
 #include "Game.h"
 #include "Orange.h"
-#include <GL\glut.h>
 #include "GameObject.h"
 
 Orange::Orange(){};

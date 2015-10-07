@@ -17,7 +17,6 @@ Axis::~Axis(){};
 
 void Axis::draw(){
     int size = 1.5;
-
     glPushMatrix();
     glBegin(GL_LINES);
     // draw line for x axis
