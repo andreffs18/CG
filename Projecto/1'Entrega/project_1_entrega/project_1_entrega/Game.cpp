@@ -25,11 +25,11 @@ GLdouble P_ASPECT_RATIO = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
 GLdouble P_NEAR = 0.1f;
 GLdouble P_FAR = 100.0f;
 
-bool DEBUG_LOG = false;
+bool DEBUG_LOG = true;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
-bool ENABLE_AXIS = false;
+bool ENABLE_AXIS = true;
 bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = false;
 

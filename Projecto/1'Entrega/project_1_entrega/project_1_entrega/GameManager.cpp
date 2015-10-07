@@ -22,13 +22,13 @@ GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 //  ------------------------------------------------------------ keyPress()
 //  game manager wrapper to handle all objects keyPress
 void GameManager::keyPress(int key){
-    this->car.keyPress(key);
+    car.keyPress(key);
 };
 
 //  ---------------------------------------------------------- keyRelease()
 //  game manager wrapper to handle all objects keyRelease
 void GameManager::keyRelease(int key){
-    this->car.keyRelease(key);
+    car.keyRelease(key);
 }
 
 //  ------------------------------------------------------------- drawAll()

@@ -15,7 +15,7 @@
 Cheerio::Cheerio(){};
 Cheerio::~Cheerio(){};
 void Cheerio::draw(float pos_x, float pos_y, float pos_z){
-    logger.debug("Cheerios::draw()");
+//logger.debug("Cheerios::draw()");
     
     glPushMatrix();
 	glColor3f(1.0f, 0.5f, 0.0f);

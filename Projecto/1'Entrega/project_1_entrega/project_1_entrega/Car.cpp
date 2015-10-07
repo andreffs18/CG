@@ -114,7 +114,7 @@ void Car::draw(){
     glTranslatef(0.0f,0.0f, 3.0f);
     glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
     glScalef(0.1f, 0.1f, 0.1f);
-    glRotatef(0, 0.0f, 1.0f, 0.0f);
+    glRotatef(90, 0.0f, 1.0f, 0.0f);
     
     // Draw Car
     if(ENABLE_AXIS){glPushMatrix(); go.axis(); glPopMatrix();}
