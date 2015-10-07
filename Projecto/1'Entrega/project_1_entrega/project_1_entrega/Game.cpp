@@ -33,7 +33,7 @@ GLdouble G_CAMERA_POS_Z = 10.0f;
 
 float ROTATION_SPEED = 0.5f;
 
-GLdouble AXIS[3] = {0.0f, 0.0f, 0.0f};
+GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};
 
 // initialize gloabl log object
 #include "Logger.h"
