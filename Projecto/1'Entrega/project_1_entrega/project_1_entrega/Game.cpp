@@ -25,11 +25,11 @@ GLdouble P_ASPECT_RATIO = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
 GLdouble P_NEAR = 0.1f;
 GLdouble P_FAR = 100.0f;
 
-bool DEBUG_LOG = true;
+bool DEBUG_LOG = false;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
-bool ENABLE_AXIS = true;
+bool ENABLE_AXIS = false;
 bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = false;
 
@@ -37,9 +37,13 @@ GLdouble G_CAMERA_POS_X = 0.0f;
 GLdouble G_CAMERA_POS_Y = 0.0f;
 GLdouble G_CAMERA_POS_Z = 10.0f;
 float ROTATION_SPEED = 0.5f;
+// default axis is Y
 GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};
 
 bool ON_MAC_OS = true;
+
+float INTERNAL_TIME = 0.0f;
+float GRAVIT_CONST = 9.8f;
 
 // initialize gloabl log object
 #include "Logger.h"

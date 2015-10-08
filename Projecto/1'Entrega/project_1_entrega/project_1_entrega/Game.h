@@ -6,8 +6,6 @@
 //  To add variables:
 //   #1 - Add variable in Game.h like below
 //   #2 - Define variable value in Game.cpp.
-
-
 #ifdef _WIN32
 //define something for Windows (32-bit and 64-bit, this part is common)
 #include <GL\glut.h>
@@ -61,6 +59,8 @@ extern float ROTATION_SPEED;
 extern float ROTATION_POS;
 //
 extern bool ON_MAC_OS;
+extern float INTERNAL_TIME;
+extern float GRAVIT_CONST;
 
 #endif /* defined(__project_1_entrega__Game__) */
 

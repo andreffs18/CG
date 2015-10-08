@@ -22,6 +22,10 @@ Car::Car(){
     _pos_x = 0.0f;
     _pos_y = 0.0f;
     _pos_z = 0.0f;
+    // angle that car is facing (direction)
+    _dir_angle = 0.0f;
+    // speed of car
+    _speed = 0.1f;
 };
 Car::~Car(){};
 
@@ -63,27 +67,44 @@ void Car::setPosition(GLdouble x, GLdouble y, GLdouble z){
 
 //  ---------------------------------------------------------------- update()
 //  updates car's position, velocity and rotation
-void Car::update(){
+void Car::update(float _delta){
     logger.debug("Car::update()");
     
     GLdouble new_x = this->_pos_x;
     GLdouble new_y = this->_pos_y;
     GLdouble new_z = this->_pos_z;
     
-    if(this->_move_up)
+    if(this->_move_up){
         logger.debug("UP");
-    if(this->_move_down)
+        //newp = old_p + v0*_delta + 1/2*Gravit*_delta^2
+        
+        new_x -= new_x + this->_speed*_delta + (1/2*(GRAVIT_CONST)*_delta*_delta);
+    }
+    
+    if(this->_move_down){
         logger.debug("Down");
-    if(this->_move_left)
+        new_x += new_x + this->_speed*_delta + (1/2*(GRAVIT_CONST)*_delta*_delta);
+    }
+    
+    if(this->_move_left){
         logger.debug("Left");
-    if(this->_move_right)
+        this->_dir_angle += 0.1f;
+    }
+    
+    if(this->_move_right){
         logger.debug("Right");
+        this->_dir_angle -= 0.1f;
+        std::cout << this->_dir_angle << std::endl;
+    }
+    
+    setPosition(new_x, new_y, new_z);
 };
 
 //  ------------------------------------------------------------------ draw()
 //  draws car in screen
 void Car::draw(){
     logger.debug("Car::draw()");
+    GameObject go = GameObject();
     // the size of the tores (depth) and the
     // amount of rings (how round you want it
     GLint t_sizes = 8;
@@ -98,7 +119,6 @@ void Car::draw(){
     GLdouble t_front_height = t_front_inner_size * 2 + t_front_outer_size;
     GLdouble t_back_height = t_back_inner_size * 2 + t_back_outer_size;
     
-    
     // position of front wheels in X, Y, Z space
     GLdouble t_front_pos_x = -2.5f,
              t_front_pos_y = t_front_height,
@@ -108,13 +128,18 @@ void Car::draw(){
              t_back_pos_y = t_back_height,
              t_back_pos_z = 1.5f;
     
-    GameObject go = GameObject();
     glPushMatrix();
-    
+   
+    // move car to top of track
     glTranslatef(0.0f,0.0f, 3.0f);
+    // put car paralel to track
+    glRotatef(90, 1.0f, 0.0f, 0.0f);
+    // streering whell
+    glRotated(this->_dir_angle, 0.0f, 1.0f, 0.0f);
+    // place car in this position
     glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
-    glScalef(0.1f, 0.1f, 0.1f);
-    glRotatef(90, 0.0f, 1.0f, 0.0f);
+    // scale it down
+    //glScalef(0.1f, 0.1f, 0.1f);
     
     // Draw Car
     if(ENABLE_AXIS){glPushMatrix(); go.axis(); glPopMatrix();}
@@ -145,7 +170,7 @@ void Car::draw(){
         glPopMatrix();
     glPopMatrix();
     
-    // draw body
+    // Draw body
     glPushMatrix();
         glColor3d(0, 0, 255);
         glRotatef(5, 0.0f, 0.0f, 1.0f);

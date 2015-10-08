@@ -27,7 +27,7 @@ public:
     void keyPress(int);
     void keyRelease(int);
     void drawAll();
-    void updateAll();
+    void updateAll(float);
     
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();

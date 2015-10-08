@@ -42,10 +42,10 @@ void GameManager::drawAll(){
 //  ----------------------------------------------------------- updateAll()
 //  Method that handle all the updates, calculations and what
 //  not of each object in the display
-void GameManager::updateAll(){
+void GameManager::updateAll(float delta_t){
     logger.debug("GameManager::updateAll()");
-    car.update();
-    track.update();
+    car.update(delta_t);
+    //track.update();
 };
 
 //  ----------------------------------------------------------- onReshape()
@@ -124,10 +124,10 @@ void GameManager::onDisplay(){
 //  an event. This runs all logic inside if glut has no events
 //  to run
 void GameManager::onIdle(){
-    // float new_time = glutGet(GLUT_ELAPSED_TIME);
-    // float delta_t = new_time - 0.0f;
-    // float last_time = glutGet(GLUT_ELAPSED_TIME);
-    gm.updateAll();
+    float new_time = glutGet(GLUT_ELAPSED_TIME);
+    float delta_t = new_time - INTERNAL_TIME;
+    gm.updateAll(delta_t);
+    INTERNAL_TIME = new_time;
     glutPostRedisplay();
 }
 
