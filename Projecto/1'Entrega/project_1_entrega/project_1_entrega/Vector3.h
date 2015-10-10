@@ -14,15 +14,15 @@ public:
     double getX();
     double getY();
     double getZ();
-    void setVector3(double x, double y, double z);
+    void setVector3(Vector3 * pos);
     void setX(double x);
     void setY(double y);
     void setZ(double z);
     
-    Vector3 operator=(const Vector3& other);
+    Vector3 operator=(Vector3 * other);
     Vector3 operator*(double num);
-    Vector3 operator+(const Vector3& other);
-    Vector3 operator-(const Vector3& other);
+    Vector3 operator+(Vector3 * other);
+    Vector3 operator-(Vector3 * other);
 
 };
 

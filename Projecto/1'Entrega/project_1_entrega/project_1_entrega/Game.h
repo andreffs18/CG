@@ -52,8 +52,6 @@ extern bool ON_MAC_OS;
 extern float INTERNAL_TIME;
 extern float GRAVIT_CONST;
 
-
-
 #endif /* defined(__GAME_H_INCLUDED__) */
 
 //

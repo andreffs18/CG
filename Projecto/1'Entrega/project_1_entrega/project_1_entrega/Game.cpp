@@ -28,7 +28,7 @@ bool ENABLE_AXIS = false;
 bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = false;
 
-Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 10.0f);
+Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 3.0f);
 
 float ROTATION_SPEED = 0.5f;
 GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};

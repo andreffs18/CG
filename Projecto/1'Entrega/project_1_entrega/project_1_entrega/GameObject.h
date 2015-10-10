@@ -23,8 +23,8 @@ public:
     virtual void draw();
     virtual void update(float);
     
-    Vector3* getPosition();
-    void setPosition(const Vector3& pos);
+    Vector3 * getPosition();
+    void setPosition(Vector3 * pos);
 };
 
 #endif /* defined(__GAMEOBJECT_H_INCLUDED__) */

@@ -13,10 +13,10 @@ void GameObject::draw(){};
 void GameObject::update(float){};
 
 
-Vector3 * getPosition(){
-    return this->_position;
+Vector3 * GameObject::getPosition(){
+    return _position;
 };
 
-void setPosition(const Vector3& pos){
-    _position = pos;
+void GameObject::setPosition(Vector3 * pos){
+    _position->setVector3(pos);
 };
