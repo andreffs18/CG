@@ -1,24 +1,28 @@
-#pragma once
 //
 //  project_1_entrega - GameManager.h
 //
-#ifndef __project_1_entrega__GameManager__
-#define __project_1_entrega__GameManager__
-#include "Game.h"
+#ifndef __GAMEMANAGER_H_INCLUDED__
+#define __GAMEMANAGER_H_INCLUDED__
+//#include "Game.h"
+//
+//#include "GameObject.h"
 
-#include "GameObject.h"
+//
+//#include "Car.h"
+//#include "Track.h"
+//#include "Cheerio.h"
+//#include "Orange.h"
+//#include "Butter.h"
+//
+//#include <vector>
+//#include <iostream>
+//#include <stdio.h>
+//
+#include <vector>
 #include "DynamicObject.h"
 #include "StaticObject.h"
 
-#include "Car.h"
-#include "Track.h"
-#include "Cheerio.h"
-#include "Orange.h"
-#include "Butter.h"
-
-#include <vector>
-#include <iostream>
-#include <stdio.h>
+//#include <iostream>
 
 class GameManager{
 private:
@@ -32,7 +36,7 @@ public:
     void keyPress(int);
     void keyRelease(int);
     void drawAll();
-    void updateAll(float);
+    void updateAll();
     
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();
@@ -42,4 +46,4 @@ public:
     static void onIdle();
 };
 
-#endif /* defined(__project_1_entrega__GameManager__) */
+#endif /* defined(__GAMEMANAGER_H_INCLUDED__) */

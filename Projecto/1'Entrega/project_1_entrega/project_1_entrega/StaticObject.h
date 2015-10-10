@@ -1,18 +1,19 @@
-#pragma once
 //
-//  StaticObject.h
-//  project_1_entrega
-//
-//  Created by André Silva on 10/10/15.
-//
+//  project_1_entrega - StaticObject.h
 //
 
-#ifndef __project_1_entrega__StaticObject__
-#define __project_1_entrega__StaticObject__
-
-#include "Game.h"
+#ifndef __STATICOBJECT_H_INCLUDED__
+#define __STATICOBJECT_H_INCLUDED__
+//#ifdef _WIN32
+////define something for Windows (32-bit and 64-bit, this part is common)
+//#include <GL\glut.h>
+//#elif __APPLE__
+//// Other kinds of Mac OS
+//#include <GLUT/glut.h>
+//#endif
+//#include <stdio.h>
 #include "GameObject.h"
-#include <stdio.h>
+//
 
 class StaticObject : public GameObject{
 protected:
@@ -23,4 +24,4 @@ public:
     void draw();
 };
 
-#endif /* defined(__project_1_entrega__StaticObject__) */
+#endif /* defined(__STATICOBJECT_H_INCLUDED__) */

@@ -1,14 +1,11 @@
-#pragma once
 //
 //  project_1_entrega - Cheerio.h
 //
+#ifndef __CHEERIO_H_INCLUDED__
+#define __CHEERIO_H_INCLUDED__
 
-#ifndef __project_1_entrega__Cheerio__
-#define __project_1_entrega__Cheerio__
-
-#include "Game.h"
-#include <iostream>
-#include <stdio.h>
+#include "StaticObject.h"
+//#include <stdio.h>
 
 class Cheerio : public StaticObject{
 private:
@@ -18,4 +15,4 @@ public:
     void draw();
 };
 
-#endif /* defined(__project_1_entrega__Cheerio__) */
+#endif /* defined(__CHEERIO_H_INCLUDED__) */

@@ -1,17 +1,12 @@
-#pragma once
 //
 //  project_1_entrega - Track.h
 //
 
-#ifndef __project_1_entrega__Track__
-#define __project_1_entrega__Track__
+#ifndef __TRACK_H_INCLUDED__
+#define __TRACK_H_INCLUDED__
 
-#include "Game.h"
-#include "GameObject.h"
-#include "Cheerio.h"
-#include "Car.h"
-#include <iostream>
-#include <stdio.h>
+//#include "StaticObject.h"
+//#include <stdio.h>
 
 class Track : public StaticObject{
 private:
@@ -19,6 +14,7 @@ private:
     int _qtd_cheerios;
     // inner and outter radious of the track
     GLdouble _inner_circle, _outer_circle;
+    void drawTrackModel();
 public:
     Track();
     Track(int qtd_cheerios,
@@ -28,4 +24,4 @@ public:
     void draw();
 };
 
-#endif /* defined(__project_1_entrega__Track__) */
+#endif /* defined(__TRACK_H_INCLUDED__) */

@@ -1,15 +1,12 @@
-#pragma once
 //
 //  project_1_entrega - Car.h
 //
+#ifndef __CAR_H_INCLUDED__
+#define __CAR_H_INCLUDED__
 
-#ifndef __project_1_entrega__Car__
-#define __project_1_entrega__Car__
-
-#include <complex>
-#include <stdio.h>
-#include "Game.h"
-#include "GameObject.h"
+//#include "GameObject.h"
+//#include <stdio.h>
+#include "DynamicObject.h"
 
 class Car: public DynamicObject{
 private:
@@ -33,4 +30,4 @@ public:
     void keyRelease(int);
 };
 
-#endif /* defined(__project_1_entrega__Car__) */
+#endif /* defined(__CAR_H_INCLUDED__) */

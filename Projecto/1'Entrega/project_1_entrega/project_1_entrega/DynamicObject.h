@@ -1,22 +1,23 @@
-#pragma once
 //
-//  DynamicObject.h
-//  project_1_entrega
-//
-//  Created by André Silva on 10/10/15.
-//
+//  project_1_entrega - DynamicObject.h
 //
 
-#ifndef __project_1_entrega__DynamicObject__
-#define __project_1_entrega__DynamicObject__
-
-
-#include "Game.h"
+#ifndef __DYNAMICOBJECT_H_INCLUDED__
+#define __DYNAMICOBJECT_H_INCLUDED__
+//#ifdef _WIN32
+////define something for Windows (32-bit and 64-bit, this part is common)
+//#include <GL\glut.h>
+//#elif __APPLE__
+//// Other kinds of Mac OS
+//#include <GLUT/glut.h>
+//#endif
+//
 #include "GameObject.h"
-#include <stdio.h>
+//#include <stdio.h>
 
 class DynamicObject : public GameObject{
 protected:
+    GLdouble _speed;
 public:
     DynamicObject();
     ~DynamicObject();
@@ -28,4 +29,4 @@ public:
     void keyRelease(int);    
 };
 
-#endif /* defined(__project_1_entrega__DynamicObject__) */
+#endif /* defined(__DYNAMICOBJECT_H_INCLUDED__) */

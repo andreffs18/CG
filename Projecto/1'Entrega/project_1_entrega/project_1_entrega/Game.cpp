@@ -1,12 +1,21 @@
 //
 //  project_1_entrega
 //  Created by Ana Galvão, André Silva, Daniel Pinho on 25/9/15.
-//
-#ifndef project_1_entrega_Game_h
-#define project_1_entrega_Game_h
-
+//#include <iostream>
+//#include <stdlib.h>
 // description of each global var in Game.h
+
+//#ifndef project_1_entrega_Game_h
+//#ifdef _WIN32
+////define something for Windows (32-bit and 64-bit, this part is common)
+//#include <GL\glut.h>
+//#elif __APPLE__
+//// Other kinds of Mac OS
+//#include <GLUT/glut.h>
+//#endif
+
 #include "Game.h"
+
 const char * WINDOW_NAME = "Projecto #1 Entrega";
 int VIEWPORT_WIDTH = 600;
 int VIEWPORT_HEIGHT = 600;
@@ -39,7 +48,7 @@ GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};
 Log logger = Log();
 // initialize game manager
 GameManager gm = GameManager();
-#endif
+
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {
@@ -57,7 +66,8 @@ int main(int argc, char * argv[]) {
     glutCreateWindow(WINDOW_NAME);
     
     // stops continuisly pressing keyboard
-    glutIgnoreKeyRepeat(1);
+    // glutIgnoreKeyRepeat(1);
+    logger.error("on main");
     
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);

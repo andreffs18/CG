@@ -1,7 +1,20 @@
 //
 //  project_1_entrega - GameManager.cpp
-//
+//#ifdef _WIN32
+////define something for Windows (32-bit and 64-bit, this part is common)
+//#include <GL\glut.h>
+//#elif __APPLE__
+//// Other kinds of Mac OS
+//#include <GLUT/glut.h>
+//#endif
+#include "Game.h"
 #include "GameManager.h"
+
+#include "Car.h"
+#include "Track.h"
+#include "Cheerio.h"
+#include "Orange.h"
+#include "Butter.h"
 
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
@@ -12,15 +25,16 @@ GameManager::GameManager(){
     std::vector<StaticObject *> _static_objects;
     
     Car * car = new Car();
-    _dynamic_objects.push_back(car);
+    this->_dynamic_objects.push_back(car);
+    
     Track * track = new Track(32, 0.4, 0.6);
-    _static_objects.push_back(track);
-    Cheerio * cherrio = new Cheerio();
-    _static_objects.push_back(cherrio);
+    this->_static_objects.push_back(track);
+    Cheerio * cheerio = new Cheerio();
+    this->_static_objects.push_back(cheerio);
     Orange * orange = new Orange();
-    _dynamic_objects.push_back(orange);
+    this->_dynamic_objects.push_back(orange);
     Butter * butter = new Butter();
-    _static_objects.push_back(butter);
+    this->_static_objects.push_back(butter);
 };
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
@@ -57,7 +71,7 @@ void GameManager::drawAll(){
 //  ----------------------------------------------------------- updateAll()
 //  Method that handle all the updates, calculations and what
 //  not of each object in the display
-void GameManager::updateAll(float delta_t){
+void GameManager::updateAll(){
     logger.debug("GameManager::updateAll()");
     _current_time = glutGet(GLUT_ELAPSED_TIME);
     for(GameObject * obj : _dynamic_objects){
@@ -128,10 +142,8 @@ void GameManager::onDisplay(){
               G_CAMERA_POS_Z, // the position of your camera, in world space
               0.0f, 0.0f, 0.0f,  // where is the camera pointing to
               AXIS[0], AXIS[1], AXIS[2]); // which axis is the up
-    
     // draw all objects
     gm.drawAll();
-
     // force the execution of the GL commands
     (ENABLE_DOUBLE_BUFFER) ? glutSwapBuffers() : glFlush();
     
