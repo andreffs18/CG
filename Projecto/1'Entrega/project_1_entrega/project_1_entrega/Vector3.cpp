@@ -22,10 +22,26 @@ double Vector3::getZ() {
     return _z;
 }
 
-void Vector3::setVector3(double x, double y, double z) {
+//
+//void Vector3::setVector3(double x, double y, double z) {
+//    _x = x;
+//    _y = y;
+//    _z = z;
+//}
+
+void Vector3::setX(double x){
     _x = x;
+    
+}
+
+void Vector3::setY(double y){
     _y = y;
+    
+}
+
+void Vector3::setZ(double z){
     _z = z;
+    
 }
 
 // equals operation

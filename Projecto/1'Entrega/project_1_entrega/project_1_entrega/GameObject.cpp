@@ -14,7 +14,7 @@ void GameObject::update(float){};
 
 
 Vector3 * getPosition(){
-    return _position;
+    return this->_position;
 };
 
 void setPosition(const Vector3& pos){

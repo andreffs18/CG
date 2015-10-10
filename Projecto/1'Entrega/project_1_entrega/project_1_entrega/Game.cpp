@@ -4,6 +4,7 @@
 //
 // description of each global var in Game.h
 #include "Game.h"
+#include <vector>
 
 const char * WINDOW_NAME = "Projecto #1 Entrega";
 int VIEWPORT_WIDTH = 600;
@@ -27,9 +28,8 @@ bool ENABLE_AXIS = false;
 bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = false;
 
-GLdouble G_CAMERA_POS_X = 0.0f;
-GLdouble G_CAMERA_POS_Y = 0.0f;
-GLdouble G_CAMERA_POS_Z = 3.0f;
+Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 10.0f);
+
 float ROTATION_SPEED = 0.5f;
 GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};
 
