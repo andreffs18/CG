@@ -20,6 +20,7 @@ void Orange::draw(){
 	GameObject go = GameObject();
 
 	glPushMatrix();
+    glTranslatef(0.0f, 0.0f, 3.0f);
 	glColor3f(1.0, 0.4, 0.0);
 	glScalef(0.025, 0.025, 0.025);
 		glPushMatrix();

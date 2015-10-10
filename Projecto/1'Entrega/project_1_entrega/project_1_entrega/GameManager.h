@@ -15,11 +15,13 @@
 #include "Track.h"
 #include "Car.h"
 #include "Cheerio.h"
+#include "Orange.h"
 
 class GameManager{
 private:
     Car car;
     Track track;
+    Orange orange;
 public:
     GameManager();
     ~GameManager();
