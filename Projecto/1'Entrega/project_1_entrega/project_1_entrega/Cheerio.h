@@ -12,7 +12,7 @@ private:
 public:
     Cheerio();
     ~Cheerio();
-    void draw(float, float, float);
+    void draw();
 };
 
 #endif /* defined(__project_1_entrega__Cheerio__) */

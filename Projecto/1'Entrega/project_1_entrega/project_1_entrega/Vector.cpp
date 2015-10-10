@@ -15,15 +15,15 @@ Vector3::Vector3(double x, double y, double z) {
     _z = z;
 }
 
-double Vector3::getVectorX() {
+double Vector3::getX() {
     return _x;
 }
 
-double Vector3::getVectorY() {
+double Vector3::getY() {
     return _y;
 }
 
-double Vector3::getVectorZ() {
+double Vector3::getZ() {
     return _z;
 }
 

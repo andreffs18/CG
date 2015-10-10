@@ -17,11 +17,11 @@ GameObject::~GameObject(){};
 void GameObject::draw(){};
 
 void GameObject::customSolidCube(){
-    
     // draw cube with 1unit as size
     // glutSolidCube(1.0f);
-    glBegin(GL_POLYGON);
+    glPushMatrix();
     glColor3f(0.5f, 0.35f, 0.05f);
+    glBegin(GL_POLYGON);
     glVertex3f(-1.0, -1.0, 1.0);
     glVertex3f(1.0, -1.0, 1.0);
     glVertex3f(1.0, 1.0, 1.0);
@@ -29,16 +29,13 @@ void GameObject::customSolidCube(){
     glEnd();
     
     glBegin(GL_POLYGON);
-    glColor3f(0.5f, 0.35f, 0.05f);
     glVertex3f(-1.0, 1.0, 1.0);
     glVertex3f(1.0, 1.0, 1.0);
     glVertex3f(1.0, 1.0, -1.0);
     glVertex3f(-1.0, -1.0, 1.0);
     glEnd();
     
-    // FRONT
     glBegin(GL_POLYGON);
-    glColor3f(0.5f, 0.35f, 0.05f);
     glVertex3f(-1.0, 1.0, -1.0);
     glVertex3f(1.0, 1.0, -1.0);
     glVertex3f(1.0, -1.0, -1.0);
@@ -46,7 +43,6 @@ void GameObject::customSolidCube(){
     glEnd();
     
     glBegin(GL_POLYGON);
-    glColor3f(0.5f, 0.35f, 0.05f);
     glVertex3f(-1.0, -1.0, -1.0);
     glVertex3f(1.0, -1.0, -1.0);
     glVertex3f(1.0, -1.0, 1.0);
@@ -54,7 +50,6 @@ void GameObject::customSolidCube(){
     glEnd();
     
     glBegin(GL_POLYGON);
-    glColor3f(0.5f, 0.35f, 0.05f);
     glVertex3f(1.0, -1.0, 1.0);
     glVertex3f(1.0, -1.0, -1.0);
     glVertex3f(1.0, 1.0, -1.0);
@@ -62,15 +57,13 @@ void GameObject::customSolidCube(){
     glEnd();
     
     glBegin(GL_POLYGON);
-    glColor3f(0.5f, 0.35f, 0.05f);
     glVertex3f(-1.0, -1.0,-1.0);
     glVertex3f(-1.0, -1.0, 1.0);
     glVertex3f(-1.0, 1.0, 1.0);
     glVertex3f(-1.0, 1.0, -1.0);
     glEnd();
     
-    
-
+    glPopMatrix();
 };
 
 void GameObject::axis(GLdouble size){

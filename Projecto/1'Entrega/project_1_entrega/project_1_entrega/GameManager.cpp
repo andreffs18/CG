@@ -15,8 +15,7 @@
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
     car = Car();
-    track = Track();
-    orange = Orange();
+    track = Track(32, 0.4, 0.6);
 };
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
@@ -38,7 +37,7 @@ void GameManager::drawAll(){
     logger.debug("GameManager::drawAll()");
     car.draw();
     track.draw();
-    orange.draw();
+    //orange.draw();
 };
 
 //  ----------------------------------------------------------- updateAll()

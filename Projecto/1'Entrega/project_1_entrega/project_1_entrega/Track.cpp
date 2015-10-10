@@ -15,108 +15,54 @@
 #include "Car.h"
 #include <iostream>
 
-Track::Track(){};
+#define AMOUNT 1.0f  // scale on track for a factor of AMOUNT
+
+Track::Track(){
+    _qtd_cheerios = 32;
+    _inner_circle = 0.4;
+    _outer_circle = 0.8;
+};
+
+Track::Track(int qtd_cheerios, GLdouble inner_circle, GLdouble outer_circle){
+    _qtd_cheerios = qtd_cheerios;
+    _inner_circle = inner_circle;
+    _outer_circle = outer_circle;
+};
+
 Track::~Track(){};
 
 void Track::update(){};
 
 void Track::draw(){
     logger.debug("Track::draw()");
+    
     GameObject go = GameObject();
     
 	glPushMatrix();
-	glScalef(5.5, 5.5, 1.5f);
+    // scale everything up by a factor of AMOUNT
+    glScalef(AMOUNT, AMOUNT, 1.0f);
+    // track is just a solid cube
     go.customSolidCube();
-    if(ENABLE_AXIS) go.axis((GLdouble)10.f);
-    
-    glTranslatef(0.0, 0.0, 1.0);
-	//Exterior da pista
-	while (pos_y < 1.7) {
-		pos_y += 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_x < 1.5) {
-		pos_x += 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_y > 0.8) {
-		pos_y -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_x > 0.8) {
-		pos_x -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_y > 0.0) {
-		pos_y -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_x < 1.5) {
-		pos_x += 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_y > -1.5) {
-		pos_y -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_x > -1.5) {
-		pos_x -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-
-	pos_x = -1.0;
-	pos_y = -1.2;
-
-	//Interior da pista
-	while (pos_y < 1.2) {
-		pos_y += 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_x < 1.0) {
-		pos_x += 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_y > 1.1) {
-		pos_y -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_x > 0.2) {
-		pos_x -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_y > -0.3) {
-		pos_y -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_x < 0.9) {
-		pos_x += 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_y > -1.0) {
-		pos_y -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
-	while (pos_x > -1.0) {
-		pos_x -= 0.2;
-		Cheerio c = Cheerio();
-		c.draw(pos_x, pos_y, pos_z);
-	}
+    // angle start position
+    GLdouble angle = 0.0f;
+    Cheerio c = Cheerio();
+    for(int i = 0; angle < 360.0f; angle += 360.0f / (this->_qtd_cheerios), i++){
+        // we draw the outer cheerio twice as much as the inner one
+        // in a pair instance of the angle we dra both, otherwise
+        // we just draw the outer cheerio
+        if(i % 2 == 0){
+            glPushMatrix();
+            glRotatef(angle, 0.0f, 0.0f, 1.0f);
+            glTranslatef(this->_inner_circle, 0.0f, 1.0f);
+            c.draw();
+            glPopMatrix();
+        }
+        glPushMatrix();
+        glRotatef(angle, 0.0f, 0.0f, 1.0f);
+        glTranslatef(this->_outer_circle, 0.0f, 1.0f);
+        c.draw();
+        glPopMatrix();
+    }
     glPopMatrix();
-    
 };
 

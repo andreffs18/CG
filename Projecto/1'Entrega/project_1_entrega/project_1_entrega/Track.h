@@ -9,11 +9,15 @@
 
 class Track{
 private:
-	float pos_x = -1.5;
-	float pos_y = -1.5;
-	float pos_z = 0.0;
+    // amount of cheerios in the inner circle
+    int _qtd_cheerios;
+    // inner and outter radious of the track
+    GLdouble _inner_circle, _outer_circle;
 public:
     Track();
+    Track(int qtd_cheerios,
+          GLdouble inner_circle = 0.4,
+          GLdouble outer_circle = 0.8);
     ~Track();
     void draw();
     void update();
