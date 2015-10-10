@@ -3,7 +3,6 @@
 //
 #include "Logger.h"
 #include "Game.h"
-#include <iostream>
 
 Log::Log(){
     _debug = DEBUG_LOG;

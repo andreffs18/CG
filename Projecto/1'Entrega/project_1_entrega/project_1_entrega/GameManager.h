@@ -1,27 +1,30 @@
+#pragma once
 //
 //  project_1_entrega - GameManager.h
 //
-
 #ifndef __project_1_entrega__GameManager__
 #define __project_1_entrega__GameManager__
-#ifdef _WIN32
-//define something for Windows (32-bit and 64-bit, this part is common)
-#include <GL\glut.h>
-#elif __APPLE__
-// Other kinds of Mac OS
-#include <GLUT/glut.h>
-#endif
-#include <stdio.h>
-#include "Track.h"
+#include "Game.h"
+
+#include "GameObject.h"
+#include "DynamicObject.h"
+#include "StaticObject.h"
+
 #include "Car.h"
+#include "Track.h"
 #include "Cheerio.h"
 #include "Orange.h"
+#include "Butter.h"
+
+#include <vector>
+#include <iostream>
+#include <stdio.h>
 
 class GameManager{
 private:
-    Car car;
-    Track track;
-    Orange orange;
+    std::vector<StaticObject *> _static_objects;
+    std::vector<DynamicObject *> _dynamic_objects;
+    int _current_time, _previous_time;
 public:
     GameManager();
     ~GameManager();
