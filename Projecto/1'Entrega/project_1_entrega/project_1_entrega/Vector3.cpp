@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include "Vector3.h"
 
-/* Vector3 v1 = Vector3(4, 3, 6);
-Vector3 v2 = Vector3(1, 2, 3);
- */
 
 Vector3::Vector3(double x, double y, double z) {
     _x = x;
@@ -28,10 +25,26 @@ double Vector3::getZ() {
     return _z;
 }
 
-void Vector3::setVector3(double x, double y, double z) {
+//
+//void Vector3::setVector3(double x, double y, double z) {
+//    _x = x;
+//    _y = y;
+//    _z = z;
+//}
+
+void Vector3::setX(double x){
     _x = x;
+    
+}
+
+void Vector3::setY(double y){
     _y = y;
+    
+}
+
+void Vector3::setZ(double z){
     _z = z;
+    
 }
 
 // equals operation

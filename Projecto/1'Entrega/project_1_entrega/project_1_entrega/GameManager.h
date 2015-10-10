@@ -6,7 +6,7 @@
 //#include "Game.h"
 //
 //#include "GameObject.h"
-
+#include <vector>
 #include "DynamicObject.h"
 #include "StaticObject.h"
 

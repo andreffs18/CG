@@ -11,6 +11,7 @@
 
 #include "Logger.h"
 #include "GameManager.h"
+#include "Vector3.h"
 
 // WIDTH and HEIGHT size of game window
 extern int VIEWPORT_WIDTH;
@@ -40,9 +41,7 @@ extern bool ENABLE_DEPTH;
 // Turn on/off double buffer
 extern bool ENABLE_DOUBLE_BUFFER;
 // Global Position for the camera
-extern GLdouble G_CAMERA_POS_X;
-extern GLdouble G_CAMERA_POS_Y;
-extern GLdouble G_CAMERA_POS_Z;
+extern Vector3 * POSCAM;
 extern GLdouble AXIS[3];
 // Specific velocity
 extern float ROTATION_SPEED;
@@ -52,6 +51,8 @@ extern float ROTATION_POS;
 extern bool ON_MAC_OS;
 extern float INTERNAL_TIME;
 extern float GRAVIT_CONST;
+
+
 
 #endif /* defined(__GAME_H_INCLUDED__) */
 
