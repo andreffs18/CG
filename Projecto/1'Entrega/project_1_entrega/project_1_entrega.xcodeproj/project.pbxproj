@@ -18,6 +18,7 @@
 		0EA87E291BB96605004BD956 /* Cheerio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E271BB96605004BD956 /* Cheerio.cpp */; };
 		0EA87E2C1BB96755004BD956 /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E2A1BB96755004BD956 /* Track.cpp */; };
 		0EA87E321BB96DF5004BD956 /* Car.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EA87E301BB96DF5004BD956 /* Car.cpp */; };
+		EF6041391BC928EE00D8BE75 /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF6041371BC928EE00D8BE75 /* Vector.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +55,8 @@
 		0EA87E2B1BB96755004BD956 /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
 		0EA87E301BB96DF5004BD956 /* Car.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Car.cpp; sourceTree = "<group>"; };
 		0EA87E311BB96DF5004BD956 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
+		EF6041371BC928EE00D8BE75 /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
+		EF6041381BC928EE00D8BE75 /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,8 @@
 				0EA87E281BB96605004BD956 /* Cheerio.h */,
 				0E55AD261BC51E7800C3F737 /* Butter.cpp */,
 				0E55AD271BC51E7800C3F737 /* Butter.h */,
+				EF6041371BC928EE00D8BE75 /* Vector.cpp */,
+				EF6041381BC928EE00D8BE75 /* Vector.h */,
 				0E6284951BBD59DD00EC5600 /* Orange.cpp */,
 				0E6284961BBD59DD00EC5600 /* Orange.h */,
 			);
@@ -169,6 +174,7 @@
 			files = (
 				0EA87E211BB813DD004BD956 /* GameObject.cpp in Sources */,
 				0E2D30981BB5F73C00F9AC4D /* Game.cpp in Sources */,
+				EF6041391BC928EE00D8BE75 /* Vector.cpp in Sources */,
 				0EA87E1E1BB8065A004BD956 /* Logger.cpp in Sources */,
 				0EA87E2C1BB96755004BD956 /* Track.cpp in Sources */,
 				0E55AD291BC51E7800C3F737 /* Butter.cpp in Sources */,
