@@ -1,7 +1,6 @@
 #ifndef __project_1_entrega__Vector__
 #define __project_1_entrega__Vector__
 
-
 #include <stdio.h>
 class Vector3 {
     
@@ -25,7 +24,5 @@ public:
     Vector3 operator-(const Vector3& vec);
 
 };
-
-
 
 #endif /* Vector_h */
