@@ -1,12 +1,9 @@
-#pragma once
 //
 //  project_1_entrega - Logger.h
 //
+#ifndef __LOGGER_H_INCLUDED__
+#define __LOGGER_H_INCLUDED__
 
-#ifndef __project_1_entrega__Logger__
-#define __project_1_entrega__Logger__
-
-#include <stdio.h>
 #include <iostream>
 
 class Log{
@@ -20,4 +17,4 @@ public:
     void error(const std::string & s);
 };
 
-#endif /* defined(__project_1_entrega__Logger__) */
+#endif /* defined(__LOGGER_H_INCLUDED__) */

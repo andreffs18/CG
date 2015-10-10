@@ -1,8 +1,9 @@
 //
 //  project_1_entrega - Logger.cpp
 //
-#include "Logger.h"
 #include "Game.h"
+#include "Logger.h"
+#include <iostream>
 
 Log::Log(){
     _debug = DEBUG_LOG;

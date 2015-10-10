@@ -1,14 +1,20 @@
-#pragma once
 //
 //  project_1_entrega - Orange.h
 //
 
-#ifndef __project_1_entrega__Orange__
-#define __project_1_entrega__Orange__
-
-#include "Game.h"
-#include "GameObject.h"
-#include <stdio.h>
+#ifndef __ORANGE_H_INCLUDED__
+#define __ORANGE_H_INCLUDED__
+//#ifdef _WIN32
+////define something for Windows (32-bit and 64-bit, this part is common)
+//#include <GL\glut.h>
+//#elif __APPLE__
+//// Other kinds of Mac OS
+//#include <GLUT/glut.h>
+//#endif
+//#include "Game.h"
+//#include "GameObject.h"
+#include "DynamicObject.h"
+//#include <stdio.h>
 
 class Orange : public DynamicObject{
 private:
@@ -20,4 +26,4 @@ public:
     void update(float);
 };
 
-#endif /* defined(__project_1_entrega__Orange__) */
+#endif /* defined(__ORANGE_H_INCLUDED__) */

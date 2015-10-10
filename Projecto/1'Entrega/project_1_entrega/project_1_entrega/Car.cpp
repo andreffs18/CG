@@ -1,11 +1,22 @@
 //
 //  project_1_entrega - Car.cpp
 //
+//#ifdef _WIN32
+////define something for Windows (32-bit and 64-bit, this part is common)
+//#include <GL\glut.h>
+//#elif __APPLE__
+//// Other kinds of Mac OS
+//#include <GLUT/glut.h>
+//#endif
+#include <complex>
+//#include "Game.h"
+#include "Game.h"
 #include "Car.h"
+//#include "GameObject.h"
 
 #define SPEED 0.00005
 #define MAX_VELOCITY 0.0030
-Car::Car(){
+Car::Car() : DynamicObject(){
     // car is not moving
     _move_up = false;
     _move_down = false;
