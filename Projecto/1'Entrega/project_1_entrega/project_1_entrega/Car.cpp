@@ -154,7 +154,10 @@ void Car::update(float _delta){
 //  draws car in screen
 void Car::draw(){
     logger.debug("Car::draw()");
+    
     GameObject go = GameObject();
+    
+    glPushMatrix();
     // the size of the tores (depth) and the
     // amount of rings (how round you want it
     GLint t_sizes = 8;
@@ -177,28 +180,16 @@ void Car::draw(){
     GLdouble t_back_pos_x = 2.5f,
              t_back_pos_y = t_back_height,
              t_back_pos_z = 1.5f;
-    
-    glPushMatrix();
+
    
     // move car to top of track
     glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
     glRotated(this->_dir_angle, 0.0f, 0.0f, 1.0f);
-    glTranslatef(0.0f,0.0f, 3.0f);
+    glTranslatef(0.0f,0.0f, 1.0f);
     glRotatef(90, 1.0f, 0.0f, 0.0f);
     glScalef(0.1f, 0.1f, 0.1f);
 
-    // put car paralel to track
 
-    
-    // streering whell
-//    glRotated(this->_dir_angle, 0.0f, 1.0f, 0.0f);
-    // place car in this position
-
-    // scale it down
-
-    
-    // Draw Car
-    if(ENABLE_AXIS){glPushMatrix(); go.axis(); glPopMatrix();}
     
     // draw wheels
     glPushMatrix();
