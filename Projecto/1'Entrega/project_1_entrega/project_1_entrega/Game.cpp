@@ -67,7 +67,6 @@ int main(int argc, char * argv[]) {
     
     // stops continuisly pressing keyboard
     // glutIgnoreKeyRepeat(1);
-    logger.error("on main");
     
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);

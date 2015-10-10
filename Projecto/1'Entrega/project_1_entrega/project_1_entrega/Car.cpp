@@ -155,9 +155,6 @@ void Car::update(float delta){
 //  draws car in screen
 void Car::draw(){
     logger.debug("Car::draw()");
-    
-    GameObject go = GameObject();
-    
     glPushMatrix();
     // move car to top of track
     glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
