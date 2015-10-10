@@ -40,6 +40,8 @@ Vector3 Vector3::operator=(const Vector3 &vec) {
     return * this;
 }
 
+
+// vector mul operator
 Vector3 Vector3::operator*(double num) {
     double newX = _x*num;
     double newY = _y*num;
@@ -48,7 +50,7 @@ Vector3 Vector3::operator*(double num) {
     return Vector3(newX, newY, newZ);
     
 }
-
+// vector sum operator
 Vector3 Vector3::operator+(const Vector3& other) {
     double sumX = getVectorX() + other._x;
     double sumY = getVectorY()+ other._y;
@@ -59,6 +61,7 @@ Vector3 Vector3::operator+(const Vector3& other) {
     return sumVector;
 }
 
+// vector subtraction operator
 Vector3 Vector3::operator-(const Vector3& other) {
     double subX = getVectorX() - other._x;
     double subY = getVectorY() - other._y;
