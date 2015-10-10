@@ -6,7 +6,6 @@
 #define __project_1_entrega__GameManager__
 #include "Game.h"
 
-#include "GameObject.h"
 #include "DynamicObject.h"
 #include "StaticObject.h"
 
