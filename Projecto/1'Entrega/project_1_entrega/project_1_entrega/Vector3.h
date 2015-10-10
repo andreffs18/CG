@@ -2,7 +2,7 @@
 #define __project_1_entrega__Vector__
 
 #include <stdio.h>
-class Vector3d {
+class Vector3 {
     
 private:
     double _x;
@@ -10,19 +10,19 @@ private:
     double _z;
 
 public:
-    Vector3d(double x, double y, double z);
-    ~Vector3d();
+    Vector3(double x, double y, double z);
+    ~Vector3();
     
     double getX();
     double getY();
     double getZ();
-    void setVector3d(double x, double y, double z);
+    void setVector3(double x, double y, double z);
     
-    Vector3d operator=(const Vector3d& other);
-    Vector3d operator*(double num);
-    Vector3d operator+(const Vector3d& other);
-    Vector3d operator-(const Vector3d& other);
+    Vector3 operator=(const Vector3& other);
+    Vector3 operator*(double num);
+    Vector3 operator+(const Vector3& other);
+    Vector3 operator-(const Vector3& other);
 
 };
 
-#endif /* Vector3d_h */
+#endif /* Vector3_h */
