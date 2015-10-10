@@ -5,9 +5,6 @@
 #ifndef __TRACK_H_INCLUDED__
 #define __TRACK_H_INCLUDED__
 
-//#include "StaticObject.h"
-//#include <stdio.h>
-
 class Track : public StaticObject{
 private:
     // amount of cheerios in the inner circle

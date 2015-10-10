@@ -5,7 +5,6 @@
 #define __CHEERIO_H_INCLUDED__
 
 #include "StaticObject.h"
-//#include <stdio.h>
 
 class Cheerio : public StaticObject{
 private:

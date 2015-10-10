@@ -4,8 +4,6 @@
 #ifndef __CAR_H_INCLUDED__
 #define __CAR_H_INCLUDED__
 
-//#include "GameObject.h"
-//#include <stdio.h>
 #include "DynamicObject.h"
 
 class Car: public DynamicObject{

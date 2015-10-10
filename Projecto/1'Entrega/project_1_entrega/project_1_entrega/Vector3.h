@@ -1,9 +1,7 @@
-#ifndef __project_1_entrega__Vector__
-#define __project_1_entrega__Vector__
+#ifndef __VECTOR3_H_INCLUDED__
+#define __VECTOR3_H_INCLUDED__
 
-#include <stdio.h>
 class Vector3 {
-    
 private:
     double _x;
     double _y;
@@ -22,7 +20,6 @@ public:
     Vector3 operator*(double num);
     Vector3 operator+(const Vector3& vec);
     Vector3 operator-(const Vector3& vec);
-
 };
 
-#endif /* Vector_h */
+#endif /* __VECTOR3_H_INCLUDED__ */
