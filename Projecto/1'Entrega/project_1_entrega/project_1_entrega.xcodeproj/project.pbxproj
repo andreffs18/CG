@@ -121,6 +121,8 @@
 				0EA87E201BB813DD004BD956 /* GameObject.h */,
 				0EC2E7DA1BC95DF300E148AB /* DynamicObject.cpp */,
 				0EC2E7DB1BC95DF300E148AB /* DynamicObject.h */,
+				EF151F621BC9702D00B6071E /* Vector3.cpp */,
+				EF151F631BC9702D00B6071E /* Vector3.h */,
 				0EC2E7DD1BC95DFF00E148AB /* StaticObject.cpp */,
 				0EC2E7DE1BC95DFF00E148AB /* StaticObject.h */,
 			);
