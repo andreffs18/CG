@@ -35,7 +35,7 @@ bool ENABLE_DOUBLE_BUFFER = false;
 
 GLdouble G_CAMERA_POS_X = 0.0f;
 GLdouble G_CAMERA_POS_Y = 0.0f;
-GLdouble G_CAMERA_POS_Z = 10.0f;
+GLdouble G_CAMERA_POS_Z = 12.0f;
 float ROTATION_SPEED = 0.5f;
 // default axis is Y
 GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};

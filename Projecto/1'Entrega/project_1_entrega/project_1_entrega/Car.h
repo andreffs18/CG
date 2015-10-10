@@ -13,10 +13,11 @@ class Car: public GameObject{
 private:
     GLdouble _pos_x, _pos_y, _pos_z;
     GLdouble _dir_angle;
-    GLdouble _speed;
+    GLdouble _speed_x, _speed_y, _speed_z;
     bool _move_up, _move_down, _move_left, _move_right;
     
     void setPosition(GLdouble, GLdouble, GLdouble);
+    void setSpeed(GLdouble, GLdouble, GLdouble);
 public:
     Car();
     ~Car();
