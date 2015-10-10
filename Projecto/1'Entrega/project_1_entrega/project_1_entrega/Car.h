@@ -8,6 +8,8 @@
 
 class Car: public DynamicObject{
 private:
+    Vector3 _position = 
+
     GLdouble _pos_x, _pos_y, _pos_z;
     GLdouble _dir_angle;
     GLdouble _speed_x, _speed_y, _speed_z;
