@@ -16,10 +16,11 @@ public:
     double getZ();
     void setVector3(double x, double y, double z);
     
-    Vector3 operator=(const Vector3& vec);
+    Vector3 operator=(const Vector3& other);
     Vector3 operator*(double num);
-    Vector3 operator+(const Vector3& vec);
-    Vector3 operator-(const Vector3& vec);
+    Vector3 operator+(const Vector3& other);
+    Vector3 operator-(const Vector3& other);
+
 };
 
 #endif /* __VECTOR3_H_INCLUDED__ */

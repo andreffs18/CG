@@ -17,8 +17,7 @@ public:
     void update(float);
     
     
-    void setSpeed()
-    void 
+    void setSpeed();
     
     void keyPress(int);
     void keyRelease(int);    

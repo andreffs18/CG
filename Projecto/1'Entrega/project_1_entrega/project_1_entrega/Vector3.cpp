@@ -28,36 +28,35 @@ void Vector3::setVector3(double x, double y, double z) {
     _z = z;
 }
 
+// equals operation
 Vector3 Vector3::operator=(const Vector3 &other) {
     _x = other._x;
     _y = other._y;
     _z = other._z;
     return * this;
 }
-
+// mul operation
 Vector3 Vector3::operator*(double num) {
-    _x = _x*num;
-    _y = _y*num;
-    _z = _z*num;
+    _x = getX() * num;
+    _y = getY() * num;
+    _z = getZ() * num;
     return * this;
 }
 
-Vector3 Vector3::operator+(const Vector3 &other) {
-    double sumX = getX() + other._x;
-    double sumY = getY() + other._y;
-    double sumZ = getZ() + other._z;
-    
-    Vector3 sumVector(sumX, sumY, sumZ);
-    
-    return sumVector;
+// sum operation
+Vector3 Vector3:: operator+(const Vector3& other) {
+    _x = getX() + other._x;
+    _y = getY() + other._y;
+    _z = getZ() + other._z;
+    return * this;
 }
 
+// sub operation
 Vector3 Vector3::operator-(const Vector3 &other) {
-    double subX = getX() - other._x;
-    double subY = getY() - other._y;
-    double subZ = getZ() - other._z;
-    
-    return Vector3(subX, subY, subZ);
+    _x = getX() - other._x;
+    _y = getY() - other._y;
+    _z = getZ() - other._z;
+    return * this;
 }
 
 
