@@ -3,15 +3,8 @@
 //  Created by Ana Galvão, André Silva, Daniel Pinho on 25/9/15.
 //
 #ifndef project_1_entrega_Game_h
-#ifdef _WIN32
-//define something for Windows (32-bit and 64-bit, this part is common)
-#include <GL\glut.h>
-#elif __APPLE__
-// Other kinds of Mac OS
-#include <GLUT/glut.h>
-#endif
-#include <iostream>
-#include <stdlib.h>
+#define project_1_entrega_Game_h
+
 // description of each global var in Game.h
 #include "Game.h"
 const char * WINDOW_NAME = "Projecto #1 Entrega";
@@ -25,6 +18,9 @@ GLdouble P_ASPECT_RATIO = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
 GLdouble P_NEAR = 0.1f;
 GLdouble P_FAR = 100.0f;
 
+float GRAVIT_CONST = 9.8f;
+float PI = 3.14159;
+
 bool DEBUG_LOG = false;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
@@ -37,18 +33,10 @@ GLdouble G_CAMERA_POS_X = 0.0f;
 GLdouble G_CAMERA_POS_Y = 0.0f;
 GLdouble G_CAMERA_POS_Z = 3.0f;
 float ROTATION_SPEED = 0.5f;
-// default axis is Y
 GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};
 
-bool ON_MAC_OS = true;
-
-float INTERNAL_TIME = 0.0f;
-float GRAVIT_CONST = 9.8f;
-
-// initialize gloabl log object
-#include "Logger.h"
+// initialize global log object
 Log logger = Log();
-#include "GameManager.h"
 // initialize game manager
 GameManager gm = GameManager();
 #endif
@@ -67,6 +55,9 @@ int main(int argc, char * argv[]) {
     glutInitWindowPosition(WINDOW_X_POS, WINDOW_Y_POS);
     // create the window with properties defined before
     glutCreateWindow(WINDOW_NAME);
+    
+    // stops continuisly pressing keyboard
+    glutIgnoreKeyRepeat(1);
     
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);

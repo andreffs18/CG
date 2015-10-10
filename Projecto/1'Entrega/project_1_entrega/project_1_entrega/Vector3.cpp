@@ -6,10 +6,6 @@
 #include <stdlib.h>
 #include "Vector3.h"
 
-Vector3 v1 = Vector3(4, 3, 6);
-Vector3 v2 = Vector3(1, 2, 3);
-
-
 Vector3::Vector3(double x, double y, double z) {
     _x = x;
     _y = y;
@@ -64,9 +60,9 @@ Vector3 Vector3::operator+(const Vector3 &other) {
 }
 
 Vector3 Vector3::operator-(const Vector3 &other) {
-    double subX = getVectorX() - other._x;
-    double subY = getVectorY() - other._y;
-    double subZ = getVectorZ() - other._z;
+    double subX = getX() - other._x;
+    double subY = getY() - other._y;
+    double subZ = getZ() - other._z;
     
     return Vector3(subX, subY, subZ);
 }

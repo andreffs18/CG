@@ -1,17 +1,7 @@
 //
 //  project_1_entrega - Car.cpp
 //
-#ifdef _WIN32
-//define something for Windows (32-bit and 64-bit, this part is common)
-#include <GL\glut.h>
-#elif __APPLE__
-// Other kinds of Mac OS
-#include <GLUT/glut.h>
-#endif
-#include <complex>
-#include "Game.h"
 #include "Car.h"
-#include "GameObject.h"
 
 #define SPEED 0.00005
 #define MAX_VELOCITY 0.0030
@@ -79,7 +69,7 @@ void Car::setSpeed(GLdouble x, GLdouble y, GLdouble z){
 
 //  ---------------------------------------------------------------- update()
 //  updates car's position, velocity and rotation
-void Car::update(float _delta){
+void Car::update(float delta){
     logger.debug("Car::update()");
     
     GLdouble new_speed_x = this->_speed_x;
@@ -130,8 +120,8 @@ void Car::update(float _delta){
     }
     
     setSpeed(new_speed_x, new_speed_y, new_speed_z);
-    GLdouble new_pos_x = this->_pos_x + this->_speed_x * _delta*(-sin(_dir_angle*3.14/180));
-    GLdouble new_pos_y = this->_pos_y + this->_speed_y * _delta*(cos(_dir_angle*3.14/180));
+    GLdouble new_pos_x = this->_pos_x + this->_speed_x * delta*(-sin(_dir_angle*3.14/180));
+    GLdouble new_pos_y = this->_pos_y + this->_speed_y * delta*(cos(_dir_angle*3.14/180));
     GLdouble new_pos_z = 0.0f;
     
     std::cout << "NEW_POS_X: " << new_pos_x << std::endl;
@@ -158,15 +148,33 @@ void Car::draw(){
     GameObject go = GameObject();
     
     glPushMatrix();
+    // move car to top of track
+    glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
+    glRotated(this->_dir_angle, 0.0f, 0.0f, 1.0f);
+    // put it on top of table
+    glTranslatef(0.0f,0.0f, 1.0f);
+    // rotate it to see it from above
+    glRotatef(90, 1.0f, 0.0f, 0.0f);
+    // rotate again but now to put in facing Y positive
+    glRotatef(-90, 0.0f, 1.0f, 0.0f);
+    // scale it down
+    glScalef(0.025f, 0.025f, 0.025f);
+    // draw it
+    drawCarModel();
+    glPopMatrix();
+
+};
+
+void Car::drawCarModel(){
     // the size of the tores (depth) and the
     // amount of rings (how round you want it
     GLint t_sizes = 8;
     GLint t_rings = 20;
     // size of front and back wheels (betwenn inner and outer circle)
     GLdouble t_front_inner_size = 0.1f,
-             t_front_outer_size = 0.2f,
-             t_back_inner_size = 0.2f,
-             t_back_outer_size = 0.4f;
+    t_front_outer_size = 0.2f,
+    t_back_inner_size = 0.2f,
+    t_back_outer_size = 0.4f;
     
     // height from the center of the whell
     GLdouble t_front_height = t_front_inner_size * 2 + t_front_outer_size;
@@ -174,74 +182,62 @@ void Car::draw(){
     
     // position of front wheels in X, Y, Z space
     GLdouble t_front_pos_x = -2.5f,
-             t_front_pos_y = t_front_height,
-             t_front_pos_z = 1.25f;
+    t_front_pos_y = t_front_height,
+    t_front_pos_z = 1.25f;
     // position of back wheels in X, Y, Z space
     GLdouble t_back_pos_x = 2.5f,
-             t_back_pos_y = t_back_height,
-             t_back_pos_z = 1.5f;
-
-   
-    // move car to top of track
-    glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
-    glRotated(this->_dir_angle, 0.0f, 0.0f, 1.0f);
-    glTranslatef(0.0f,0.0f, 1.0f);
-    glRotatef(90, 1.0f, 0.0f, 0.0f);
-    glScalef(0.1f, 0.1f, 0.1f);
-
-
+    t_back_pos_y = t_back_height,
+    t_back_pos_z = 1.5f;
     
     // draw wheels
     glPushMatrix();
     glColor3d(255, 255, 255);
-        // front left
-        glPushMatrix();
-        glTranslatef(t_front_pos_x, t_front_pos_y, t_front_pos_z);
-        glutSolidTorus(t_front_inner_size, t_front_outer_size, t_sizes, t_rings);
-        glPopMatrix();
-        // front right
-        glPushMatrix();
-        glTranslatef(t_front_pos_x, t_front_pos_y, t_front_pos_z * (-1));
-        glutSolidTorus(t_front_inner_size, t_front_outer_size, t_sizes, t_rings);
-        glPopMatrix();
+    // front left
+    glPushMatrix();
+    glTranslatef(t_front_pos_x, t_front_pos_y, t_front_pos_z);
+    glutSolidTorus(t_front_inner_size, t_front_outer_size, t_sizes, t_rings);
+    glPopMatrix();
+    // front right
+    glPushMatrix();
+    glTranslatef(t_front_pos_x, t_front_pos_y, t_front_pos_z * (-1));
+    glutSolidTorus(t_front_inner_size, t_front_outer_size, t_sizes, t_rings);
+    glPopMatrix();
+    
     glColor3d(0, 255, 255);
-        // back left
-        glPushMatrix();
-        glTranslatef(t_back_pos_x, t_back_pos_y, t_back_pos_z);
-        glutSolidTorus(t_back_inner_size, t_back_outer_size, t_sizes, t_rings);
-        glPopMatrix();
-        // back right
-        glPushMatrix();
-        glTranslatef(t_back_pos_x, t_back_pos_y, t_back_pos_z * (-1));
-        glutSolidTorus(t_back_inner_size, t_back_outer_size, t_sizes, t_rings);
-        glPopMatrix();
+    // back left
+    glPushMatrix();
+    glTranslatef(t_back_pos_x, t_back_pos_y, t_back_pos_z);
+    glutSolidTorus(t_back_inner_size, t_back_outer_size, t_sizes, t_rings);
+    glPopMatrix();
+    // back right
+    glPushMatrix();
+    glTranslatef(t_back_pos_x, t_back_pos_y, t_back_pos_z * (-1));
+    glutSolidTorus(t_back_inner_size, t_back_outer_size, t_sizes, t_rings);
+    glPopMatrix();
     glPopMatrix();
     
     // Draw body
     glPushMatrix();
-        glColor3d(0, 0, 255);
-        glRotatef(5, 0.0f, 0.0f, 1.0f);
-        glTranslatef(0.0f, t_back_height, 0.0f);
-        glScalef(1.0f, 0.05f, 0.5f);
-        glutSolidCube(5.0f);
+    glColor3d(0, 0, 255);
+    glRotatef(5, 0.0f, 0.0f, 1.0f);
+    glTranslatef(0.0f, t_back_height, 0.0f);
+    glScalef(1.0f, 0.05f, 0.5f);
+    glutSolidCube(5.0f);
     glPopMatrix();
     
     // Draw spoiler
     glPushMatrix();
-        // Draw top spoiler
-        glTranslatef(2.5f, 1.5f, 0.0f);
-        glScalef(1.0f, 0.1f, 4.0f);
-        glutSolidCube(1.0f);
+    // Draw top spoiler
+    glTranslatef(2.5f, 1.5f, 0.0f);
+    glScalef(1.0f, 0.1f, 4.0f);
+    glutSolidCube(1.0f);
     
-        // Draw handle for spoiler
-        glColor3d(255, 0, 0);
-        glTranslatef(0.0f, -2.5f, 0.0f);
-        glScalef(1.0f, 5.0f, 0.1f);
-        glutSolidCube(1.0f);
+    // Draw handle for spoiler
+    glColor3d(255, 0, 0);
+    glTranslatef(0.0f, -2.5f, 0.0f);
+    glScalef(1.0f, 5.0f, 0.1f);
+    glutSolidCube(1.0f);
     glPopMatrix();
-    
-    glPopMatrix();
-
 };
 
 

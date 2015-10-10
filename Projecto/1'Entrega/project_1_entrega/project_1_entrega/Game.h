@@ -1,4 +1,4 @@
-//
+#pragma once
 //  project_1_entrega - Game.h
 //
 //  GLOBAL VARIABLES FILE:
@@ -6,20 +6,24 @@
 //  To add variables:
 //   #1 - Add variable in Game.h like below
 //   #2 - Define variable value in Game.cpp.
+#ifndef __project_1_entrega_Game__
+#define __project_1_entrega_Game__
+
 #ifdef _WIN32
 //define something for Windows (32-bit and 64-bit, this part is common)
 #include <GL\glut.h>
-#elif TARGET_OS_MAC
+#elif __APPLE__
 // Other kinds of Mac OS
 #include <GLUT/glut.h>
 #endif
-#include <stdio.h>
-#include <iostream>
+
 #include "GameManager.h"
 #include "Logger.h"
 
-#ifndef project_1_entrega_Game_h
-#define project_1_entrega_Game_h
+#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
+
 
 // WIDTH and HEIGHT size of game window
 extern int VIEWPORT_WIDTH;
@@ -34,6 +38,11 @@ extern GLdouble P_NEAR;
 extern GLdouble P_FAR;
 // Window name
 extern const char * WINDOW_NAME;
+// Gravitacional Constant
+extern float GRAVIT_CONST;
+// First 5 digits of PI
+extern float PI;
+
 // Global logs variables. set to true logs that want enable
 extern bool DEBUG_LOG;
 extern bool INFO_LOG;
@@ -57,10 +66,6 @@ extern GLdouble AXIS[3];
 extern float ROTATION_SPEED;
 // Global rotation (initialized @ zero)
 extern float ROTATION_POS;
-//
-extern bool ON_MAC_OS;
-extern float INTERNAL_TIME;
-extern float GRAVIT_CONST;
 
 #endif /* defined(__project_1_entrega__Game__) */
 

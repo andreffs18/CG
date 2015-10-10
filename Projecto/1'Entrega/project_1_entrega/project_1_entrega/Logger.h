@@ -1,3 +1,4 @@
+#pragma once
 //
 //  project_1_entrega - Logger.h
 //

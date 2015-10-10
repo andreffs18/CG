@@ -1,43 +1,57 @@
 //
 //  project_1_entrega - GameManager.cpp
 //
-#ifdef _WIN32
-//define something for Windows (32-bit and 64-bit, this part is common)
-#include <GL\glut.h>
-#elif __APPLE__
-// Other kinds of Mac OS
-#include <GLUT/glut.h>
-#endif
-#include "Game.h"
 #include "GameManager.h"
-#include <iostream>
 
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
-    car = Car();
-    track = Track(32, 0.4, 0.6);
+    // init time tracking
+    _previous_time = 0, _current_time = 0;
+    // init vector of gameobjects, dynamic and static
+    std::vector<DynamicObject *> _dynamic_objects;
+    std::vector<StaticObject *> _static_objects;
+    
+    Car * car = new Car();
+    _dynamic_objects.push_back(car);
+    Track * track = new Track(32, 0.4, 0.6);
+    _static_objects.push_back(track);
+    Cheerio * cherrio = new Cheerio();
+    _static_objects.push_back(cherrio);
+    Orange * orange = new Orange();
+    _dynamic_objects.push_back(orange);
+    Butter * butter = new Butter();
+    _static_objects.push_back(butter);
 };
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
 //  ------------------------------------------------------------ keyPress()
 //  game manager wrapper to handle all objects keyPress
 void GameManager::keyPress(int key){
-    car.keyPress(key);
+    logger.debug("GameManager::keyPress()");
+    for(DynamicObject * obj: _dynamic_objects){
+        obj->keyPress(key);
+    }
 };
 
 //  ---------------------------------------------------------- keyRelease()
 //  game manager wrapper to handle all objects keyRelease
 void GameManager::keyRelease(int key){
-    car.keyRelease(key);
-}
+    logger.debug("GameManager::keyRelease()");
+    for(DynamicObject * obj: _dynamic_objects){
+        obj->keyRelease(key);
+    }
+};
 
 //  ------------------------------------------------------------- drawAll()
 //  Method that handles the drawing of all objects in the display
 void GameManager::drawAll(){
     logger.debug("GameManager::drawAll()");
-    car.draw();
-    track.draw();
-    //orange.draw();
+    for(GameObject * obj: _dynamic_objects){
+        obj->draw();
+    }
+    for(GameObject * obj: _static_objects){
+        obj->draw();
+    }
 };
 
 //  ----------------------------------------------------------- updateAll()
@@ -45,8 +59,11 @@ void GameManager::drawAll(){
 //  not of each object in the display
 void GameManager::updateAll(float delta_t){
     logger.debug("GameManager::updateAll()");
-    car.update(delta_t);
-    //track.update();
+    _current_time = glutGet(GLUT_ELAPSED_TIME);
+    for(GameObject * obj : _dynamic_objects){
+        obj->update(_current_time - _previous_time);
+    }
+    _previous_time = glutGet(GLUT_ELAPSED_TIME);
 };
 
 //  ----------------------------------------------------------- onReshape()
@@ -125,10 +142,7 @@ void GameManager::onDisplay(){
 //  an event. This runs all logic inside if glut has no events
 //  to run
 void GameManager::onIdle(){
-    float new_time = glutGet(GLUT_ELAPSED_TIME);
-    float delta_t = new_time - INTERNAL_TIME;
-    gm.updateAll(delta_t);
-    INTERNAL_TIME = new_time;
+    gm.updateAll();
     glutPostRedisplay();
 }
 

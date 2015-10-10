@@ -13,9 +13,9 @@ public:
     Vector3(double x, double y, double z);
     ~Vector3();
     
-    double getVectorX();
-    double getVectorY();
-    double getVectorZ();
+    double getX();
+    double getY();
+    double getZ();
     void setVector3(double x, double y, double z);
     
     Vector3 operator=(const Vector3& vec);
