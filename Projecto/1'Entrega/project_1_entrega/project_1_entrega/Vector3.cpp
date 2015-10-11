@@ -1,13 +1,21 @@
 //
 // project_1_entrega - Vector.cpp
 //
+#ifdef _WIN32
+//define something for Windows (32-bit and 64-bit, this part is common)
+#include <GL\glut.h>
+#elif __APPLE__
+// Other kinds of Mac OS
+#include <GLUT/glut.h>
+#endif
+
 
 #include <iostream>
 #include <stdlib.h>
 #include "Vector3.h"
 
 
-Vector3::Vector3(double x, double y, double z) {
+Vector3::Vector3(GLdouble x, GLdouble y, GLdouble z) {
     _x = x;
     _y = y;
     _z = z;

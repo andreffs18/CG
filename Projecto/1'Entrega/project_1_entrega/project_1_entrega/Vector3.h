@@ -5,24 +5,24 @@
 class Vector3 {
     
 private:
-    double _x;
-    double _y;
-    double _z;
+    GLdouble _x;
+    GLdouble _y;
+    GLdouble _z;
 
 public:
-    Vector3(double x, double y, double z);
+    Vector3(GLdouble x, GLdouble y, GLdouble z);
     ~Vector3();
     
-    double getX();
-    double getY();
-    double getZ();
-    void setVector3(double x, double y, double z);
-    void setX(double x);
-    void setY(double y);
-    void setZ(double z);
+    GLdouble getX();
+    GLdouble getY();
+    GLdouble getZ();
+    void setVector3(GLdouble x, GLdouble y, GLdouble z);
+    void setX(GLdouble x);
+    void setY(GLdouble y);
+    void setZ(GLdouble z);
     
     Vector3 operator=(const Vector3& other);
-    Vector3 operator*(double num);
+    Vector3 operator*(GLdouble num);
     Vector3 operator+(const Vector3& other);
     Vector3 operator-(const Vector3& other);
 

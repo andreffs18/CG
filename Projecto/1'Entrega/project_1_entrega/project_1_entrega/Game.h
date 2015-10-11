@@ -42,7 +42,7 @@ extern bool ENABLE_DEPTH;
 extern bool ENABLE_DOUBLE_BUFFER;
 // Global Position for the camera
 extern Vector3 * POSCAM;
-extern GLdouble AXIS[3];
+extern Vector3 * AXIS;
 // Specific velocity
 extern float ROTATION_SPEED;
 // Global rotation (initialized @ zero)

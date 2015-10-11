@@ -139,7 +139,7 @@ void GameManager::onDisplay(){
     glLoadIdentity();
     gluLookAt(POSCAM->getX(), POSCAM->getY(), POSCAM->getZ(), // the position of your camera, in world space
               0.0f, 0.0f, 0.0f,  // where is the camera pointing to
-              AXIS[0], AXIS[1], AXIS[2]); // which axis is the up
+              AXIS->getX(), AXIS->getY(), AXIS->getZ()); // which axis is the up
     // draw all objects
     gm.drawAll();
     // force the execution of the GL commands
@@ -183,9 +183,9 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             case '8' : POSCAM->setX(POSCAM->getX() - ROTATION_SPEED); logger.info("Moving -X"); break;
             case '9' : POSCAM->setY(POSCAM->getY() - ROTATION_SPEED); logger.info("Moving -Y"); break;
             case '0' : POSCAM->setZ(POSCAM->getZ()- ROTATION_SPEED); logger.info("Moving -Z"); break;
-            case 'X' : AXIS[0] = 1.0f; AXIS[1] = 0.0f; AXIS[2] = 0.0f; break;
-            case 'Y' : AXIS[0] = 0.0f; AXIS[1] = 1.0f; AXIS[2] = 0.0f; break;
-            case 'Z' : AXIS[0] = 0.0f; AXIS[1] = 0.0f; AXIS[2] = 1.0f; break;
+            case 'X' : AXIS->setX(1.0f); AXIS->setY(0.0f); AXIS->setZ(0.0f); break;
+            case 'Y' : AXIS->setX(0.0f); AXIS->setY(1.0f); AXIS->setZ(0.0f); break;
+            case 'Z' : AXIS->setX(0.0f); AXIS->setY(0.0f); AXIS->setZ(1.0f); break;
         }
         std::cout << "Key press: "<< key << std::endl;
         glutPostRedisplay();
