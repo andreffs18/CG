@@ -69,14 +69,7 @@ void Track::drawTrackModel(){
     glPopMatrix();
 };
 
-void Track::draw(){
-    logger.debug("Track::draw()");
-    
-	glPushMatrix();
-    // scale everything up by a factor of AMOUNT
-    glScalef(AMOUNT, AMOUNT, 1.0f);
-    // track is just a solid cube
-    drawTrackModel();
+void Track::drawCheerios(){
     // angle start position
     GLdouble angle = 0.0f;
     Cheerio c = Cheerio();
@@ -97,6 +90,22 @@ void Track::draw(){
         c.draw();
         glPopMatrix();
     }
+};
+
+void Track::drawButters(){
+    
+};
+
+void Track::draw(){
+    logger.debug("Track::draw()");
+    
+	glPushMatrix();
+    // scale everything up by a factor of AMOUNT
+    glScalef(AMOUNT, AMOUNT, 1.0f);
+    // track is just a solid cube
+    drawTrackModel();
+    drawCheerios();
+    drawButters();
     glPopMatrix();
 };
 

@@ -12,6 +12,8 @@ private:
     // inner and outter radious of the track
     GLdouble _inner_circle, _outer_circle;
     void drawTrackModel();
+    void drawCheerios();
+    void drawButters();
 public:
     Track();
     Track(int qtd_cheerios,

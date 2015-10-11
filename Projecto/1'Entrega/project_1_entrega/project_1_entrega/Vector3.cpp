@@ -10,9 +10,15 @@
 #endif
 
 
+#include <iostream>
+#include <stdlib.h>
 #include "Vector3.h"
 
 Vector3::Vector3(GLdouble x, GLdouble y, GLdouble z){ _x = x; _y = y; _z = z; }
+
+void Vector3::setX(GLdouble x){ _x = x; }
+void Vector3::setY(GLdouble y){ _y = y; }
+void Vector3::setZ(GLdouble z){ _z = z; }
 
 GLdouble Vector3::getX(){ return _x; }
 GLdouble Vector3::getY(){ return _y; }
@@ -31,6 +37,7 @@ Vector3 Vector3::operator=(Vector3 * other) {
     _z = other->getZ();
     return * this;
 }
+
 // mul operation
 Vector3 Vector3::operator*(GLdouble num) {
     _x = getX() * num;
@@ -48,14 +55,9 @@ Vector3 Vector3:: operator+(Vector3 * other) {
 }
 
 // sub operation
-Vector3 Vector3::operator-(Vector3  * other) {
+Vector3 Vector3::operator-(Vector3 * other) {
     _x = getX() - other->getX();
     _y = getY() - other->getY();
     _z = getZ() - other->getZ();
     return * this;
 }
-
-
-
-
-
