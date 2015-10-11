@@ -14,15 +14,15 @@ public:
     GLdouble getX();
     GLdouble getY();
     GLdouble getZ();
-    void setVector3(GLdouble x, GLdouble y, GLdouble z);
+    void setVector3(Vector3 * pos);
     void setX(GLdouble x);
     void setY(GLdouble y);
     void setZ(GLdouble z);
     
-    Vector3 operator=(const Vector3& other);
+    Vector3 operator=(Vector3 * other);
     Vector3 operator*(GLdouble num);
-    Vector3 operator+(const Vector3& other);
-    Vector3 operator-(const Vector3& other);
+    Vector3 operator+(Vector3 * other);
+    Vector3 operator-(Vector3 * other);
 
 };
 

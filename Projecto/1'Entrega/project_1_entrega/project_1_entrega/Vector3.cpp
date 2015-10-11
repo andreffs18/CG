@@ -10,23 +10,19 @@
 #endif
 
 
+#include <iostream>
+#include <stdlib.h>
 #include "Vector3.h"
 
-Vector3::Vector3(double x, double y, double z){ _x = x; _y = y; _z = z; }
+Vector3::Vector3(GLdouble x, GLdouble y, GLdouble z){ _x = x; _y = y; _z = z; }
 
-Vector3::Vector3(GLdouble x, GLdouble y, GLdouble z) {
-    _x = x;
-    _y = y;
-    _z = z;
-}
+void Vector3::setX(GLdouble x){ _x = x; }
+void Vector3::setY(GLdouble y){ _y = y; }
+void Vector3::setZ(GLdouble z){ _z = z; }
 
-double Vector3::getX() {
-    return _x;
-}
-
-double Vector3::getX(){ return _x; }
-double Vector3::getY(){ return _y; }
-double Vector3::getZ(){ return _z; }
+GLdouble Vector3::getX(){ return _x; }
+GLdouble Vector3::getY(){ return _y; }
+GLdouble Vector3::getZ(){ return _z; }
 
 void Vector3::setVector3(Vector3 * pos) {
     _x = pos->getX();
@@ -42,8 +38,9 @@ Vector3 Vector3::operator=(Vector3 * other) {
     _z = other->getZ();
     return * this;
 }
+
 // mul operation
-Vector3 Vector3::operator*(double num) {
+Vector3 Vector3::operator*(GLdouble num) {
     _x = getX() * num;
     _y = getY() * num;
     _z = getZ() * num;
@@ -59,14 +56,9 @@ Vector3 Vector3:: operator+(Vector3 * other) {
 }
 
 // sub operation
-Vector3 Vector3::operator-(Vector3  * other) {
+Vector3 Vector3::operator-(Vector3 * other) {
     _x = getX() - other->getX();
     _y = getY() - other->getY();
     _z = getZ() - other->getZ();
     return * this;
 }
-
-
-
-
-
