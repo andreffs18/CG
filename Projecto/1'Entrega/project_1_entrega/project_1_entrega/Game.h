@@ -45,8 +45,8 @@ extern bool ENABLE_DOUBLE_BUFFER;
 // Global Position for the camera
 extern Vector3 * POSCAM;
 // Global Axis vector
-extern GLdouble AXIS[3];
-extern GLdouble ROTATION_SPEED;
-
+extern Vector3 * AXIS;
+// Gloabl Rotation Speed..
+extern float ROTATION_SPEED;
 
 #endif /* defined(__GAME_H_INCLUDED__) */

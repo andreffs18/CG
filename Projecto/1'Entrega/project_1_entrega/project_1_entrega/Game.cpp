@@ -28,8 +28,8 @@ bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = false;
 
 Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 3.0f);
-GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};
-GLdouble ROTATION_SPEED = 1.0f;
+Vector3 * AXIS = new Vector3(0.0f, 1.0f, 0.0f);
+float ROTATION_SPEED = 0.5f;
 
 // initialize global log object
 Log logger = Log();
