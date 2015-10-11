@@ -8,8 +8,8 @@
 
 class Car: public DynamicObject{
 private:
-    GLdouble _dir_angle;
-    
+    GLdouble _direction_angle;
+
     bool _move_up, _move_down, _move_left, _move_right;
     void drawCarModel();
 public:

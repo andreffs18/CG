@@ -28,6 +28,8 @@ public:
     static void onKeyboard(unsigned char key, int x, int y);
     static void onSpecialKeys(int key, int x, int y);
     static void onSpecialKeysUp(int key, int x, int y);
+    static void onMouseClick(int button, int state, int x, int y);
+    static void onMouseMotion(int x, int y);
     static void onIdle();
 };
 

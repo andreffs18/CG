@@ -24,20 +24,17 @@ bool DEBUG_LOG = false;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
-bool ENABLE_AXIS = false;
 bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = false;
 
 Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 3.0f);
-
-float ROTATION_SPEED = 0.5f;
 GLdouble AXIS[3] = {0.0f, 1.0f, 0.0f};
+GLdouble ROTATION_SPEED = 1.0f;
 
 // initialize global log object
 Log logger = Log();
 // initialize game manager
 GameManager gm = GameManager();
-
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {
@@ -69,6 +66,10 @@ int main(int argc, char * argv[]) {
     glutSpecialUpFunc(GameManager::onSpecialKeysUp);
     // when glut has no events to proccess
     glutIdleFunc(GameManager::onIdle);
+    // when mouse buttons are clicked
+    glutMouseFunc(GameManager::onMouseClick);
+    // when mouse move's
+    glutMotionFunc(GameManager::onMouseMotion);
 
     // runs forever in a loop to keep the program running
     glutMainLoop();

@@ -34,33 +34,19 @@ extern bool ERROR_LOG;
 extern Log logger;
 // Initialize GameManager object
 extern GameManager gm;
-// Turn on/off axis on objects
-extern bool ENABLE_AXIS;
+// PI 3.1415.. constant
+extern float PI;
+// Gavitational constant
+extern float GRAVIT_CONST;
 // Turn on/off depth of field on 3D objs
 extern bool ENABLE_DEPTH;
 // Turn on/off double buffer
 extern bool ENABLE_DOUBLE_BUFFER;
 // Global Position for the camera
 extern Vector3 * POSCAM;
+// Global Axis vector
 extern GLdouble AXIS[3];
-// Specific velocity
-extern float ROTATION_SPEED;
-// Global rotation (initialized @ zero)
-extern float ROTATION_POS;
-//
-extern bool ON_MAC_OS;
-extern float INTERNAL_TIME;
-extern float GRAVIT_CONST;
+extern GLdouble ROTATION_SPEED;
+
 
 #endif /* defined(__GAME_H_INCLUDED__) */
-
-//
-//#ifdef _WIN32
-////define something for Windows (32-bit and 64-bit, this part is common)
-//#include <GL\glut.h>
-//#elif TARGET_OS_MAC
-//// Other kinds of Mac OS
-//#include <GLUT/glut.h>
-//#endif
-//
-

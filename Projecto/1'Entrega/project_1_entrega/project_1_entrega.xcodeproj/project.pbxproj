@@ -99,12 +99,8 @@
 		0E2D30961BB5F73C00F9AC4D /* project_1_entrega */ = {
 			isa = PBXGroup;
 			children = (
-				0EC2E7E01BC9857F00E148AB /* Vector3.cpp */,
-				0EC2E7E11BC9857F00E148AB /* Vector3.h */,
 				0E2D30971BB5F73C00F9AC4D /* Game.cpp */,
 				0EA87E1B1BB7FE6E004BD956 /* Game.h */,
-				0EA87E1C1BB8065A004BD956 /* Logger.cpp */,
-				0EA87E1D1BB8065A004BD956 /* Logger.h */,
 				0E2D30A21BB5F7F400F9AC4D /* GameManager.cpp */,
 				0E2D30A31BB5F7F400F9AC4D /* GameManager.h */,
 				0EA87E301BB96DF5004BD956 /* Car.cpp */,
@@ -121,10 +117,12 @@
 				0EA87E201BB813DD004BD956 /* GameObject.h */,
 				0EC2E7DA1BC95DF300E148AB /* DynamicObject.cpp */,
 				0EC2E7DB1BC95DF300E148AB /* DynamicObject.h */,
-				EF151F621BC9702D00B6071E /* Vector3.cpp */,
-				EF151F631BC9702D00B6071E /* Vector3.h */,
 				0EC2E7DD1BC95DFF00E148AB /* StaticObject.cpp */,
 				0EC2E7DE1BC95DFF00E148AB /* StaticObject.h */,
+				0EC2E7E01BC9857F00E148AB /* Vector3.cpp */,
+				0EC2E7E11BC9857F00E148AB /* Vector3.h */,
+				0EA87E1C1BB8065A004BD956 /* Logger.cpp */,
+				0EA87E1D1BB8065A004BD956 /* Logger.h */,
 			);
 			path = project_1_entrega;
 			sourceTree = "<group>";

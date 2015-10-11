@@ -5,8 +5,10 @@
 #include "Game.h"
 #include "Car.h"
 
-#define SPEED 0.00005
-#define MAX_VELOCITY 0.0030
+#define SPEED_INCREMENT 0.00005f
+#define MAX_VELOCITY 0.0010f
+#define ANGLE_INCREMENT 4.0f
+#define TRACK_LIMITS 1.0f
 
 Car::Car() : DynamicObject(){
     // car is not moving
@@ -16,7 +18,7 @@ Car::Car() : DynamicObject(){
     _move_right = false;
 
     // angle that car is facing (direction)
-    _dir_angle = 0.0f;
+    _direction_angle = 0.0f;
     
 };
 Car::~Car(){};
@@ -33,7 +35,6 @@ void Car::keyPress(int key){
         this->_move_left = true;
     if(key == GLUT_KEY_RIGHT)
         this->_move_right = true;
-    logger.error("EPAH YEH JEYPRES");
 }
 
 
@@ -49,7 +50,6 @@ void Car::keyRelease(int key){
         this->_move_left = false;
     if(key == GLUT_KEY_RIGHT)
         this->_move_right = false;
-    logger.error("EPAH YEH keyrelease");
 }
 
 //  ---------------------------------------------------------------- update()
@@ -57,58 +57,51 @@ void Car::keyRelease(int key){
 void Car::update(float delta){
     logger.debug("Car::update()");
     
-    if(this->_move_up && _speed->getY() < MAX_VELOCITY){
-        logger.debug("UP");
-        _speed->setX(0);
-        _speed->setY(_speed->getY() + SPEED);
-        //newp = old_p + v0*_delta + 1/2*Gravit*_delta^2
-        //new_x -= new_x + this->_speed*_delta + (1/2*(GRAVIT_CONST)*_delta*_delta);
+    // if right is clicked
+    if(_move_right){
+        // if is moving forward, then rotate (+)
+        if(_move_up || _speed->getX() > 0)
+            _direction_angle -= ANGLE_INCREMENT;
+        // if is moving backward, then rotate (-)
+        else if(_move_down ||  _speed->getX() < 0)
+            _direction_angle += ANGLE_INCREMENT;
     }
     
-    if(this->_move_down && _speed->getY() < MAX_VELOCITY){
-        logger.debug("Down");
-        _speed->setX(0);
-        _speed->setY(_speed->getY() - SPEED);
-        //new_x += new_x + this->_speed*_delta + (1/2*(GRAVIT_CONST)*_delta*_delta);
+    // if left is clicked
+    if(_move_left){
+        // if is moving forward, then rotate (-)
+        if(_move_up || _speed->getX() > 0)
+            _direction_angle += ANGLE_INCREMENT;
+        // if is moving backward, then rotate (+)
+        else if(_move_down || _speed->getX() < 0)
+            _direction_angle -= ANGLE_INCREMENT;
     }
     
-    if(this->_move_left){
-        logger.debug("Left");
-        _speed->setX(_speed->getX() - SPEED);
-        _speed->setY(0);
-        this->_dir_angle += 0.3f;
+    // if moving forward and not max velocity
+    if(_move_up && _speed->getX() < MAX_VELOCITY){
+        _speed->setX(_speed->getX() + SPEED_INCREMENT);
     }
     
-    if(this->_move_right){
-        logger.debug("Right");
-        _speed->setX(_speed->getX() + SPEED);
-        _speed->setY(0);
-        this->_dir_angle -= 0.4f;
-        //std::cout << this->_dir_angle << std::endl;
+    // if moving backwards
+    if(_move_down && _speed->getX() > -MAX_VELOCITY/2){
+        _speed->setX(_speed->getX() - SPEED_INCREMENT);
     }
-    
-    if(!this->_move_up && !this->_move_down){
-        logger.info("OMG!");
-        _speed->setX(_speed->getX() - SPEED);
-        _speed->setY(_speed->getY() - SPEED);
-        
-        if(_speed->getX() < 0){
-            _speed->setX(0);
-        }
-        if(_speed->getY() < 0){
-            _speed->setY(0);
-        }
+           
+    // if not moving forward or backwards then it's
+    if(!_move_up && !_move_down){
+        if(_speed->getX() > 0)
+            _speed->setX(_speed->getX() - SPEED_INCREMENT/2);
     }
-    
-    double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(_dir_angle*3.14/180));
-    double new_pos_y = _position->getY() + _speed->getY() * delta * (cos(_dir_angle*3.14/180));
+
+    double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(_direction_angle * PI/180));
+    double new_pos_y = _position->getY() + _speed->getX() * delta * ( cos(_direction_angle * PI/180));
     double new_pos_z = 0.0f;
     
     // define car limits on map
-    if(std::abs(_position->getX()) > 4.5f){
+    if(std::abs(new_pos_x) > TRACK_LIMITS){
         new_pos_x = _position->getX();
     }
-    if(std::abs(_position->getY()) > 4.5f){
+    if(std::abs(new_pos_y) > TRACK_LIMITS){
         new_pos_y = _position->getY();
     }
     
@@ -122,7 +115,7 @@ void Car::draw(){
     glPushMatrix();
     // move car to top of track
     glTranslatef(_position->getX(), _position->getY(), _position->getZ());
-    glRotated(this->_dir_angle, 0.0f, 0.0f, 1.0f);
+    glRotated(_direction_angle, 0.0f, 0.0f, 1.0f);
     // put it on top of table
     glTranslatef(0.0f,0.0f, 1.0f);
     // rotate it to see it from above

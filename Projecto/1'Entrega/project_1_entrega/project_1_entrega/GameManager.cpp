@@ -1,7 +1,7 @@
 //
 //  project_1_entrega - GameManager.cpp
 //
-
+#include <complex>
 #include "Game.h"
 #include "GameManager.h"
 
@@ -21,15 +21,15 @@ GameManager::GameManager(){
     
     Car * car = new Car();
     this->_dynamic_objects.push_back(car);
-    
-    Track * track = new Track(32, 0.4, 0.6);
+    // every object that is commented should be drawn on track
+    Track * track = new Track(64, 0.5, 0.7);
     this->_static_objects.push_back(track);
-    Cheerio * cheerio = new Cheerio();
-    this->_static_objects.push_back(cheerio);
-    Orange * orange = new Orange();
-    this->_dynamic_objects.push_back(orange);
-    Butter * butter = new Butter();
-    this->_static_objects.push_back(butter);
+    // Cheerio * cheerio = new Cheerio();
+    // this->_static_objects.push_back(cheerio);
+    // Orange * orange = new Orange();
+    // this->_dynamic_objects.push_back(orange);
+    // Butter * butter = new Butter();
+    // this->_static_objects.push_back(butter);
 };
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
@@ -132,9 +132,10 @@ void GameManager::onDisplay(){
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(POSCAM->getX(), POSCAM->getY(), POSCAM->getZ(), // the position of your camera, in world space
+    gluLookAt(POSCAM->getX(), POSCAM->getY(), POSCAM->getZ(), // camera pos
               0.0f, 0.0f, 0.0f,  // where is the camera pointing to
               AXIS[0], AXIS[1], AXIS[2]); // which axis is the up
+    
     // draw all objects
     gm.drawAll();
     // force the execution of the GL commands
@@ -170,9 +171,7 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
     }
     else{
         switch(key){
-            case '1' : POSCAM->setX(POSCAM->getX() + ROTATION_SPEED);
-                    logger.info("Moving +X");
-                break;
+            case '1' : POSCAM->setX(POSCAM->getX() + ROTATION_SPEED); logger.info("Moving +X"); break;
             case '2' : POSCAM->setX(POSCAM->getX() + ROTATION_SPEED); logger.info("Moving +Y"); break;
             case '3' : POSCAM->setZ(POSCAM->getZ()+ ROTATION_SPEED); logger.info("Moving +Z"); break;
             case '8' : POSCAM->setX(POSCAM->getX() - ROTATION_SPEED); logger.info("Moving -X"); break;
@@ -193,13 +192,21 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
 //  F1, Esc, Left arrow, Right Arrow...
 void GameManager::onSpecialKeys(int key, int x, int y){
     gm.keyPress(key);
-}
+};
 
 //  ----------------------------------------------------- onSpecialUpKeys()
 //  Custom keyboard function used when "glutSpecialUpFunc"
 //  triggers an event.
 void GameManager::onSpecialKeysUp(int key, int x, int y){
     gm.keyRelease(key);
-}
+};
+
+//  -------------------------------------------------------- onMouseClick()
+//  Custom fucntion to handle all mouse click events
+void GameManager::onMouseClick(int button, int state, int x, int y){};
+
+//  ------------------------------------------------------- onMouseMotion()
+//  Custom fucntion to handle all mouse movement
+void GameManager::onMouseMotion(int x, int y){};
 
 
