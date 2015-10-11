@@ -44,6 +44,9 @@ extern bool ENABLE_DEPTH;
 extern bool ENABLE_DOUBLE_BUFFER;
 // Global Position for the camera
 extern Vector3 * POSCAM;
+// Global Pointing vector  for the camera
+extern Vector3 * POINTCAM;
+
 // Global Axis vector
 extern Vector3 * AXIS;
 // Gloabl Rotation Speed..

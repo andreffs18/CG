@@ -7,8 +7,8 @@
 #include <vector>
 
 const char * WINDOW_NAME = "Projecto #1 Entrega";
-int VIEWPORT_WIDTH = 600;
-int VIEWPORT_HEIGHT = 600;
+int VIEWPORT_WIDTH = 800;
+int VIEWPORT_HEIGHT = 800;
 int WINDOW_X_POS = -1;
 int WINDOW_Y_POS = -1;
 
@@ -20,7 +20,7 @@ GLdouble P_FAR = 100.0f;
 float GRAVIT_CONST = 9.8f;
 float PI = 3.14159;
 
-bool DEBUG_LOG = false;
+bool DEBUG_LOG = true;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
@@ -28,6 +28,7 @@ bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = false;
 
 Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 3.0f);
+Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);
 Vector3 * AXIS = new Vector3(0.0f, 1.0f, 0.0f);
 float ROTATION_SPEED = 0.5f;
 

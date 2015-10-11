@@ -56,7 +56,11 @@ void Car::update(float delta){
     if(_move_right){
         // if is moving forward, then rotate (+)
         if(_move_up || _speed->getX() > 0)
-            _direction_angle -= ANGLE_INCREMENT;
+            // to drift when starts to speed up
+            if(_speed->getX() < SPEED_INCREMENT * 4)
+                _direction_angle -= ANGLE_INCREMENT / 2;
+            else
+                _direction_angle -= ANGLE_INCREMENT;
         // if is moving backward, then rotate (-)
         else if(_move_down ||  _speed->getX() < 0)
             _direction_angle += ANGLE_INCREMENT;
@@ -66,7 +70,11 @@ void Car::update(float delta){
     if(_move_left){
         // if is moving forward, then rotate (-)
         if(_move_up || _speed->getX() > 0)
-            _direction_angle += ANGLE_INCREMENT;
+            // to drift when starts to speed up
+            if(_speed->getX() < SPEED_INCREMENT * 4)
+                _direction_angle += ANGLE_INCREMENT / 2;
+            else
+                _direction_angle += ANGLE_INCREMENT;
         // if is moving backward, then rotate (+)
         else if(_move_down || _speed->getX() < 0)
             _direction_angle -= ANGLE_INCREMENT;

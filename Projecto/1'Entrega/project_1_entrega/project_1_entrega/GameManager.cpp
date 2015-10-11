@@ -22,7 +22,7 @@ GameManager::GameManager(){
     Car * car = new Car();
     this->_dynamic_objects.push_back(car);
     // every object that is commented should be drawn on track
-    Track * track = new Track(64, 0.5, 0.7);
+    Track * track = new Track(64, 4, 0.5, 0.7);
     this->_static_objects.push_back(track);
     // Cheerio * cheerio = new Cheerio();
     // this->_static_objects.push_back(cheerio);
@@ -133,7 +133,7 @@ void GameManager::onDisplay(){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(POSCAM->getX(), POSCAM->getY(), POSCAM->getZ(), // camera pos
-              0.0f, 0.0f, 0.0f,  // where is the camera pointing to
+              POINTCAM->getX(), POINTCAM->getY(), POINTCAM->getZ(),  // where is the camera pointing to
               AXIS->getX(), AXIS->getY(), AXIS->getZ()); // which axis is the up
     // draw all objects
     gm.drawAll();
@@ -166,23 +166,27 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             logger.debug("Changin to GL_LINE (Wireframe)");
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
-        glutPostRedisplay();
     }
     else{
         switch(key){
-            case '1' : POSCAM->setX(POSCAM->getX() + ROTATION_SPEED); logger.info("Moving +X"); break;
-            case '2' : POSCAM->setX(POSCAM->getX() + ROTATION_SPEED); logger.info("Moving +Y"); break;
-            case '3' : POSCAM->setZ(POSCAM->getZ()+ ROTATION_SPEED); logger.info("Moving +Z"); break;
-            case '8' : POSCAM->setX(POSCAM->getX() - ROTATION_SPEED); logger.info("Moving -X"); break;
-            case '9' : POSCAM->setY(POSCAM->getY() - ROTATION_SPEED); logger.info("Moving -Y"); break;
-            case '0' : POSCAM->setZ(POSCAM->getZ()- ROTATION_SPEED); logger.info("Moving -Z"); break;
+            case '1' : POSCAM->setX(POSCAM->getX() + ROTATION_SPEED); logger.info("Camera Position +X"); break;
+            case '2' : POSCAM->setY(POSCAM->getY() + ROTATION_SPEED); logger.info("Camera Position +Y"); break;
+            case '3' : POSCAM->setZ(POSCAM->getZ() + ROTATION_SPEED); logger.info("Camera Position +Z"); break;
+            case '8' : POSCAM->setX(POSCAM->getX() - ROTATION_SPEED); logger.info("Camera Position -X"); break;
+            case '9' : POSCAM->setY(POSCAM->getY() - ROTATION_SPEED); logger.info("Camera Position -Y"); break;
+            case '0' : POSCAM->setZ(POSCAM->getZ() - ROTATION_SPEED); logger.info("Camera Position -Z"); break;
+            case 'q' : POINTCAM->setX(POINTCAM->getX() + ROTATION_SPEED); logger.info("Camera Pointer +X"); break;
+            case 'w' : POINTCAM->setY(POINTCAM->getY() + ROTATION_SPEED); logger.info("Camera Pointer +Y"); break;
+            case 'e' : POINTCAM->setZ(POINTCAM->getZ() + ROTATION_SPEED); logger.info("Camera Pointer +Z"); break;
+            case 'i' : POINTCAM->setX(POINTCAM->getX() - ROTATION_SPEED); logger.info("Camera Pointer -X"); break;
+            case 'o' : POINTCAM->setY(POINTCAM->getY() - ROTATION_SPEED); logger.info("Camera Pointer -Y"); break;
+            case 'p' : POINTCAM->setZ(POINTCAM->getZ() - ROTATION_SPEED); logger.info("Camera Pointer -Z"); break;
             case 'X' : AXIS->setX(1.0f); AXIS->setY(0.0f); AXIS->setZ(0.0f); break;
             case 'Y' : AXIS->setX(0.0f); AXIS->setY(1.0f); AXIS->setZ(0.0f); break;
             case 'Z' : AXIS->setX(0.0f); AXIS->setY(0.0f); AXIS->setZ(1.0f); break;
         }
-        std::cout << "Key press: "<< key << std::endl;
-        glutPostRedisplay();
     }
+    glutPostRedisplay();
 };
 
 //  ------------------------------------------------------- onSpecialKeys()

@@ -11,12 +11,23 @@ private:
     int _qtd_cheerios;
     // inner and outter radious of the track
     GLdouble _inner_circle, _outer_circle;
+    
+    
+    // amount of butter in random places inside the track
+    int _qtd_butters;
+    // vector with all random butter positions and angles
+    std::vector<GLdouble> _random_butter_pos_x;
+    std::vector<GLdouble> _random_butter_pos_y;
+    std::vector<GLdouble> _random_butter_angle;
+    
+    void __init__();
     void drawTrackModel();
     void drawCheerios();
     void drawButters();
 public:
     Track();
     Track(int qtd_cheerios,
+          int qtd_butters,
           GLdouble inner_circle = 0.4,
           GLdouble outer_circle = 0.8);
     ~Track();
