@@ -1,16 +1,13 @@
 //
 //  project_1_entrega - GameManager.h
 //
+
 #ifndef __GAMEMANAGER_H_INCLUDED__
 #define __GAMEMANAGER_H_INCLUDED__
-//#include "Game.h"
-//
-//#include "GameObject.h"
+
 #include <vector>
 #include "DynamicObject.h"
 #include "StaticObject.h"
-
-//#include <iostream>
 
 class GameManager{
 private:

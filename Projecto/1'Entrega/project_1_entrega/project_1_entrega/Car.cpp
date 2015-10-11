@@ -1,37 +1,22 @@
 //
 //  project_1_entrega - Car.cpp
 //
-//#ifdef _WIN32
-////define something for Windows (32-bit and 64-bit, this part is common)
-//#include <GL\glut.h>
-//#elif __APPLE__
-//// Other kinds of Mac OS
-//#include <GLUT/glut.h>
-//#endif
 #include <complex>
-//#include "Game.h"
 #include "Game.h"
 #include "Car.h"
-//#include "GameObject.h"
 
 #define SPEED 0.00005
 #define MAX_VELOCITY 0.0030
+
 Car::Car() : DynamicObject(){
     // car is not moving
     _move_up = false;
     _move_down = false;
     _move_left = false;
     _move_right = false;
-    // car is @ the origin of the world
-    _pos_x = 0.0f;
-    _pos_y = 0.0f;
-    _pos_z = 0.0f;
+
     // angle that car is facing (direction)
     _dir_angle = 0.0f;
-    // speed of car
-    _speed_x = 0.0f;
-    _speed_y = 0.0f;
-    _speed_z = 0.0f;
     
 };
 Car::~Car(){};
@@ -48,7 +33,9 @@ void Car::keyPress(int key){
         this->_move_left = true;
     if(key == GLUT_KEY_RIGHT)
         this->_move_right = true;
+    logger.error("EPAH YEH JEYPRES");
 }
+
 
 //  ---------------------------------------------------------- keyRelease()
 //  handles which direction was released. changes the state of
@@ -62,93 +49,70 @@ void Car::keyRelease(int key){
         this->_move_left = false;
     if(key == GLUT_KEY_RIGHT)
         this->_move_right = false;
+    logger.error("EPAH YEH keyrelease");
 }
-
-//  --------------------------------------------------------- setPosition()
-//  wrapper to manipulate car's position variables
-void Car::setPosition(GLdouble x, GLdouble y, GLdouble z){
-    this->_pos_x = x;
-    this->_pos_y = y;
-    this->_pos_z = z;
-};
-
-void Car::setSpeed(GLdouble x, GLdouble y, GLdouble z){
-    this->_speed_x = x;
-    this->_speed_y = y;
-    this->_speed_z = z;
-};
 
 //  ---------------------------------------------------------------- update()
 //  updates car's position, velocity and rotation
 void Car::update(float delta){
     logger.debug("Car::update()");
     
-    GLdouble new_speed_x = this->_speed_x;
-    GLdouble new_speed_y = this->_speed_y;
-    GLdouble new_speed_z = this->_speed_z;
-    
-    if(this->_move_up && this->_speed_y < MAX_VELOCITY){
+    if(this->_move_up && _speed->getY() < MAX_VELOCITY){
         logger.debug("UP");
-        new_speed_x = 0;
-        new_speed_y += SPEED;
+        _speed->setX(0);
+        _speed->setY(_speed->getY() + SPEED);
         //newp = old_p + v0*_delta + 1/2*Gravit*_delta^2
         //new_x -= new_x + this->_speed*_delta + (1/2*(GRAVIT_CONST)*_delta*_delta);
     }
     
-    if(this->_move_down && this->_speed_y < MAX_VELOCITY){
-        new_speed_x = 0;
-        new_speed_y -= SPEED;
+    if(this->_move_down && _speed->getY() < MAX_VELOCITY){
         logger.debug("Down");
+        _speed->setX(0);
+        _speed->setY(_speed->getY() - SPEED);
         //new_x += new_x + this->_speed*_delta + (1/2*(GRAVIT_CONST)*_delta*_delta);
     }
     
     if(this->_move_left){
         logger.debug("Left");
-        new_speed_x = -SPEED;
-        new_speed_y = 0;
-        //this->_dir_angle += 0.1f;
+        _speed->setX(_speed->getX() - SPEED);
+        _speed->setY(0);
+        this->_dir_angle += 0.3f;
     }
     
     if(this->_move_right){
         logger.debug("Right");
-        new_speed_x = SPEED;
-        new_speed_y = 0;
-        //this->_dir_angle -= 0.1f;
+        _speed->setX(_speed->getX() + SPEED);
+        _speed->setY(0);
+        this->_dir_angle -= 0.4f;
         //std::cout << this->_dir_angle << std::endl;
     }
     
     if(!this->_move_up && !this->_move_down){
         logger.info("OMG!");
-        new_speed_x -= SPEED;
-        new_speed_y -= SPEED;
+        _speed->setX(_speed->getX() - SPEED);
+        _speed->setY(_speed->getY() - SPEED);
         
-        if(new_speed_x < 0){
-            new_speed_x = 0;
+        if(_speed->getX() < 0){
+            _speed->setX(0);
         }
-        if(new_speed_y < 0){
-            new_speed_y = 0;
+        if(_speed->getY() < 0){
+            _speed->setY(0);
         }
     }
     
-    setSpeed(new_speed_x, new_speed_y, new_speed_z);
-    GLdouble new_pos_x = this->_pos_x + this->_speed_x * delta*(-sin(_dir_angle*3.14/180));
-    GLdouble new_pos_y = this->_pos_y + this->_speed_y * delta*(cos(_dir_angle*3.14/180));
-    GLdouble new_pos_z = 0.0f;
+    double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(_dir_angle*3.14/180));
+    double new_pos_y = _position->getY() + _speed->getY() * delta * (cos(_dir_angle*3.14/180));
+    double new_pos_z = 0.0f;
     
-    std::cout << "NEW_POS_X: " << new_pos_x << std::endl;
-    std::cout << "NEW_POS_Y: " << new_pos_y << std::endl;
-    
-    if(std::abs(new_pos_x) > 4.5f){ // 4.0f because cube is 5.5f (scale) - 1.5f (scale) of car
-        new_pos_x = this->_pos_x;
+    // define car limits on map
+    if(std::abs(_position->getX()) > 4.5f){
+        new_pos_x = _position->getX();
+    }
+    if(std::abs(_position->getY()) > 4.5f){
+        new_pos_y = _position->getY();
     }
     
-    if(std::abs(new_pos_y) > 4.5f){ // 4.0f because cube is 5.5f (scale) - 1.5f (scale) of car
-        new_pos_y = this->_pos_y;
-    }
-    
-    
-    setPosition(new_pos_x, new_pos_y, new_pos_z);
-  
+    _position = new Vector3(new_pos_x, new_pos_y, new_pos_z);
 };
 
 //  ------------------------------------------------------------------ draw()
@@ -157,7 +121,7 @@ void Car::draw(){
     logger.debug("Car::draw()");
     glPushMatrix();
     // move car to top of track
-    glTranslatef(this->_pos_x, this->_pos_y, this->_pos_z);
+    glTranslatef(_position->getX(), _position->getY(), _position->getZ());
     glRotated(this->_dir_angle, 0.0f, 0.0f, 1.0f);
     // put it on top of table
     glTranslatef(0.0f,0.0f, 1.0f);

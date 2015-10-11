@@ -1,19 +1,8 @@
 //
 //  project_1_entrega
 //  Created by Ana Galvão, André Silva, Daniel Pinho on 25/9/15.
-//#include <iostream>
-//#include <stdlib.h>
+//
 // description of each global var in Game.h
-
-//#ifndef project_1_entrega_Game_h
-//#ifdef _WIN32
-////define something for Windows (32-bit and 64-bit, this part is common)
-//#include <GL\glut.h>
-//#elif __APPLE__
-//// Other kinds of Mac OS
-//#include <GLUT/glut.h>
-//#endif
-
 #include "Game.h"
 #include <vector>
 

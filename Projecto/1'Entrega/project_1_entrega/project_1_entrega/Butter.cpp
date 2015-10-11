@@ -1,13 +1,5 @@
-//#ifdef _WIN32
-////define something for Windows (32-bit and 64-bit, this part is common)
-//#include <GL\glut.h>
-//#elif __APPLE__
-//// Other kinds of Mac OS
-//#include <GLUT/glut.h>
-//#endif
 #include "Game.h"
 #include "Butter.h"
-//#include "GameObject.h"
 
 Butter::Butter() : StaticObject() {};
 Butter::~Butter() {};

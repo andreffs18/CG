@@ -1,28 +1,30 @@
 //
 //  project_1_entrega - GameObject.h
 //
-
 #ifndef __GAMEOBJECT_H_INCLUDED__
 #define __GAMEOBJECT_H_INCLUDED__
-//#ifdef _WIN32
-////define something for Windows (32-bit and 64-bit, this part is common)
-//#include <GL\glut.h>
-//#elif __APPLE__
-//// Other kinds of Mac OS
+
+#ifdef _WIN32
+//define something for Windows (32-bit and 64-bit, this part is common)
+#include <GL\glut.h>
+#elif __APPLE__
+// Other kinds of Mac OS
 #include <GLUT/glut.h>
-//#endif
+#endif
 
-
-//#include <stdio.h>
+#include "Vector3.h"
 
 class GameObject{
 protected:
-    GLdouble _pos_x, _pos_y, _pos_z;
+    Vector3 * _position;
 public:
     GameObject();
     ~GameObject();
     virtual void draw();
     virtual void update(float);
+    
+    Vector3 * getPosition();
+    void setPosition(Vector3 * pos);
 };
 
 #endif /* defined(__GAMEOBJECT_H_INCLUDED__) */

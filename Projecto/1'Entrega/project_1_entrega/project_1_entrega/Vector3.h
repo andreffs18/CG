@@ -1,9 +1,7 @@
-#ifndef __project_1_entrega__Vector__
-#define __project_1_entrega__Vector__
+#ifndef __VECTOR3_H_INCLUDED__
+#define __VECTOR3_H_INCLUDED__
 
-#include <stdio.h>
 class Vector3 {
-    
 private:
     GLdouble _x;
     GLdouble _y;
@@ -28,4 +26,4 @@ public:
 
 };
 
-#endif /* Vector3_h */
+#endif /* __VECTOR3_H_INCLUDED__ */

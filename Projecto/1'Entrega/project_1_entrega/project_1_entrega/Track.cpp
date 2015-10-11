@@ -1,19 +1,6 @@
 //
 //  project_1_entrega - Track.cpp
 //
-//#ifdef _WIN32
-////define something for Windows (32-bit and 64-bit, this part is common)
-//#include <GL\glut.h>
-//#elif __APPLE__
-//// Other kinds of Mac OS
-//#include <GLUT/glut.h>
-//#endif
-//#include "Game.h"
-
-//#include "GameObject.h"
-
-//#include "Car.h"
-//#include <iostream>
 #include "Game.h"
 #include "Track.h"
 #include "Cheerio.h"
