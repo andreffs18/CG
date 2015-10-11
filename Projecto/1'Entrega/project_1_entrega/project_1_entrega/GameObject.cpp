@@ -5,6 +5,7 @@
 #include "GameObject.h"
 
 GameObject::GameObject(){
+    // Global vars that all objects have access
     _position = new Vector3(0.0, 0.0, 0.0);
 };
 GameObject::~GameObject(){};

@@ -5,8 +5,6 @@
 #include "Track.h"
 #include "Cheerio.h"
 
-#define AMOUNT 1.0f  // scale on track for a factor of AMOUNT
-
 Track::Track() : StaticObject(){
     _qtd_cheerios = 32;
     _inner_circle = 0.4;

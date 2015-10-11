@@ -5,11 +5,6 @@
 #include "Game.h"
 #include "Car.h"
 
-#define SPEED_INCREMENT 0.00005f
-#define MAX_VELOCITY 0.0010f
-#define ANGLE_INCREMENT 4.0f
-#define TRACK_LIMITS 1.0f
-
 Car::Car() : DynamicObject(){
     // car is not moving
     _move_up = false;

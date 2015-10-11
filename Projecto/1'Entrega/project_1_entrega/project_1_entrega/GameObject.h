@@ -17,6 +17,19 @@
 class GameObject{
 protected:
     Vector3 * _position;
+    // Global Variables
+    // speed increment on car
+    GLdouble SPEED_INCREMENT = 0.00005f;
+    // max velocity allowed
+    GLdouble MAX_VELOCITY = 0.0010f;
+    // steering direction angle increment
+    GLdouble ANGLE_INCREMENT = 4.0f;
+    // car limits on track
+    GLdouble TRACK_LIMITS = 1.0f;
+    // amout of scale that affects all elements on the track
+    // Note: this not affects car
+    GLdouble AMOUNT = 1.0f;
+    
 public:
     GameObject();
     ~GameObject();
