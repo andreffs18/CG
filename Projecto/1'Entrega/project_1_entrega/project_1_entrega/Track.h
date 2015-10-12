@@ -12,6 +12,9 @@ private:
     // inner and outter radious of the track
     GLdouble _inner_circle, _outer_circle;
     
+	int _qtd_oranges;
+	bool _set_position = true;
+	std::vector<Vector3 *> _orange_pos;
     
     // amount of butter in random places inside the track
     int _qtd_butters;
@@ -24,10 +27,12 @@ private:
     void drawTrackModel();
     void drawCheerios();
     void drawButters();
+	void drawOranges();
 public:
     Track();
     Track(int qtd_cheerios,
-          int qtd_butters,
+          int qtd_butters, 
+		  int qtd_oranges,
           GLdouble inner_circle = 0.4,
           GLdouble outer_circle = 0.8);
     ~Track();

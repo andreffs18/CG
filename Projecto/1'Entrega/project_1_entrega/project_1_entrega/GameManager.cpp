@@ -22,7 +22,7 @@ GameManager::GameManager(){
     Car * car = new Car();
     this->_dynamic_objects.push_back(car);
     // every object that is commented should be drawn on track
-    Track * track = new Track(64, 4, 0.5, 0.7);
+    Track * track = new Track(64, 4, 3, 0.5, 0.7);
     this->_static_objects.push_back(track);
     // Cheerio * cheerio = new Cheerio();
     // this->_static_objects.push_back(cheerio);

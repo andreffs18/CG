@@ -5,19 +5,23 @@
 #include "Track.h"
 #include "Cheerio.h"
 #include "Butter.h"
+#include "Orange.h"
+#include <ctime>
 
 Track::Track() : StaticObject(){
     _qtd_cheerios = 32;
     _inner_circle = 0.4;
     _outer_circle = 0.8;
     _qtd_butters = 4;
+	_qtd_oranges = 3;
     
     __init__();
 };
 
-Track::Track(int qtd_cheerios, int qtd_butters, GLdouble inner_circle, GLdouble outer_circle) : StaticObject(){
+Track::Track(int qtd_cheerios, int qtd_butters, int qtd_oranges, GLdouble inner_circle, GLdouble outer_circle) : StaticObject(){
     _qtd_butters = qtd_butters;
     _qtd_cheerios = qtd_cheerios;
+	_qtd_oranges = qtd_oranges;
     _inner_circle = inner_circle;
     _outer_circle = outer_circle;
     
@@ -122,7 +126,7 @@ void Track::drawCheerios(){
 };
 
 void Track::drawButters(){
-    // we wnat to draw a "_qtd_butters" amount butters in random places
+    // we want to draw a "_qtd_butters" amount butters in random places
     // so for that
     Butter b = Butter();
 
@@ -137,6 +141,29 @@ void Track::drawButters(){
     }
 };
 
+void Track::drawOranges() {
+	
+	Orange o = Orange();
+
+	if (_set_position) {
+		Vector3 * pos_st = new Vector3(0.1, 0.6, 1.125);
+		Vector3 * pos_nd = new Vector3(-0.7, -0.6, 1.125);
+		Vector3 * pos_rd = new Vector3(0.8, 0.2, 1.125);
+		_orange_pos.push_back(pos_st);
+		_orange_pos.push_back(pos_nd);
+		_orange_pos.push_back(pos_rd);
+		_set_position = false;
+	}
+
+	for (int i = 0; i < _qtd_oranges; i++) {
+		glPushMatrix();
+		glTranslatef(_orange_pos[i]->getX(), _orange_pos[i]->getY(), _orange_pos[i]->getZ());
+		glScalef(0.025, 0.025, 0.025);
+		o.draw();
+		glPopMatrix();
+	}
+}
+
 void Track::draw(){
     logger.debug("Track::draw()");
     
@@ -146,7 +173,8 @@ void Track::draw(){
     // track is just a solid cube
     drawTrackModel();
     drawCheerios();
-    drawButters();
+	drawOranges();
+	drawButters();
     glPopMatrix();
 };
 
