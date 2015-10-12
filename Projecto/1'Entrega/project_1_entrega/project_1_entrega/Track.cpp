@@ -98,7 +98,6 @@ void Track::drawTrackModel(){
     glVertex3f(-1.0, 1.0, 1.0);
     glVertex3f(-1.0, 1.0, -1.0);
     glEnd();
-    
     glPopMatrix();
 };
 
@@ -168,8 +167,10 @@ void Track::draw(){
     logger.debug("Track::draw()");
     
 	glPushMatrix();
+
     // scale everything up by a factor of AMOUNT
-    glScalef(AMOUNT, AMOUNT, 1.0f);
+    glTranslatef(0.0, 0.0, 0.8);
+    glScalef(AMOUNT, AMOUNT, 0.2f);
     // track is just a solid cube
     drawTrackModel();
     drawCheerios();
