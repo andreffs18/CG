@@ -19,9 +19,6 @@ public:
     
     void setSpeed(Vector3 * other);
     Vector3 * getSpeed();
-    
-    virtual void keyPress(int);
-    virtual void keyRelease(int);    
 };
 
 #endif /* defined(__DYNAMICOBJECT_H_INCLUDED__) */

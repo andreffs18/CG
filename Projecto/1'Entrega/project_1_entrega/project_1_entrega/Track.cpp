@@ -56,6 +56,11 @@ void Track::drawTrackModel(){
     // draw cube with 1unit as size
     // glutSolidCube(1.0f);
     glPushMatrix();
+    // this moves the table to be smaller in the Z axis
+    glTranslatef(0.0f, 0.0f, 0.8f);
+    // this scales it down
+    glScalef(1.0f, 1.0f, 0.2f);
+
     glColor3f(0.5f, 0.35f, 0.05f);
     glBegin(GL_POLYGON);
     glVertex3f(-1.0, -1.0, 1.0);
@@ -167,10 +172,9 @@ void Track::draw(){
     logger.debug("Track::draw()");
     
 	glPushMatrix();
-
+    // glTranslatef(0.0, 0.0, 0.8);
     // scale everything up by a factor of AMOUNT
-    glTranslatef(0.0, 0.0, 0.8);
-    glScalef(AMOUNT, AMOUNT, 0.2f);
+    glScalef(AMOUNT, AMOUNT, 1.0f);
     // track is just a solid cube
     drawTrackModel();
     drawCheerios();

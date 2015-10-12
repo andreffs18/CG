@@ -34,21 +34,35 @@ GameManager::GameManager(){
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
 //  ------------------------------------------------------------ keyPress()
-//  game manager wrapper to handle all objects keyPress
+//  handles which direction was clicked. changes the state of
+//  the variable in question.
 void GameManager::keyPress(int key){
     logger.debug("GameManager::keyPress()");
-    for(DynamicObject * obj: _dynamic_objects){
-        obj->keyPress(key);
-    }
+    Car * car = (Car *)_dynamic_objects.front();
+    if(key == GLUT_KEY_UP)
+        car->set_move_up(true);
+    if(key == GLUT_KEY_DOWN)
+        car->set_move_down(true);
+    if(key == GLUT_KEY_LEFT)
+        car->set_move_left(true);
+    if(key == GLUT_KEY_RIGHT)
+        car->set_move_right(true);
 };
 
 //  ---------------------------------------------------------- keyRelease()
-//  game manager wrapper to handle all objects keyRelease
+//  handles which direction was released. changes the state of
+//  the variable in question.
 void GameManager::keyRelease(int key){
     logger.debug("GameManager::keyRelease()");
-    for(DynamicObject * obj: _dynamic_objects){
-        obj->keyRelease(key);
-    }
+    Car * car = (Car *)_dynamic_objects.front();
+    if(key == GLUT_KEY_UP)
+        car->set_move_up(false);
+    if(key == GLUT_KEY_DOWN)
+        car->set_move_down(false);
+    if(key == GLUT_KEY_LEFT)
+        car->set_move_left(false);
+    if(key == GLUT_KEY_RIGHT)
+        car->set_move_right(false);
 };
 
 //  ------------------------------------------------------------- drawAll()

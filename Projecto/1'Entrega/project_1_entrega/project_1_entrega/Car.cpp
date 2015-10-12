@@ -11,41 +11,16 @@ Car::Car() : DynamicObject(){
     _move_down = false;
     _move_left = false;
     _move_right = false;
-
     // angle that car is facing (direction)
     _direction_angle = 0.0f;
     
 };
 Car::~Car(){};
 
-//  ------------------------------------------------------------ keyPress()
-//  handles which direction was clicked. changes the state of
-//  the variable in question.
-void Car::keyPress(int key){
-    if(key == GLUT_KEY_UP)
-        this->_move_up = true;
-    if(key == GLUT_KEY_DOWN)
-        this->_move_down = true;
-    if(key == GLUT_KEY_LEFT)
-        this->_move_left = true;
-    if(key == GLUT_KEY_RIGHT)
-        this->_move_right = true;
-}
-
-
-//  ---------------------------------------------------------- keyRelease()
-//  handles which direction was released. changes the state of
-//  the variable in question.
-void Car::keyRelease(int key){
-    if(key == GLUT_KEY_UP)
-        this->_move_up = false;
-    if(key == GLUT_KEY_DOWN)
-        this->_move_down = false;
-    if(key == GLUT_KEY_LEFT)
-        this->_move_left = false;
-    if(key == GLUT_KEY_RIGHT)
-        this->_move_right = false;
-}
+void Car::set_move_up(bool b){ _move_up = b; };
+void Car::set_move_down(bool b){ _move_down = b; };
+void Car::set_move_left(bool b){ _move_left = b; };
+void Car::set_move_right(bool b){ _move_right = b; };
 
 //  ---------------------------------------------------------------- update()
 //  updates car's position, velocity and rotation
