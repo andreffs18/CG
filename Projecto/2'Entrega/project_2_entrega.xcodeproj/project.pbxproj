@@ -21,6 +21,9 @@
 		0EC2E8131BCC1A5000E148AB /* StaticObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EC2E8031BCC1A5000E148AB /* StaticObject.cpp */; };
 		0EC2E8141BCC1A5000E148AB /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EC2E8051BCC1A5000E148AB /* Track.cpp */; };
 		0EC2E8151BCC1A5000E148AB /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EC2E8071BCC1A5000E148AB /* Vector3.cpp */; };
+		EF43C40B1BCFCC8A002B0194 /* OrthogonalCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF43C4091BCFCC8A002B0194 /* OrthogonalCamera.cpp */; settings = {ASSET_TAGS = (); }; };
+		EF7E132D1BCC23430066A399 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7E132B1BCC23430066A399 /* Camera.cpp */; settings = {ASSET_TAGS = (); }; };
+		EF7E13301BCC31D10066A399 /* PerspectiveCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7E132E1BCC31D10066A399 /* PerspectiveCamera.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +66,12 @@
 		0EC2E8061BCC1A5000E148AB /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
 		0EC2E8071BCC1A5000E148AB /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
 		0EC2E8081BCC1A5000E148AB /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
+		EF43C4091BCFCC8A002B0194 /* OrthogonalCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthogonalCamera.cpp; sourceTree = "<group>"; };
+		EF43C40A1BCFCC8A002B0194 /* OrthogonalCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrthogonalCamera.h; sourceTree = "<group>"; };
+		EF7E132B1BCC23430066A399 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		EF7E132C1BCC23430066A399 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		EF7E132E1BCC31D10066A399 /* PerspectiveCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerspectiveCamera.cpp; sourceTree = "<group>"; };
+		EF7E132F1BCC31D10066A399 /* PerspectiveCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerspectiveCamera.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +110,14 @@
 			children = (
 				0EC2E7F01BCC1A5000E148AB /* Butter.cpp */,
 				0EC2E7F11BCC1A5000E148AB /* Butter.h */,
+				EF7E132E1BCC31D10066A399 /* PerspectiveCamera.cpp */,
+				EF7E132F1BCC31D10066A399 /* PerspectiveCamera.h */,
 				0EC2E7F21BCC1A5000E148AB /* Car.cpp */,
 				0EC2E7F31BCC1A5000E148AB /* Car.h */,
 				0EC2E7F41BCC1A5000E148AB /* Cheerio.cpp */,
 				0EC2E7F51BCC1A5000E148AB /* Cheerio.h */,
+				EF7E132B1BCC23430066A399 /* Camera.cpp */,
+				EF7E132C1BCC23430066A399 /* Camera.h */,
 				0EC2E7F61BCC1A5000E148AB /* DynamicObject.cpp */,
 				0EC2E7F71BCC1A5000E148AB /* DynamicObject.h */,
 				0EC2E7F81BCC1A5000E148AB /* Game.cpp */,
@@ -123,6 +136,8 @@
 				0EC2E8061BCC1A5000E148AB /* Track.h */,
 				0EC2E8071BCC1A5000E148AB /* Vector3.cpp */,
 				0EC2E8081BCC1A5000E148AB /* Vector3.h */,
+				EF43C4091BCFCC8A002B0194 /* OrthogonalCamera.cpp */,
+				EF43C40A1BCFCC8A002B0194 /* OrthogonalCamera.h */,
 			);
 			path = project_2_entrega;
 			sourceTree = "<group>";
@@ -182,6 +197,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF7E132D1BCC23430066A399 /* Camera.cpp in Sources */,
+				EF7E13301BCC31D10066A399 /* PerspectiveCamera.cpp in Sources */,
 				0EC2E80A1BCC1A5000E148AB /* Car.cpp in Sources */,
 				0EC2E8121BCC1A5000E148AB /* Orange.cpp in Sources */,
 				0EC2E80E1BCC1A5000E148AB /* GameManager.cpp in Sources */,
@@ -194,6 +211,7 @@
 				0EC2E80B1BCC1A5000E148AB /* Cheerio.cpp in Sources */,
 				0EC2E80D1BCC1A5000E148AB /* Game.cpp in Sources */,
 				0EC2E80F1BCC1A5000E148AB /* GameObject.cpp in Sources */,
+				EF43C40B1BCFCC8A002B0194 /* OrthogonalCamera.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +331,7 @@
 				0EC2E7EC1BCC19E800E148AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

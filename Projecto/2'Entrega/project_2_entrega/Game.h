@@ -20,10 +20,10 @@ extern int VIEWPORT_HEIGHT;
 extern int WINDOW_X_POS;
 extern int WINDOW_Y_POS;
 // Config Perspective
-extern GLdouble P_FOV;
+//extern GLdouble P_FOV;
 extern GLdouble P_ASPECT_RATIO;
-extern GLdouble P_NEAR;
-extern GLdouble P_FAR;
+//extern GLdouble P_NEAR;
+//extern GLdouble P_FAR;
 // Window name
 extern const char * WINDOW_NAME;
 // Global logs variables. set to true logs that want enable
@@ -46,10 +46,10 @@ extern bool ENABLE_DOUBLE_BUFFER;
 extern Vector3 * POSCAM;
 // Global Pointing vector  for the camera
 extern Vector3 * POINTCAM;
-
 // Global Axis vector
 extern Vector3 * AXIS;
-// Gloabl Rotation Speed..
+// Global Rotation Speed..
 extern float ROTATION_SPEED;
 
+extern float BANANAS;
 #endif /* defined(__GAME_H_INCLUDED__) */
