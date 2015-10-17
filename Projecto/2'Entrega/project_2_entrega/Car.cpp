@@ -6,6 +6,9 @@
 #include "Car.h"
 
 Car::Car() : DynamicObject(){
+    // setup width of car
+    _width = 0.1;
+    _height = 0.1;
     // car is not moving
     _move_up = false;
     _move_down = false;
@@ -32,43 +35,45 @@ void Car::update(float delta){
         // if is moving forward, then rotate (+)
         if(_move_up || _speed->getX() > 0)
             // to drift when starts to speed up
-            if(_speed->getX() < SPEED_INCREMENT * 4)
-                _direction_angle -= ANGLE_INCREMENT / 2;
+            if(_speed->getX() < gm.SPEED_INCREMENT * 4)
+                _direction_angle -= gm.ANGLE_INCREMENT / 2;
             else
-                _direction_angle -= ANGLE_INCREMENT;
+                _direction_angle -= gm.ANGLE_INCREMENT;
         // if is moving backward, then rotate (-)
         else if(_move_down ||  _speed->getX() < 0)
-            _direction_angle += ANGLE_INCREMENT;
+            _direction_angle += gm.ANGLE_INCREMENT;
     }
-    
+
     // if left is clicked
     if(_move_left){
         // if is moving forward, then rotate (-)
         if(_move_up || _speed->getX() > 0)
             // to drift when starts to speed up
-            if(_speed->getX() < SPEED_INCREMENT * 4)
-                _direction_angle += ANGLE_INCREMENT / 2;
+            if(_speed->getX() < gm.SPEED_INCREMENT * 4)
+                _direction_angle += gm.ANGLE_INCREMENT / 2;
             else
-                _direction_angle += ANGLE_INCREMENT;
+                _direction_angle += gm.ANGLE_INCREMENT;
         // if is moving backward, then rotate (+)
         else if(_move_down || _speed->getX() < 0)
-            _direction_angle -= ANGLE_INCREMENT;
+            _direction_angle -= gm.ANGLE_INCREMENT;
     }
     
     // if moving forward and not max velocity
-    if(_move_up && _speed->getX() < MAX_VELOCITY){
-        _speed->setX(_speed->getX() + SPEED_INCREMENT);
+    if(_move_up && _speed->getX() < gm.MAX_VELOCITY){
+        _speed->setX(_speed->getX() + gm.SPEED_INCREMENT);
     }
     
     // if moving backwards
-    if(_move_down && _speed->getX() > -MAX_VELOCITY/2){
-        _speed->setX(_speed->getX() - SPEED_INCREMENT);
+    if(_move_down && _speed->getX() > -gm.MAX_VELOCITY/2){
+        _speed->setX(_speed->getX() - gm.SPEED_INCREMENT);
     }
            
     // if not moving forward or backwards then it's
     if(!_move_up && !_move_down){
         if(_speed->getX() > 0)
-            _speed->setX(_speed->getX() - SPEED_INCREMENT/2);
+            _speed->setX(_speed->getX() - gm.SPEED_INCREMENT/2);
+        if(_speed->getX() < 0)
+            _speed->setX(_speed->getX() + gm.SPEED_INCREMENT/2);
     }
 
     double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(_direction_angle * PI/180));
@@ -76,10 +81,10 @@ void Car::update(float delta){
     double new_pos_z = 0.0f;
     
     // define car limits on map
-    if(std::abs(new_pos_x) > TRACK_LIMITS){
+    if(std::abs(new_pos_x) > gm.TRACK_LIMITS){
         new_pos_x = _position->getX();
     }
-    if(std::abs(new_pos_y) > TRACK_LIMITS){
+    if(std::abs(new_pos_y) > gm.TRACK_LIMITS){
         new_pos_y = _position->getY();
     }
     
@@ -95,7 +100,6 @@ void Car::draw(){
     glTranslatef(_position->getX(), _position->getY(), _position->getZ());
     glRotated(_direction_angle, 0.0f, 0.0f, 1.0f);
     // put it on top of table
-    glTranslatef(0.0f,0.0f, 1.0f);
     // rotate it to see it from above
     glRotatef(90, 1.0f, 0.0f, 0.0f);
     // rotate again but now to put in facing Y positive
@@ -104,8 +108,10 @@ void Car::draw(){
     glScalef(0.025f, 0.025f, 0.025f);
     // draw it
     drawCarModel();
+    //glColor3f(1.0f, 1.0f, 1.0f);
+    //glScalef(2.0f, 1.0f, 1.0f);
+    //glutWireCube(3.0f);
     glPopMatrix();
-
 };
 
 void Car::drawCarModel(){

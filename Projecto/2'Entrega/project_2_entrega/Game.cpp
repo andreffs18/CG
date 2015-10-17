@@ -20,7 +20,7 @@ GLdouble P_FAR = 100.0f;
 float GRAVIT_CONST = 9.8f;
 float PI = 3.14159;
 
-bool DEBUG_LOG = true;
+bool DEBUG_LOG = false;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
@@ -30,7 +30,7 @@ bool ENABLE_DOUBLE_BUFFER = false;
 Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 3.0f);
 Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);
 Vector3 * AXIS = new Vector3(0.0f, 1.0f, 0.0f);
-float ROTATION_SPEED = 0.5f;
+float ROTATION_SPEED = 1.0f;
 
 // initialize global log object
 Log logger = Log();

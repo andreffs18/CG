@@ -8,13 +8,42 @@
 #include <vector>
 #include "DynamicObject.h"
 #include "StaticObject.h"
+#include "Car.h"
+#include "Track.h"
+#include "Orange.h"
+#include "Butter.h"
+#include "Cheerio.h"
 
 class GameManager{
 private:
     std::vector<StaticObject *> _static_objects;
     std::vector<DynamicObject *> _dynamic_objects;
     int _current_time, _previous_time;
+    
+    Car * car;
+    Track * track;
+    Orange * orange;
+    Butter * butter;
+    Cheerio * cheerio;
 public:
+    // Global Variables
+    // speed increment on car
+    GLdouble SPEED_INCREMENT = 0.00005f;
+    // max velocity allowed
+    GLdouble MAX_VELOCITY = 0.0010f;
+    // steering direction angle increment
+    GLdouble ANGLE_INCREMENT = 4.0f;
+    // car limits on track
+    GLdouble TRACK_LIMITS = 1.0f;
+    // track inner circle
+    float INNER_CIRCLE_RADIUS = 0.5;
+    // track outer circle
+    float OUTER_CIRCLE_RADIUS = 0.8;
+    // qtd of object on table
+    int QTD_CHEERIOS = 32;
+    int QTD_ORANGES = 4;
+    int QTD_BUTTERS = 4;
+    
     GameManager();
     ~GameManager();
     

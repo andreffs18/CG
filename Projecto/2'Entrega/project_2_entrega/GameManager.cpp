@@ -1,7 +1,9 @@
 //
 //  project_1_entrega - GameManager.cpp
 //
+#include <typeinfo>
 #include <complex>
+#include <ctime>
 #include "Game.h"
 #include "GameManager.h"
 
@@ -19,17 +21,70 @@ GameManager::GameManager(){
     std::vector<DynamicObject *> _dynamic_objects;
     std::vector<StaticObject *> _static_objects;
     
-    Car * car = new Car();
-    this->_dynamic_objects.push_back(car);
-    // every object that is commented should be drawn on track
-    Track * track = new Track(64, 4, 3, 0.5, 0.7);
+    // init random
+    time_t t;
+    srand((unsigned) time(&t));
+    
+    // Initialize Track
+    track = new Track();
+    track->setPosition(new Vector3(0.0f, 0.0f, -0.20f));
     this->_static_objects.push_back(track);
-    // Cheerio * cheerio = new Cheerio();
-    // this->_static_objects.push_back(cheerio);
-    // Orange * orange = new Orange();
-    // this->_dynamic_objects.push_back(orange);
-    // Butter * butter = new Butter();
-    // this->_static_objects.push_back(butter);
+
+    // Initialize Car
+    car = new Car();
+    car->setPosition(new Vector3(0.0f, 0.0f, 0.0f));
+    this->_dynamic_objects.push_back(car);
+
+    // Initialize Cheerios
+    // angle start position
+    GLdouble angle = 0.0f;
+    for(int i = 0; angle < 360.0f; angle += 360.0f / (QTD_CHEERIOS), i++){
+        // we draw the outer cheerio twice as much as the inner one
+        // in a pair instance of the angle we dra both, otherwise
+        // we just draw the outer cheerio
+        if(i % 2 == 0){
+            cheerio = new Cheerio();
+            cheerio->setRotation(angle);
+            cheerio->setPosition(new Vector3(INNER_CIRCLE_RADIUS, 0.0f, 0.0f));
+            this->_static_objects.push_back(cheerio);
+        }
+        cheerio = new Cheerio();
+        cheerio->setRotation(angle);
+        cheerio->setPosition(new Vector3(OUTER_CIRCLE_RADIUS, 0.0f, 0.0f));
+        this->_static_objects.push_back(cheerio);
+        
+    }
+    // Initialize Oranges
+    // define diferent quadrants
+    GLdouble x_quad_oranges_pos[4] = {1, 1, -1, -1}; // imporve this
+    GLdouble y_quad_oranges_pos[QTD_ORANGES];
+    for(int i = 0; i < QTD_ORANGES; i++){
+        //x_quad_pos[i] = () ? -1 : 1;
+        y_quad_oranges_pos[i] = (i%2==0) ? 1 : -1;
+    }
+    for (int i = 0; i < QTD_ORANGES; i++) {
+        GLdouble pos_x = (rand() % 95)/100.0 * x_quad_oranges_pos[i];
+        GLdouble pos_y = (rand() % 95)/100.0 * y_quad_oranges_pos[i];
+        orange = new Orange();
+        orange->setPosition(new Vector3(pos_x, pos_y, 0.1f)); //orange->_height/2
+        this->_dynamic_objects.push_back(orange);
+    }
+    // Initialize Butters
+    GLdouble x_quad_butters_pos[4] = {1, 1, -1, -1}; // imporve this
+    GLdouble y_quad_butters_pos[QTD_BUTTERS];
+    for(int i = 0; i < QTD_BUTTERS; i++){
+        //x_quad_pos[i] = () ? -1 : 1;
+        y_quad_butters_pos[i] = (i%2==0) ? 1 : -1;
+    }
+    for(int i = 0; i < QTD_BUTTERS; i++){
+        GLdouble pos_x = (rand() % 95)/100.0 * x_quad_butters_pos[i];
+        GLdouble pos_y = (rand() % 95)/100.0 * y_quad_butters_pos[i];
+        butter = new Butter();
+        butter->setPosition(new Vector3(pos_x, pos_y, 0.05f));
+        butter->setRotation(rand() % 360);
+        this->_static_objects.push_back(butter);
+    }
+    
 };
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
@@ -78,10 +133,39 @@ void GameManager::drawAll(){
 };
 
 //  ----------------------------------------------------------- updateAll()
-//  Method that handle all the updates, calculations and what
-//  not of each object in the display
+//  Method that handle all the updates, calculations, colisions
+//  and what not of each object in the display
 void GameManager::updateAll(){
     logger.debug("GameManager::updateAll()");
+    
+    // colisions
+    for(GameObject * obj: _dynamic_objects){
+        if(typeid(Car) == typeid(*obj)){ /* do nothing */ }
+            
+        if(typeid(Orange) == typeid(*obj)){
+            if(car->collidesWith(obj)){
+                logger.error("Touched orange");
+                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+                car->set_move_up(false);
+            }
+        }
+    }
+    for(GameObject * obj: _static_objects){
+        if(typeid(Cheerio) == typeid(*obj)){
+            if(car->collidesWith(obj)){
+                logger.error("Touched cheerio");
+            }
+        }
+        if(typeid(Butter) == typeid(*obj)){
+            if(car->collidesWith(obj)){
+                logger.error("Touched butter");
+                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+                car->set_move_up(false);
+            }
+        }
+    }
+    
+    // update
     _current_time = glutGet(GLUT_ELAPSED_TIME);
     for(GameObject * obj : _dynamic_objects){
         obj->update(_current_time - _previous_time);
