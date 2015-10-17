@@ -13,11 +13,13 @@
 #include "Camera.h"
 #include "PerspectiveCamera.h"
 
+
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
     // init time tracking
     _previous_time = 0, _current_time = 0;
     // init vector of gameobjects, dynamic and static
+    std::vector<GameObject *> _game_objects;
     std::vector<DynamicObject *> _dynamic_objects;
     std::vector<StaticObject *> _static_objects;
     
@@ -92,64 +94,86 @@ void GameManager::updateAll(){
     _previous_time = glutGet(GLUT_ELAPSED_TIME);
 };
 
-////  ----------------------------------------------------------- onReshape()
-////  Custom reshape function used when "glutReshapeFunc"
-////  triggers an event. This handles the change in screen size
-//void GameManager::onReshape(GLsizei w, GLsizei h){
-//    logger.debug("GameManager::onReshape()");
-//    // define size of the viewport
-//    // args: x, y, weight, height
-//    // x and y are measure from the bottom left corner of the screen
-//    // weight and height are the actual size of the viewport
-//    float xmin = -1., xmax = 1., ymin = -1., ymax = 1.;
-//    float ratio = (xmax - xmin) / (ymax - ymin);
-//    float aspect = (float) w / h;
-//    if (aspect > ratio)
-//        glViewport((w-h*ratio)/2, 0, h*ratio, h);
-//    else
-//        glViewport(0, (h-w/ratio)/2, w, w/ratio);
-//    // changes the pointer for which Matrix we want to work on. GL_PROJECTION
-//    glMatrixMode(GL_PROJECTION);
-//    // puts the Identity Matrix as the top matrix of the stack GL_PROJECTION
-//    glLoadIdentity();
-//    // changes back the pointer to the GL_MODELVIEW
-//    glMatrixMode(GL_MODELVIEW);
-//    // and set's the top matrix of that stack to be the Identity Matrix
-//    glLoadIdentity();
-//    // define Ortho2d projection
-//    gluOrtho2D(xmin, xmax, ymin, ymax);
-//};
+//  ----------------------------------------------------------- onReshape()
+//  Custom reshape function used when "glutReshapeFunc"
+//  triggers an event. This handles the change in screen size
+void GameManager::onReshape(GLsizei w, GLsizei h){
+    logger.debug("GameManager::onReshape()");
+    // define size of the viewport
+    // args: x, y, weight, height
+    // x and y are measure from the bottom left corner of the screen
+    // weight and height are the actual size of the viewport
+    float xmin = -1., xmax = 1., ymin = -1., ymax = 1.;
+    float ratio = (xmax - xmin) / (ymax - ymin);
+    float aspect = (float) w / h;
+    if (aspect > ratio)
+        glViewport((w-h*ratio)/2, 0, h*ratio, h);
+    else
+        glViewport(0, (h-w/ratio)/2, w, w/ratio);
+    // changes the pointer for which Matrix we want to work on. GL_PROJECTION
+    glMatrixMode(GL_PROJECTION);
+    // puts the Identity Matrix as the top matrix of the stack GL_PROJECTION
+    glLoadIdentity();
+    // changes back the pointer to the GL_MODELVIEW
+    glMatrixMode(GL_MODELVIEW);
+    // and set's the top matrix of that stack to be the Identity Matrix
+    glLoadIdentity();
+    // define Ortho2d projection
+    gluOrtho2D(xmin, xmax, ymin, ymax);
+};
 
+
+//creates Camera 1
 void GameManager::Cam1(){
+    //first camera
     logger.debug("GameManager::Cam1()");
-    PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 100);
-    Cam1->update();
-}
-//
-
-void GameManager::Cam2(){
-    logger.debug("GameManager::Cam2()");
     POSCAM->setX(0);
-    POSCAM->setY(-1);
+    POSCAM->setY(0);
     POSCAM->setZ(3);
+    
     POINTCAM->setX(0);
     POINTCAM->setY(0);
     POINTCAM->setZ(0);
-    PerspectiveCamera * Cam2 = new PerspectiveCamera(60, 0.1, 100);
+    
+    
+    PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 100);
+    Cam1->update();
+}
+
+
+//creates Camera 2
+void GameManager::Cam2(){
+//    perspective view
+    logger.debug("GameManager::Cam2()");
+    POSCAM->setX(0);
+    POSCAM->setY(-6);
+    POSCAM->setZ(8);
+    
+    POINTCAM->setX(0);
+    POINTCAM->setY(1.0);
+    POINTCAM->setZ(0);
+
+    PerspectiveCamera * Cam2 = new PerspectiveCamera(20, 0.1, 80);
     Cam2->update();
 }
 
-//void GameManager::Cam3(){
-//    logger.debug("GameManager::Cam3()");
-//    POSCAM->setX(new_pos_x);
-//    POSCAM->setY(new_pos_y);
-//    POSCAM->setZ(new pos_x);
-//    POINTCAM->setX(0);
-//    POINTCAM->setY(0);
-//    POINTCAM->setZ(0);
-//    PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
-//    Cam3->update();
-//}
+//creates Camera 3
+void GameManager::Cam3(){
+    logger.debug("GameManager::Cam3()");
+    Car * car = (Car *)_dynamic_objects.front();
+//    sets cam position to car position
+    POSCAM->setX(car->getPosition()->getX());
+    POSCAM->setY(car->getPosition()->getY() - 0.1);
+    POSCAM->setZ(1.5);
+    
+    POINTCAM->setX(car->getPosition()->getX());
+    POINTCAM->setY(car->getPosition()->getY());
+    POINTCAM->setZ(car->getPosition()->getZ());
+
+    
+    PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
+    Cam3->update();
+}
 
 
 //  ----------------------------------------------------------- onDisplay()
@@ -176,8 +200,15 @@ void GameManager::onDisplay(){
     // Aspect Ratio. Width/Height eg: 4/3 or 16/9
     // Near clipping plane.
     // Far clipping plane.
-//    gm.Cam1();
-    gm.Cam2();
+    
+    //verifies which camera is active at the moment
+    if (CAM1 == true && CAM2 == false && CAM3 == false)
+        gm.Cam1();
+    if (CAM1 == false && CAM2 == true && CAM3 == false)
+        gm.Cam2();
+    if (CAM1 == false && CAM2 == false && CAM3 == true)
+        gm.Cam3();
+    
     // draw all objects
     gm.drawAll();
     // force the execution of the GL commands
@@ -214,10 +245,26 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
     else{
         
         switch(key){
-            case '1': gm.Cam1(); logger.info("Camera1");
+            case '1':
+                gm.Cam1();
+                CAM1 = true;
+                logger.info("Camera1");
                 break;
-            case '2': gm.Cam2(); logger.info("Camera2");
+            case '2':
+                gm.Cam2();
+                CAM1 = false;
+                CAM2 = true;
+                logger.info("Camera2");
                 break;
+                
+            case '3':
+                gm.Cam3();
+                CAM1 = false;
+                CAM2 = false;
+                CAM3 = true;
+                logger.info("Camera2");
+                break;
+                
 //            case 'q' : POINTCAM->setX(POINTCAM->getX() + ROTATION_SPEED); logger.info("Camera Pointer +X"); break;
 //            case 'w' : POINTCAM->setY(POINTCAM->getY() + ROTATION_SPEED); logger.info("Camera Pointer +Y"); break;
 //            case 'e' : POINTCAM->setZ(POINTCAM->getZ() + ROTATION_SPEED); logger.info("Camera Pointer +Z"); break;

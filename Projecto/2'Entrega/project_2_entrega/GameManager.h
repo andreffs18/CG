@@ -14,10 +14,11 @@ private:
     std::vector<StaticObject *> _static_objects;
     std::vector<DynamicObject *> _dynamic_objects;
     int _current_time, _previous_time;
+
 public:
     GameManager();
     ~GameManager();
-    
+
     void keyPress(int);
     void keyRelease(int);
     void drawAll();
@@ -25,6 +26,7 @@ public:
     void Cam1();
     void Cam2();
     void Cam3();
+    void reSetCamVals();
     
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();

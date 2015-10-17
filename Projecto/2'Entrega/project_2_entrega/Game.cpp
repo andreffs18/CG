@@ -32,6 +32,10 @@ Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);
 Vector3 * AXIS = new Vector3(0.0f, 1.0f, 0.0f);
 float ROTATION_SPEED = 0.5f;
 
+// booleans for checking active cameras
+bool CAM1 = true;
+bool CAM2 = false;
+bool CAM3 = false;
 // initialize global log object
 Log logger = Log();
 // initialize game manager
@@ -71,8 +75,11 @@ int main(int argc, char * argv[]) {
     glutMouseFunc(GameManager::onMouseClick);
     // when mouse move's
     glutMotionFunc(GameManager::onMouseMotion);
+    
+    
 
     // runs forever in a loop to keep the program running
     glutMainLoop();
+
     return 0;
 }

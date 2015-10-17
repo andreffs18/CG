@@ -51,5 +51,9 @@ extern Vector3 * AXIS;
 // Global Rotation Speed..
 extern float ROTATION_SPEED;
 
+extern bool CAM1;
+extern bool CAM2;
+extern bool CAM3;
+
 extern float BANANAS;
 #endif /* defined(__GAME_H_INCLUDED__) */
