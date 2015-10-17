@@ -26,7 +26,6 @@ public:
     void Cam1();
     void Cam2();
     void Cam3();
-    void reSetCamVals();
     
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();
