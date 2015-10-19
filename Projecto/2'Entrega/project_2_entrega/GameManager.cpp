@@ -37,6 +37,7 @@ GameManager::GameManager(){
     // Initialize Car
     car = new Car();
     car->setPosition(new Vector3(0.0f, 0.0f, 0.0f));
+    car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
     this->_dynamic_objects.push_back(car);
 
     // Initialize Cheerios
@@ -71,6 +72,9 @@ GameManager::GameManager(){
         GLdouble pos_y = (rand() % 95)/100.0 * y_quad_oranges_pos[i];
         orange = new Orange();
         orange->setPosition(new Vector3(pos_x, pos_y, 0.1f)); //orange->_height/2
+        
+        orange->setSpeed(new Vector3(SPEED_INCREMENT, 0.0f, 0.0f));
+        
         this->_dynamic_objects.push_back(orange);
     }
     // Initialize Butters
