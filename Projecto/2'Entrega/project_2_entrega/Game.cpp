@@ -6,16 +6,16 @@
 #include "Game.h"
 #include <vector>
 
-const char * WINDOW_NAME = "Projecto #1 Entrega";
+const char * WINDOW_NAME = "Projecto #2 Entrega";
 int VIEWPORT_WIDTH = 800;
 int VIEWPORT_HEIGHT = 800;
 int WINDOW_X_POS = -1;
 int WINDOW_Y_POS = -1;
 
-GLdouble P_FOV = 60;
+GLdouble P_FOV;
 GLdouble P_ASPECT_RATIO = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
-GLdouble P_NEAR = 0.1f;
-GLdouble P_FAR = 100.0f;
+GLdouble P_NEAR ;
+GLdouble P_FAR;
 
 float GRAVIT_CONST = 9.8f;
 float PI = 3.14159;
@@ -32,6 +32,10 @@ Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);
 Vector3 * AXIS = new Vector3(0.0f, 1.0f, 0.0f);
 float ROTATION_SPEED = 1.0f;
 
+// booleans for checking active cameras
+bool CAM1 = true;
+bool CAM2 = false;
+bool CAM3 = false;
 // initialize global log object
 Log logger = Log();
 // initialize game manager
@@ -58,7 +62,7 @@ int main(int argc, char * argv[]) {
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);
     // set the callback function to handle changes in screen size
-    glutReshapeFunc(GameManager::onReshape);
+//    glutReshapeFunc(GameManager::onReshape);
     // set the keyboard function to handle keyboard events
     glutKeyboardFunc(GameManager::onKeyboard);
     // set the keyboard function to handle special keys events
@@ -71,8 +75,11 @@ int main(int argc, char * argv[]) {
     glutMouseFunc(GameManager::onMouseClick);
     // when mouse move's
     glutMotionFunc(GameManager::onMouseMotion);
+    
+    
 
     // runs forever in a loop to keep the program running
     glutMainLoop();
+
     return 0;
 }

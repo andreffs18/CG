@@ -12,22 +12,24 @@
 #include "Cheerio.h"
 #include "Orange.h"
 #include "Butter.h"
+#include "Camera.h"
+#include "PerspectiveCamera.h"
+
 
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
     // init time tracking
     _previous_time = 0, _current_time = 0;
     // init vector of gameobjects, dynamic and static
+    std::vector<GameObject *> _game_objects;
     std::vector<DynamicObject *> _dynamic_objects;
     std::vector<StaticObject *> _static_objects;
     
-    // init random
-    time_t t;
-    srand((unsigned) time(&t));
-    
-    // Initialize Track
-    track = new Track();
-    track->setPosition(new Vector3(0.0f, 0.0f, -0.20f));
+    Car * car = new Car();
+    this->_dynamic_objects.push_back(car);
+
+    // every object that is commented should be drawn on track
+    Track * track = new Track(64, 4, 3, 0.5, 0.7);
     this->_static_objects.push_back(track);
 
     // Initialize Car
@@ -201,6 +203,60 @@ void GameManager::onReshape(GLsizei w, GLsizei h){
     gluOrtho2D(xmin, xmax, ymin, ymax);
 };
 
+
+//creates Camera 1
+void GameManager::Cam1(){
+    //first camera
+    logger.debug("GameManager::Cam1()");
+    POSCAM->setX(0);
+    POSCAM->setY(0);
+    POSCAM->setZ(3);
+    
+    POINTCAM->setX(0);
+    POINTCAM->setY(0);
+    POINTCAM->setZ(0);
+    
+    
+    PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 100);
+    Cam1->update();
+}
+
+
+//creates Camera 2
+void GameManager::Cam2(){
+//    perspective view
+    logger.debug("GameManager::Cam2()");
+    POSCAM->setX(0);
+    POSCAM->setY(-6);
+    POSCAM->setZ(8);
+    
+    POINTCAM->setX(0);
+    POINTCAM->setY(1.0);
+    POINTCAM->setZ(0);
+
+    PerspectiveCamera * Cam2 = new PerspectiveCamera(20, 0.1, 80);
+    Cam2->update();
+}
+
+//creates Camera 3
+void GameManager::Cam3(){
+    logger.debug("GameManager::Cam3()");
+    Car * car = (Car *)_dynamic_objects.front();
+//    sets cam position to car position
+    POSCAM->setX(car->getPosition()->getX());
+    POSCAM->setY(car->getPosition()->getY() - 0.1);
+    POSCAM->setZ(1.5);
+    
+    POINTCAM->setX(car->getPosition()->getX());
+    POINTCAM->setY(car->getPosition()->getY());
+    POINTCAM->setZ(car->getPosition()->getZ());
+
+    
+    PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
+    Cam3->update();
+}
+
+
 //  ----------------------------------------------------------- onDisplay()
 //  Custom display function used when "glutDisplayFunc"
 //  triggers an event. This handles the drawing of the scenes
@@ -220,25 +276,27 @@ void GameManager::onDisplay(){
     if(ENABLE_DEPTH){ glEnable(GL_DEPTH_TEST); } else { glDisable(GL_DEPTH_TEST); }
     
     glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
     // gluPerspective(fov, aspect_ration, near_plane, far_plane)
     // Field of View (degrees). the amount of "zoom". eg: 90°-extra wide|30°-zoomed in
     // Aspect Ratio. Width/Height eg: 4/3 or 16/9
     // Near clipping plane.
     // Far clipping plane.
-    gluPerspective(P_FOV, P_ASPECT_RATIO, P_NEAR, P_FAR);
     
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(POSCAM->getX(), POSCAM->getY(), POSCAM->getZ(), // camera pos
-              POINTCAM->getX(), POINTCAM->getY(), POINTCAM->getZ(),  // where is the camera pointing to
-              AXIS->getX(), AXIS->getY(), AXIS->getZ()); // which axis is the up
+    //verifies which camera is active at the moment
+    if (CAM1 == true && CAM2 == false && CAM3 == false)
+        gm.Cam1();
+    if (CAM1 == false && CAM2 == true && CAM3 == false)
+        gm.Cam2();
+    if (CAM1 == false && CAM2 == false && CAM3 == true)
+        gm.Cam3();
+    
     // draw all objects
     gm.drawAll();
     // force the execution of the GL commands
     (ENABLE_DOUBLE_BUFFER) ? glutSwapBuffers() : glFlush();
     
 };
+
 
 //  -------------------------------------------------------------- onIdle()
 //  Custom keyboard function used when "glutIdleFunc" triggers
@@ -266,23 +324,43 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
         }
     }
     else{
+        
         switch(key){
-            case '1' : POSCAM->setX(POSCAM->getX() + ROTATION_SPEED); logger.info("Camera Position +X"); break;
-            case '2' : POSCAM->setY(POSCAM->getY() + ROTATION_SPEED); logger.info("Camera Position +Y"); break;
-            case '3' : POSCAM->setZ(POSCAM->getZ() + ROTATION_SPEED); logger.info("Camera Position +Z"); break;
-            case '8' : POSCAM->setX(POSCAM->getX() - ROTATION_SPEED); logger.info("Camera Position -X"); break;
-            case '9' : POSCAM->setY(POSCAM->getY() - ROTATION_SPEED); logger.info("Camera Position -Y"); break;
-            case '0' : POSCAM->setZ(POSCAM->getZ() - ROTATION_SPEED); logger.info("Camera Position -Z"); break;
-            case 'q' : POINTCAM->setX(POINTCAM->getX() + ROTATION_SPEED); logger.info("Camera Pointer +X"); break;
-            case 'w' : POINTCAM->setY(POINTCAM->getY() + ROTATION_SPEED); logger.info("Camera Pointer +Y"); break;
-            case 'e' : POINTCAM->setZ(POINTCAM->getZ() + ROTATION_SPEED); logger.info("Camera Pointer +Z"); break;
-            case 'i' : POINTCAM->setX(POINTCAM->getX() - ROTATION_SPEED); logger.info("Camera Pointer -X"); break;
-            case 'o' : POINTCAM->setY(POINTCAM->getY() - ROTATION_SPEED); logger.info("Camera Pointer -Y"); break;
-            case 'p' : POINTCAM->setZ(POINTCAM->getZ() - ROTATION_SPEED); logger.info("Camera Pointer -Z"); break;
-            case 'X' : AXIS->setX(1.0f); AXIS->setY(0.0f); AXIS->setZ(0.0f); break;
-            case 'Y' : AXIS->setX(0.0f); AXIS->setY(1.0f); AXIS->setZ(0.0f); break;
-            case 'Z' : AXIS->setX(0.0f); AXIS->setY(0.0f); AXIS->setZ(1.0f); break;
+            case '1':
+                gm.Cam1();
+                CAM1 = true;
+                logger.info("Camera1");
+                break;
+            case '2':
+                gm.Cam2();
+                CAM1 = false;
+                CAM2 = true;
+                logger.info("Camera2");
+                break;
+                
+            case '3':
+                gm.Cam3();
+                CAM1 = false;
+                CAM2 = false;
+                CAM3 = true;
+                logger.info("Camera2");
+                break;
+                
+//            case 'q' : POINTCAM->setX(POINTCAM->getX() + ROTATION_SPEED); logger.info("Camera Pointer +X"); break;
+//            case 'w' : POINTCAM->setY(POINTCAM->getY() + ROTATION_SPEED); logger.info("Camera Pointer +Y"); break;
+//            case 'e' : POINTCAM->setZ(POINTCAM->getZ() + ROTATION_SPEED); logger.info("Camera Pointer +Z"); break;
+//            case 'i' : POINTCAM->setX(POINTCAM->getX() - ROTATION_SPEED); logger.info("Camera Pointer -X"); break;
+//            case 'o' : POINTCAM->setY(POINTCAM->getY() - ROTATION_SPEED); logger.info("Camera Pointer -Y"); break;
+//            case 'p' : POINTCAM->setZ(POINTCAM->getZ() - ROTATION_SPEED); logger.info("Camera Pointer -Z");
+//                break;
+//            case 'X' : AXIS->setX(1.0f); AXIS->setY(0.0f); AXIS->setZ(0.0f);
+//                break;
+//            case 'Y' : AXIS->setX(0.0f); AXIS->setY(1.0f); AXIS->setZ(0.0f);
+//                break;
+//            case 'Z' : AXIS->setX(0.0f); AXIS->setY(0.0f); AXIS->setZ(1.0f);
+//                break;
         }
+
     }
     glutPostRedisplay();
 };

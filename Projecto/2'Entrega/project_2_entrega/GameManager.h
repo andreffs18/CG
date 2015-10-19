@@ -19,12 +19,7 @@ private:
     std::vector<StaticObject *> _static_objects;
     std::vector<DynamicObject *> _dynamic_objects;
     int _current_time, _previous_time;
-    
-    Car * car;
-    Track * track;
-    Orange * orange;
-    Butter * butter;
-    Cheerio * cheerio;
+
 public:
     // Global Variables
     // speed increment on car
@@ -46,11 +41,14 @@ public:
     
     GameManager();
     ~GameManager();
-    
+
     void keyPress(int);
     void keyRelease(int);
     void drawAll();
     void updateAll();
+    void Cam1();
+    void Cam2();
+    void Cam3();
     
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();
