@@ -3,7 +3,7 @@
 //
 #include <typeinfo>
 #include <complex>
-#include <ctime>
+#include <time.h>
 #include "Game.h"
 #include "GameManager.h"
 
@@ -24,12 +24,14 @@ GameManager::GameManager(){
     std::vector<GameObject *> _game_objects;
     std::vector<DynamicObject *> _dynamic_objects;
     std::vector<StaticObject *> _static_objects;
-    
-    Car * car = new Car();
-    this->_dynamic_objects.push_back(car);
 
+    // init random
+
+    srand(time(NULL));
+    
     // every object that is commented should be drawn on track
-    Track * track = new Track(64, 4, 3, 0.5, 0.7);
+    track = new Track();
+    track->setPosition(new Vector3(0.0f, 0.0f, -0.2f));
     this->_static_objects.push_back(track);
 
     // Initialize Car
@@ -86,7 +88,6 @@ GameManager::GameManager(){
         butter->setRotation(rand() % 360);
         this->_static_objects.push_back(butter);
     }
-    
 };
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
@@ -227,11 +228,11 @@ void GameManager::Cam2(){
 //    perspective view
     logger.debug("GameManager::Cam2()");
     POSCAM->setX(0);
-    POSCAM->setY(-6);
-    POSCAM->setZ(8);
+    POSCAM->setY(-4);
+    POSCAM->setZ(6);
     
     POINTCAM->setX(0);
-    POINTCAM->setY(1.0);
+    POINTCAM->setY(0);
     POINTCAM->setZ(0);
 
     PerspectiveCamera * Cam2 = new PerspectiveCamera(20, 0.1, 80);
@@ -243,15 +244,30 @@ void GameManager::Cam3(){
     logger.debug("GameManager::Cam3()");
     Car * car = (Car *)_dynamic_objects.front();
 //    sets cam position to car position
+    
+//    GLdouble rot_x = car->getPosition()->getX();
+//    GLdouble rot_y = car->getPosition()->getY();
+
+    GLdouble dir = car->get_direction();
+//    // the car turned right
+//    if(dir > 0){
+//        rot_y += 0.1;
+//    } // the car turned left
+//    else if (dir < 0) {
+//        rot_y -= 0.1;
+//    } // the car didn't move
+//    else{
+//        
+//    }
+//    
     POSCAM->setX(car->getPosition()->getX());
-    POSCAM->setY(car->getPosition()->getY() - 0.1);
-    POSCAM->setZ(1.5);
+    POSCAM->setY(car->getPosition()->getY() - 0.3);
+    POSCAM->setZ(0.2);
     
     POINTCAM->setX(car->getPosition()->getX());
     POINTCAM->setY(car->getPosition()->getY());
     POINTCAM->setZ(car->getPosition()->getZ());
 
-    
     PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
     Cam3->update();
 }
@@ -345,22 +361,7 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
                 CAM3 = true;
                 logger.info("Camera2");
                 break;
-                
-//            case 'q' : POINTCAM->setX(POINTCAM->getX() + ROTATION_SPEED); logger.info("Camera Pointer +X"); break;
-//            case 'w' : POINTCAM->setY(POINTCAM->getY() + ROTATION_SPEED); logger.info("Camera Pointer +Y"); break;
-//            case 'e' : POINTCAM->setZ(POINTCAM->getZ() + ROTATION_SPEED); logger.info("Camera Pointer +Z"); break;
-//            case 'i' : POINTCAM->setX(POINTCAM->getX() - ROTATION_SPEED); logger.info("Camera Pointer -X"); break;
-//            case 'o' : POINTCAM->setY(POINTCAM->getY() - ROTATION_SPEED); logger.info("Camera Pointer -Y"); break;
-//            case 'p' : POINTCAM->setZ(POINTCAM->getZ() - ROTATION_SPEED); logger.info("Camera Pointer -Z");
-//                break;
-//            case 'X' : AXIS->setX(1.0f); AXIS->setY(0.0f); AXIS->setZ(0.0f);
-//                break;
-//            case 'Y' : AXIS->setX(0.0f); AXIS->setY(1.0f); AXIS->setZ(0.0f);
-//                break;
-//            case 'Z' : AXIS->setX(0.0f); AXIS->setY(0.0f); AXIS->setZ(1.0f);
-//                break;
         }
-
     }
     glutPostRedisplay();
 };

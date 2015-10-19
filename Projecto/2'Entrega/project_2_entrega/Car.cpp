@@ -20,6 +20,10 @@ Car::Car() : DynamicObject(){
 };
 Car::~Car(){};
 
+GLdouble Car::get_direction(){
+    return _direction_angle;
+}
+
 void Car::set_move_up(bool b){ _move_up = b; };
 void Car::set_move_down(bool b){ _move_down = b; };
 void Car::set_move_left(bool b){ _move_left = b; };
@@ -108,9 +112,9 @@ void Car::draw(){
     glScalef(0.025f, 0.025f, 0.025f);
     // draw it
     drawCarModel();
-    //glColor3f(1.0f, 1.0f, 1.0f);
-    //glScalef(2.0f, 1.0f, 1.0f);
-    //glutWireCube(3.0f);
+//    glColor3f(1.0f, 1.0f, 1.0f);
+//    glScalef(2.0f, 1.0f, 1.0f);
+//    glutWireCube(3.0f);
     glPopMatrix();
 };
 

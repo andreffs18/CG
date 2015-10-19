@@ -15,7 +15,7 @@ void Butter::draw() {
     glRotatef(_rotation, 0.0f, 0.0f, 1.0f);
     glScalef(0.3f, 0.1, 0.1);
 	glutSolidCube(1);
-    //glColor3f(1.0f, 1.0f, 1.0f);
-    //glutWireCube(1.5f);
+//    glColor3f(1.0f, 1.0f, 1.0f);
+//    glutWireCube(1.5f);
 	glPopMatrix();
 };

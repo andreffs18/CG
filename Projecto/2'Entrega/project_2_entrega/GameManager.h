@@ -20,6 +20,12 @@ private:
     std::vector<DynamicObject *> _dynamic_objects;
     int _current_time, _previous_time;
 
+    Car * car;
+    Track * track;
+    Cheerio * cheerio;
+    Butter * butter;
+    Orange * orange;
+    
 public:
     // Global Variables
     // speed increment on car

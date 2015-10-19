@@ -21,9 +21,9 @@
 		0EC2E8131BCC1A5000E148AB /* StaticObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EC2E8031BCC1A5000E148AB /* StaticObject.cpp */; };
 		0EC2E8141BCC1A5000E148AB /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EC2E8051BCC1A5000E148AB /* Track.cpp */; };
 		0EC2E8151BCC1A5000E148AB /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EC2E8071BCC1A5000E148AB /* Vector3.cpp */; };
-		EF43C40B1BCFCC8A002B0194 /* OrthogonalCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF43C4091BCFCC8A002B0194 /* OrthogonalCamera.cpp */; settings = {ASSET_TAGS = (); }; };
-		EF7E132D1BCC23430066A399 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7E132B1BCC23430066A399 /* Camera.cpp */; settings = {ASSET_TAGS = (); }; };
-		EF7E13301BCC31D10066A399 /* PerspectiveCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7E132E1BCC31D10066A399 /* PerspectiveCamera.cpp */; settings = {ASSET_TAGS = (); }; };
+		EF43C40B1BCFCC8A002B0194 /* OrthogonalCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF43C4091BCFCC8A002B0194 /* OrthogonalCamera.cpp */; };
+		EF7E132D1BCC23430066A399 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7E132B1BCC23430066A399 /* Camera.cpp */; };
+		EF7E13301BCC31D10066A399 /* PerspectiveCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7E132E1BCC31D10066A399 /* PerspectiveCamera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,18 +108,6 @@
 		0EC2E7E81BCC19E800E148AB /* project_2_entrega */ = {
 			isa = PBXGroup;
 			children = (
-				0EC2E7F01BCC1A5000E148AB /* Butter.cpp */,
-				0EC2E7F11BCC1A5000E148AB /* Butter.h */,
-				EF7E132E1BCC31D10066A399 /* PerspectiveCamera.cpp */,
-				EF7E132F1BCC31D10066A399 /* PerspectiveCamera.h */,
-				0EC2E7F21BCC1A5000E148AB /* Car.cpp */,
-				0EC2E7F31BCC1A5000E148AB /* Car.h */,
-				0EC2E7F41BCC1A5000E148AB /* Cheerio.cpp */,
-				0EC2E7F51BCC1A5000E148AB /* Cheerio.h */,
-				EF7E132B1BCC23430066A399 /* Camera.cpp */,
-				EF7E132C1BCC23430066A399 /* Camera.h */,
-				0EC2E7F61BCC1A5000E148AB /* DynamicObject.cpp */,
-				0EC2E7F71BCC1A5000E148AB /* DynamicObject.h */,
 				0EC2E7F81BCC1A5000E148AB /* Game.cpp */,
 				0EC2E7F91BCC1A5000E148AB /* Game.h */,
 				0EC2E7FA1BCC1A5000E148AB /* GameManager.cpp */,
@@ -144,6 +132,10 @@
 				0EC2E7FF1BCC1A5000E148AB /* Logger.h */,
 				0EC2E8071BCC1A5000E148AB /* Vector3.cpp */,
 				0EC2E8081BCC1A5000E148AB /* Vector3.h */,
+				EF7E132B1BCC23430066A399 /* Camera.cpp */,
+				EF7E132C1BCC23430066A399 /* Camera.h */,
+				EF7E132E1BCC31D10066A399 /* PerspectiveCamera.cpp */,
+				EF7E132F1BCC31D10066A399 /* PerspectiveCamera.h */,
 				EF43C4091BCFCC8A002B0194 /* OrthogonalCamera.cpp */,
 				EF43C40A1BCFCC8A002B0194 /* OrthogonalCamera.h */,
 			);

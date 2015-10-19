@@ -18,6 +18,8 @@ public:
     void draw();
     void update(float);
     
+    
+    GLdouble get_direction();
     void set_move_up(bool);
     void set_move_down(bool);
     void set_move_left(bool);
