@@ -12,6 +12,7 @@ public:
     Cheerio();
     ~Cheerio();
     void draw();
+ 
 };
 
 #endif /* defined(__CHEERIO_H_INCLUDED__) */

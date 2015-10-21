@@ -65,7 +65,7 @@ void Track::draw(){
     logger.debug("Track::draw()");
 	glPushMatrix();
     glTranslatef(_position->getX(), _position->getY(), _position->getZ());
-    glScalef(1.0f, 1.0f, 0.2f);
+    glScalef(gm.TRACK_SIZE, gm.TRACK_SIZE, 0.2f);
     // track is just a solid cube
     drawTrackModel();
     glPopMatrix();

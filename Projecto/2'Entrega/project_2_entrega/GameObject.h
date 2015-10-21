@@ -17,7 +17,8 @@
 class GameObject{
 protected:
     Vector3 * _position;
-    GLdouble _width, _height;
+    GLdouble _rotation;
+    GLdouble _radius;
 public:
     GameObject();
     ~GameObject();
@@ -27,11 +28,14 @@ public:
     Vector3 * getPosition();
     void setPosition(Vector3 *);
     
+    GLdouble getRadius();
+    void setRadius(GLdouble);
+
+    GLdouble getRotation();
+    void setRotation(GLdouble);
+    
     bool collidesWith(GameObject *);
-    GLdouble getXMax();
-    GLdouble getXMin();
-    GLdouble getYMax();
-    GLdouble getYMin();
+
 };
 
 #endif /* defined(__GAMEOBJECT_H_INCLUDED__) */

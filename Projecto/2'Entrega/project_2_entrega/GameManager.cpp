@@ -21,72 +21,69 @@ GameManager::GameManager(){
     // init time tracking
     _previous_time = 0, _current_time = 0;
     // init vector of gameobjects, dynamic and static
-    std::vector<GameObject *> _game_objects;
     std::vector<DynamicObject *> _dynamic_objects;
     std::vector<StaticObject *> _static_objects;
 
     // init random
-
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     
-    // every object that is commented should be drawn on track
+    // Initialize Track
     track = new Track();
     track->setPosition(new Vector3(0.0f, 0.0f, -0.2f));
     this->_static_objects.push_back(track);
 
     // Initialize Car
     car = new Car();
-    car->setPosition(new Vector3(0.0f, 0.0f, 0.0f));
+    GLdouble start_position = - INNER_CIRCLE_RADIUS - 3;
+    car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
     car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
     this->_dynamic_objects.push_back(car);
 
     // Initialize Cheerios
-    // angle start position
-    GLdouble angle = 0.0f;
-    for(int i = 0; angle < 360.0f; angle += 360.0f / (QTD_CHEERIOS), i++){
+    for(double angle = 0.0f, i = 0; angle < 360.0f; angle += 360.0f / (QTD_CHEERIOS), i++){
         // we draw the outer cheerio twice as much as the inner one
         // in a pair instance of the angle we dra both, otherwise
         // we just draw the outer cheerio
-        if(i % 2 == 0){
+        GLdouble _cos = cos(angle*(PI/180));
+        GLdouble _sin = sin(angle*(PI/180));
+        
+        if(int(i) % 2 == 0){
             cheerio = new Cheerio();
-            cheerio->setRotation(angle);
-            cheerio->setPosition(new Vector3(INNER_CIRCLE_RADIUS, 0.0f, 0.0f));
+            Vector3 * new_pos = new Vector3(INNER_CIRCLE_RADIUS * _cos, INNER_CIRCLE_RADIUS * _sin, 0.0f);
+            cheerio->setPosition(new_pos);
             this->_static_objects.push_back(cheerio);
         }
         cheerio = new Cheerio();
-        cheerio->setRotation(angle);
-        cheerio->setPosition(new Vector3(OUTER_CIRCLE_RADIUS, 0.0f, 0.0f));
+        Vector3 * new_pos = new Vector3(OUTER_CIRCLE_RADIUS * _cos, OUTER_CIRCLE_RADIUS * _sin, 0.0f);
+        cheerio->setPosition(new_pos);
         this->_static_objects.push_back(cheerio);
         
     }
     // Initialize Oranges
-    // define diferent quadrants
-    GLdouble x_quad_oranges_pos[4] = {1, 1, -1, -1}; // imporve this
-    GLdouble y_quad_oranges_pos[QTD_ORANGES];
-    for(int i = 0; i < QTD_ORANGES; i++){
-        //x_quad_pos[i] = () ? -1 : 1;
-        y_quad_oranges_pos[i] = (i%2==0) ? 1 : -1;
-    }
-    for (int i = 0; i < QTD_ORANGES; i++) {
-        GLdouble pos_x = (rand() % 95)/100.0 * x_quad_oranges_pos[i];
-        GLdouble pos_y = (rand() % 95)/100.0 * y_quad_oranges_pos[i];
+    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_ORANGES; v=px, i++){
+        
+        px = (i%2==0) ? (-1)*v : v;
+        py = (i%2==0) ? 1 : -1;
+        // TRACK_SIZE-2 is for not generate a pos to place oranges
+        // in extact end of the table (track)
+        GLdouble pos_x = (rand() % 95)/100.0 * px * (TRACK_SIZE - 2);
+        GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
+        
         orange = new Orange();
         orange->setPosition(new Vector3(pos_x, pos_y, 0.1f)); //orange->_height/2
-        
         orange->setSpeed(new Vector3(SPEED_INCREMENT, 0.0f, 0.0f));
-        
         this->_dynamic_objects.push_back(orange);
     }
+    
     // Initialize Butters
-    GLdouble x_quad_butters_pos[4] = {1, 1, -1, -1}; // imporve this
-    GLdouble y_quad_butters_pos[QTD_BUTTERS];
-    for(int i = 0; i < QTD_BUTTERS; i++){
-        //x_quad_pos[i] = () ? -1 : 1;
-        y_quad_butters_pos[i] = (i%2==0) ? 1 : -1;
-    }
-    for(int i = 0; i < QTD_BUTTERS; i++){
-        GLdouble pos_x = (rand() % 95)/100.0 * x_quad_butters_pos[i];
-        GLdouble pos_y = (rand() % 95)/100.0 * y_quad_butters_pos[i];
+    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_BUTTERS; v=px, i++){
+        px = (i%2==0) ? (-1)*v : v;
+        py = (i%2==0) ? 1 : -1;
+        // TRACK_SIZE-2 is for not generate a pos to place butters
+        // in extact end of the table (track)
+        GLdouble pos_x = (rand() % 95)/100.0 * px * (TRACK_SIZE - 2);
+        GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
+        
         butter = new Butter();
         butter->setPosition(new Vector3(pos_x, pos_y, 0.05f));
         butter->setRotation(rand() % 360);
@@ -139,38 +136,76 @@ void GameManager::drawAll(){
     }
 };
 
+//  ----------------------------------------------------- handleColisions()
+//  Method that checks and handles all colisions between
+//  car and gameobjects
+void GameManager::handleColisions(){
+    // colisions with dynamic objects like oranges
+    for(GameObject * obj: _dynamic_objects){
+        // colision with car:
+        if(typeid(Car) == typeid(*obj)){ /* do nothing */ }
+        // colision with oranges:
+        if(typeid(Orange) == typeid(*obj)){
+            if(car->collidesWith(obj)){
+                logger.error("Touched orange");
+                // TODO
+                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+                car->set_move_up(false);
+            }
+        }
+    }
+    // colisions with static objects like butters and cheerios
+    for(GameObject * obj: _static_objects){
+        // colision with cheerios:
+        if(typeid(Cheerio) == typeid(*obj)){
+            if(car->collidesWith(obj)){
+                // the detection of which cheerio is touched only works for
+                // this type of track (circular). We just check where the
+                // cheerio is, relative to the radius of the cheerio's on the
+                // track. For demonstration purspuses it works.
+                GLdouble cheerio_pos_x = fabs(obj->getPosition()->getX());
+                GLdouble cheerio_pos_y = fabs(obj->getPosition()->getY());
+                bool is_inner_cheerio = cheerio_pos_x <= INNER_CIRCLE_RADIUS && cheerio_pos_y <= INNER_CIRCLE_RADIUS;
+                bool is_outer_cheerio = cheerio_pos_x > INNER_CIRCLE_RADIUS || cheerio_pos_y > INNER_CIRCLE_RADIUS;
+                
+                // both inner and outer circle
+                // (after scaling car, this can happend)
+                if(is_inner_cheerio && is_outer_cheerio){ /* do nothing */ }
+                // check if colision with inner circle
+                else if(is_inner_cheerio){
+                    logger.error("Touched Inner Cherrio: Decreasing car size");
+                    if(car->getScale() > CAR_MAX_SCALE_DOWN)
+                        car->setScale(car->getScale() - CAR_SCALE_DELTA);
+                }
+                // check if colision with outer circle
+                else if (is_outer_cheerio){
+                    logger.error("Touched Outer Cheerio: Increasing car size");
+                    if(car->getScale() < CAR_MAX_SCALE_UP)
+                        car->setScale(car->getScale() + CAR_SCALE_DELTA);
+                }
+            }
+        }
+        // colision with butters:
+        if(typeid(Butter) == typeid(*obj)){
+            if(car->collidesWith(obj)){
+                logger.error("Touched butter");
+                // TODO
+                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+                car->set_move_up(false);
+            }
+        }
+    }
+};
+
+
 //  ----------------------------------------------------------- updateAll()
 //  Method that handle all the updates, calculations, colisions
 //  and what not of each object in the display
 void GameManager::updateAll(){
     logger.debug("GameManager::updateAll()");
-    
+
     // colisions
-    for(GameObject * obj: _dynamic_objects){
-        if(typeid(Car) == typeid(*obj)){ /* do nothing */ }
-            
-        if(typeid(Orange) == typeid(*obj)){
-            if(car->collidesWith(obj)){
-                logger.error("Touched orange");
-                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-                car->set_move_up(false);
-            }
-        }
-    }
-    for(GameObject * obj: _static_objects){
-        if(typeid(Cheerio) == typeid(*obj)){
-            if(car->collidesWith(obj)){
-                logger.error("Touched cheerio");
-            }
-        }
-        if(typeid(Butter) == typeid(*obj)){
-            if(car->collidesWith(obj)){
-                logger.error("Touched butter");
-                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-                car->set_move_up(false);
-            }
-        }
-    }
+    handleColisions();
     
     // update
     _current_time = glutGet(GLUT_ELAPSED_TIME);
@@ -178,6 +213,7 @@ void GameManager::updateAll(){
         obj->update(_current_time - _previous_time);
     }
     _previous_time = glutGet(GLUT_ELAPSED_TIME);
+    
 };
 
 //  ----------------------------------------------------------- onReshape()
@@ -215,14 +251,14 @@ void GameManager::Cam1(){
     logger.debug("GameManager::Cam1()");
     POSCAM->setX(0);
     POSCAM->setY(0);
-    POSCAM->setZ(3);
+    POSCAM->setZ(30);
     
     POINTCAM->setX(0);
     POINTCAM->setY(0);
     POINTCAM->setZ(0);
     
     
-    PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 100);
+    PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 200);
     Cam1->update();
 }
 
@@ -252,7 +288,7 @@ void GameManager::Cam3(){
 //    GLdouble rot_x = car->getPosition()->getX();
 //    GLdouble rot_y = car->getPosition()->getY();
 
-    GLdouble dir = car->get_direction();
+    GLdouble dir = car->getRotation();
 //    // the car turned right
 //    if(dir > 0){
 //        rot_y += 0.1;
@@ -365,6 +401,7 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
                 CAM3 = true;
                 logger.info("Camera2");
                 break;
+            case '0': POSCAM->setZ(POSCAM->getZ() - ROTATION_SPEED); break;
         }
     }
     glutPostRedisplay();

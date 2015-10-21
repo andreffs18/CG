@@ -8,7 +8,7 @@
 
 class Car: public DynamicObject{
 private:
-    GLdouble _direction_angle;
+    GLdouble _scale;
     bool _move_up, _move_down, _move_left, _move_right;
     void drawCarModel();
 public:
@@ -18,12 +18,13 @@ public:
     void draw();
     void update(float);
     
-    
-    GLdouble get_direction();
     void set_move_up(bool);
     void set_move_down(bool);
     void set_move_left(bool);
     void set_move_right(bool);
+    
+    void setScale(GLdouble);
+    GLdouble getScale();
 };
 
 #endif /* defined(__CAR_H_INCLUDED__) */

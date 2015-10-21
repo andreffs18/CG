@@ -42,6 +42,7 @@ extern float GRAVIT_CONST;
 extern bool ENABLE_DEPTH;
 // Turn on/off double buffer
 extern bool ENABLE_DOUBLE_BUFFER;
+extern bool COLISION_SPHERE;
 // Global Position for the camera
 extern Vector3 * POSCAM;
 // Global Pointing vector  for the camera

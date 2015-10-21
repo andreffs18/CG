@@ -25,9 +25,11 @@ bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
 bool ENABLE_DEPTH = true;
-bool ENABLE_DOUBLE_BUFFER = false;
+bool ENABLE_DOUBLE_BUFFER = true;
 
-Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 3.0f);
+bool COLISION_SPHERE = true;
+
+Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 20.0f);
 Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);
 Vector3 * AXIS = new Vector3(0.0f, 1.0f, 0.0f);
 float ROTATION_SPEED = 1.0f;
@@ -62,7 +64,7 @@ int main(int argc, char * argv[]) {
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);
     // set the callback function to handle changes in screen size
-//    glutReshapeFunc(GameManager::onReshape);
+    // glutReshapeFunc(GameManager::onReshape);
     // set the keyboard function to handle keyboard events
     glutKeyboardFunc(GameManager::onKeyboard);
     // set the keyboard function to handle special keys events

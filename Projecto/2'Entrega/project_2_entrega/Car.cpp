@@ -6,28 +6,18 @@
 #include "Car.h"
 
 Car::Car() : DynamicObject(){
-    // setup width of car
-    _width = 0.1;
-    _height = 0.1;
+    _rotation = 0.0f;
+    _scale = 0.7f;
+    _radius = _scale * 3;
+
     // car is not moving
     _move_up = false;
     _move_down = false;
     _move_left = false;
     _move_right = false;
-    // angle that car is facing (direction)
-    _direction_angle = 0.0f;
     
 };
 Car::~Car(){};
-
-GLdouble Car::get_direction(){
-    return _direction_angle;
-}
-
-void Car::set_move_up(bool b){ _move_up = b; };
-void Car::set_move_down(bool b){ _move_down = b; };
-void Car::set_move_left(bool b){ _move_left = b; };
-void Car::set_move_right(bool b){ _move_right = b; };
 
 //  ---------------------------------------------------------------- update()
 //  updates car's position, velocity and rotation
@@ -40,12 +30,12 @@ void Car::update(float delta){
         if(_move_up || _speed->getX() > 0)
             // to drift when starts to speed up
             if(_speed->getX() < gm.SPEED_INCREMENT * 4)
-                _direction_angle -= gm.ANGLE_INCREMENT / 2;
+                _rotation -= gm.ANGLE_INCREMENT / 2;
             else
-                _direction_angle -= gm.ANGLE_INCREMENT;
+                _rotation -= gm.ANGLE_INCREMENT;
         // if is moving backward, then rotate (-)
         else if(_move_down ||  _speed->getX() < 0)
-            _direction_angle += gm.ANGLE_INCREMENT;
+            _rotation += gm.ANGLE_INCREMENT;
     }
 
     // if left is clicked
@@ -54,12 +44,12 @@ void Car::update(float delta){
         if(_move_up || _speed->getX() > 0)
             // to drift when starts to speed up
             if(_speed->getX() < gm.SPEED_INCREMENT * 4)
-                _direction_angle += gm.ANGLE_INCREMENT / 2;
+                _rotation += gm.ANGLE_INCREMENT / 2;
             else
-                _direction_angle += gm.ANGLE_INCREMENT;
+                _rotation += gm.ANGLE_INCREMENT;
         // if is moving backward, then rotate (+)
         else if(_move_down || _speed->getX() < 0)
-            _direction_angle -= gm.ANGLE_INCREMENT;
+            _rotation -= gm.ANGLE_INCREMENT;
     }
     
     // if moving forward and not max velocity
@@ -80,17 +70,17 @@ void Car::update(float delta){
             _speed->setX(_speed->getX() + gm.SPEED_INCREMENT/2);
     }
 
-    double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(_direction_angle * PI/180));
-    double new_pos_y = _position->getY() + _speed->getX() * delta * ( cos(_direction_angle * PI/180));
+    double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(_rotation * PI/180));
+    double new_pos_y = _position->getY() + _speed->getX() * delta * ( cos(_rotation * PI/180));
     double new_pos_z = 0.0f;
     
     // define car limits on map
-    if(std::abs(new_pos_x) > gm.TRACK_LIMITS){
-        new_pos_x = _position->getX();
-    }
-    if(std::abs(new_pos_y) > gm.TRACK_LIMITS){
-        new_pos_y = _position->getY();
-    }
+//    if(std::abs(new_pos_x) > gm.TRACK_LIMITS){
+//        new_pos_x = _position->getX();
+//    }
+//    if(std::abs(new_pos_y) > gm.TRACK_LIMITS){
+//        new_pos_y = _position->getY();
+//    }
     
     _position = new Vector3(new_pos_x, new_pos_y, new_pos_z);
 };
@@ -102,21 +92,34 @@ void Car::draw(){
     glPushMatrix();
     // move car to top of track
     glTranslatef(_position->getX(), _position->getY(), _position->getZ());
-    glRotated(_direction_angle, 0.0f, 0.0f, 1.0f);
-    // put it on top of table
+    glRotated(_rotation, 0.0f, 0.0f, 1.0f);
+
     // rotate it to see it from above
     glRotatef(90, 1.0f, 0.0f, 0.0f);
     // rotate again but now to put in facing Y positive
     glRotatef(-90, 0.0f, 1.0f, 0.0f);
+    
+    if(COLISION_SPHERE){
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glutWireSphere(_radius, 10, 10);
+    }
     // scale it down
-    glScalef(0.025f, 0.025f, 0.025f);
-    // draw it
+    glScalef(_scale, _scale, _scale);
+    
     drawCarModel();
-//    glColor3f(1.0f, 1.0f, 1.0f);
-//    glScalef(2.0f, 1.0f, 1.0f);
-//    glutWireCube(3.0f);
     glPopMatrix();
 };
+
+void Car::set_move_up(bool b){ _move_up = b; };
+void Car::set_move_down(bool b){ _move_down = b; };
+void Car::set_move_left(bool b){ _move_left = b; };
+void Car::set_move_right(bool b){ _move_right = b; };
+
+void Car::setScale(GLdouble s){
+    _scale = s;
+    setRadius(s * 3);
+};
+GLdouble Car::getScale(){ return _scale; };
 
 void Car::drawCarModel(){
     // the size of the tores (depth) and the

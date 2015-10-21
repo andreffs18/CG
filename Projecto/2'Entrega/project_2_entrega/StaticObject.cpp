@@ -3,17 +3,8 @@
 //
 #include "StaticObject.h"
 
-StaticObject::StaticObject(){
-    _rotation = 0.0f;
-};
+StaticObject::StaticObject(){};
 
 StaticObject::~StaticObject(){};
 void StaticObject::draw(){};
 
-void StaticObject::setRotation(GLdouble rot){
-    _rotation = rot;
-};
-
-GLdouble StaticObject::getRotation(){
-    return _rotation;
-};

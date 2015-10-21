@@ -26,24 +26,31 @@ private:
     Butter * butter;
     Orange * orange;
     
+    GLdouble * _init_quadrants(int);
 public:
     // Global Variables
     // speed increment on car
-    GLdouble SPEED_INCREMENT = 0.00005f;
+    GLdouble SPEED_INCREMENT = 0.00025f;
     // max velocity allowed
-    GLdouble MAX_VELOCITY = 0.0010f;
+    GLdouble MAX_VELOCITY = 0.01f;
     // steering direction angle increment
-    GLdouble ANGLE_INCREMENT = 4.0f;
+    GLdouble ANGLE_INCREMENT = 2.5f;
     // car limits on track
     GLdouble TRACK_LIMITS = 1.0f;
+    GLdouble TRACK_SIZE = 20.0f;
     // track inner circle
-    float INNER_CIRCLE_RADIUS = 0.5;
+    float INNER_CIRCLE_RADIUS = 8.0;
     // track outer circle
-    float OUTER_CIRCLE_RADIUS = 0.8;
+    float OUTER_CIRCLE_RADIUS = 14.0;
     // qtd of object on table
     int QTD_CHEERIOS = 32;
     int QTD_ORANGES = 4;
     int QTD_BUTTERS = 4;
+    // amount of scale that car increments or decrements when
+    // on top of cheerios. Also limit of scaling on each cheerio
+    float CAR_SCALE_DELTA = 0.005f;
+    float CAR_MAX_SCALE_UP = 1.0f;
+    float CAR_MAX_SCALE_DOWN = 0.2f;
     
     GameManager();
     ~GameManager();
@@ -52,6 +59,7 @@ public:
     void keyRelease(int);
     void drawAll();
     void updateAll();
+    void handleColisions();
     void Cam1();
     void Cam2();
     void Cam3();
