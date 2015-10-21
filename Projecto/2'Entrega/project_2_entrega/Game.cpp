@@ -27,7 +27,7 @@ bool ERROR_LOG = true;
 bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = true;
 
-bool COLISION_SPHERE = true;
+bool COLISION_SPHERE = false;
 
 Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 20.0f);
 Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);

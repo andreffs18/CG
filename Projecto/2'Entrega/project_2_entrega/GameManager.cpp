@@ -14,6 +14,7 @@
 #include "Butter.h"
 #include "Camera.h"
 #include "PerspectiveCamera.h"
+#include "OrthogonalCamera.h"
 
 
 GameManager::GameManager(){
@@ -257,8 +258,8 @@ void GameManager::Cam1(){
     POINTCAM->setY(0);
     POINTCAM->setZ(0);
     
-    
-    PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 200);
+    AXIS->setVector3(new Vector3(0.0f, 1.0f, 0.0f));
+    OrthogonalCamera * Cam1 = new OrthogonalCamera(-30.0f, 30.0f, -30.0f, 30.0f, -30.0f, 30.0f);;
     Cam1->update();
 }
 
@@ -267,15 +268,12 @@ void GameManager::Cam1(){
 void GameManager::Cam2(){
 //    perspective view
     logger.debug("GameManager::Cam2()");
-    POSCAM->setX(0);
-    POSCAM->setY(-4);
-    POSCAM->setZ(6);
+    POSCAM->setVector3(new Vector3(-30.0f, -30.0f, 30.f));
+    POINTCAM->setVector3(new Vector3(0.0f, 0.0f, 0.0f));
+    AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
     
-    POINTCAM->setX(0);
-    POINTCAM->setY(0);
-    POINTCAM->setZ(0);
+    PerspectiveCamera * Cam2 = new PerspectiveCamera(60, 0.1, 100);
 
-    PerspectiveCamera * Cam2 = new PerspectiveCamera(20, 0.1, 80);
     Cam2->update();
 }
 
@@ -285,29 +283,15 @@ void GameManager::Cam3(){
     Car * car = (Car *)_dynamic_objects.front();
 //    sets cam position to car position
     
-//    GLdouble rot_x = car->getPosition()->getX();
-//    GLdouble rot_y = car->getPosition()->getY();
-
-    GLdouble dir = car->getRotation();
-//    // the car turned right
-//    if(dir > 0){
-//        rot_y += 0.1;
-//    } // the car turned left
-//    else if (dir < 0) {
-//        rot_y -= 0.1;
-//    } // the car didn't move
-//    else{
-//        
-//    }
-//    
     POSCAM->setX(car->getPosition()->getX());
-    POSCAM->setY(car->getPosition()->getY() - 0.3);
-    POSCAM->setZ(0.2);
+    POSCAM->setY(car->getPosition()->getY() - 5);
+    POSCAM->setZ(10);
     
     POINTCAM->setX(car->getPosition()->getX());
     POINTCAM->setY(car->getPosition()->getY());
     POINTCAM->setZ(car->getPosition()->getZ());
-
+    
+    AXIS->setVector3(new Vector3(0.0f, 1.0f, 0.0f));
     PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
     Cam3->update();
 }
