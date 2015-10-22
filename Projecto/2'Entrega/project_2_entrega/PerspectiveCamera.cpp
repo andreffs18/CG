@@ -30,8 +30,12 @@ void PerspectiveCamera::update() {
 
     
     gluPerspective(_fovy, _aspect, _near, _far);
+    
+
     gluLookAt(POSCAM->getX(), POSCAM->getY(), POSCAM->getZ(), // camera pos
+    
               POINTCAM->getX(), POINTCAM->getY(), POINTCAM->getZ(),  // where is the camera pointing to
+              
               AXIS->getX(), AXIS->getY(), AXIS->getZ());
     
     glMatrixMode(GL_MODELVIEW);

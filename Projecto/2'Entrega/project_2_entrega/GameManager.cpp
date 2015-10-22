@@ -265,48 +265,65 @@ void GameManager::Cam1(){
 
 //creates Camera 2
 void GameManager::Cam2(){
-//    perspective view
+    // perspective view
     logger.debug("GameManager::Cam2()");
-    POSCAM->setX(0);
-    POSCAM->setY(-4);
-    POSCAM->setZ(6);
-    
-    POINTCAM->setX(0);
-    POINTCAM->setY(0);
-    POINTCAM->setZ(0);
+    POSCAM->setVector3(new Vector3(-30.0f, -30.0f, 30.f));
+    POINTCAM->setVector3(new Vector3(0.0f, 0.0f, 0.0f));
+    AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
 
-    PerspectiveCamera * Cam2 = new PerspectiveCamera(20, 0.1, 80);
+    PerspectiveCamera * Cam2 = new PerspectiveCamera(60, 0.1, 100);
     Cam2->update();
 }
+
+GLdouble vidaloca1 = 0.0f, vidaloca2 = 0.0f;
 
 //creates Camera 3
 void GameManager::Cam3(){
     logger.debug("GameManager::Cam3()");
     Car * car = (Car *)_dynamic_objects.front();
-//    sets cam position to car position
-    
-//    GLdouble rot_x = car->getPosition()->getX();
-//    GLdouble rot_y = car->getPosition()->getY();
 
-    GLdouble dir = car->getRotation();
-//    // the car turned right
-//    if(dir > 0){
-//        rot_y += 0.1;
-//    } // the car turned left
-//    else if (dir < 0) {
-//        rot_y -= 0.1;
-//    } // the car didn't move
-//    else{
-//        
-//    }
-//    
-    POSCAM->setX(car->getPosition()->getX());
-    POSCAM->setY(car->getPosition()->getY() - 0.3);
-    POSCAM->setZ(0.2);
+    GLdouble car_posx = car->getPosition()->getX();
+    GLdouble car_posy = car->getPosition()->getY();
+    GLdouble car_posz = car->getPosition()->getZ();
     
-    POINTCAM->setX(car->getPosition()->getX());
-    POINTCAM->setY(car->getPosition()->getY());
-    POINTCAM->setZ(car->getPosition()->getZ());
+    GLdouble orientation = car->getRotation();
+    
+    float angle= orientation * (PI/180);
+    float dist = pow(cos(angle), 2) + pow(sin(angle), 2);
+    
+    std::cout << "orientation: " << orientation << std::endl;
+    GLdouble _cos = cos(orientation*(PI/180));
+    GLdouble _sin = -sin(orientation*(PI/180));
+    std::cout << "orientation (rad) " << orientation * PI/180 << std::endl;
+    
+    
+    if(car->is_move_rigth()){
+        float angle= -orientation * (PI/180);
+        vidaloca1 = cos(angle);
+        vidaloca2 = -sin(angle);
+    }
+    else if(car->is_move_left()){
+        float angle= orientation * (PI/180);
+        vidaloca1 = cos(angle);
+        vidaloca2 = -sin(angle);
+    }
+    
+    POINTCAM->setVector3(new Vector3(car_posx+vidaloca1, car_posy+vidaloca2, 1.0f));
+
+    
+    
+    
+    
+    
+    
+    POSCAM->setVector3(new Vector3(car_posx, car_posy, 3.0f));
+    AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
+    
+//    POSCAM->setVector3(new Vector3(car_posx * -_cos, car_posy  * -_sin, 10.0f));
+//    POINTCAM->setVector3(new Vector3(car_posx, car_posy + 3, car_posz - 10));
+//    AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
+//    
+    
 
     PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
     Cam3->update();

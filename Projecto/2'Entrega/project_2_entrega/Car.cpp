@@ -110,6 +110,12 @@ void Car::draw(){
     glPopMatrix();
 };
 
+bool Car::is_move_up(){ return _move_up; };
+bool Car::is_move_down(){ return _move_down; };
+bool Car::is_move_left(){ return _move_left; };
+bool Car::is_move_rigth(){ return _move_right; };
+
+
 void Car::set_move_up(bool b){ _move_up = b; };
 void Car::set_move_down(bool b){ _move_down = b; };
 void Car::set_move_left(bool b){ _move_left = b; };
