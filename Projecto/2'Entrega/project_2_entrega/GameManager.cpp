@@ -175,14 +175,19 @@ void GameManager::handleColisions(){
                 // check if colision with inner circle
                 else if(is_inner_cheerio){
                     logger.error("Touched Inner Cherrio: Decreasing car size");
-                    if(car->getScale() > CAR_MAX_SCALE_DOWN)
+                    if(car->getScale() > CAR_MAX_SCALE_DOWN){
                         car->setScale(car->getScale() - CAR_SCALE_DELTA);
+                        THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE -CAR_SCALE_DELTA*4;
+                    }
+                    
                 }
                 // check if colision with outer circle
                 else if (is_outer_cheerio){
                     logger.error("Touched Outer Cheerio: Increasing car size");
-                    if(car->getScale() < CAR_MAX_SCALE_UP)
+                    if(car->getScale() < CAR_MAX_SCALE_UP){
                         car->setScale(car->getScale() + CAR_SCALE_DELTA);
+                        THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE +CAR_SCALE_DELTA*4;
+                    }
                 }
             }
         }
@@ -266,7 +271,7 @@ void GameManager::Cam1(){
 
 //creates Camera 2
 void GameManager::Cam2(){
-//    perspective view
+    // perspective view
     logger.debug("GameManager::Cam2()");
     POSCAM->setVector3(new Vector3(-30.0f, -30.0f, 30.f));
     POINTCAM->setVector3(new Vector3(0.0f, 0.0f, 0.0f));
@@ -276,6 +281,7 @@ void GameManager::Cam2(){
 
     Cam2->update();
 }
+
 
 //creates Camera 3
 void GameManager::Cam3(){
