@@ -174,14 +174,19 @@ void GameManager::handleColisions(){
                 // check if colision with inner circle
                 else if(is_inner_cheerio){
                     logger.error("Touched Inner Cherrio: Decreasing car size");
-                    if(car->getScale() > CAR_MAX_SCALE_DOWN)
+                    if(car->getScale() > CAR_MAX_SCALE_DOWN){
                         car->setScale(car->getScale() - CAR_SCALE_DELTA);
+                        THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE -CAR_SCALE_DELTA*4;
+                    }
+                    
                 }
                 // check if colision with outer circle
                 else if (is_outer_cheerio){
                     logger.error("Touched Outer Cheerio: Increasing car size");
-                    if(car->getScale() < CAR_MAX_SCALE_UP)
+                    if(car->getScale() < CAR_MAX_SCALE_UP){
                         car->setScale(car->getScale() + CAR_SCALE_DELTA);
+                        THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE +CAR_SCALE_DELTA*4;
+                    }
                 }
             }
         }
@@ -275,56 +280,23 @@ void GameManager::Cam2(){
     Cam2->update();
 }
 
-GLdouble vidaloca1 = 0.0f, vidaloca2 = 0.0f;
 
 //creates Camera 3
 void GameManager::Cam3(){
     logger.debug("GameManager::Cam3()");
     Car * car = (Car *)_dynamic_objects.front();
-
+    
     GLdouble car_posx = car->getPosition()->getX();
     GLdouble car_posy = car->getPosition()->getY();
-    GLdouble car_posz = car->getPosition()->getZ();
-    
-    GLdouble orientation = car->getRotation();
-    
-    float angle= orientation * (PI/180);
-    float dist = pow(cos(angle), 2) + pow(sin(angle), 2);
-    
-    std::cout << "orientation: " << orientation << std::endl;
-    GLdouble _cos = cos(orientation*(PI/180));
-    GLdouble _sin = -sin(orientation*(PI/180));
-    std::cout << "orientation (rad) " << orientation * PI/180 << std::endl;
-    
-    
-    if(car->is_move_rigth()){
-        float angle= -orientation * (PI/180);
-        vidaloca1 = cos(angle);
-        vidaloca2 = -sin(angle);
-    }
-    else if(car->is_move_left()){
-        float angle= orientation * (PI/180);
-        vidaloca1 = cos(angle);
-        vidaloca2 = -sin(angle);
-    }
-    
-    POINTCAM->setVector3(new Vector3(car_posx+vidaloca1, car_posy+vidaloca2, 1.0f));
 
+    GLdouble poscamx = car_posx - THIRDPERSON_DISTANCE * (-sin(car->getRotation() * PI/180));
+    GLdouble poscamy = car_posy - THIRDPERSON_DISTANCE * ( cos(car->getRotation() * PI/180));
+    std::cout << "THIRDPERSON_DISTANCE: "<< THIRDPERSON_DISTANCE<<std::endl;
     
-    
-    
-    
-    
-    
-    POSCAM->setVector3(new Vector3(car_posx, car_posy, 3.0f));
+    POSCAM->setVector3(new Vector3(poscamx, poscamy, 2.0f));
+    POINTCAM->setVector3(new Vector3(car_posx, car_posy, 0.0f));
     AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
     
-//    POSCAM->setVector3(new Vector3(car_posx * -_cos, car_posy  * -_sin, 10.0f));
-//    POINTCAM->setVector3(new Vector3(car_posx, car_posy + 3, car_posz - 10));
-//    AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
-//    
-    
-
     PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
     Cam3->update();
 }

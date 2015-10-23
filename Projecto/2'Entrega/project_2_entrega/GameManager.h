@@ -34,7 +34,9 @@ public:
     // max velocity allowed
     GLdouble MAX_VELOCITY = 0.01f;
     // steering direction angle increment
-    GLdouble ANGLE_INCREMENT = 1.5f;
+    GLdouble ANGLE_INCREMENT = 1.0f;
+    // distance from the car in 3'rd person view
+    GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
     GLdouble TRACK_LIMITS = 1.0f;
     GLdouble TRACK_SIZE = 20.0f;
