@@ -6,7 +6,7 @@
 #include "Car.h"
 
 Car::Car() : DynamicObject(){
-    _rotation = 0.0f;
+    this->setRotation(0.0f);
     _scale = 0.7f;
     _radius = _scale * 3;
 
@@ -30,12 +30,12 @@ void Car::update(float delta){
         if(_move_up || _speed->getX() > 0)
             // to drift when starts to speed up
             if(_speed->getX() < gm.SPEED_INCREMENT * 4)
-                _rotation -= gm.ANGLE_INCREMENT / 2;
+                this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT / 2);
             else
-                _rotation -= gm.ANGLE_INCREMENT;
+				this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT);
         // if is moving backward, then rotate (-)
         else if(_move_down ||  _speed->getX() < 0)
-            _rotation += gm.ANGLE_INCREMENT;
+			this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT);
     }
 
     // if left is clicked
@@ -44,12 +44,12 @@ void Car::update(float delta){
         if(_move_up || _speed->getX() > 0)
             // to drift when starts to speed up
             if(_speed->getX() < gm.SPEED_INCREMENT * 4)
-                _rotation += gm.ANGLE_INCREMENT / 2;
+				this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT / 2);
             else
-                _rotation += gm.ANGLE_INCREMENT;
+				this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT);
         // if is moving backward, then rotate (+)
         else if(_move_down || _speed->getX() < 0)
-            _rotation -= gm.ANGLE_INCREMENT;
+			this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT);
     }
     
     // if moving forward and not max velocity
@@ -70,8 +70,8 @@ void Car::update(float delta){
             _speed->setX(_speed->getX() + gm.SPEED_INCREMENT/2);
     }
 
-    double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(_rotation * PI/180));
-    double new_pos_y = _position->getY() + _speed->getX() * delta * ( cos(_rotation * PI/180));
+    double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(this->getRotation() * PI/180));
+    double new_pos_y = _position->getY() + _speed->getX() * delta * ( cos(this->getRotation() * PI/180));
     double new_pos_z = 0.0f;
     
     // define car limits on map
@@ -92,7 +92,7 @@ void Car::draw(){
     glPushMatrix();
     // move car to top of track
     glTranslatef(_position->getX(), _position->getY(), _position->getZ());
-    glRotated(_rotation, 0.0f, 0.0f, 1.0f);
+    glRotated(this->getRotation(), 0.0f, 0.0f, 1.0f);
 
     // rotate it to see it from above
     glRotatef(90, 1.0f, 0.0f, 0.0f);

@@ -151,7 +151,11 @@ void GameManager::handleColisions(){
             if(car->collidesWith(obj)){
                 logger.error("Touched orange");
                 // TODO
+				GLdouble start_position = -INNER_CIRCLE_RADIUS - 3;
                 car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+				car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
+				car->setRotation(0.0f);
+				car->setScale(0.7f);
                 car->set_move_up(false);
             }
         }
