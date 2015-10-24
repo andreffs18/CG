@@ -174,6 +174,7 @@ void GameManager::handleColisions(){
                 GLdouble new_cheerio_pos_y = obj->getPosition()->getY() + car-> getSpeed()->getX() * 2 * ( cos(car->getRotation() * PI/180));
                 
                 obj->setPosition(new Vector3(new_cheerio_pos_x, new_cheerio_pos_y, obj->getPosition()->getZ()));
+                
 
                 // both inner and outer circle
                 // (after scaling car, this can happend)
@@ -195,7 +196,9 @@ void GameManager::handleColisions(){
                         THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE +CAR_SCALE_DELTA*4;
                     }
                 }
+               // car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
             }
+            
         }
         // colision with butters:
         if(typeid(Butter) == typeid(*obj)){
