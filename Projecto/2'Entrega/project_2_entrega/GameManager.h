@@ -38,7 +38,7 @@ public:
     // distance from the car in 3'rd person view
     GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
-    GLdouble TRACK_LIMITS = 1.0f;
+    GLdouble TRACK_LIMITS = 21.5f;
     GLdouble TRACK_SIZE = 20.0f;
     // track inner circle
     float INNER_CIRCLE_RADIUS = 8.0;
@@ -53,7 +53,17 @@ public:
     float CAR_SCALE_DELTA = 0.005f;
     float CAR_MAX_SCALE_UP = 1.0f;
     float CAR_MAX_SCALE_DOWN = 0.2f;
-    
+
+	bool SET_DIRECTION[4] = {true, true, true, true};
+	int counter = 0;
+	float XY_DIRECTION[4][2];
+	float XY_INCREMENT[4][2];
+	float X_DIRECTION = 0.0f;
+	float Y_DIRECTION = 0.0f;
+	float SET_NEG_X;
+	float SET_NEG_Y;
+	float SPEED_INCREMENT_ORANGES = 0.0025;
+
     GameManager();
     ~GameManager();
 
