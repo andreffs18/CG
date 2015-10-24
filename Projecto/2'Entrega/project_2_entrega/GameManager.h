@@ -38,7 +38,7 @@ public:
     // distance from the car in 3'rd person view
     GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
-    GLdouble TRACK_LIMITS = 21.5f;
+    GLdouble TRACK_LIMITS = 18.5f;
     GLdouble TRACK_SIZE = 20.0f;
     // track inner circle
     float INNER_CIRCLE_RADIUS = 8.0;
@@ -46,7 +46,7 @@ public:
     float OUTER_CIRCLE_RADIUS = 14.0;
     // qtd of object on table
     int QTD_CHEERIOS = 32;
-    int QTD_ORANGES = 4;
+    int QTD_ORANGES = 0;
     int QTD_BUTTERS = 4;
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio

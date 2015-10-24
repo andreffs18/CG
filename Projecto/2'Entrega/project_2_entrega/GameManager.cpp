@@ -170,6 +170,11 @@ void GameManager::handleColisions(){
                 bool is_inner_cheerio = cheerio_pos_x <= INNER_CIRCLE_RADIUS && cheerio_pos_y <= INNER_CIRCLE_RADIUS;
                 bool is_outer_cheerio = cheerio_pos_x > INNER_CIRCLE_RADIUS || cheerio_pos_y > INNER_CIRCLE_RADIUS;
                 
+                GLdouble new_cheerio_pos_x = obj->getPosition()->getX() + car-> getSpeed()->getX() * 2 * (-sin(car->getRotation() * PI/180));
+                GLdouble new_cheerio_pos_y = obj->getPosition()->getY() + car-> getSpeed()->getX() * 2 * ( cos(car->getRotation() * PI/180));
+                
+                obj->setPosition(new Vector3(new_cheerio_pos_x, new_cheerio_pos_y, obj->getPosition()->getZ()));
+
                 // both inner and outer circle
                 // (after scaling car, this can happend)
                 if(is_inner_cheerio && is_outer_cheerio){ /* do nothing */ }
@@ -196,7 +201,11 @@ void GameManager::handleColisions(){
         if(typeid(Butter) == typeid(*obj)){
             if(car->collidesWith(obj)){
                 logger.error("Touched butter");
-                obj->setPosition(new Vector3(obj->getPosition()->getX() + 0.001, obj->getPosition()->getY() - 0.001, obj->getPosition()->getZ()));
+                
+                double new_bpos_x = obj->getPosition()->getX() + car-> getSpeed()->getX() * 4 * (-sin(car->getRotation() * PI/180));
+                double new_bpos_y = obj->getPosition()->getY() + car-> getSpeed()->getX() * 4 * ( cos(car->getRotation() * PI/180));
+                
+                obj->setPosition(new Vector3(new_bpos_x, new_bpos_y, obj->getPosition()->getZ()));
                 car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
                 car->set_move_up(false);
             }

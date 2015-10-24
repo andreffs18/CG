@@ -28,7 +28,11 @@ void Car::update(float delta){
     if(_move_right){
         // if is moving forward, then rotate (+)
         if(_move_up || _speed->getX() > 0)
-            _rotation -= gm.ANGLE_INCREMENT;
+            // to drift when starts to speed up
+            if(_speed->getX() < gm.SPEED_INCREMENT * 4)
+                this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT / 2);
+            else
+				this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT);
         // if is moving backward, then rotate (-)
         else if(_move_down ||  _speed->getX() < 0)
 			this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT);
@@ -38,7 +42,11 @@ void Car::update(float delta){
     if(_move_left){
         // if is moving forward, then rotate (-)
         if(_move_up || _speed->getX() > 0)
-            _rotation += gm.ANGLE_INCREMENT;
+            // to drift when starts to speed up
+            if(_speed->getX() < gm.SPEED_INCREMENT * 4)
+				this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT / 2);
+            else
+				this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT);
         // if is moving backward, then rotate (+)
         else if(_move_down || _speed->getX() < 0)
 			this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT);
@@ -66,13 +74,13 @@ void Car::update(float delta){
     double new_pos_y = _position->getY() + _speed->getX() * delta * ( cos(this->getRotation() * PI/180));
     double new_pos_z = 0.0f;
     
-    // define car limits on map
-//    if(std::abs(new_pos_x) > gm.TRACK_LIMITS){
-//        new_pos_x = _position->getX();
-//    }
-//    if(std::abs(new_pos_y) > gm.TRACK_LIMITS){
-//        new_pos_y = _position->getY();
-//    }
+     //define car limits on map
+    if(std::abs(new_pos_x) > gm.TRACK_LIMITS){
+        new_pos_x = _position->getX();
+    }
+    if(std::abs(new_pos_y) > gm.TRACK_LIMITS){
+        new_pos_y = _position->getY();
+    }
     
     _position = new Vector3(new_pos_x, new_pos_y, new_pos_z);
 };
