@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Orange.h"
+#include <math.h>
 
 Orange::Orange() : DynamicObject(){
     _radius = 1.55f;
@@ -88,12 +89,12 @@ void Orange::update(float delta){
 		new_pos_z = _position->getZ();
 	}
 
-	if (std::abs(new_pos_x) >= gm.TRACK_LIMITS) {
+	if (fabs(new_pos_x) >= gm.TRACK_LIMITS) {
 		new_pos_x = ((rand() % 41) - 20);
 		new_pos_y = ((rand() % 41) - 20);
 		gm.SET_DIRECTION[gm.counter] = true;
 	}
-	if (std::abs(new_pos_y) >= gm.TRACK_LIMITS) {
+	if (fabs(new_pos_y) >= gm.TRACK_LIMITS) {
 		new_pos_x = ((rand() % 41) - 20);
 		new_pos_y = ((rand() % 41) - 20);
 		gm.SET_DIRECTION[gm.counter] = true;

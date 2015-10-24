@@ -192,7 +192,7 @@ void GameManager::handleColisions(){
         if(typeid(Butter) == typeid(*obj)){
             if(car->collidesWith(obj)){
                 logger.error("Touched butter");
-                // TODO
+                obj->setPosition(new Vector3(obj->getPosition()->getX() + 0.001, obj->getPosition()->getY() - 0.001, obj->getPosition()->getZ()));
                 car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
                 car->set_move_up(false);
             }
@@ -259,6 +259,8 @@ void GameManager::Cam1(){
     POINTCAM->setX(0);
     POINTCAM->setY(0);
     POINTCAM->setZ(0);
+    
+    AXIS->setVector3(new Vector3(0.0f, 1.0f, 0.0f));
     
     
     PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 200);
