@@ -1,6 +1,3 @@
-//
-//  project_1_entrega - GameManager.cpp
-//
 #include <typeinfo>
 #include <complex>
 #include <time.h>
@@ -14,7 +11,6 @@
 #include "Butter.h"
 #include "Camera.h"
 #include "PerspectiveCamera.h"
-#include "OrthogonalCamera.h"
 
 
 GameManager::GameManager(){
@@ -24,7 +20,7 @@ GameManager::GameManager(){
     // init vector of gameobjects, dynamic and static
     std::vector<DynamicObject *> _dynamic_objects;
     std::vector<StaticObject *> _static_objects;
-
+    
     // init random
     srand((unsigned int)time(NULL));
     
@@ -32,14 +28,14 @@ GameManager::GameManager(){
     track = new Track();
     track->setPosition(new Vector3(0.0f, 0.0f, -0.2f));
     this->_static_objects.push_back(track);
-
+    
     // Initialize Car
     car = new Car();
     GLdouble start_position = - INNER_CIRCLE_RADIUS - 3;
     car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
     car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
     this->_dynamic_objects.push_back(car);
-
+    
     // Initialize Cheerios
     for(double angle = 0.0f, i = 0; angle < 360.0f; angle += 360.0f / (QTD_CHEERIOS), i++){
         // we draw the outer cheerio twice as much as the inner one
@@ -209,7 +205,7 @@ void GameManager::handleColisions(){
 //  and what not of each object in the display
 void GameManager::updateAll(){
     logger.debug("GameManager::updateAll()");
-
+    
     // colisions
     handleColisions();
     
@@ -263,8 +259,8 @@ void GameManager::Cam1(){
     POINTCAM->setY(0);
     POINTCAM->setZ(0);
     
-    AXIS->setVector3(new Vector3(0.0f, 1.0f, 0.0f));
-    OrthogonalCamera * Cam1 = new OrthogonalCamera(-30.0f, 30.0f, -30.0f, 30.0f, -30.0f, 30.0f);;
+    
+    PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 200);
     Cam1->update();
 }
 
@@ -278,7 +274,6 @@ void GameManager::Cam2(){
     AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
     
     PerspectiveCamera * Cam2 = new PerspectiveCamera(60, 0.1, 100);
-
     Cam2->update();
 }
 
@@ -287,17 +282,18 @@ void GameManager::Cam2(){
 void GameManager::Cam3(){
     logger.debug("GameManager::Cam3()");
     Car * car = (Car *)_dynamic_objects.front();
-//    sets cam position to car position
     
-    POSCAM->setX(car->getPosition()->getX());
-    POSCAM->setY(car->getPosition()->getY() - 5);
-    POSCAM->setZ(10);
+    GLdouble car_posx = car->getPosition()->getX();
+    GLdouble car_posy = car->getPosition()->getY();
     
-    POINTCAM->setX(car->getPosition()->getX());
-    POINTCAM->setY(car->getPosition()->getY());
-    POINTCAM->setZ(car->getPosition()->getZ());
+    GLdouble poscamx = car_posx - THIRDPERSON_DISTANCE * (-sin(car->getRotation() * PI/180));
+    GLdouble poscamy = car_posy - THIRDPERSON_DISTANCE * ( cos(car->getRotation() * PI/180));
+    std::cout << "THIRDPERSON_DISTANCE: "<< THIRDPERSON_DISTANCE<<std::endl;
     
-    AXIS->setVector3(new Vector3(0.0f, 1.0f, 0.0f));
+    POSCAM->setVector3(new Vector3(poscamx, poscamy, 2.0f));
+    POINTCAM->setVector3(new Vector3(car_posx, car_posy, 0.0f));
+    AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
+    
     PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
     Cam3->update();
 }
@@ -419,5 +415,3 @@ void GameManager::onMouseClick(int button, int state, int x, int y){};
 //  ------------------------------------------------------- onMouseMotion()
 //  Custom fucntion to handle all mouse movement
 void GameManager::onMouseMotion(int x, int y){};
-
-
