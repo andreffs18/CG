@@ -4,6 +4,7 @@
 #include <typeinfo>
 #include <complex>
 #include <time.h>
+#include <cmath>
 #include "Game.h"
 #include "GameManager.h"
 
@@ -71,8 +72,8 @@ GameManager::GameManager(){
         GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
         
         orange = new Orange();
-        orange->setPosition(new Vector3(pos_x, pos_y, 0.1f)); //orange->_height/2
-        orange->setSpeed(new Vector3(SPEED_INCREMENT, 0.0f, 0.0f));
+        orange->setPosition(new Vector3(pos_x, pos_y, 1.0f)); //orange->_height/2
+        orange->setSpeed(new Vector3(SPEED_INCREMENT_ORANGES, SPEED_INCREMENT_ORANGES, 0.0f));
         this->_dynamic_objects.push_back(orange);
     }
     
