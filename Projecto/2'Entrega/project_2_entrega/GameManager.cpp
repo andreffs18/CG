@@ -195,6 +195,7 @@ void GameManager::handleColisions(){
                 
                 obj->setPosition(new Vector3(new_cheerio_pos_x, new_cheerio_pos_y, obj->getPosition()->getZ()));
                 
+                
                 // both inner and outer circle
                 // (after scaling car, this can happend)
                 if(is_inner_cheerio && is_outer_cheerio){ /* do nothing */ }
@@ -214,6 +215,8 @@ void GameManager::handleColisions(){
                         // THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA*4;
                     }
                 }
+                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+                car->setMoveUp(false);
             }
         }
         // colision with butters:
