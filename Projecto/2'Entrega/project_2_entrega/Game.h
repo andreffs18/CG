@@ -34,18 +34,4 @@ extern float PI;
 extern float GRAVIT_CONST;
 // Enable collision sphere object to be seen
 extern bool COLISION_SPHERE;
-
-// Global Position for the camera
-extern Vector3 * POSCAM;
-// Global Pointing vector  for the camera
-extern Vector3 * POINTCAM;
-// Global Axis vector
-extern Vector3 * AXIS;
-// Global Rotation Speed..
-extern float ROTATION_SPEED;
-
-extern bool CAM1;
-extern bool CAM2;
-extern bool CAM3;
-
 #endif /* defined(__GAME_H_INCLUDED__) */

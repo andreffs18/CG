@@ -21,16 +21,6 @@ bool ERROR_LOG = true;
 
 bool COLISION_SPHERE = false;
 
-Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 20.0f);
-Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);
-Vector3 * AXIS = new Vector3(0.0f, 1.0f, 0.0f);
-
-float ROTATION_SPEED = 1.0f;
-// booleans for checking active cameras
-bool CAM1 = true;
-bool CAM2 = false;
-bool CAM3 = false;
-
 // initialize global log object
 Log logger = Log();
 // initialize game manager
@@ -53,7 +43,7 @@ int main(int argc, char * argv[]) {
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);
     // set the callback function to handle changes in screen size
-    // glutReshapeFunc(GameManager::onReshape);
+    glutReshapeFunc(GameManager::onReshape);
     // set the keyboard function to handle keyboard events
     glutKeyboardFunc(GameManager::onKeyboard);
     // set the keyboard function to handle special keys events

@@ -6,18 +6,27 @@
 #define __GAMEMANAGER_H_INCLUDED__
 
 #include <vector>
+
+#include "Camera.h"
+#include "OrthogonalCamera.h"
+#include "PerspectiveCamera.h"
+
 #include "DynamicObject.h"
 #include "StaticObject.h"
+
 #include "Car.h"
 #include "Track.h"
 #include "Orange.h"
 #include "Butter.h"
 #include "Cheerio.h"
 
+
+
 class GameManager{
 private:
     std::vector<StaticObject *> _static_objects;
     std::vector<DynamicObject *> _dynamic_objects;
+    std::vector<Camera *> _cameras;
     int _current_time, _previous_time;
 
     Car * car;
@@ -27,6 +36,8 @@ private:
     Orange * orange;
 public:
     // Global Variables
+    // active camera pointer, could be 0,1 or 2
+    int ACTIVE_CAMERA = 0;
     // speed increment on car
     GLdouble SPEED_INCREMENT = 0.00025f;
     // max velocity allowed
@@ -51,7 +62,7 @@ public:
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio
     float CAR_SCALE_DELTA = 0.005f;
-    float CAR_MAX_SCALE_UP = 1.0f;
+    float CAR_MAX_SCALE_UP = 0.7f;
     float CAR_MAX_SCALE_DOWN = 0.2f;
 
 	bool SET_DIRECTION[4] = {true, true, true, true};
@@ -69,6 +80,7 @@ public:
 
     void keyPress(int);
     void keyRelease(int);
+    void camera();
     void drawAll();
     void updateAll();
     void handleColisions();

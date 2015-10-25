@@ -8,11 +8,11 @@
 GameObject::GameObject(){
     // Global vars that all objects have access
     // set position in x y and z == 0 in our 3d world
-    setPosition(new Vector3(0.0, 0.0, 0.0));
+    _position = new Vector3(0.0f, 0.0f, 0.0f);
     // defines radius of the colision sphere
-    setRadius(0.0f);
+    _radius = 0.0f;
     // defines rotation of object in z axis
-    setRotation(0.0f);
+    _rotation = 0.0f;
 };
 GameObject::~GameObject(){};
 

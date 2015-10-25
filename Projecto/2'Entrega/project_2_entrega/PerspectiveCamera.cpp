@@ -1,64 +1,32 @@
 //
-//  PerspectiveCamera.cpp
-//  project_2_entrega
+//  project_2_entrega - PerspectiveCamera.cpp
 //
-
+//
 #include "PerspectiveCamera.h"
 #include "Camera.h"
 
+PerspectiveCamera::PerspectiveCamera(GLdouble fov, GLdouble near, GLdouble far) : Camera(near, far) {
+    _fovy = fov;
+};
 
-
-#include "PerspectiveCamera.h"
-
-
-PerspectiveCamera::PerspectiveCamera(GLdouble P_FOV, GLdouble P_NEAR, double P_FAR) : Camera(P_NEAR, P_FAR) {
-    _fovy = P_FOV;
-    _aspect = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
-}
-
-PerspectiveCamera::~PerspectiveCamera(void)
-{
-}
+PerspectiveCamera::~PerspectiveCamera(){}
 
 void PerspectiveCamera::update() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    
-    
-    float _aspect = (float)glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT);
-    //GLdouble _aspect = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
-
-    
-    gluPerspective(_fovy, _aspect, _near, _far);
-    
-
-    gluLookAt(POSCAM->getX(), POSCAM->getY(), POSCAM->getZ(), // camera pos
-    
-              POINTCAM->getX(), POINTCAM->getY(), POINTCAM->getZ(),  // where is the camera pointing to
-              
-              AXIS->getX(), AXIS->getY(), AXIS->getZ());
-    
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-}
+    computeProjectionMatrix();
+    computeVisualizationMatrix();
+};
 
 void PerspectiveCamera::computeProjectionMatrix() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(_fovy, _aspect, _near, _far);
+    gluLookAt(_pos->getX(), _pos->getY(), _pos->getZ(),
+              _at->getX(), _at->getY(), _at->getZ(),
+              _up->getX(), _up->getY(), _up->getZ());
     
-}
+};
 
 void PerspectiveCamera::computeVisualizationMatrix() {
-    
-}
-
-
-
-//void PerspectiveCamera::view(Camera){
-//        glMatrixMode(GL_MODELVIEW);
-//        glLoadIdentity();
-//        gluPerspective(_fovy, _aspect, _zNear, _zFar);
-//        gluLookAt(POSCAM->getX(), POSCAM->getY(), POSCAM->getZ(), // camera pos
-//                  POINTCAM->getX(), POINTCAM->getY(), POINTCAM->getZ(),  // where is the camera pointing to
-//                  AXIS->getX(), AXIS->getY(), AXIS->getZ());
-//        glutPostRedisplay();
-//}
-
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+};

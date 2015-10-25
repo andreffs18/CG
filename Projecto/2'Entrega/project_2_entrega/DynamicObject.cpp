@@ -6,7 +6,7 @@
 DynamicObject::DynamicObject(){
     // Global vars that all dynamic objects have access
     // set speed of object
-    setSpeed(new Vector3(0.0, 0.0, 0.0));
+    _speed = new Vector3(0.0, 0.0, 0.0);
 };
 DynamicObject::~DynamicObject(){};
 

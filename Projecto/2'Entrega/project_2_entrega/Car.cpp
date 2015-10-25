@@ -190,8 +190,8 @@ void Car::drawCarModel(){
     
     // Draw handle for spoiler
     glColor3d(255, 0, 0);
-    glTranslatef(0.0f, -2.5f, 0.0f);
-    glScalef(1.0f, 5.0f, 0.1f);
+    glTranslatef(0.0f, -3.0f, 0.0f);
+    glScalef(1.0f, 5.0f, 0.05f);
     glutSolidCube(1.0f);
     glPopMatrix();
 };
