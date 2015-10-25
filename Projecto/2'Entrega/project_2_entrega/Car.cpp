@@ -6,15 +6,15 @@
 #include "Car.h"
 
 Car::Car() : DynamicObject(){
-    _rotation = 0.0f;
-    _scale = 0.7f;
-    _radius = _scale * 3;
+    setRotation(0.0f);
+    setScale(0.7f);
+    setRadius(getScale() * 3);
 
     // car is not moving
-    _move_up = false;
-    _move_down = false;
-    _move_left = false;
-    _move_right = false;
+    setMoveUp(false);
+    setMoveDown(false);
+    setMoveLeft(false);
+    setMoveRight(false);
     
 };
 Car::~Car(){};
@@ -27,54 +27,62 @@ void Car::update(float delta){
     // if right is clicked
     if(_move_right){
         // if is moving forward, then rotate (+)
-        if(_move_up || _speed->getX() > 0)
-            _rotation -= gm.ANGLE_INCREMENT;
+        if(_move_up || getSpeed()->getX() > 0)
+            // to drift when starts to speed up
+            if(getSpeed()->getX() < gm.SPEED_INCREMENT * 4)
+                setRotation(getRotation() - gm.ANGLE_INCREMENT / 2);
+            else
+				setRotation(getRotation() - gm.ANGLE_INCREMENT);
         // if is moving backward, then rotate (-)
-        else if(_move_down ||  _speed->getX() < 0)
-            _rotation += gm.ANGLE_INCREMENT;
+        else if(_move_down || getSpeed()->getX() < 0)
+            setRotation(getRotation() + gm.ANGLE_INCREMENT);
     }
 
     // if left is clicked
     if(_move_left){
         // if is moving forward, then rotate (-)
-        if(_move_up || _speed->getX() > 0)
-            _rotation += gm.ANGLE_INCREMENT;
+        if(_move_up || getSpeed()->getX() > 0)
+            // to drift when starts to speed up
+            if(getSpeed()->getX() < gm.SPEED_INCREMENT * 4)
+				setRotation(getRotation() + gm.ANGLE_INCREMENT / 2);
+            else
+				setRotation(getRotation() + gm.ANGLE_INCREMENT);
         // if is moving backward, then rotate (+)
-        else if(_move_down || _speed->getX() < 0)
-            _rotation -= gm.ANGLE_INCREMENT;
+        else if(_move_down || getSpeed()->getX() < 0)
+			setRotation(getRotation() - gm.ANGLE_INCREMENT);
     }
     
     // if moving forward and not max velocity
-    if(_move_up && _speed->getX() < gm.MAX_VELOCITY){
-        _speed->setX(_speed->getX() + gm.SPEED_INCREMENT);
+    if(_move_up && getSpeed()->getX() < gm.MAX_VELOCITY){
+        getSpeed()->setX(getSpeed()->getX() + gm.SPEED_INCREMENT);
     }
     
     // if moving backwards
-    if(_move_down && _speed->getX() > -gm.MAX_VELOCITY/2){
-        _speed->setX(_speed->getX() - gm.SPEED_INCREMENT);
+    if(_move_down && getSpeed()->getX() > -gm.MAX_VELOCITY/2){
+        getSpeed()->setX(getSpeed()->getX() - gm.SPEED_INCREMENT);
     }
            
     // if not moving forward or backwards then it's
     if(!_move_up && !_move_down){
-        if(_speed->getX() > 0)
-            _speed->setX(_speed->getX() - gm.SPEED_INCREMENT/2);
-        if(_speed->getX() < 0)
-            _speed->setX(_speed->getX() + gm.SPEED_INCREMENT/2);
+        if(getSpeed()->getX() > 0)
+            getSpeed()->setX(getSpeed()->getX() - gm.SPEED_INCREMENT/2);
+        if(getSpeed()->getX() < 0)
+            getSpeed()->setX(getSpeed()->getX() + gm.SPEED_INCREMENT/2);
     }
 
-    double new_pos_x = _position->getX() + _speed->getX() * delta * (-sin(_rotation * PI/180));
-    double new_pos_y = _position->getY() + _speed->getX() * delta * ( cos(_rotation * PI/180));
+    double new_pos_x = getPosition()->getX() + getSpeed()->getX() * delta * (-sin(getRotation() * PI/180));
+    double new_pos_y = getPosition()->getY() + getSpeed()->getX() * delta * ( cos(getRotation() * PI/180));
     double new_pos_z = 0.0f;
     
-    // define car limits on map
-//    if(std::abs(new_pos_x) > gm.TRACK_LIMITS){
-//        new_pos_x = _position->getX();
-//    }
-//    if(std::abs(new_pos_y) > gm.TRACK_LIMITS){
-//        new_pos_y = _position->getY();
-//    }
+     //define car limits on map
+    if(std::abs(new_pos_x) > gm.TRACK_LIMITS){
+        new_pos_x = getPosition()->getX();
+    }
+    if(std::abs(new_pos_y) > gm.TRACK_LIMITS){
+        new_pos_y = getPosition()->getY();
+    }
     
-    _position = new Vector3(new_pos_x, new_pos_y, new_pos_z);
+    setPosition(new Vector3(new_pos_x, new_pos_y, new_pos_z));
 };
 
 //  ------------------------------------------------------------------ draw()
@@ -84,7 +92,7 @@ void Car::draw(){
     glPushMatrix();
     // move car to top of track
     glTranslatef(_position->getX(), _position->getY(), _position->getZ());
-    glRotated(_rotation, 0.0f, 0.0f, 1.0f);
+    glRotated(this->getRotation(), 0.0f, 0.0f, 1.0f);
 
     // rotate it to see it from above
     glRotatef(90, 1.0f, 0.0f, 0.0f);
@@ -102,16 +110,10 @@ void Car::draw(){
     glPopMatrix();
 };
 
-bool Car::is_move_up(){ return _move_up; };
-bool Car::is_move_down(){ return _move_down; };
-bool Car::is_move_left(){ return _move_left; };
-bool Car::is_move_rigth(){ return _move_right; };
-
-
-void Car::set_move_up(bool b){ _move_up = b; };
-void Car::set_move_down(bool b){ _move_down = b; };
-void Car::set_move_left(bool b){ _move_left = b; };
-void Car::set_move_right(bool b){ _move_right = b; };
+void Car::setMoveUp(bool b){ _move_up = b; };
+void Car::setMoveDown(bool b){ _move_down = b; };
+void Car::setMoveLeft(bool b){ _move_left = b; };
+void Car::setMoveRight(bool b){ _move_right = b; };
 
 void Car::setScale(GLdouble s){
     _scale = s;

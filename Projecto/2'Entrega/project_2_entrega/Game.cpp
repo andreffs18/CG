@@ -1,6 +1,6 @@
 //
 //  project_1_entrega
-//  Created by Ana Galvão, André Silva, Daniel Pinho on 25/9/15.
+//  Created by Ana Galvão, André Silva, Daniel Pinho on CG-2015.
 //
 // description of each global var in Game.h
 #include "Game.h"
@@ -12,11 +12,6 @@ int VIEWPORT_HEIGHT = 800;
 int WINDOW_X_POS = -1;
 int WINDOW_Y_POS = -1;
 
-GLdouble P_FOV;
-GLdouble P_ASPECT_RATIO = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
-GLdouble P_NEAR ;
-GLdouble P_FAR;
-
 float GRAVIT_CONST = 9.8f;
 float PI = 3.14159;
 
@@ -24,19 +19,18 @@ bool DEBUG_LOG = false;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
-bool ENABLE_DEPTH = true;
-bool ENABLE_DOUBLE_BUFFER = true;
 bool COLISION_SPHERE = false;
 
 Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 20.0f);
 Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);
 Vector3 * AXIS = new Vector3(0.0f, 1.0f, 0.0f);
-float ROTATION_SPEED = 1.0f;
 
+float ROTATION_SPEED = 1.0f;
 // booleans for checking active cameras
 bool CAM1 = true;
 bool CAM2 = false;
 bool CAM3 = false;
+
 // initialize global log object
 Log logger = Log();
 // initialize game manager
@@ -47,9 +41,7 @@ int main(int argc, char * argv[]) {
     // initialise glut library
     glutInit(&argc, argv);
     // request a RGBA display mode, and we want single buffering
-    unsigned int BUFFER = (ENABLE_DOUBLE_BUFFER) ? GLUT_DOUBLE : GLUT_SINGLE;
-    unsigned int DEPTH = (ENABLE_DEPTH) ? GLUT_DEPTH : 0;
-    glutInitDisplayMode(GLUT_RGB|BUFFER|DEPTH);
+    glutInitDisplayMode(GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH);
     // set the initial window size
     glutInitWindowSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     // set the initial window position
@@ -74,9 +66,7 @@ int main(int argc, char * argv[]) {
     glutMouseFunc(GameManager::onMouseClick);
     // when mouse move's
     glutMotionFunc(GameManager::onMouseMotion);
-    
     // runs forever in a loop to keep the program running
     glutMainLoop();
-
     return 0;
 }

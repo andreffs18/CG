@@ -36,7 +36,7 @@ public:
     // distance from the car in 3'rd person view
     GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
-    GLdouble TRACK_LIMITS = 1.0f;
+    GLdouble TRACK_LIMITS = 18.5f;
     GLdouble TRACK_SIZE = 20.0f;
     // track inner circle
     float INNER_CIRCLE_RADIUS = 8.0;
@@ -46,14 +46,24 @@ public:
     Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 3.0f), 0.0f, 0.0f);
     // qtd of object on table
     int QTD_CHEERIOS = 32;
-    int QTD_ORANGES = 4;
+    int QTD_ORANGES = 8;
     int QTD_BUTTERS = 4;
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio
     float CAR_SCALE_DELTA = 0.005f;
     float CAR_MAX_SCALE_UP = 1.0f;
     float CAR_MAX_SCALE_DOWN = 0.2f;
-    
+
+	bool SET_DIRECTION[4] = {true, true, true, true};
+	int counter = 0;
+	float XY_DIRECTION[4][2];
+	float XY_INCREMENT[4][2];
+	float X_DIRECTION = 0.0f;
+	float Y_DIRECTION = 0.0f;
+	float SET_NEG_X;
+	float SET_NEG_Y;
+	float SPEED_INCREMENT_ORANGES = 0.00025;
+
     GameManager();
     ~GameManager();
 

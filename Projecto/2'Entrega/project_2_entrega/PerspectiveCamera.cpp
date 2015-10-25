@@ -13,7 +13,7 @@
 
 PerspectiveCamera::PerspectiveCamera(GLdouble P_FOV, GLdouble P_NEAR, double P_FAR) : Camera(P_NEAR, P_FAR) {
     _fovy = P_FOV;
-    _aspect = P_ASPECT_RATIO;
+    _aspect = (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT;
 }
 
 PerspectiveCamera::~PerspectiveCamera(void)
