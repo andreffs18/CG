@@ -34,8 +34,7 @@ GameManager::GameManager(){
 
     // Initialize Car
     car = new Car();
-    GLdouble start_position = - INNER_CIRCLE_RADIUS - 3;
-    car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
+    car->setPosition(START_POSITION);
     car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
     this->_dynamic_objects.push_back(car);
 
@@ -147,10 +146,9 @@ void GameManager::handleColisions(){
         // colision with oranges:
         if(typeid(Orange) == typeid(*obj)){
             if(car->collidesWith(obj)){
-                logger.error("Touched orange");
-                // TODO
+                logger.info("Touched orange - Car is back to start position");
                 car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-                car->set_move_up(false);
+                car->setPosition(START_POSITION);
             }
         }
     }
@@ -173,7 +171,7 @@ void GameManager::handleColisions(){
                 if(is_inner_cheerio && is_outer_cheerio){ /* do nothing */ }
                 // check if colision with inner circle
                 else if(is_inner_cheerio){
-                    logger.error("Touched Inner Cherrio: Decreasing car size");
+                    logger.info("Touched Inner Cherrio: Decreasing car size");
                     if(car->getScale() > CAR_MAX_SCALE_DOWN){
                         car->setScale(car->getScale() - CAR_SCALE_DELTA);
                         THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE -CAR_SCALE_DELTA*4;
@@ -182,7 +180,7 @@ void GameManager::handleColisions(){
                 }
                 // check if colision with outer circle
                 else if (is_outer_cheerio){
-                    logger.error("Touched Outer Cheerio: Increasing car size");
+                    logger.info("Touched Outer Cheerio: Increasing car size");
                     if(car->getScale() < CAR_MAX_SCALE_UP){
                         car->setScale(car->getScale() + CAR_SCALE_DELTA);
                         THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE +CAR_SCALE_DELTA*4;
@@ -193,15 +191,21 @@ void GameManager::handleColisions(){
         // colision with butters:
         if(typeid(Butter) == typeid(*obj)){
             if(car->collidesWith(obj)){
-                logger.error("Touched butter");
-                // TODO
+                logger.info("Touched butter: Moving it");
+                // decrease car velocity
                 car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-                car->set_move_up(false);
+                
+                
+                GLdouble new_x = obj->getPosition()->getX() * cos(car->getRotation());
+                GLdouble new_y = obj->getPosition()->getY() * sin(car->getRotation());
+                GLdouble new_z = obj->getPosition()->getZ();
+                
+                Vector3 * new_position = new Vector3(new_x, new_y, new_z);
+                obj->setPosition(new_position);
             }
         }
     }
 };
-
 
 //  ----------------------------------------------------------- updateAll()
 //  Method that handle all the updates, calculations, colisions

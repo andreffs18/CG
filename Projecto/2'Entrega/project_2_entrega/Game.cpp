@@ -26,8 +26,7 @@ bool ERROR_LOG = true;
 
 bool ENABLE_DEPTH = true;
 bool ENABLE_DOUBLE_BUFFER = true;
-
-bool COLISION_SPHERE = true;
+bool COLISION_SPHERE = false;
 
 Vector3 * POSCAM = new Vector3(0.0f, 0.0f, 20.0f);
 Vector3 * POINTCAM = new Vector3(0.0f, 0.0f, 0.0f);
@@ -57,10 +56,8 @@ int main(int argc, char * argv[]) {
     glutInitWindowPosition(WINDOW_X_POS, WINDOW_Y_POS);
     // create the window with properties defined before
     glutCreateWindow(WINDOW_NAME);
-    
     // stops continuisly pressing keyboard
-    // glutIgnoreKeyRepeat(1);
-    
+    glutIgnoreKeyRepeat(1);
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);
     // set the callback function to handle changes in screen size
@@ -78,8 +75,6 @@ int main(int argc, char * argv[]) {
     // when mouse move's
     glutMotionFunc(GameManager::onMouseMotion);
     
-    
-
     // runs forever in a loop to keep the program running
     glutMainLoop();
 
