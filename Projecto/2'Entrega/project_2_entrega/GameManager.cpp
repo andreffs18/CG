@@ -171,7 +171,7 @@ void GameManager::handleColisions(){
                 car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
 				car->setPosition(START_POSITION);
 				car->setRotation(0.0f);
-				car->setScale(0.7f);
+				car->setScale(CAR_MAX_SCALE_UP - 0.2f);
                 car->setMoveUp(false);
             }
         }
@@ -220,10 +220,12 @@ void GameManager::handleColisions(){
         if(typeid(Butter) == typeid(*obj)){
             if(car->collidesWith(obj)){
                 logger.info("Touched butter: Moving it");
-                double new_bpos_x = obj->getPosition()->getX() + car-> getSpeed()->getX() * 4 * (-sin(car->getRotation() * PI/180));
-                double new_bpos_y = obj->getPosition()->getY() + car-> getSpeed()->getX() * 4 * ( cos(car->getRotation() * PI/180));
+                double new_bpos_x = obj->getPosition()->getX() + car-> getSpeed()->getX() * 20 * (-sin(car->getRotation() * PI/180));
+                double new_bpos_y = obj->getPosition()->getY() + car-> getSpeed()->getX() * 20 * ( cos(car->getRotation() * PI/180));
                 
                 obj->setPosition(new Vector3(new_bpos_x, new_bpos_y, obj->getPosition()->getZ()));
+                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+                car->setMoveUp(false);
             }
         }
     }

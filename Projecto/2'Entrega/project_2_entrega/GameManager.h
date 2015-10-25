@@ -43,7 +43,7 @@ public:
     // max velocity allowed
     GLdouble MAX_VELOCITY = 0.01f;
     // steering direction angle increment
-    GLdouble ANGLE_INCREMENT = 1.0f;
+    GLdouble ANGLE_INCREMENT = 1.5f;
     // distance from the car in 3'rd person view
     GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
@@ -57,12 +57,12 @@ public:
     Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 3.0f), 0.0f, 0.0f);
     // qtd of object on table
     int QTD_CHEERIOS = 32;
-    int QTD_ORANGES = 8;
+    int QTD_ORANGES = 4;
     int QTD_BUTTERS = 4;
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio
     float CAR_SCALE_DELTA = 0.005f;
-    float CAR_MAX_SCALE_UP = 0.7f;
+    float CAR_MAX_SCALE_UP = 0.5f;
     float CAR_MAX_SCALE_DOWN = 0.2f;
 
 	bool SET_DIRECTION[4] = {true, true, true, true};
