@@ -25,28 +25,30 @@ void Car::update(float delta){
     logger.debug("Car::update()");
     
     // if right is clicked
-    if(_move_right){
-        // if is moving forward, then rotate (+)
-        if(_move_up || _speed->getX() > 0)
-            // to drift when starts to speed up
-            if(_speed->getX() < gm.SPEED_INCREMENT * 4)
-                this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT / 2);
-            else
+	if (_move_right) {
+		// if is moving forward, then rotate (+)
+		if (_move_up || _speed->getX() > 0) {
+			// to drift when starts to speed up
+			if (_speed->getX() < gm.SPEED_INCREMENT * 4)
+				this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT / 2);
+			else
 				this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT);
+		}
         // if is moving backward, then rotate (-)
         else if(_move_down ||  _speed->getX() < 0)
 			this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT);
     }
 
     // if left is clicked
-    if(_move_left){
-        // if is moving forward, then rotate (-)
-        if(_move_up || _speed->getX() > 0)
-            // to drift when starts to speed up
-            if(_speed->getX() < gm.SPEED_INCREMENT * 4)
+	if (_move_left) {
+		// if is moving forward, then rotate (-)
+		if (_move_up || _speed->getX() > 0) {
+			// to drift when starts to speed up
+			if (_speed->getX() < gm.SPEED_INCREMENT * 4)
 				this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT / 2);
-            else
+			else
 				this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT);
+		}
         // if is moving backward, then rotate (+)
         else if(_move_down || _speed->getX() < 0)
 			this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT);
@@ -109,6 +111,12 @@ void Car::draw(){
     drawCarModel();
     glPopMatrix();
 };
+
+bool Car::is_move_up(){ return _move_up; };
+bool Car::is_move_down(){ return _move_down; };
+bool Car::is_move_left(){ return _move_left; };
+bool Car::is_move_rigth(){ return _move_right; };
+
 
 void Car::set_move_up(bool b){ _move_up = b; };
 void Car::set_move_down(bool b){ _move_down = b; };
