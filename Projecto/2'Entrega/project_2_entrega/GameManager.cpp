@@ -146,14 +146,14 @@ void GameManager::keyRelease(int key){
 
 //  ------------------------------------------------------------- drawAll()
 //  Method that handles the drawing of all objects in the display
-void GameManager::drawAll(){
-    logger.debug("GameManager::drawAll()");
-    for(GameObject * obj: _dynamic_objects){
-        obj->draw();
-    }
-    for(GameObject * obj: _static_objects){
-        obj->draw();
-    }
+void GameManager::drawAll() {
+	logger.debug("GameManager::drawAll()");
+	for (GameObject * obj : _dynamic_objects) {
+		obj->draw();
+	}
+	for (GameObject * obj : _static_objects) {
+		obj->draw();
+	}
 };
 
 //  ----------------------------------------------------- handleColisions()
@@ -237,47 +237,47 @@ void GameManager::handleColisions(){
 //  ----------------------------------------------------------- updateAll()
 //  Method that handle all the updates, calculations, colisions
 //  and what not of each object in the display
-void GameManager::updateAll(){
-    logger.debug("GameManager::updateAll()");
-    
-    // colisions
-    handleColisions();
-    
-    // update
-    _current_time = glutGet(GLUT_ELAPSED_TIME);
-    for(GameObject * obj : _dynamic_objects){
-        obj->update(_current_time - _previous_time);
-    }
-    _previous_time = glutGet(GLUT_ELAPSED_TIME);
-    
+void GameManager::updateAll() {
+	logger.debug("GameManager::updateAll()");
+
+	// colisions
+	handleColisions();
+
+	// update
+	_current_time = glutGet(GLUT_ELAPSED_TIME);
+	for (GameObject * obj : _dynamic_objects) {
+		obj->update(_current_time - _previous_time);
+	}
+	_previous_time = glutGet(GLUT_ELAPSED_TIME);
+
 };
 
 //  ----------------------------------------------------------- onReshape()
 //  Custom reshape function used when "glutReshapeFunc"
 //  triggers an event. This handles the change in screen size
-void GameManager::onReshape(GLsizei w, GLsizei h){
-    logger.debug("GameManager::onReshape()");
-    // define size of the viewport
-    // args: x, y, weight, height
-    // x and y are measure from the bottom left corner of the screen
-    // weight and height are the actual size of the viewport
-    float xmin = -1., xmax = 1., ymin = -1., ymax = 1.;
-    float ratio = (xmax - xmin) / (ymax - ymin);
-    float aspect = (float) w / h;
-    if (aspect > ratio)
-        glViewport((w-h*ratio)/2, 0, h*ratio, h);
-    else
-        glViewport(0, (h-w/ratio)/2, w, w/ratio);
-    // changes the pointer for which Matrix we want to work on. GL_PROJECTION
-    glMatrixMode(GL_PROJECTION);
-    // puts the Identity Matrix as the top matrix of the stack GL_PROJECTION
-    glLoadIdentity();
-    // changes back the pointer to the GL_MODELVIEW
-    glMatrixMode(GL_MODELVIEW);
-    // and set's the top matrix of that stack to be the Identity Matrix
-    glLoadIdentity();
-    // define Ortho2d projection
-    gluOrtho2D(xmin, xmax, ymin, ymax);
+void GameManager::onReshape(GLsizei w, GLsizei h) {
+	logger.debug("GameManager::onReshape()");
+	// define size of the viewport
+	// args: x, y, weight, height
+	// x and y are measure from the bottom left corner of the screen
+	// weight and height are the actual size of the viewport
+	float xmin = -1., xmax = 1., ymin = -1., ymax = 1.;
+	float ratio = (xmax - xmin) / (ymax - ymin);
+	float aspect = (float)w / h;
+	if (aspect > ratio)
+		glViewport((w - h*ratio) / 2, 0, h*ratio, h);
+	else
+		glViewport(0, (h - w / ratio) / 2, w, w / ratio);
+	// changes the pointer for which Matrix we want to work on. GL_PROJECTION
+	glMatrixMode(GL_PROJECTION);
+	// puts the Identity Matrix as the top matrix of the stack GL_PROJECTION
+	glLoadIdentity();
+	// changes back the pointer to the GL_MODELVIEW
+	glMatrixMode(GL_MODELVIEW);
+	// and set's the top matrix of that stack to be the Identity Matrix
+	glLoadIdentity();
+	// define Ortho2d projection
+	gluOrtho2D(xmin, xmax, ymin, ymax);
 };
 
 //  -------------------------------------------------------------- camera()
@@ -334,9 +334,9 @@ void GameManager::onDisplay(){
 //  Custom keyboard function used when "glutIdleFunc" triggers
 //  an event. This runs all logic inside if glut has no events
 //  to run
-void GameManager::onIdle(){
-    gm.updateAll();
-    glutPostRedisplay();
+void GameManager::onIdle() {
+	gm.updateAll();
+	glutPostRedisplay();
 }
 
 //  ---------------------------------------------------------- onKeyboard()
@@ -370,21 +370,21 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
 //  Custom keyboard function used when "glutSpecialFunc"
 //  triggers an event. This handles the special keys like
 //  F1, Esc, Left arrow, Right Arrow...
-void GameManager::onSpecialKeys(int key, int x, int y){
-    gm.keyPress(key);
+void GameManager::onSpecialKeys(int key, int x, int y) {
+	gm.keyPress(key);
 };
 
 //  ----------------------------------------------------- onSpecialUpKeys()
 //  Custom keyboard function used when "glutSpecialUpFunc"
 //  triggers an event.
-void GameManager::onSpecialKeysUp(int key, int x, int y){
-    gm.keyRelease(key);
+void GameManager::onSpecialKeysUp(int key, int x, int y) {
+	gm.keyRelease(key);
 };
 
 //  -------------------------------------------------------- onMouseClick()
 //  Custom fucntion to handle all mouse click events
-void GameManager::onMouseClick(int button, int state, int x, int y){};
+void GameManager::onMouseClick(int button, int state, int x, int y) {};
 
 //  ------------------------------------------------------- onMouseMotion()
 //  Custom fucntion to handle all mouse movement
-void GameManager::onMouseMotion(int x, int y){};
+void GameManager::onMouseMotion(int x, int y) {};
