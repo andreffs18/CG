@@ -18,10 +18,16 @@ public:
     void draw();
     void update(float);
     
-    void setMoveUp(bool);
-    void setMoveDown(bool);
-    void setMoveLeft(bool);
-    void setMoveRight(bool);
+    void set_move_up(bool);
+    void set_move_down(bool);
+    void set_move_left(bool);
+    void set_move_right(bool);
+    
+    bool is_move_up();
+    bool is_move_down();
+    bool is_move_left();
+    bool is_move_rigth();
+
     
     void setScale(GLdouble);
     GLdouble getScale();

@@ -1,12 +1,15 @@
 //
-//  project_2_entrega - OrthogonalCamera.h
+//  OrthogonalCamera.hpp
+//  project_2_entrega
 //
+
 #ifndef OrthogonalCamera_h
 #define OrthogonalCamera_h
 
 #include "Camera.h"
-
-class OrthogonalCamera : public Camera{
+class OrthogonalCamera :
+public Camera
+{
 private:
     double _left;
     double _right;

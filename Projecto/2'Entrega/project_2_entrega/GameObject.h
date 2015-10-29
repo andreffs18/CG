@@ -3,6 +3,7 @@
 //
 #ifndef __GAMEOBJECT_H_INCLUDED__
 #define __GAMEOBJECT_H_INCLUDED__
+
 #ifdef _WIN32
 //define something for Windows (32-bit and 64-bit, this part is common)
 #include <GL\glut.h>
@@ -10,6 +11,7 @@
 // Other kinds of Mac OS
 #include <GLUT/glut.h>
 #endif
+
 #include "Vector3.h"
 
 class GameObject{
@@ -17,7 +19,6 @@ protected:
     Vector3 * _position;
     GLdouble _rotation;
     GLdouble _radius;
-    
 public:
     GameObject();
     ~GameObject();
@@ -34,6 +35,7 @@ public:
     void setRotation(GLdouble);
     
     bool collidesWith(GameObject *);
+
 };
 
 #endif /* defined(__GAMEOBJECT_H_INCLUDED__) */
