@@ -61,7 +61,7 @@ public:
 	// amount of increment of position
 	double XY_INCREMENT[4][2];
 	// amount of increase for speed of some time spent
-	double INCREASE_FACTOR[4] = { 0.100, 0.100, 0.100, 0.100 };
+	double INCREASE_FACTOR[4] = { 0.001, 0.001, 0.001, 0.001 };
 	// to decide if speed must be increased
 	bool INCREASE_SPEED[4] = { false, false, false, false };
 	// counter to know which orange is being used
@@ -74,7 +74,7 @@ public:
 	float SET_NEG_X;
 	float SET_NEG_Y;
 	// initial velocidade of oranges
-	float SPEED_INCREMENT_ORANGES = 0.25;
+	float SPEED_INCREMENT_ORANGES = 0.0025;
 	float MAX_VELOCITY_ORANGES = 0.05;
 
 	GameManager();
