@@ -8,7 +8,6 @@
 //   #2 - Define variable value in Game.cpp.
 #ifndef __GAME_H_INCLUDED__
 #define __GAME_H_INCLUDED__
-
 #include "Logger.h"
 #include "GameManager.h"
 #include "Vector3.h"
@@ -19,11 +18,6 @@ extern int VIEWPORT_HEIGHT;
 // Positon X and Y of window.
 extern int WINDOW_X_POS;
 extern int WINDOW_Y_POS;
-// Config Perspective
-//extern GLdouble P_FOV;
-extern GLdouble P_ASPECT_RATIO;
-//extern GLdouble P_NEAR;
-//extern GLdouble P_FAR;
 // Window name
 extern const char * WINDOW_NAME;
 // Global logs variables. set to true logs that want enable
@@ -38,23 +32,6 @@ extern GameManager gm;
 extern float PI;
 // Gavitational constant
 extern float GRAVIT_CONST;
-// Turn on/off depth of field on 3D objs
-extern bool ENABLE_DEPTH;
-// Turn on/off double buffer
-extern bool ENABLE_DOUBLE_BUFFER;
+// Enable collision sphere object to be seen
 extern bool COLISION_SPHERE;
-// Global Position for the camera
-extern Vector3 * POSCAM;
-// Global Pointing vector  for the camera
-extern Vector3 * POINTCAM;
-// Global Axis vector
-extern Vector3 * AXIS;
-// Global Rotation Speed..
-extern float ROTATION_SPEED;
-
-extern bool CAM1;
-extern bool CAM2;
-extern bool CAM3;
-
-extern float BANANAS;
 #endif /* defined(__GAME_H_INCLUDED__) */

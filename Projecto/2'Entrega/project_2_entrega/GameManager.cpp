@@ -1,3 +1,6 @@
+//
+//  project_1_entrega - GameManager.cpp
+//
 #include <typeinfo>
 #include <complex>
 #include <time.h>
@@ -10,116 +13,135 @@
 #include "Cheerio.h"
 #include "Orange.h"
 #include "Butter.h"
-#include "Camera.h"
-#include "PerspectiveCamera.h"
 
-
-GameManager::GameManager() {
-	logger.debug("GameManager::GameManager()");
-	// init time tracking
-	_previous_time = 0, _current_time = 0;
-	// init vector of gameobjects, dynamic and static
-	std::vector<DynamicObject *> _dynamic_objects;
-	std::vector<StaticObject *> _static_objects;
-
-	// init random
-	srand((unsigned int)time(NULL));
-
-	// Initialize Track
-	track = new Track();
-	track->setPosition(new Vector3(0.0f, 0.0f, -0.2f));
-	this->_static_objects.push_back(track);
-
-	// Initialize Car
-	car = new Car();
-	GLdouble start_position = -INNER_CIRCLE_RADIUS - 3;
-	car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
-	car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-	this->_dynamic_objects.push_back(car);
-
-	// Initialize Cheerios
-	for (double angle = 0.0f, i = 0; angle < 360.0f; angle += 360.0f / (QTD_CHEERIOS), i++) {
-		// we draw the outer cheerio twice as much as the inner one
-		// in a pair instance of the angle we dra both, otherwise
-		// we just draw the outer cheerio
-		GLdouble _cos = cos(angle*(PI / 180));
-		GLdouble _sin = sin(angle*(PI / 180));
-
-		if (int(i) % 2 == 0) {
-			cheerio = new Cheerio();
-			Vector3 * new_pos = new Vector3(INNER_CIRCLE_RADIUS * _cos, INNER_CIRCLE_RADIUS * _sin, 0.0f);
-			cheerio->setPosition(new_pos);
-			this->_static_objects.push_back(cheerio);
-		}
-		cheerio = new Cheerio();
-		Vector3 * new_pos = new Vector3(OUTER_CIRCLE_RADIUS * _cos, OUTER_CIRCLE_RADIUS * _sin, 0.0f);
-		cheerio->setPosition(new_pos);
-		this->_static_objects.push_back(cheerio);
-
-	}
-	// Initialize Oranges
-	for (int i = 0, px = 0, py = 0, v = -1; i < QTD_ORANGES; v = px, i++) {
-
-		px = (i % 2 == 0) ? (-1)*v : v;
-		py = (i % 2 == 0) ? 1 : -1;
-		// TRACK_SIZE-2 is for not generate a pos to place oranges
-		// in extact end of the table (track)
-		GLdouble pos_x = (rand() % 95) / 100.0 * px * (TRACK_SIZE - 2);
-		GLdouble pos_y = (rand() % 95) / 100.0 * py * (TRACK_SIZE - 2);
-
-		orange = new Orange();
-		orange->setPosition(new Vector3(pos_x, pos_y, 1.0f)); //orange->_height/2
-		orange->setSpeed(new Vector3(SPEED_INCREMENT_ORANGES, SPEED_INCREMENT_ORANGES, 0.0f));
-		this->_dynamic_objects.push_back(orange);
-	}
-
-	// Initialize Butters
-	for (int i = 0, px = 0, py = 0, v = -1; i < QTD_BUTTERS; v = px, i++) {
-		px = (i % 2 == 0) ? (-1)*v : v;
-		py = (i % 2 == 0) ? 1 : -1;
-		// TRACK_SIZE-2 is for not generate a pos to place butters
-		// in extact end of the table (track)
-		GLdouble pos_x = (rand() % 95) / 100.0 * px * (TRACK_SIZE - 2);
-		GLdouble pos_y = (rand() % 95) / 100.0 * py * (TRACK_SIZE - 2);
-
-		butter = new Butter();
-		butter->setPosition(new Vector3(pos_x, pos_y, 0.05f));
-		butter->setRotation(rand() % 360);
-		this->_static_objects.push_back(butter);
-	}
+GameManager::GameManager(){
+    logger.debug("GameManager::GameManager()");
+    // init time tracking
+    _previous_time = 0, _current_time = 0;
+    // init vector of gameobjects, dynamic and static
+    std::vector<DynamicObject *> _dynamic_objects;
+    std::vector<StaticObject *> _static_objects;
+    
+    // init random
+    srand((unsigned int)time(NULL));
+    
+    // Initialize Track
+    track = new Track();
+    track->setPosition(new Vector3(0.0f, 0.0f, -0.5f));
+    this->_static_objects.push_back(track);
+    
+    // Initialize Car
+    car = new Car();
+    car->setPosition(START_POSITION);
+    car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+    this->_dynamic_objects.push_back(car);
+    
+    // Initialize Cheerios
+    for(double angle = 0.0f, i = 0; angle < 360.0f; angle += 360.0f / (QTD_CHEERIOS), i++){
+        // we draw the outer cheerio twice as much as the inner one
+        // in a pair instance of the angle we dra both, otherwise
+        // we just draw the outer cheerio
+        GLdouble _cos = cos(angle*(PI/180));
+        GLdouble _sin = sin(angle*(PI/180));
+        
+        if(int(i) % 2 == 0){
+            cheerio = new Cheerio();
+            Vector3 * new_pos = new Vector3(INNER_CIRCLE_RADIUS * _cos, INNER_CIRCLE_RADIUS * _sin, 0.0f);
+            cheerio->setPosition(new_pos);
+            this->_static_objects.push_back(cheerio);
+        }
+        cheerio = new Cheerio();
+        Vector3 * new_pos = new Vector3(OUTER_CIRCLE_RADIUS * _cos, OUTER_CIRCLE_RADIUS * _sin, 0.0f);
+        cheerio->setPosition(new_pos);
+        this->_static_objects.push_back(cheerio);
+        
+    }
+    // Initialize Oranges
+    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_ORANGES; v=px, i++){
+        px = (i%2==0) ? (-1)*v : v;
+        py = (i%2==0) ? 1 : -1;
+        // TRACK_SIZE-2 is for not generate a pos to place oranges
+        // in extact end of the table (track)
+        GLdouble pos_x = (rand() % 95)/100.0 * px * (TRACK_SIZE - 2);
+        GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
+        
+        orange = new Orange();
+        orange->setPosition(new Vector3(pos_x, pos_y, 1.0f)); //orange->_height/2
+        orange->setSpeed(new Vector3(SPEED_INCREMENT_ORANGES, SPEED_INCREMENT_ORANGES, 0.0f));
+        this->_dynamic_objects.push_back(orange);
+    }
+    
+    // Initialize Butters
+    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_BUTTERS; v=px, i++){
+        px = (i%2==0) ? (-1)*v : v;
+        py = (i%2==0) ? 1 : -1;
+        // TRACK_SIZE-2 is for not generate a pos to place butters
+        // in extact end of the table (track)
+        GLdouble pos_x = (rand() % 95)/100.0 * px * (TRACK_SIZE - 2);
+        GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
+        
+        butter = new Butter();
+        butter->setPosition(new Vector3(pos_x, pos_y, 0.05f));
+        butter->setRotation(rand() % 360);
+        this->_static_objects.push_back(butter);
+    }
+    
+    // Initalize cameras
+    std::vector<Camera *> _cameras;
+    // first camera, look from above
+    Camera * cam1 = new OrthogonalCamera(-25, 25, -25, 25, -20, 5);
+    cam1->setPos(new Vector3(0.0f, 0.0f, 30.0f));
+    cam1->setUp(new Vector3(0.0f, 1.0f, 0.0f));
+    this->_cameras.push_back(cam1);
+    
+    // second camera, isometric look
+    Camera * cam2= new PerspectiveCamera(60, 0.1, 100);
+    cam2->setPos(new Vector3(-30.0f, -30.0f, 30.0f));
+    cam2->setUp(new Vector3(0.0f, 0.0f, 1.0f));
+    this->_cameras.push_back(cam2);
+    
+    // third camera, 3'rd person shooter
+    GLdouble carx = car->getPosition()->getX();
+    GLdouble cary = car->getPosition()->getY();
+    Camera * cam3= new PerspectiveCamera(60, 0.1, 100);
+    cam3->setPos(new Vector3(carx, cary, 2.0f));
+    cam3->setAt(new Vector3(carx, cary, 2.0f));
+    cam3->setUp(new Vector3(0.0f, 0.0f, 1.0f));
+    this->_cameras.push_back(cam3);
 };
-GameManager::~GameManager() { logger.debug("GameManager::~GameManager()"); };
+
+GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
 //  ------------------------------------------------------------ keyPress()
 //  handles which direction was clicked. changes the state of
 //  the variable in question.
-void GameManager::keyPress(int key) {
-	logger.debug("GameManager::keyPress()");
-	Car * car = (Car *)_dynamic_objects.front();
-	if (key == GLUT_KEY_UP)
-		car->set_move_up(true);
-	if (key == GLUT_KEY_DOWN)
-		car->set_move_down(true);
-	if (key == GLUT_KEY_LEFT)
-		car->set_move_left(true);
-	if (key == GLUT_KEY_RIGHT)
-		car->set_move_right(true);
+void GameManager::keyPress(int key){
+    logger.debug("GameManager::keyPress()");
+    Car * car = (Car *)_dynamic_objects.front();
+    if(key == GLUT_KEY_UP)
+        car->setMoveUp(true);
+    if(key == GLUT_KEY_DOWN)
+        car->setMoveDown(true);
+    if(key == GLUT_KEY_LEFT)
+        car->setMoveLeft(true);
+    if(key == GLUT_KEY_RIGHT)
+        car->setMoveRight(true);
 };
 
 //  ---------------------------------------------------------- keyRelease()
 //  handles which direction was released. changes the state of
 //  the variable in question.
-void GameManager::keyRelease(int key) {
-	logger.debug("GameManager::keyRelease()");
-	Car * car = (Car *)_dynamic_objects.front();
-	if (key == GLUT_KEY_UP)
-		car->set_move_up(false);
-	if (key == GLUT_KEY_DOWN)
-		car->set_move_down(false);
-	if (key == GLUT_KEY_LEFT)
-		car->set_move_left(false);
-	if (key == GLUT_KEY_RIGHT)
-		car->set_move_right(false);
+void GameManager::keyRelease(int key){
+    logger.debug("GameManager::keyRelease()");
+    Car * car = (Car *)_dynamic_objects.front();
+    if(key == GLUT_KEY_UP)
+        car->setMoveUp(false);
+    if(key == GLUT_KEY_DOWN)
+        car->setMoveDown(false);
+    if(key == GLUT_KEY_LEFT)
+        car->setMoveLeft(false);
+    if(key == GLUT_KEY_RIGHT)
+        car->setMoveRight(false);
 };
 
 //  ------------------------------------------------------------- drawAll()
@@ -152,7 +174,7 @@ void GameManager::handleColisions() {
 				car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
 				car->setRotation(0.0f);
 				car->setScale(0.7f);
-				car->set_move_up(false);
+				car->setMoveUp(false);
 			}
 		}
 	}
@@ -195,7 +217,10 @@ void GameManager::handleColisions() {
 						THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA * 4;
 					}
 				}
-				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+
+                GLdouble bounce_x = car->getPosition()->getX() + car->getSpeed()->getX() * 30 * (-sin(car->getRotation() * PI / (180)));
+                GLdouble bounce_y = car->getPosition()->getY() + car->getSpeed()->getX() * 30 * (cos(car->getRotation() * PI / (180)));
+                car->setPosition(new Vector3(bounce_x, bounce_y, car->getPosition()->getZ()));
 			}
 		}
 		// colision with butters:
@@ -208,12 +233,11 @@ void GameManager::handleColisions() {
 
 				obj->setPosition(new Vector3(new_bpos_x, new_bpos_y, obj->getPosition()->getZ()));
 				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-				car->set_move_up(false);
+				car->setMoveUp(false);
 			}
 		}
 	}
 };
-
 
 //  ----------------------------------------------------------- updateAll()
 //  Method that handle all the updates, calculations, colisions
@@ -261,100 +285,53 @@ void GameManager::onReshape(GLsizei w, GLsizei h) {
 	gluOrtho2D(xmin, xmax, ymin, ymax);
 };
 
-
-//creates Camera 1
-void GameManager::Cam1() {
-	//first camera
-	logger.debug("GameManager::Cam1()");
-	POSCAM->setX(0);
-	POSCAM->setY(0);
-	POSCAM->setZ(60);
-
-	POINTCAM->setX(0);
-	POINTCAM->setY(0);
-	POINTCAM->setZ(0);
-
-	AXIS->setVector3(new Vector3(0.0f, 1.0f, 0.0f));
-
-
-	PerspectiveCamera * Cam1 = new PerspectiveCamera(60, 0.1, 200);
-	Cam1->update();
-}
-
-
-//creates Camera 2
-void GameManager::Cam2() {
-	// perspective view
-	logger.debug("GameManager::Cam2()");
-	POSCAM->setVector3(new Vector3(-30.0f, -30.0f, 30.f));
-	POINTCAM->setVector3(new Vector3(0.0f, 0.0f, 0.0f));
-	AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
-
-	PerspectiveCamera * Cam2 = new PerspectiveCamera(60, 0.1, 100);
-	Cam2->update();
-}
-
-
-//creates Camera 3
-void GameManager::Cam3() {
-	logger.debug("GameManager::Cam3()");
-	Car * car = (Car *)_dynamic_objects.front();
-
-	GLdouble car_posx = car->getPosition()->getX();
-	GLdouble car_posy = car->getPosition()->getY();
-
-	GLdouble poscamx = car_posx - THIRDPERSON_DISTANCE * (-sin(car->getRotation() * PI / 180));
-	GLdouble poscamy = car_posy - THIRDPERSON_DISTANCE * (cos(car->getRotation() * PI / 180));
-	std::cout << "THIRDPERSON_DISTANCE: " << THIRDPERSON_DISTANCE << std::endl;
-
-	POSCAM->setVector3(new Vector3(poscamx, poscamy, 2.0f));
-	POINTCAM->setVector3(new Vector3(car_posx, car_posy, 0.0f));
-	AXIS->setVector3(new Vector3(0.0f, 0.0f, 1.0f));
-
-	PerspectiveCamera * Cam3 = new PerspectiveCamera(60, 0.1, 100);
-	Cam3->update();
-}
-
+//  -------------------------------------------------------------- camera()
+//  method that handles which camera is active.
+void GameManager::camera(){
+    Camera * camera = _cameras.at(ACTIVE_CAMERA);
+    
+    // look up camera.
+    if(ACTIVE_CAMERA == 0){ /* do nothing */ }
+    // isometric view
+    else if (ACTIVE_CAMERA == 1){ /* do nothing */ }
+    // 3'rd person shooter view
+    else if (ACTIVE_CAMERA == 2){
+        // update camera pos and at vectors to match car
+        Car * car = (Car *)_dynamic_objects.front();
+        
+        GLdouble car_posx = car->getPosition()->getX();
+        GLdouble car_posy = car->getPosition()->getY();
+        
+        GLdouble poscamx = car_posx - THIRDPERSON_DISTANCE * (-sin(car->getRotation() * PI/180));
+        GLdouble poscamy = car_posy - THIRDPERSON_DISTANCE * ( cos(car->getRotation() * PI/180));
+        
+        camera->setPos(new Vector3(poscamx, poscamy, 2.0f));
+        camera->setAt(new Vector3(car_posx, car_posy, 0.0f));
+    }    
+    camera->update();
+};
 
 //  ----------------------------------------------------------- onDisplay()
 //  Custom display function used when "glutDisplayFunc"
 //  triggers an event. This handles the drawing of the scenes
-void GameManager::onDisplay() {
-	logger.debug("GameManager::onDisplay()");
-	// Fundamental steps
-	// #1 Clear all buffers
-	// #2 Draw all lines, dots and polygons
-	// #3 Force drawing
-	// set color to black when buffer get clean
-
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	// actually cleans buffer (Color buffer)
-	glClear((ENABLE_DEPTH) ? GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT : GL_COLOR_BUFFER_BIT);
-
-	// enable depth
-	if (ENABLE_DEPTH) { glEnable(GL_DEPTH_TEST); }
-	else { glDisable(GL_DEPTH_TEST); }
-
-	glMatrixMode(GL_PROJECTION);
-	// gluPerspective(fov, aspect_ration, near_plane, far_plane)
-	// Field of View (degrees). the amount of "zoom". eg: 90°-extra wide|30°-zoomed in
-	// Aspect Ratio. Width/Height eg: 4/3 or 16/9
-	// Near clipping plane.
-	// Far clipping plane.
-
-	//verifies which camera is active at the moment
-	if (CAM1 == true && CAM2 == false && CAM3 == false)
-		gm.Cam1();
-	if (CAM1 == false && CAM2 == true && CAM3 == false)
-		gm.Cam2();
-	if (CAM1 == false && CAM2 == false && CAM3 == true)
-		gm.Cam3();
-
-	// draw all objects
-	gm.drawAll();
-	// force the execution of the GL commands
-	(ENABLE_DOUBLE_BUFFER) ? glutSwapBuffers() : glFlush();
-
+void GameManager::onDisplay(){
+    logger.debug("GameManager::onDisplay()");
+    // Fundamental steps
+    // #1 Clear all buffers
+    // #2 Draw all lines, dots and polygons
+    // #3 Force drawing
+    // set color to black when buffer get clean
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    // actually cleans buffer (Color buffer)
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    // enable depth
+    glEnable(GL_DEPTH_TEST);
+    // wrapper around model and projection matrix
+    gm.camera();
+    // draw all objects
+    gm.drawAll();
+    // force the execution of the GL commands
+    glutSwapBuffers();
 };
 
 
@@ -370,46 +347,28 @@ void GameManager::onIdle() {
 //  ---------------------------------------------------------- onKeyboard()
 //  Custom keyboard function used when "glutKeyboardFunc"
 //  triggers an event. This handles the keyboardPress
-void GameManager::onKeyboard(unsigned char key, int x, int y) {
-	// change to wireframe
-	if (key == 'A' || key == 'a') {
-		int polygonMode;
-		glGetIntegerv(GL_POLYGON_MODE, &polygonMode);
-		if (polygonMode == GL_LINE) {
-			logger.debug("Changin to GL_FILL (Polygons)");
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
-		else {
-			logger.debug("Changin to GL_LINE (Wireframe)");
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		}
-	}
-	else {
-
-		switch (key) {
-		case '1':
-			gm.Cam1();
-			CAM1 = true;
-			logger.info("Camera1");
-			break;
-		case '2':
-			gm.Cam2();
-			CAM1 = false;
-			CAM2 = true;
-			logger.info("Camera2");
-			break;
-
-		case '3':
-			gm.Cam3();
-			CAM1 = false;
-			CAM2 = false;
-			CAM3 = true;
-			logger.info("Camera2");
-			break;
-		case '0': POSCAM->setZ(POSCAM->getZ() - ROTATION_SPEED); break;
-		}
-	}
-	glutPostRedisplay();
+void GameManager::onKeyboard(unsigned char key, int x, int y){
+    // change to wireframe
+    if (key == 'A' || key == 'a'){
+        int polygonMode;
+        glGetIntegerv(GL_POLYGON_MODE, &polygonMode);
+        if (polygonMode == GL_LINE){
+            logger.debug("Changin to GL_FILL (Polygons)");
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        } else{
+            logger.debug("Changin to GL_LINE (Wireframe)");
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        }
+    }
+    else{
+        // changing which camera is on
+        switch(key){
+            case '1': gm.ACTIVE_CAMERA = 0; break;
+            case '2': gm.ACTIVE_CAMERA = 1; break;
+            case '3': gm.ACTIVE_CAMERA = 2; break;
+        }
+    }
+    glutPostRedisplay();
 };
 
 //  ------------------------------------------------------- onSpecialKeys()

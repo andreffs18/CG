@@ -1,7 +1,6 @@
 //
 //  project_1_entrega - DynamicObject.h
 //
-
 #ifndef __DYNAMICOBJECT_H_INCLUDED__
 #define __DYNAMICOBJECT_H_INCLUDED__
 #include "GameObject.h"

@@ -3,19 +3,14 @@
 //
 #include "Game.h"
 #include "Track.h"
-#include "Cheerio.h"
-#include "Butter.h"
-#include "Orange.h"
-#include <ctime>
 
 Track::Track() : StaticObject(){};
 Track::~Track(){};
 
 void Track::drawTrackModel(){
     // draw cube with 1unit as size
-    // glutSolidCube(1.0f);
     glPushMatrix();
-    glColor3f(0.5f, 0.35f, 0.05f);
+    glColor3f(0.55f, 0.35f, 0.05f);
     glBegin(GL_POLYGON);
     glVertex3f(-1.0, -1.0, 1.0);
     glVertex3f(1.0, -1.0, 1.0);
@@ -60,7 +55,6 @@ void Track::drawTrackModel(){
     glPopMatrix();
 };
 
-
 void Track::draw(){
     logger.debug("Track::draw()");
 	glPushMatrix();
@@ -70,4 +64,3 @@ void Track::draw(){
     drawTrackModel();
     glPopMatrix();
 };
-
