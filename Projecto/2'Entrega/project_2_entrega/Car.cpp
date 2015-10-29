@@ -25,17 +25,6 @@ void Car::update(float delta){
     logger.debug("Car::update()");
     
     // if right is clicked
-<<<<<<< HEAD
-	if (_move_right) {
-		// if is moving forward, then rotate (+)
-		if (_move_up || _speed->getX() > 0) {
-			// to drift when starts to speed up
-			if (_speed->getX() < gm.SPEED_INCREMENT * 4)
-				this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT / 2);
-			else
-				this->setRotation(this->getRotation() - gm.ANGLE_INCREMENT);
-		}
-=======
     if(_move_right){
         // if is moving forward, then rotate (+)
         if(_move_up || getSpeed()->getX() > 0)
@@ -44,24 +33,12 @@ void Car::update(float delta){
                 setRotation(getRotation() - gm.ANGLE_INCREMENT / 2);
             else
 				setRotation(getRotation() - gm.ANGLE_INCREMENT);
->>>>>>> d99fdb2e6b4de7cd7347517470b0d4715c56b12c
         // if is moving backward, then rotate (-)
         else if(_move_down || getSpeed()->getX() < 0)
             setRotation(getRotation() + gm.ANGLE_INCREMENT);
     }
 
     // if left is clicked
-<<<<<<< HEAD
-	if (_move_left) {
-		// if is moving forward, then rotate (-)
-		if (_move_up || _speed->getX() > 0) {
-			// to drift when starts to speed up
-			if (_speed->getX() < gm.SPEED_INCREMENT * 4)
-				this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT / 2);
-			else
-				this->setRotation(this->getRotation() + gm.ANGLE_INCREMENT);
-		}
-=======
     if(_move_left){
         // if is moving forward, then rotate (-)
         if(_move_up || getSpeed()->getX() > 0)
@@ -70,7 +47,6 @@ void Car::update(float delta){
 				setRotation(getRotation() + gm.ANGLE_INCREMENT / 2);
             else
 				setRotation(getRotation() + gm.ANGLE_INCREMENT);
->>>>>>> d99fdb2e6b4de7cd7347517470b0d4715c56b12c
         // if is moving backward, then rotate (+)
         else if(_move_down || getSpeed()->getX() < 0)
 			setRotation(getRotation() - gm.ANGLE_INCREMENT);
