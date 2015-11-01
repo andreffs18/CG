@@ -214,6 +214,8 @@ void GameManager::handleColisions(){
                         // THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA*4;
                     }
                 }
+                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+                car->setMoveUp(false);
             }
         }
         // colision with butters:
@@ -325,7 +327,6 @@ void GameManager::onDisplay(){
     // force the execution of the GL commands
     glutSwapBuffers();
 };
-
 
 //  -------------------------------------------------------------- onIdle()
 //  Custom keyboard function used when "glutIdleFunc" triggers
