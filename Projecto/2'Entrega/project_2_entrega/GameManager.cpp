@@ -217,12 +217,12 @@ void GameManager::handleColisions() {
 						THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA * 4;
 					}
 				}
-                car->setMoveUp(false);
-
+                
                 GLdouble bounce_r = car->getRotation() - gm.ANGLE_INCREMENT;
                 GLdouble bounce_x = car->getPosition()->getX() + car->getSpeed()->getX() * 30 * (sin(bounce_r * PI / (180)));
                 GLdouble bounce_y = car->getPosition()->getY() + car->getSpeed()->getX() * 30 * (-cos(bounce_r * PI / (180)));
-                
+                car->setMoveUp(false);
+
                 car->setPosition(new Vector3(bounce_x, bounce_y, car->getPosition()->getZ()));
                 car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
 			}
