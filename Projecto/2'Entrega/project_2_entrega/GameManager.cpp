@@ -146,137 +146,147 @@ void GameManager::keyRelease(int key){
 
 //  ------------------------------------------------------------- drawAll()
 //  Method that handles the drawing of all objects in the display
-void GameManager::drawAll(){
-    logger.debug("GameManager::drawAll()");
-    for(GameObject * obj: _dynamic_objects){
-        obj->draw();
-    }
-    for(GameObject * obj: _static_objects){
-        obj->draw();
-    }
+void GameManager::drawAll() {
+	logger.debug("GameManager::drawAll()");
+	for (GameObject * obj : _dynamic_objects) {
+		obj->draw();
+	}
+	for (GameObject * obj : _static_objects) {
+		obj->draw();
+	}
 };
 
 //  ----------------------------------------------------- handleColisions()
 //  Method that checks and handles all colisions between
 //  car and gameobjects
-void GameManager::handleColisions(){
-    // colisions with dynamic objects like oranges
-    for(GameObject * obj: _dynamic_objects){
-        // colision with car:
-        if(typeid(Car) == typeid(*obj)){ /* do nothing */ }
-        // colision with oranges:
-        if(typeid(Orange) == typeid(*obj)){
-            if(car->collidesWith(obj)){
-                logger.info("Touched orange - Car is back to start position");
-                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-				car->setPosition(START_POSITION);
+void GameManager::handleColisions() {
+	// colisions with dynamic objects like oranges
+	for (GameObject * obj : _dynamic_objects) {
+		// colision with car:
+		if (typeid(Car) == typeid(*obj)) { /* do nothing */ }
+		// colision with oranges:
+		if (typeid(Orange) == typeid(*obj)) {
+			if (car->collidesWith(obj)) {
+				logger.error("Touched orange");
+				// TODO
+				GLdouble start_position = -INNER_CIRCLE_RADIUS - 3;
+				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+				car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
 				car->setRotation(0.0f);
-				car->setScale(CAR_MAX_SCALE_UP - 0.2f);
+				car->setScale(0.7f);
+				car->setMoveUp(false);
+			}
+		}
+	}
+	// colisions with static objects like butters and cheerios
+	for (GameObject * obj : _static_objects) {
+		// colision with cheerios:
+		if (typeid(Cheerio) == typeid(*obj)) {
+			if (car->collidesWith(obj)) {
+				// the detection of which cheerio is touched only works for
+				// this type of track (circular). We just check where the
+				// cheerio is, relative to the radius of the cheerio's on the
+				// track. For demonstration purspuses it works.
+				GLdouble cheerio_pos_x = fabs(obj->getPosition()->getX());
+				GLdouble cheerio_pos_y = fabs(obj->getPosition()->getY());
+				bool is_inner_cheerio = cheerio_pos_x <= INNER_CIRCLE_RADIUS && cheerio_pos_y <= INNER_CIRCLE_RADIUS;
+				bool is_outer_cheerio = cheerio_pos_x > INNER_CIRCLE_RADIUS || cheerio_pos_y > INNER_CIRCLE_RADIUS;
+
+				GLdouble new_cheerio_pos_x = obj->getPosition()->getX() + car->getSpeed()->getX() * 2 * (-sin(car->getRotation() * PI / 180));
+				GLdouble new_cheerio_pos_y = obj->getPosition()->getY() + car->getSpeed()->getX() * 2 * (cos(car->getRotation() * PI / 180));
+
+				obj->setPosition(new Vector3(new_cheerio_pos_x, new_cheerio_pos_y, obj->getPosition()->getZ()));
+
+				// both inner and outer circle
+				// (after scaling car, this can happend)
+				if (is_inner_cheerio && is_outer_cheerio) { /* do nothing */ }
+				// check if colision with inner circle
+				else if (is_inner_cheerio) {
+					logger.error("Touched Inner Cherrio: Decreasing car size");
+					if (car->getScale() > CAR_MAX_SCALE_DOWN) {
+						car->setScale(car->getScale() - CAR_SCALE_DELTA);
+						THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE - CAR_SCALE_DELTA * 4;
+					}
+
+				}
+				// check if colision with outer circle
+				else if (is_outer_cheerio) {
+					logger.error("Touched Outer Cheerio: Increasing car size");
+					if (car->getScale() < CAR_MAX_SCALE_UP) {
+						car->setScale(car->getScale() + CAR_SCALE_DELTA);
+						THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA * 4;
+					}
+				}
                 car->setMoveUp(false);
-            }
-        }
-    }
-    // colisions with static objects like butters and cheerios
-    for(GameObject * obj: _static_objects){
-        // colision with cheerios:
-        if(typeid(Cheerio) == typeid(*obj)){
-            if(car->collidesWith(obj)){
-                // the detection of which cheerio is touched only works for
-                // this type of track (circular). We just check where the
-                // cheerio is, relative to the radius of the cheerio's on the
-                // track. For demonstration purspuses it works.
-                GLdouble cheerio_pos_x = fabs(obj->getPosition()->getX());
-                GLdouble cheerio_pos_y = fabs(obj->getPosition()->getY());
-                bool is_inner_cheerio = cheerio_pos_x <= INNER_CIRCLE_RADIUS && cheerio_pos_y <= INNER_CIRCLE_RADIUS;
-                bool is_outer_cheerio = cheerio_pos_x > INNER_CIRCLE_RADIUS || cheerio_pos_y > INNER_CIRCLE_RADIUS;
+
+                GLdouble bounce_r = car->getRotation() - gm.ANGLE_INCREMENT;
+                GLdouble bounce_x = car->getPosition()->getX() + car->getSpeed()->getX() * 30 * (sin(bounce_r * PI / (180)));
+                GLdouble bounce_y = car->getPosition()->getY() + car->getSpeed()->getX() * 30 * (-cos(bounce_r * PI / (180)));
                 
-                GLdouble new_cheerio_pos_x = obj->getPosition()->getX() + car-> getSpeed()->getX() * 2 * (-sin(car->getRotation() * PI/180));
-                GLdouble new_cheerio_pos_y = obj->getPosition()->getY() + car-> getSpeed()->getX() * 2 * ( cos(car->getRotation() * PI/180));
-                
-                obj->setPosition(new Vector3(new_cheerio_pos_x, new_cheerio_pos_y, obj->getPosition()->getZ()));
-                
-                // both inner and outer circle
-                // (after scaling car, this can happend)
-                if(is_inner_cheerio && is_outer_cheerio){ /* do nothing */ }
-                // check if colision with inner circle
-                else if(is_inner_cheerio){
-                    logger.info("Touched Inner Cherrio: Decreasing car size");
-                    if(car->getScale() > CAR_MAX_SCALE_DOWN){
-                        car->setScale(car->getScale() - CAR_SCALE_DELTA);
-                        // THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE - CAR_SCALE_DELTA*4;
-                    }
-                }
-                // check if colision with outer circle
-                else if (is_outer_cheerio){
-                    logger.info("Touched Outer Cheerio: Increasing car size");
-                    if(car->getScale() < CAR_MAX_SCALE_UP){
-                        car->setScale(car->getScale() + CAR_SCALE_DELTA);
-                        // THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA*4;
-                    }
-                }
+                car->setPosition(new Vector3(bounce_x, bounce_y, car->getPosition()->getZ()));
                 car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-                car->setMoveUp(false);
-            }
-        }
-        // colision with butters:
-        if(typeid(Butter) == typeid(*obj)){
-            if(car->collidesWith(obj)){
-                logger.info("Touched butter: Moving it");
-                double new_bpos_x = obj->getPosition()->getX() + car-> getSpeed()->getX() * 20 * (-sin(car->getRotation() * PI/180));
-                double new_bpos_y = obj->getPosition()->getY() + car-> getSpeed()->getX() * 20 * ( cos(car->getRotation() * PI/180));
-                
-                obj->setPosition(new Vector3(new_bpos_x, new_bpos_y, obj->getPosition()->getZ()));
-                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-                car->setMoveUp(false);
-            }
-        }
-    }
+			}
+		}
+		// colision with butters:
+		if (typeid(Butter) == typeid(*obj)) {
+			if (car->collidesWith(obj)) {
+				logger.error("Touched butter");
+
+				double new_bpos_x = obj->getPosition()->getX() + car->getSpeed()->getX() * 4 * (-sin(car->getRotation() * PI / 180));
+				double new_bpos_y = obj->getPosition()->getY() + car->getSpeed()->getX() * 4 * (cos(car->getRotation() * PI / 180));
+
+				obj->setPosition(new Vector3(new_bpos_x, new_bpos_y, obj->getPosition()->getZ()));
+				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+				car->setMoveUp(false);
+			}
+		}
+	}
 };
 
 //  ----------------------------------------------------------- updateAll()
 //  Method that handle all the updates, calculations, colisions
 //  and what not of each object in the display
-void GameManager::updateAll(){
-    logger.debug("GameManager::updateAll()");
-    
-    // colisions
-    handleColisions();
-    
-    // update
-    _current_time = glutGet(GLUT_ELAPSED_TIME);
-    for(GameObject * obj : _dynamic_objects){
-        obj->update(_current_time - _previous_time);
-    }
-    _previous_time = glutGet(GLUT_ELAPSED_TIME);
-    
+void GameManager::updateAll() {
+	logger.debug("GameManager::updateAll()");
+
+	// colisions
+	handleColisions();
+
+	// update
+	_current_time = glutGet(GLUT_ELAPSED_TIME);
+	for (GameObject * obj : _dynamic_objects) {
+		obj->update(_current_time - _previous_time);
+	}
+	_previous_time = glutGet(GLUT_ELAPSED_TIME);
+
 };
 
 //  ----------------------------------------------------------- onReshape()
 //  Custom reshape function used when "glutReshapeFunc"
 //  triggers an event. This handles the change in screen size
-void GameManager::onReshape(GLsizei w, GLsizei h){
-    logger.debug("GameManager::onReshape()");
-    // define size of the viewport
-    // args: x, y, weight, height
-    // x and y are measure from the bottom left corner of the screen
-    // weight and height are the actual size of the viewport
-    float xmin = -1., xmax = 1., ymin = -1., ymax = 1.;
-    float ratio = (xmax - xmin) / (ymax - ymin);
-    float aspect = (float) w / h;
-    if (aspect > ratio)
-        glViewport((w-h*ratio)/2, 0, h*ratio, h);
-    else
-        glViewport(0, (h-w/ratio)/2, w, w/ratio);
-    // changes the pointer for which Matrix we want to work on. GL_PROJECTION
-    glMatrixMode(GL_PROJECTION);
-    // puts the Identity Matrix as the top matrix of the stack GL_PROJECTION
-    glLoadIdentity();
-    // changes back the pointer to the GL_MODELVIEW
-    glMatrixMode(GL_MODELVIEW);
-    // and set's the top matrix of that stack to be the Identity Matrix
-    glLoadIdentity();
-    // define Ortho2d projection
-    gluOrtho2D(xmin, xmax, ymin, ymax);
+void GameManager::onReshape(GLsizei w, GLsizei h) {
+	logger.debug("GameManager::onReshape()");
+	// define size of the viewport
+	// args: x, y, weight, height
+	// x and y are measure from the bottom left corner of the screen
+	// weight and height are the actual size of the viewport
+	float xmin = -1., xmax = 1., ymin = -1., ymax = 1.;
+	float ratio = (xmax - xmin) / (ymax - ymin);
+	float aspect = (float)w / h;
+	if (aspect > ratio)
+		glViewport((w - h*ratio) / 2, 0, h*ratio, h);
+	else
+		glViewport(0, (h - w / ratio) / 2, w, w / ratio);
+	// changes the pointer for which Matrix we want to work on. GL_PROJECTION
+	glMatrixMode(GL_PROJECTION);
+	// puts the Identity Matrix as the top matrix of the stack GL_PROJECTION
+	glLoadIdentity();
+	// changes back the pointer to the GL_MODELVIEW
+	glMatrixMode(GL_MODELVIEW);
+	// and set's the top matrix of that stack to be the Identity Matrix
+	glLoadIdentity();
+	// define Ortho2d projection
+	gluOrtho2D(xmin, xmax, ymin, ymax);
 };
 
 //  -------------------------------------------------------------- camera()
@@ -328,13 +338,14 @@ void GameManager::onDisplay(){
     glutSwapBuffers();
 };
 
+
 //  -------------------------------------------------------------- onIdle()
 //  Custom keyboard function used when "glutIdleFunc" triggers
 //  an event. This runs all logic inside if glut has no events
 //  to run
-void GameManager::onIdle(){
-    gm.updateAll();
-    glutPostRedisplay();
+void GameManager::onIdle() {
+	gm.updateAll();
+	glutPostRedisplay();
 }
 
 //  ---------------------------------------------------------- onKeyboard()
@@ -368,21 +379,21 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
 //  Custom keyboard function used when "glutSpecialFunc"
 //  triggers an event. This handles the special keys like
 //  F1, Esc, Left arrow, Right Arrow...
-void GameManager::onSpecialKeys(int key, int x, int y){
-    gm.keyPress(key);
+void GameManager::onSpecialKeys(int key, int x, int y) {
+	gm.keyPress(key);
 };
 
 //  ----------------------------------------------------- onSpecialUpKeys()
 //  Custom keyboard function used when "glutSpecialUpFunc"
 //  triggers an event.
-void GameManager::onSpecialKeysUp(int key, int x, int y){
-    gm.keyRelease(key);
+void GameManager::onSpecialKeysUp(int key, int x, int y) {
+	gm.keyRelease(key);
 };
 
 //  -------------------------------------------------------- onMouseClick()
 //  Custom fucntion to handle all mouse click events
-void GameManager::onMouseClick(int button, int state, int x, int y){};
+void GameManager::onMouseClick(int button, int state, int x, int y) {};
 
 //  ------------------------------------------------------- onMouseMotion()
 //  Custom fucntion to handle all mouse movement
-void GameManager::onMouseMotion(int x, int y){};
+void GameManager::onMouseMotion(int x, int y) {};

@@ -20,8 +20,6 @@
 #include "Butter.h"
 #include "Cheerio.h"
 
-
-
 class GameManager{
 private:
     std::vector<StaticObject *> _static_objects;
@@ -57,7 +55,7 @@ public:
     Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 3.0f), 0.0f, 0.0f);
     // qtd of object on table
     int QTD_CHEERIOS = 32;
-    int QTD_ORANGES = 4;
+    int QTD_ORANGES = 0;
     int QTD_BUTTERS = 4;
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio
@@ -65,18 +63,31 @@ public:
     float CAR_MAX_SCALE_UP = 0.5f;
     float CAR_MAX_SCALE_DOWN = 0.2f;
 
-	bool SET_DIRECTION[4] = {true, true, true, true};
-	int counter = 0;
+	// array to decide if orange needs direction 
+	bool SET_DIRECTION[4] = { true, true, true, true };
+	// arrays to set which direction to go
 	float XY_DIRECTION[4][2];
-	float XY_INCREMENT[4][2];
+	// amount of increment of position
+	double XY_INCREMENT[4][2];
+	// amount of increase for speed of some time spent
+	double INCREASE_FACTOR[4] = { 0.001, 0.001, 0.001, 0.001 };
+	// to decide if speed must be increased
+	bool INCREASE_SPEED[4] = { false, false, false, false };
+	// counter to know which orange is being used
+	int counter = 0;
+	// initial time of each orange
+	int TIME_ORANGES[4];
 	float X_DIRECTION = 0.0f;
 	float Y_DIRECTION = 0.0f;
+	// variable that decides if moves in -x and/or -y
 	float SET_NEG_X;
 	float SET_NEG_Y;
-	float SPEED_INCREMENT_ORANGES = 0.00025;
+	// initial velocidade of oranges
+	float SPEED_INCREMENT_ORANGES = 0.0025;
+	float MAX_VELOCITY_ORANGES = 0.05;
 
-    GameManager();
-    ~GameManager();
+	GameManager();
+	~GameManager();
 
     void keyPress(int);
     void keyRelease(int);
