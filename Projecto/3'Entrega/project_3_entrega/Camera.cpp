@@ -22,4 +22,8 @@ void Camera::setUp(Vector3 * newup){ _up->setVector3(newup); };
 
 void Camera::update() {}
 void Camera::computeProjectionMatrix() {}
-void Camera::computeVisualizationMatrix() {}
+void Camera::computeVisualizationMatrix() {
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+};
+

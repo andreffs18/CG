@@ -25,8 +25,3 @@ void PerspectiveCamera::computeProjectionMatrix() {
               _up->getX(), _up->getY(), _up->getZ());
     
 };
-
-void PerspectiveCamera::computeVisualizationMatrix() {
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-};

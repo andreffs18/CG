@@ -26,67 +26,17 @@ GameManager::GameManager(){
     
     // init random
     srand((unsigned int)time(NULL));
-    
+
     // Initialize Track
-    track = new Track();
-    track->setPosition(new Vector3(0.0f, 0.0f, -0.5f));
-    this->_static_objects.push_back(track);
-    
+    _init_track();
     // Initialize Car
-    car = new Car();
-    car->setPosition(START_POSITION);
-    car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-    this->_dynamic_objects.push_back(car);
-    
+    _init_car();
     // Initialize Cheerios
-    for(double angle = 0.0f, i = 0; angle < 360.0f; angle += 360.0f / (QTD_CHEERIOS), i++){
-        // we draw the outer cheerio twice as much as the inner one
-        // in a pair instance of the angle we dra both, otherwise
-        // we just draw the outer cheerio
-        GLdouble _cos = cos(angle*(PI/180));
-        GLdouble _sin = sin(angle*(PI/180));
-        
-        if(int(i) % 2 == 0){
-            cheerio = new Cheerio();
-            Vector3 * new_pos = new Vector3(INNER_CIRCLE_RADIUS * _cos, INNER_CIRCLE_RADIUS * _sin, 0.0f);
-            cheerio->setPosition(new_pos);
-            this->_static_objects.push_back(cheerio);
-        }
-        cheerio = new Cheerio();
-        Vector3 * new_pos = new Vector3(OUTER_CIRCLE_RADIUS * _cos, OUTER_CIRCLE_RADIUS * _sin, 0.0f);
-        cheerio->setPosition(new_pos);
-        this->_static_objects.push_back(cheerio);
-        
-    }
+    _init_cheerio();
     // Initialize Oranges
-    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_ORANGES; v=px, i++){
-        px = (i%2==0) ? (-1)*v : v;
-        py = (i%2==0) ? 1 : -1;
-        // TRACK_SIZE-2 is for not generate a pos to place oranges
-        // in extact end of the table (track)
-        GLdouble pos_x = (rand() % 95)/100.0 * px * (TRACK_SIZE - 2);
-        GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
-        
-        orange = new Orange();
-        orange->setPosition(new Vector3(pos_x, pos_y, 1.0f)); //orange->_height/2
-        orange->setSpeed(new Vector3(SPEED_INCREMENT_ORANGES, SPEED_INCREMENT_ORANGES, 0.0f));
-        this->_dynamic_objects.push_back(orange);
-    }
-    
+    _init_orange();
     // Initialize Butters
-    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_BUTTERS; v=px, i++){
-        px = (i%2==0) ? (-1)*v : v;
-        py = (i%2==0) ? 1 : -1;
-        // TRACK_SIZE-2 is for not generate a pos to place butters
-        // in extact end of the table (track)
-        GLdouble pos_x = (rand() % 95)/100.0 * px * (TRACK_SIZE - 2);
-        GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
-        
-        butter = new Butter();
-        butter->setPosition(new Vector3(pos_x, pos_y, 0.05f));
-        butter->setRotation(rand() % 360);
-        this->_static_objects.push_back(butter);
-    }
+    _init_orange();
     
     // Initalize cameras
     std::vector<Camera *> _cameras;
@@ -114,36 +64,103 @@ GameManager::GameManager(){
 
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
-//  ------------------------------------------------------------ keyPress()
-//  handles which direction was clicked. changes the state of
-//  the variable in question.
-void GameManager::keyPress(int key){
-    logger.debug("GameManager::keyPress()");
-    Car * car = (Car *)_dynamic_objects.front();
-    if(key == GLUT_KEY_UP)
-        car->setMoveUp(true);
-    if(key == GLUT_KEY_DOWN)
-        car->setMoveDown(true);
-    if(key == GLUT_KEY_LEFT)
-        car->setMoveLeft(true);
-    if(key == GLUT_KEY_RIGHT)
-        car->setMoveRight(true);
+//  ----------------------------------------------------------_init_<obj>()
+//  aux function to init objects in game manager
+void GameManager::_init_track(){
+    track = new Track();
+    track->setPosition(new Vector3(0.0f, 0.0f, -0.5f));
+    this->_static_objects.push_back(track);
 };
 
-//  ---------------------------------------------------------- keyRelease()
-//  handles which direction was released. changes the state of
-//  the variable in question.
-void GameManager::keyRelease(int key){
-    logger.debug("GameManager::keyRelease()");
-    Car * car = (Car *)_dynamic_objects.front();
-    if(key == GLUT_KEY_UP)
-        car->setMoveUp(false);
-    if(key == GLUT_KEY_DOWN)
-        car->setMoveDown(false);
-    if(key == GLUT_KEY_LEFT)
-        car->setMoveLeft(false);
-    if(key == GLUT_KEY_RIGHT)
-        car->setMoveRight(false);
+void GameManager::_init_car(){
+    car = new Car();
+    car->setPosition(START_POSITION);
+    car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+    this->_dynamic_objects.push_back(car);
+};
+
+void GameManager::_init_cheerio(){
+    // remove cheerios from statiobject
+    std::vector<StaticObject*> aux;
+    for (GameObject * obj : _static_objects) {
+        // colision with cheerios:
+        if (typeid(Cheerio) != typeid(*obj)) {
+            aux.push_back((StaticObject*)obj);
+        }
+    }
+    _static_objects.swap(aux);
+    
+    for(double angle = 0.0f, i = 0; angle < 360.0f; angle += 360.0f / (QTD_CHEERIOS), i++){
+        // we draw the outer cheerio twice as much as the inner one
+        // in a pair instance of the angle we dra both, otherwise
+        // we just draw the outer cheerio
+        GLdouble _cos = cos(angle*(PI/180));
+        GLdouble _sin = sin(angle*(PI/180));
+        
+        if(int(i) % 2 == 0){
+            cheerio = new Cheerio();
+            Vector3 * new_pos = new Vector3(INNER_CIRCLE_RADIUS * _cos, INNER_CIRCLE_RADIUS * _sin, 0.0f);
+            cheerio->setPosition(new_pos);
+            this->_static_objects.push_back(cheerio);
+        }
+        cheerio = new Cheerio();
+        Vector3 * new_pos = new Vector3(OUTER_CIRCLE_RADIUS * _cos, OUTER_CIRCLE_RADIUS * _sin, 0.0f);
+        cheerio->setPosition(new_pos);
+        this->_static_objects.push_back(cheerio);
+        
+    }
+};
+
+void GameManager::_init_orange(){
+    // remove oranges from statiobject
+    std::vector<DynamicObject*> aux;
+    for (GameObject * obj : _dynamic_objects) {
+        // colision with cheerios:
+        if (typeid(Orange) != typeid(*obj)) {
+            aux.push_back((DynamicObject*)obj);
+        }
+    }
+    _dynamic_objects.swap(aux);
+    
+    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_ORANGES; v=px, i++){
+        px = (i%2==0) ? (-1)*v : v;
+        py = (i%2==0) ? 1 : -1;
+        // TRACK_SIZE-2 is for not generate a pos to place oranges
+        // in extact end of the table (track)
+        GLdouble pos_x = (rand() % 95)/100.0 * px * (TRACK_SIZE - 2);
+        GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
+        
+        orange = new Orange();
+        orange->setPosition(new Vector3(pos_x, pos_y, 1.0f)); //orange->_height/2
+        orange->setSpeed(new Vector3(SPEED_INCREMENT_ORANGES, SPEED_INCREMENT_ORANGES, 0.0f));
+        this->_dynamic_objects.push_back(orange);
+    }
+};
+
+void GameManager::_init_butter(){
+    // remove butters from statiobject
+    std::vector<StaticObject*> aux;
+    for (GameObject * obj : _static_objects) {
+        // colision with cheerios:
+        if (typeid(Butter) != typeid(*obj)) {
+            aux.push_back((StaticObject*)obj);
+        }
+    }
+    _static_objects.swap(aux);
+    
+    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_BUTTERS; v=px, i++){
+        px = (i%2==0) ? (-1)*v : v;
+        py = (i%2==0) ? 1 : -1;
+        // TRACK_SIZE-2 is for not generate a pos to place butters
+        // in extact end of the table (track)
+        GLdouble pos_x = (rand() % 95)/100.0 * px * (TRACK_SIZE - 2);
+        GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
+        
+        butter = new Butter();
+        butter->setPosition(new Vector3(pos_x, pos_y, 0.05f));
+        butter->setRotation(rand() % 360);
+        this->_static_objects.push_back(butter);
+    }
 };
 
 //  ------------------------------------------------------------- drawAll()
@@ -344,15 +361,71 @@ void GameManager::onDisplay(){
     glutSwapBuffers();
 };
 
-
 //  -------------------------------------------------------------- onIdle()
 //  Custom keyboard function used when "glutIdleFunc" triggers
 //  an event. This runs all logic inside if glut has no events
 //  to run
 void GameManager::onIdle() {
-	gm.updateAll();
-	glutPostRedisplay();
-}
+    gm.updateAll();
+    glutPostRedisplay();
+};
+
+//  -------------------------------------------------------------- onTime()
+//  Custom event timer handler
+void GameManager::onTime(int level){
+    // saves the level
+    gm.CURRENT_LEVEL = level;
+    if(level == 0) {
+        logger.info("Setting up level #1");
+        /* don't do nothing */
+    } else if(level == 1) {
+        logger.info("Setting up level #2");
+        gm.SPEED_INCREMENT = 0.00035f;
+        gm.MAX_VELOCITY = 0.02f;
+        gm.ANGLE_INCREMENT = 2.0f;
+        gm.THIRDPERSON_DISTANCE = 4.0f;
+        // qtd of object on table
+        gm.QTD_CHEERIOS = 64;
+        gm.QTD_ORANGES = 3;
+        gm.QTD_BUTTERS = 1;
+        gm.CAR_SCALE_DELTA = 0.01f;
+        gm.CAR_MAX_SCALE_UP = 0.4f;
+        gm.CAR_MAX_SCALE_DOWN = 0.2f;
+        gm.SPEED_INCREMENT_ORANGES = 0.003;
+        gm.MAX_VELOCITY_ORANGES = 0.06;
+    } else if(level == 2) {
+        logger.info("Setting up level #3");
+        gm.SPEED_INCREMENT = 0.00045f;
+        gm.MAX_VELOCITY = 0.025f;
+        gm.ANGLE_INCREMENT = 2.5f;
+        gm.THIRDPERSON_DISTANCE = 4.5f;
+        // qtd of object on table
+        gm.QTD_CHEERIOS = 16;
+        gm.QTD_ORANGES = 4;
+        gm.QTD_BUTTERS = 2;
+        gm.CAR_SCALE_DELTA = 0.01f;
+        gm.CAR_MAX_SCALE_UP = 0.4f;
+        gm.CAR_MAX_SCALE_DOWN = 0.2f;
+        gm.SPEED_INCREMENT_ORANGES = 0.004;
+        gm.MAX_VELOCITY_ORANGES = 0.065;
+    } else if(level == 3){
+        logger.info("Setting up level #4");
+        gm.SPEED_INCREMENT = 0.00045f;
+        gm.MAX_VELOCITY = 0.025f;
+        gm.ANGLE_INCREMENT = 2.5f;
+        gm.THIRDPERSON_DISTANCE = 4.5f;
+        // qtd of object on table
+        gm.QTD_CHEERIOS = 32;
+        gm.QTD_BUTTERS = 4;
+        gm.SPEED_INCREMENT_ORANGES = 0.0045;
+        gm.MAX_VELOCITY_ORANGES = 0.07;
+    }
+    // colisions with static objects like butters and cheerios
+    gm._init_butter();
+    gm._init_orange();
+    gm._init_cheerio();
+
+};
 
 //  ---------------------------------------------------------- onKeyboard()
 //  Custom keyboard function used when "glutKeyboardFunc"
@@ -421,20 +494,30 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
 //  triggers an event. This handles the special keys like
 //  F1, Esc, Left arrow, Right Arrow...
 void GameManager::onSpecialKeys(int key, int x, int y) {
-	gm.keyPress(key);
+    logger.debug("GameManager::keyPress()");
+    Car * car = (Car *)gm._dynamic_objects.front();
+    if(key == GLUT_KEY_UP)
+        car->setMoveUp(true);
+    if(key == GLUT_KEY_DOWN)
+        car->setMoveDown(true);
+    if(key == GLUT_KEY_LEFT)
+        car->setMoveLeft(true);
+    if(key == GLUT_KEY_RIGHT)
+        car->setMoveRight(true);
 };
 
 //  ----------------------------------------------------- onSpecialUpKeys()
 //  Custom keyboard function used when "glutSpecialUpFunc"
 //  triggers an event.
 void GameManager::onSpecialKeysUp(int key, int x, int y) {
-	gm.keyRelease(key);
+    logger.debug("GameManager::keyRelease()");
+    Car * car = (Car *)gm._dynamic_objects.front();
+    if(key == GLUT_KEY_UP)
+        car->setMoveUp(false);
+    if(key == GLUT_KEY_DOWN)
+        car->setMoveDown(false);
+    if(key == GLUT_KEY_LEFT)
+        car->setMoveLeft(false);
+    if(key == GLUT_KEY_RIGHT)
+        car->setMoveRight(false);
 };
-
-//  -------------------------------------------------------- onMouseClick()
-//  Custom fucntion to handle all mouse click events
-void GameManager::onMouseClick(int button, int state, int x, int y) {};
-
-//  ------------------------------------------------------- onMouseMotion()
-//  Custom fucntion to handle all mouse movement
-void GameManager::onMouseMotion(int x, int y) {};
