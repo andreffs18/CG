@@ -34,7 +34,11 @@ private:
     Orange * orange;
 public:
     // Global Variables
-    // active camera pointer, could be 0,1 or 2
+    // time when each level should start in milliseconds
+    int LEVEL_LIFE[4] = {0, 10000, 20000, 30000};
+    // defines starting level. used to maintain record of in whichlevel we are
+    int CURRENT_LEVEL = 0;
+    // active camera pointer, could be 0, 1 or 2
     int ACTIVE_CAMERA = 0;
     // speed increment on car
     GLdouble SPEED_INCREMENT = 0.00025f;
@@ -48,15 +52,15 @@ public:
     GLdouble TRACK_LIMITS = 18.5f;
     GLdouble TRACK_SIZE = 20.0f;
     // track inner circle
-    float INNER_CIRCLE_RADIUS = 8.0;
+    float INNER_CIRCLE_RADIUS = 6.0;
     // track outer circle
-    float OUTER_CIRCLE_RADIUS = 14.0;
+    float OUTER_CIRCLE_RADIUS = 15.0;
     // start position of the car
-    Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 3.0f), 0.0f, 0.0f);
+    Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 4.0f), 0.0f, 0.0f);
     // qtd of object on table
     int QTD_CHEERIOS = 32;
     int QTD_ORANGES = 0;
-    int QTD_BUTTERS = 4;
+    int QTD_BUTTERS = 1;
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio
     float CAR_SCALE_DELTA = 0.005f;
@@ -89,24 +93,24 @@ public:
 	GameManager();
 	~GameManager();
 
-    void keyPress(int);
-    void keyRelease(int);
     void camera();
     void drawAll();
     void updateAll();
     void handleColisions();
-    void Cam1();
-    void Cam2();
-    void Cam3();
     
+    void _init_car();
+    void _init_track();
+    void _init_cheerio();
+    void _init_orange();
+    void _init_butter();
+
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();
     static void onKeyboard(unsigned char key, int x, int y);
     static void onSpecialKeys(int key, int x, int y);
     static void onSpecialKeysUp(int key, int x, int y);
-    static void onMouseClick(int button, int state, int x, int y);
-    static void onMouseMotion(int x, int y);
     static void onIdle();
+    static void onTime(int value);
 };
 
 #endif /* defined(__GAMEMANAGER_H_INCLUDED__) */

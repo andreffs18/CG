@@ -108,10 +108,6 @@
 		0E3D31D71BE6C194002DD34E /* project_3_entrega */ = {
 			isa = PBXGroup;
 			children = (
-				0E3D32101BE6C285002DD34E /* Butter.cpp */,
-				0E3D32111BE6C285002DD34E /* Butter.h */,
-				0E3D32121BE6C285002DD34E /* Camera.cpp */,
-				0E3D32131BE6C285002DD34E /* Camera.h */,
 				0E3D32141BE6C285002DD34E /* Car.cpp */,
 				0E3D32151BE6C285002DD34E /* Car.h */,
 				0E3D32161BE6C285002DD34E /* Cheerio.cpp */,
@@ -136,8 +132,12 @@
 				0E3D322A1BE6C285002DD34E /* StaticObject.h */,
 				0E3D322B1BE6C285002DD34E /* Track.cpp */,
 				0E3D322C1BE6C285002DD34E /* Track.h */,
+				0E3D32101BE6C285002DD34E /* Butter.cpp */,
+				0E3D32111BE6C285002DD34E /* Butter.h */,
 				0E3D322D1BE6C285002DD34E /* Vector3.cpp */,
 				0E3D322E1BE6C285002DD34E /* Vector3.h */,
+				0E3D32121BE6C285002DD34E /* Camera.cpp */,
+				0E3D32131BE6C285002DD34E /* Camera.h */,
 			);
 			path = project_3_entrega;
 			sourceTree = "<group>";

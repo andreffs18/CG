@@ -52,10 +52,11 @@ int main(int argc, char * argv[]) {
     glutSpecialUpFunc(GameManager::onSpecialKeysUp);
     // when glut has no events to proccess
     glutIdleFunc(GameManager::onIdle);
-    // when mouse buttons are clicked
-    glutMouseFunc(GameManager::onMouseClick);
-    // when mouse move's
-    glutMotionFunc(GameManager::onMouseMotion);
+    // init level time configuration
+    // set time event handler for glut. this defines diferent levels p/time
+    for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
+        glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
+    }
     // runs forever in a loop to keep the program running
     glutMainLoop();
     return 0;

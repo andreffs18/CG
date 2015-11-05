@@ -38,8 +38,3 @@ void OrthogonalCamera::computeProjectionMatrix() {
         glOrtho(_left, _right, _bottom - delta, _top + delta, _near, _far);
     }
 }
-
-void OrthogonalCamera::computeVisualizationMatrix() {
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-}

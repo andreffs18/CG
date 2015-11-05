@@ -12,6 +12,5 @@ public:
     
     void update();
     void computeProjectionMatrix();
-    void computeVisualizationMatrix();
 };
 #endif /* PerspectiveCamera_h */
