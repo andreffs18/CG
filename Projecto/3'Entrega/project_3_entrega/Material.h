@@ -1,9 +1,5 @@
 //
-//  Material.hpp
-//  project_3_entrega
-//
-//  Created by Ana Isabel Galvão on 03/11/15.
-//
+//  project_3_entrega - OrthogonalCamera.h
 //
 
 #ifndef Material_h

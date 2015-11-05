@@ -1,9 +1,5 @@
 //
-//  Light.cpp
-//  project_3_entrega
-//
-//  Created by Ana Isabel Galvão on 03/11/15.
-//
+//  project_3_entrega - OrthogonalCamera.h
 //
 
 #include "Light.h"
@@ -15,6 +11,7 @@ Light::Light(GLfloat ambient[4], GLfloat diffuse[4], GLfloat specular[4]){
     
 }
 
+//directional light
 Light::Light(){
     GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
     GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};

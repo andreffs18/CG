@@ -1,10 +1,4 @@
-//
-//  Material.cpp
-//  project_3_entrega
-//
-//  Created by Ana Isabel Galvão on 03/11/15.
-//
-//
+
 
 #include "Material.h"
 

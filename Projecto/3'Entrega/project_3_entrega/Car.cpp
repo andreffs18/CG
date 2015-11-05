@@ -7,7 +7,7 @@
 
 Car::Car() : DynamicObject(){
     setRotation(0.0f);
-    setScale(gm.CAR_MAX_SCALE_UP - 0.2f);
+    setScale(gm.CAR_MAX_SCALE_UP + 0.1f);
     setRadius(getScale() * 3);
 
     // car is not moving

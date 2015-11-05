@@ -55,7 +55,7 @@ public:
     Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 3.0f), 0.0f, 0.0f);
     // qtd of object on table
     int QTD_CHEERIOS = 32;
-    int QTD_ORANGES = 0;
+    int QTD_ORANGES = 2;
     int QTD_BUTTERS = 4;
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio

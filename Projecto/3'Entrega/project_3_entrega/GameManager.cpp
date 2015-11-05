@@ -175,7 +175,7 @@ void GameManager::handleColisions() {
 				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
 				car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
 				car->setRotation(0.0f);
-				car->setScale(0.7f);
+				car->setScale(gm.CAR_MAX_SCALE_UP + 0.1f);
 				car->setMoveUp(false);
 			}
 		}
@@ -374,12 +374,14 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
     else  if (key =='N' || key == 'n'){
         
         if(gm.LIGHT == true){
+            //if light is on, turns it off
             glDisable(GL_LIGHTING);
             glDisable(GL_LIGHT0);
             gm.LIGHT = false;
         }
     
         else{
+            // turns on light
             gm.LIGHT = true;
             Light light = Light();
             glEnable(GL_LIGHTING);
@@ -390,6 +392,7 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
     }
     
     else if (key =='G' || key == 'g'){
+        //shade switching - begins with smooth and SHADE = false
         if (gm.SHADE == true)
             gm.SHADE = false;
         else
