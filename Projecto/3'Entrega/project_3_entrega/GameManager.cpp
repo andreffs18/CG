@@ -13,6 +13,8 @@
 #include "Cheerio.h"
 #include "Orange.h"
 #include "Butter.h"
+#include "Light.h"
+
 
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
@@ -330,6 +332,10 @@ void GameManager::onDisplay(){
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     // enable depth
     glEnable(GL_DEPTH_TEST);
+    if (gm.SHADE == false)
+        glShadeModel (GL_SMOOTH);
+    else
+        glShadeModel(GL_FLAT);
     // wrapper around model and projection matrix
     gm.camera();
     // draw all objects
@@ -364,6 +370,38 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
     }
+    
+    else  if (key =='N' || key == 'n'){
+        
+        if(gm.LIGHT == true){
+            glDisable(GL_LIGHTING);
+            glDisable(GL_LIGHT0);
+            gm.LIGHT = false;
+        }
+    
+        else{
+            gm.LIGHT = true;
+            Light light = Light();
+            glEnable(GL_LIGHTING);
+            glEnable(GL_LIGHT0);
+            glDisable(GL_COLOR);
+        }
+    
+    }
+    
+    else if (key =='G' || key == 'g'){
+        if (gm.SHADE == true)
+            gm.SHADE = false;
+        else
+            gm.SHADE = true;
+        // not sure how to do this
+    }
+    
+    else if (key =='C' || key == 'c'){
+//    TODO
+    }
+    
+    
     else{
         // changing which camera is on
         switch(key){

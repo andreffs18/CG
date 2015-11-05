@@ -15,19 +15,15 @@
 
 class Material{
 protected:
-    GLfloat * _ambient;
-    GLfloat * _diffuse;
-    GLfloat * _specular;
+    
+    GLfloat * _ambientMaterial;
+    GLfloat * _diffuseMaterial;
+    GLfloat * _specularMaterial;
     GLfloat _shine;
     
+    
     public:
-        Material(GLfloat ambient[4], GLfloat diffuse[4], GLfloat specular[4], GLfloat shine);
+        Material(GLfloat ambientMaterial[4], GLfloat diffuseMaterial[4], GLfloat specularMaterial[4], GLfloat shine);
         ~Material();
-    
-    void setAmbient(GLfloat ambient[4]);
-    void setDiffuse(GLfloat diffuse[4]);
-    void setSpecular(GLfloat specular[4]);
-    //void setShine(GLfloat shine);
-    
 };
 #endif /* Material_h */

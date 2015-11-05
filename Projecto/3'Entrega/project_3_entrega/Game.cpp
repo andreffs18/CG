@@ -19,7 +19,7 @@ bool DEBUG_LOG = false;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
-bool COLISION_SPHERE = true;
+bool COLISION_SPHERE = false;
 
 // initialize global log object
 Log logger = Log();

@@ -7,18 +7,16 @@
 //
 
 #include "Material.h"
-#include "Game.h"
+
 
 Material::Material(GLfloat ambient[4], GLfloat diffuse[4], GLfloat specular[4], GLfloat shine){
-
+    _ambientMaterial = ambient;
+    _diffuseMaterial = diffuse;
+    _specularMaterial = specular;
+    _shine = shine;
+    
 }
 
 Material::~Material(){};
 
-void Material::setAmbient(GLfloat ambient[4]){_ambient = ambient;}
-    
-void Material::setDiffuse(GLfloat diffuse[4]){ _diffuse = diffuse; };
-void Material::setSpecular(GLfloat specular[4]){_specular = specular; };
-
-//void Material::setShine(GLfloat shine){ _shine = const 1; };
 

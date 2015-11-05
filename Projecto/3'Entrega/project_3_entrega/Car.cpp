@@ -147,7 +147,14 @@ void Car::drawCarModel(){
     
     // draw wheels
     glPushMatrix();
-    glColor3d(255, 255, 255);
+    
+    
+    if (gm.LIGHT == true) {
+        material(amb_wheel, diffuse_wheel, specular_wheel, &shine_wheel);
+    }
+    else
+        glColor3d(255, 255, 255);
+    
     // front left
     glPushMatrix();
     glTranslatef(t_front_pos_x, t_front_pos_y, t_front_pos_z);
@@ -159,7 +166,14 @@ void Car::drawCarModel(){
     glutSolidTorus(t_front_inner_size, t_front_outer_size, t_sizes, t_rings);
     glPopMatrix();
     
-    glColor3d(0, 255, 255);
+
+    
+    if (gm.LIGHT == true) {
+        material(ambright, diffuseright, specularright, &shineright);
+    }
+    else
+        glColor3d(0, 255, 255);
+    
     // back left
     glPushMatrix();
     glTranslatef(t_back_pos_x, t_back_pos_y, t_back_pos_z);
@@ -173,8 +187,15 @@ void Car::drawCarModel(){
     glPopMatrix();
     
     // Draw body
+    
     glPushMatrix();
-    glColor3d(0, 0, 255);
+
+    if (gm.LIGHT == true) {
+       material(amb_body, diffuse_body, specular_body, &shine_body);
+    }
+    else
+        glColor3d(0, 0, 255);
+    
     glRotatef(5, 0.0f, 0.0f, 1.0f);
     glTranslatef(0.0f, t_back_height, 0.0f);
     glScalef(1.0f, 0.05f, 0.5f);
@@ -189,7 +210,13 @@ void Car::drawCarModel(){
     glutSolidCube(1.0f);
     
     // Draw handle for spoiler
-    glColor3d(255, 0, 0);
+    
+    if (gm.LIGHT == true) {
+        material(ambspoiler, diffusespoiler, specularspoiler, &shinespoiler);
+    }
+    else
+        glColor3d(255, 0, 0);
+    
     glTranslatef(0.0f, -3.0f, 0.0f);
     glScalef(1.0f, 5.0f, 0.05f);
     glutSolidCube(1.0f);

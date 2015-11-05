@@ -10,7 +10,19 @@ Track::~Track(){};
 void Track::drawTrackModel(){
     // draw cube with 1unit as size
     glPushMatrix();
+    
+    if(COLISION_SPHERE){
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glutWireSphere(getRadius(), 10, 10);
+    }
+    
+    if (gm.LIGHT == true) {
+        material(amb, diffuse, specular, &shine);
+    }
+    else
     glColor3f(0.55f, 0.35f, 0.05f);
+    
+    
     glBegin(GL_POLYGON);
     glVertex3f(-1.0, -1.0, 1.0);
     glVertex3f(1.0, -1.0, 1.0);

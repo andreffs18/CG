@@ -13,10 +13,6 @@ Light::Light(GLfloat ambient[4], GLfloat diffuse[4], GLfloat specular[4]){
     _diffuseLight= diffuse;
     _specularLight = specular;
     
-    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
-    
 }
 
 Light::Light(){
