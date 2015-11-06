@@ -23,14 +23,17 @@ Light::Light(){
     GLfloat diffuse[] = {1.0, 1.0, 1.0, 1.0};
     GLfloat ambient[] = {0.5, 0.5, 0.5, 1.0};
 	GLfloat spotlight_direction[] = {0.0f, 0.0f, 0.0f};
-	GLfloat position[] = {0.0, 0.0, 1.0, 1.0};
+	// direction determines it's a spotlight due to last value
+	GLfloat position[] = {0.0, 0.0, 2.0, 1.0};
     
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 
-	// -----------------------------------------------------------------
+	// generates candle's position on the table
+	// set candle's light direction
+	// ----------------------------------------------------------------- 1st candle
 
 	new_pos_x = ((rand() % 41) - 20);
 	new_pos_y = ((rand() % 41) - 20);
@@ -56,7 +59,7 @@ Light::Light(){
 	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spotlight_direction);
 
-	// -----------------------------------------------------------------
+	// ----------------------------------------------------------------- 2nd candle
 
 	new_pos_x = ((rand() % 41) - 20);
 	new_pos_y = ((rand() % 41) - 20);
@@ -82,7 +85,7 @@ Light::Light(){
 	glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 2.0);
 	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, spotlight_direction);
 
-	// -----------------------------------------------------------------
+	// ----------------------------------------------------------------- 3rd candle
 
 	new_pos_x = ((rand() % 41) - 20);
 	new_pos_y = ((rand() % 41) - 20);
@@ -108,7 +111,7 @@ Light::Light(){
 	glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 2.0);
 	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, spotlight_direction);
 
-	// -----------------------------------------------------------------
+	// ----------------------------------------------------------------- 4th candle
 
 	new_pos_x = ((rand() % 41) - 20);
 	new_pos_y = ((rand() % 41) - 20);
@@ -134,7 +137,7 @@ Light::Light(){
 	glLightf(GL_LIGHT4, GL_SPOT_EXPONENT, 2.0);
 	glLightfv(GL_LIGHT4, GL_SPOT_DIRECTION, spotlight_direction);
 
-	// -----------------------------------------------------------------
+	// ----------------------------------------------------------------- 5th candle
 
 	new_pos_x = ((rand() % 41) - 20);
 	new_pos_y = ((rand() % 41) - 20);
@@ -160,7 +163,7 @@ Light::Light(){
 	glLightf(GL_LIGHT5, GL_SPOT_EXPONENT, 2.0);
 	glLightfv(GL_LIGHT5, GL_SPOT_DIRECTION, spotlight_direction);
 
-	// -----------------------------------------------------------------
+	// ----------------------------------------------------------------- 6th candle
 
 	new_pos_x = ((rand() % 41) - 20);
 	new_pos_y = ((rand() % 41) - 20);
