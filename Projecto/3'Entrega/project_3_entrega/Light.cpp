@@ -37,7 +37,13 @@ Light::Light(){
 	position[0] = new_pos_x;
 	position[1] = new_pos_y;
 	new_dir_x = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_x *= -1;
+	}
 	new_dir_y = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_y *= -1;
+	}
 	spotlight_direction[0] = new_dir_x;
 	spotlight_direction[1] = new_dir_y;
 
@@ -57,7 +63,13 @@ Light::Light(){
 	position[0] = new_pos_x;
 	position[1] = new_pos_y;
 	new_dir_x = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_x *= -1;
+	}
 	new_dir_y = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_y *= -1;
+	}
 	spotlight_direction[0] = new_dir_x;
 	spotlight_direction[1] = new_dir_y;
 
@@ -77,7 +89,13 @@ Light::Light(){
 	position[0] = new_pos_x;
 	position[1] = new_pos_y;
 	new_dir_x = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_x *= -1;
+	}
 	new_dir_y = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_y *= -1;
+	}
 	spotlight_direction[0] = new_dir_x;
 	spotlight_direction[1] = new_dir_y;
 
@@ -97,7 +115,13 @@ Light::Light(){
 	position[0] = new_pos_x;
 	position[1] = new_pos_y;
 	new_dir_x = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_x *= -1;
+	}
 	new_dir_y = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_y *= -1;
+	}
 	spotlight_direction[0] = new_dir_x;
 	spotlight_direction[1] = new_dir_y;
 
@@ -117,7 +141,13 @@ Light::Light(){
 	position[0] = new_pos_x;
 	position[1] = new_pos_y;
 	new_dir_x = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_x *= -1;
+	}
 	new_dir_y = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_y *= -1;
+	}
 	spotlight_direction[0] = new_dir_x;
 	spotlight_direction[1] = new_dir_y;
 
@@ -137,7 +167,13 @@ Light::Light(){
 	position[0] = new_pos_x;
 	position[1] = new_pos_y;
 	new_dir_x = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_x *= -1;
+	}
 	new_dir_y = ((double)rand() / (RAND_MAX));
+	if (((double)rand() / (RAND_MAX))) {
+		new_dir_y *= -1;
+	}
 	spotlight_direction[0] = new_dir_x;
 	spotlight_direction[1] = new_dir_y;
 
