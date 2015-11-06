@@ -54,9 +54,9 @@ int main(int argc, char * argv[]) {
     glutIdleFunc(GameManager::onIdle);
     // init level time configuration
     // set time event handler for glut. this defines diferent levels p/time
-    for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
-        glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
-    }
+    //for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
+      //  glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
+    //}
     // runs forever in a loop to keep the program running
     glutMainLoop();
     return 0;

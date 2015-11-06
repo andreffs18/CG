@@ -36,8 +36,8 @@ GameManager::GameManager(){
     // Initialize Oranges
     _init_orange();
     // Initialize Butters
-    _init_orange();
-    
+	_init_butter();
+
     // Initalize cameras
     std::vector<Camera *> _cameras;
     // first camera, look from above
@@ -448,6 +448,15 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
         
         if(gm.LIGHT == true){
             //if light is on, turns it off
+			if (gm.CANDLE == true) {
+				glDisable(GL_LIGHT1);
+				glDisable(GL_LIGHT2);
+				glDisable(GL_LIGHT3);
+				glDisable(GL_LIGHT4);
+				glDisable(GL_LIGHT5);
+				glDisable(GL_LIGHT6);
+				gm.CANDLE = false;
+			}
             glDisable(GL_LIGHTING);
             glDisable(GL_LIGHT0);
             gm.LIGHT = false;
@@ -474,7 +483,28 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
     }
     
     else if (key =='C' || key == 'c'){
-//    TODO
+		if (gm.CANDLE == false) { 
+			if (gm.LIGHT == true) {
+				glDisable(GL_LIGHT0);
+				gm.CANDLE = true;
+				glEnable(GL_LIGHT1);
+				glEnable(GL_LIGHT2);
+				glEnable(GL_LIGHT3);
+				glEnable(GL_LIGHT4);
+				glEnable(GL_LIGHT5);
+				glEnable(GL_LIGHT6);
+			}
+		}
+
+		else {
+			glDisable(GL_LIGHT1);
+			glDisable(GL_LIGHT2);
+			glDisable(GL_LIGHT3);
+			glDisable(GL_LIGHT4);
+			glDisable(GL_LIGHT5);
+			glDisable(GL_LIGHT6);
+			gm.CANDLE = false;
+		}
     }
     
     
