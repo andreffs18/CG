@@ -1,5 +1,5 @@
 //
-//  project_1_entrega - GameManager.cpp
+//  project_3_entrega - GameManager.cpp
 //
 #include <typeinfo>
 #include <complex>
@@ -46,7 +46,7 @@ GameManager::GameManager(){
     
     // second camera, isometric look
     Camera * cam2= new PerspectiveCamera(60, 0.1, 100);
-    cam2->setPos(new Vector3(-30.0f, -30.0f, 30.0f));
+    cam2->setPos(new Vector3(-20.0f, -20.0f, 20.0f));
     cam2->setUp(new Vector3(0.0f, 0.0f, 1.0f));
     this->_cameras.push_back(cam2);
     
@@ -59,25 +59,25 @@ GameManager::GameManager(){
     cam3->setUp(new Vector3(0.0f, 0.0f, 1.0f));
     this->_cameras.push_back(cam3);
 };
-
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
 //  ----------------------------------------------------------_init_<obj>()
-//  aux function to init objects in game manager
+//  aux methods to init objects in game manager
 void GameManager::_init_track(){
+    logger.debug("GameManager::_init_track()");
     track = new Track();
     track->setPosition(new Vector3(0.0f, 0.0f, -0.5f));
     this->_static_objects.push_back(track);
 };
-
 void GameManager::_init_car(){
+    logger.debug("GameManager::_init_car()");
     car = new Car();
     car->setPosition(START_POSITION);
     car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
     this->_dynamic_objects.push_back(car);
 };
-
 void GameManager::_init_cheerio(){
+    logger.debug("GameManager::_init_cheerio()");
     // remove cheerios from statiobject
     std::vector<StaticObject*> aux;
     for (GameObject * obj : _static_objects) {
@@ -108,8 +108,8 @@ void GameManager::_init_cheerio(){
         
     }
 };
-
 void GameManager::_init_orange(){
+    logger.debug("GameManager::_init_orange()");
     // remove oranges from statiobject
     std::vector<DynamicObject*> aux;
     for (GameObject * obj : _dynamic_objects) {
@@ -134,8 +134,8 @@ void GameManager::_init_orange(){
         this->_dynamic_objects.push_back(orange);
     }
 };
-
 void GameManager::_init_butter(){
+    logger.debug("GameManager::_init_butter()");
     // remove butters from statiobject
     std::vector<StaticObject*> aux;
     for (GameObject * obj : _static_objects) {
@@ -165,18 +165,15 @@ void GameManager::_init_butter(){
 //  Method that handles the drawing of all objects in the display
 void GameManager::drawAll() {
 	logger.debug("GameManager::drawAll()");
-	for (GameObject * obj : _dynamic_objects) {
-		obj->draw();
-	}
-	for (GameObject * obj : _static_objects) {
-		obj->draw();
-	}
+	for (GameObject * obj : _dynamic_objects) { obj->draw(); }
+	for (GameObject * obj : _static_objects) { obj->draw(); }
 };
 
 //  ----------------------------------------------------- handleColisions()
 //  Method that checks and handles all colisions between
 //  car and gameobjects
 void GameManager::handleColisions() {
+    logger.debug("GameManager::handleColisions()");
 	// colisions with dynamic objects like oranges
 	for (GameObject * obj : _dynamic_objects) {
 		// colision with car:
@@ -184,7 +181,7 @@ void GameManager::handleColisions() {
 		// colision with oranges:
 		if (typeid(Orange) == typeid(*obj)) {
 			if (car->collidesWith(obj)) {
-				logger.error("Touched orange");
+				logger.info("Touched orange");
 				// TODO
 				GLdouble start_position = -INNER_CIRCLE_RADIUS - 3;
 				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
@@ -219,7 +216,7 @@ void GameManager::handleColisions() {
 				if (is_inner_cheerio && is_outer_cheerio) { /* do nothing */ }
 				// check if colision with inner circle
 				else if (is_inner_cheerio) {
-					logger.error("Touched Inner Cherrio: Decreasing car size");
+					logger.info("Touched Inner Cherrio: Decreasing car size");
 					if (car->getScale() > CAR_MAX_SCALE_DOWN) {
 						car->setScale(car->getScale() - CAR_SCALE_DELTA);
 						THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE - CAR_SCALE_DELTA * 4;
@@ -228,7 +225,7 @@ void GameManager::handleColisions() {
 				}
 				// check if colision with outer circle
 				else if (is_outer_cheerio) {
-					logger.error("Touched Outer Cheerio: Increasing car size");
+					logger.info("Touched Outer Cheerio: Increasing car size");
 					if (car->getScale() < CAR_MAX_SCALE_UP) {
 						car->setScale(car->getScale() + CAR_SCALE_DELTA);
 						THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA * 4;
@@ -247,7 +244,7 @@ void GameManager::handleColisions() {
 		// colision with butters:
 		if (typeid(Butter) == typeid(*obj)) {
 			if (car->collidesWith(obj)) {
-				logger.error("Touched butter");
+				logger.info("Touched butter");
 
 				double new_bpos_x = obj->getPosition()->getX() + car->getSpeed()->getX() * 4 * (-sin(car->getRotation() * PI / 180));
 				double new_bpos_y = obj->getPosition()->getY() + car->getSpeed()->getX() * 4 * (cos(car->getRotation() * PI / 180));
@@ -262,7 +259,7 @@ void GameManager::handleColisions() {
 
 //  ----------------------------------------------------------- updateAll()
 //  Method that handle all the updates, calculations, colisions
-//  and what not of each object in the display
+//  for each object in the game
 void GameManager::updateAll() {
 	logger.debug("GameManager::updateAll()");
 
@@ -276,6 +273,33 @@ void GameManager::updateAll() {
 	}
 	_previous_time = glutGet(GLUT_ELAPSED_TIME);
 
+};
+
+//  -------------------------------------------------------------- camera()
+//  method that handles which camera is active.
+void GameManager::camera(){
+    logger.debug("GameManager::camera()");
+    Camera * camera = _cameras.at(ACTIVE_CAMERA);
+    
+    // look up camera.
+    if(ACTIVE_CAMERA == 0){ /* do nothing */ }
+    // isometric view
+    else if (ACTIVE_CAMERA == 1){ /* do nothing */ }
+    // 3'rd person shooter view
+    else if (ACTIVE_CAMERA == 2){
+        // update camera pos and at vectors to match car
+        Car * car = (Car *)_dynamic_objects.front();
+        
+        GLdouble car_posx = car->getPosition()->getX();
+        GLdouble car_posy = car->getPosition()->getY();
+        
+        GLdouble poscamx = car_posx - THIRDPERSON_DISTANCE * (-sin(car->getRotation() * PI/180));
+        GLdouble poscamy = car_posy - THIRDPERSON_DISTANCE * ( cos(car->getRotation() * PI/180));
+        
+        camera->setPos(new Vector3(poscamx, poscamy, 2.0f));
+        camera->setAt(new Vector3(car_posx, car_posy, 0.0f));
+    }
+    camera->update();
 };
 
 //  ----------------------------------------------------------- onReshape()
@@ -306,32 +330,6 @@ void GameManager::onReshape(GLsizei w, GLsizei h) {
 	gluOrtho2D(xmin, xmax, ymin, ymax);
 };
 
-//  -------------------------------------------------------------- camera()
-//  method that handles which camera is active.
-void GameManager::camera(){
-    Camera * camera = _cameras.at(ACTIVE_CAMERA);
-    
-    // look up camera.
-    if(ACTIVE_CAMERA == 0){ /* do nothing */ }
-    // isometric view
-    else if (ACTIVE_CAMERA == 1){ /* do nothing */ }
-    // 3'rd person shooter view
-    else if (ACTIVE_CAMERA == 2){
-        // update camera pos and at vectors to match car
-        Car * car = (Car *)_dynamic_objects.front();
-        
-        GLdouble car_posx = car->getPosition()->getX();
-        GLdouble car_posy = car->getPosition()->getY();
-        
-        GLdouble poscamx = car_posx - THIRDPERSON_DISTANCE * (-sin(car->getRotation() * PI/180));
-        GLdouble poscamy = car_posy - THIRDPERSON_DISTANCE * ( cos(car->getRotation() * PI/180));
-        
-        camera->setPos(new Vector3(poscamx, poscamy, 2.0f));
-        camera->setAt(new Vector3(car_posx, car_posy, 0.0f));
-    }    
-    camera->update();
-};
-
 //  ----------------------------------------------------------- onDisplay()
 //  Custom display function used when "glutDisplayFunc"
 //  triggers an event. This handles the drawing of the scenes
@@ -357,16 +355,18 @@ void GameManager::onDisplay(){
 
 //  -------------------------------------------------------------- onIdle()
 //  Custom keyboard function used when "glutIdleFunc" triggers
-//  an event. This runs all logic inside if glut has no events
-//  to run
-void GameManager::onIdle() {
+//  an event. This runs the updateAll method and forces onDisplay
+void GameManager::onIdle(){
+    logger.debug("GameManager::onIdle()");
     gm.updateAll();
     glutPostRedisplay();
 };
 
 //  -------------------------------------------------------------- onTime()
-//  Custom event timer handler
+//  Custom timer function used on "glutTimerFunc" events. Sets up
+//  different level configurations through out the game
 void GameManager::onTime(int level){
+    logger.debug("GameManager::onTime()");
     // saves the level
     gm.CURRENT_LEVEL = level;
     if(level == 0) {
@@ -393,7 +393,6 @@ void GameManager::onTime(int level){
         gm.MAX_VELOCITY = 0.025f;
         gm.ANGLE_INCREMENT = 2.5f;
         gm.THIRDPERSON_DISTANCE = 4.5f;
-        // qtd of object on table
         gm.QTD_CHEERIOS = 16;
         gm.QTD_ORANGES = 4;
         gm.QTD_BUTTERS = 2;
@@ -408,13 +407,12 @@ void GameManager::onTime(int level){
         gm.MAX_VELOCITY = 0.025f;
         gm.ANGLE_INCREMENT = 2.5f;
         gm.THIRDPERSON_DISTANCE = 4.5f;
-        // qtd of object on table
         gm.QTD_CHEERIOS = 32;
         gm.QTD_BUTTERS = 4;
         gm.SPEED_INCREMENT_ORANGES = 0.0045;
         gm.MAX_VELOCITY_ORANGES = 0.07;
     }
-    // colisions with static objects like butters and cheerios
+    // force init of objects
     gm._init_butter();
     gm._init_orange();
     gm._init_cheerio();
@@ -425,6 +423,7 @@ void GameManager::onTime(int level){
 //  Custom keyboard function used when "glutKeyboardFunc"
 //  triggers an event. This handles the keyboardPress
 void GameManager::onKeyboard(unsigned char key, int x, int y){
+    logger.debug("GameManager::onKeyboard()");
     // change to wireframe
     if (key == 'A' || key == 'a'){
         int polygonMode;
@@ -450,8 +449,7 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
 
 //  ------------------------------------------------------- onSpecialKeys()
 //  Custom keyboard function used when "glutSpecialFunc"
-//  triggers an event. This handles the special keys like
-//  F1, Esc, Left arrow, Right Arrow...
+//  triggers an event. This handles the special keys press
 void GameManager::onSpecialKeys(int key, int x, int y) {
     logger.debug("GameManager::keyPress()");
     Car * car = (Car *)gm._dynamic_objects.front();
@@ -467,7 +465,7 @@ void GameManager::onSpecialKeys(int key, int x, int y) {
 
 //  ----------------------------------------------------- onSpecialUpKeys()
 //  Custom keyboard function used when "glutSpecialUpFunc"
-//  triggers an event.
+//  triggers an event. This handles key release
 void GameManager::onSpecialKeysUp(int key, int x, int y) {
     logger.debug("GameManager::keyRelease()");
     Car * car = (Car *)gm._dynamic_objects.front();

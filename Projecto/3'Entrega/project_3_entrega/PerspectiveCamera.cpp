@@ -23,5 +23,4 @@ void PerspectiveCamera::computeProjectionMatrix() {
     gluLookAt(_pos->getX(), _pos->getY(), _pos->getZ(),
               _at->getX(), _at->getY(), _at->getZ(),
               _up->getX(), _up->getY(), _up->getZ());
-    
 };

@@ -30,8 +30,6 @@ extern Log logger;
 extern GameManager gm;
 // PI 3.1415.. constant
 extern float PI;
-// Gavitational constant
-extern float GRAVIT_CONST;
 // Enable collision sphere object to be seen
 extern bool COLISION_SPHERE;
 #endif /* defined(__GAME_H_INCLUDED__) */

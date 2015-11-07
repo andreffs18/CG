@@ -15,7 +15,6 @@ Car::Car() : DynamicObject(){
     setMoveDown(false);
     setMoveLeft(false);
     setMoveRight(false);
-    
 };
 Car::~Car(){};
 
@@ -121,7 +120,8 @@ void Car::setScale(GLdouble s){
 };
 GLdouble Car::getScale(){ return _scale; };
 
-void Car::drawCarModel(){
+
+void Car::drawV1(){
     // the size of the tores (depth) and the
     // amount of rings (how round you want it
     GLint t_sizes = 8;
@@ -171,7 +171,7 @@ void Car::drawCarModel(){
     glutSolidTorus(t_back_inner_size, t_back_outer_size, t_sizes, t_rings);
     glPopMatrix();
     glPopMatrix();
-    
+
     // Draw body
     glPushMatrix();
     glColor3d(0, 0, 255);
@@ -180,7 +180,7 @@ void Car::drawCarModel(){
     glScalef(1.0f, 0.05f, 0.5f);
     glutSolidCube(5.0f);
     glPopMatrix();
-    
+
     // Draw spoiler
     glPushMatrix();
     // Draw top spoiler
@@ -196,4 +196,160 @@ void Car::drawCarModel(){
     glPopMatrix();
 };
 
+void Car::drawV2(){
+    // draw body
+    glPushMatrix();
+    glScalef(5.0f, 0.7f, 3.0f);
+    _drawCube();
+    glPopMatrix();
+    
+    // draw wheels
+    static float wheels[4][3] = {
+        // front left        // front right
+        {-5.0f, .5f, 4.2f}, {-5.0f, .5f, -4.2f},
+        // back left        // back right
+        {5.0f, .5f, 4.2f}, {5.0f, .5f, -4.2f},
+    };
+    glPushMatrix();
+    glScalef(0.4f, 0.4f, 0.4f);
+    for(int i=0; i<4; i++){
+        glPushMatrix();
+        glTranslatef(wheels[i][0], wheels[i][1], wheels[i][2]);
+        glColor3f(.2f, .2f, .2f);
+        _drawHexagon();
+        glPopMatrix();
+    }
+    glPopMatrix();
+
+    // draw spoiler
+    glPushMatrix();
+    // Draw top spoiler
+    glTranslatef(2.5f, 1.5f, 0.0f);
+    glScalef(1.0f, 0.1f, 4.0f);
+    _drawCube();
+    // Draw handle for spoiler
+    glTranslatef(0.0f, -3.0f, 0.0f);
+    glScalef(1.0f, 5.0f, 0.05f);
+    _drawCube();
+    glPopMatrix();
+};
+
+void Car::_drawCube(){
+    glBegin(GL_QUADS);
+    // left
+    glColor3f(.7f, .7f, .7f);
+    glNormal3f(0.0f, 0.0f, 1.0f);
+    glVertex3f(0.5f, 0.5f, 0.5f);
+    glVertex3f(0.5f, -0.5f, 0.5f);
+    glVertex3f(-0.5f, -0.5f, 0.5f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    // right
+    glColor3f(.7f, .7f, .7f);
+    glNormal3f(0.0f, 0.0f, -1.0f);
+    glVertex3f(0.5f, 0.5f, -0.5f);
+    glVertex3f(0.5f, -0.5f, -0.5f);
+    glVertex3f(-0.5f, -0.5f, -0.5f);
+    glVertex3f(-0.5f, 0.5f, -0.5f);
+    
+    // top
+    glColor3f(.5f, .5f, .5f);
+    glNormal3f(0.0f, 1.0f, 0.0f);
+    glVertex3f(0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f, 0.5f, -0.5f);
+    glVertex3f(0.5f, 0.5f, -0.5f);
+    
+    // bottom
+    glColor3f(.3f, .3f, .3f);
+    glNormal3f(0.0f, -1.0f, 0.0f);
+    glVertex3f(0.5f, -0.5f, 0.5f);
+    glVertex3f(-0.5f, -0.5f, 0.5f);
+    glVertex3f(-0.5f, -0.5f, -0.5f);
+    glVertex3f(0.5f, -0.5f, -0.5f);
+    
+    // front
+    glColor3f(.5f, .7f, .9f);
+    glNormal3f(-1.0f, 0.0f, 0.0f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f, -0.5f, 0.5f);
+    glVertex3f(-0.5f, -0.5f, -0.5f);
+    glVertex3f(-0.5f, 0.5f, -0.5f);
+    
+    //back
+    glColor3f(.5f, .7f, .9f);
+    glNormal3f(1.0f, 0.0f, 0.0f);
+    glVertex3f(0.5f, 0.5f, 0.5f);
+    glVertex3f(0.5f, -0.5f, 0.5f);
+    glVertex3f(0.5f, -0.5f, -0.5f);
+    glVertex3f(0.5f, 0.5f, -0.5f);
+    glEnd();
+}
+
+void Car::_drawHexagon(){
+    static float hexagonFront[8][3], hexagonBottom[8][3];
+    // init positions
+    for(int angle = 0, i = 0; angle < 360; angle += 360/8, i++){
+        GLdouble _cos = cos(angle*(PI/180));
+        GLdouble _sin = sin(angle*(PI/180));
+        hexagonFront[i][0] = 2.5 * _cos;
+        hexagonFront[i][1] = 2.5 * _sin;
+        hexagonFront[i][2] = 0.5f;
+        hexagonBottom[i][0] = hexagonFront[i][0];
+        hexagonBottom[i][1] = hexagonFront[i][1];
+        hexagonBottom[i][2] = -0.5f;
+    }
+
+    // front
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0f, 0.0f, 1.0f);
+    for(int i = 0; i<8; i++){ glVertex3fv(hexagonFront[i]); }
+    glEnd();
+    
+    // back
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0f, 0.0f, -1.0f);
+    for(int i = 0; i<8; i++){ glVertex3fv(hexagonBottom[i]); }
+    glEnd();
+    
+    // all 8 quads
+    glBegin (GL_QUADS);
+    for (int i = 0, v = 0; i < 8; i++, v = (i + 1) % 8) {
+        //glNormal3f(0.0f, 0.0f, 0.0f);
+        glVertex3f(hexagonBottom[i][0], hexagonBottom[i][1], hexagonBottom[i][2]);
+        glVertex3f(hexagonFront[i][0], hexagonFront[i][1], hexagonFront[i][2]);
+        glVertex3f(hexagonFront[v][0], hexagonFront[v][1], hexagonFront[v][2]);
+        glVertex3f(hexagonBottom[v][0], hexagonBottom[v][1], hexagonBottom[v][2]);
+    }
+    glEnd();
+};
+
+void Car::drawCarModel(){
+    switch (VERSION) {
+        case 1: drawV1(); break;
+        case 2: drawV2(); break;
+        default: logger.error("Car version not available. Only V1 or V2");
+            throw 0;
+            break;
+    }
+};
+
+//// in case we need to check normals
+//// draws an axis in the object
+//glPushMatrix();
+//glScalef(5.0f, 5.0f, 5.0f);
+//glBegin(GL_LINES);
+//
+//glColor3f(1.0f, 0.0f, 0.0f);
+//glVertex3f(0.0f, 0.0f, 0.0f);
+//glVertex3f(1.0f, 0.0f, 0.0f);
+//
+//glColor3f(0.0f, 1.0f, 0.0f);
+//glVertex3f(0.0f, 0.0f, 0.0f);
+//glVertex3f(0.0f, 1.0f, 0.0f);
+//
+//glColor3f(0.0f, 0.0f, 1.0f);
+//glVertex3f(0.0f, 0.0f, 0.0f);
+//glVertex3f(0.0f, 0.0f, 1.0f);
+//glEnd();
+//glPopMatrix();
 

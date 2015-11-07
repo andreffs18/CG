@@ -12,7 +12,6 @@ int VIEWPORT_HEIGHT = 800;
 int WINDOW_X_POS = -1;
 int WINDOW_Y_POS = -1;
 
-float GRAVIT_CONST = 9.8f;
 float PI = 3.14159;
 
 bool DEBUG_LOG = false;

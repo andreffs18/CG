@@ -35,7 +35,8 @@ private:
 public:
     // Global Variables
     // time when each level should start in milliseconds
-    int LEVEL_LIFE[4] = {0, 10000, 20000, 30000};
+    // int LEVEL_LIFE[4] = {0, 10000, 20000, 30000};
+    int LEVEL_LIFE[1] = {0};
     // defines starting level. used to maintain record of in whichlevel we are
     int CURRENT_LEVEL = 0;
     // active camera pointer, could be 0, 1 or 2
@@ -56,7 +57,7 @@ public:
     // track outer circle
     float OUTER_CIRCLE_RADIUS = 15.0;
     // start position of the car
-    Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 4.0f), 0.0f, 0.0f);
+    Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 4.0f), 0.0f, 1.0f);
     // qtd of object on table
     int QTD_CHEERIOS = 32;
     int QTD_ORANGES = 0;
@@ -64,7 +65,7 @@ public:
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio
     float CAR_SCALE_DELTA = 0.005f;
-    float CAR_MAX_SCALE_UP = 0.3f;
+    float CAR_MAX_SCALE_UP = 0.5f;
     float CAR_MAX_SCALE_DOWN = 0.1f;
 
 	// array to decide if orange needs direction 

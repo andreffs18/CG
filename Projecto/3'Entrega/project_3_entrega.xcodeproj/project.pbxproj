@@ -108,38 +108,54 @@
 		0E3D31D71BE6C194002DD34E /* project_3_entrega */ = {
 			isa = PBXGroup;
 			children = (
-				0E3D32141BE6C285002DD34E /* Car.cpp */,
-				0E3D32151BE6C285002DD34E /* Car.h */,
-				0E3D32161BE6C285002DD34E /* Cheerio.cpp */,
-				0E3D32171BE6C285002DD34E /* Cheerio.h */,
-				0E3D32181BE6C285002DD34E /* DynamicObject.cpp */,
-				0E3D32191BE6C285002DD34E /* DynamicObject.h */,
+				0ED834791BEE651D00F6C083 /* GameObjects */,
+				0ED8347A1BEE654F00F6C083 /* Camera */,
 				0E3D321A1BE6C285002DD34E /* Game.cpp */,
 				0E3D321B1BE6C285002DD34E /* Game.h */,
 				0E3D321C1BE6C285002DD34E /* GameManager.cpp */,
 				0E3D321D1BE6C285002DD34E /* GameManager.h */,
-				0E3D321E1BE6C285002DD34E /* GameObject.cpp */,
-				0E3D321F1BE6C285002DD34E /* GameObject.h */,
+				0E3D322D1BE6C285002DD34E /* Vector3.cpp */,
+				0E3D322E1BE6C285002DD34E /* Vector3.h */,
 				0E3D32201BE6C285002DD34E /* Logger.cpp */,
 				0E3D32211BE6C285002DD34E /* Logger.h */,
+			);
+			path = project_3_entrega;
+			sourceTree = "<group>";
+		};
+		0ED834791BEE651D00F6C083 /* GameObjects */ = {
+			isa = PBXGroup;
+			children = (
+				0E3D321E1BE6C285002DD34E /* GameObject.cpp */,
+				0E3D321F1BE6C285002DD34E /* GameObject.h */,
+				0E3D32181BE6C285002DD34E /* DynamicObject.cpp */,
+				0E3D32191BE6C285002DD34E /* DynamicObject.h */,
+				0E3D32291BE6C285002DD34E /* StaticObject.cpp */,
+				0E3D322A1BE6C285002DD34E /* StaticObject.h */,
+				0E3D32141BE6C285002DD34E /* Car.cpp */,
+				0E3D32151BE6C285002DD34E /* Car.h */,
+				0E3D322B1BE6C285002DD34E /* Track.cpp */,
+				0E3D322C1BE6C285002DD34E /* Track.h */,
+				0E3D32161BE6C285002DD34E /* Cheerio.cpp */,
+				0E3D32171BE6C285002DD34E /* Cheerio.h */,
 				0E3D32231BE6C285002DD34E /* Orange.cpp */,
 				0E3D32241BE6C285002DD34E /* Orange.h */,
+				0E3D32101BE6C285002DD34E /* Butter.cpp */,
+				0E3D32111BE6C285002DD34E /* Butter.h */,
+			);
+			name = GameObjects;
+			sourceTree = "<group>";
+		};
+		0ED8347A1BEE654F00F6C083 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
 				0E3D32251BE6C285002DD34E /* OrthogonalCamera.cpp */,
 				0E3D32261BE6C285002DD34E /* OrthogonalCamera.h */,
 				0E3D32271BE6C285002DD34E /* PerspectiveCamera.cpp */,
 				0E3D32281BE6C285002DD34E /* PerspectiveCamera.h */,
-				0E3D32291BE6C285002DD34E /* StaticObject.cpp */,
-				0E3D322A1BE6C285002DD34E /* StaticObject.h */,
-				0E3D322B1BE6C285002DD34E /* Track.cpp */,
-				0E3D322C1BE6C285002DD34E /* Track.h */,
-				0E3D32101BE6C285002DD34E /* Butter.cpp */,
-				0E3D32111BE6C285002DD34E /* Butter.h */,
-				0E3D322D1BE6C285002DD34E /* Vector3.cpp */,
-				0E3D322E1BE6C285002DD34E /* Vector3.h */,
 				0E3D32121BE6C285002DD34E /* Camera.cpp */,
 				0E3D32131BE6C285002DD34E /* Camera.h */,
 			);
-			path = project_3_entrega;
+			name = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

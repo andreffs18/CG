@@ -13,7 +13,6 @@
 #endif
 #include "Vector3.h"
 
-
 class Camera{
 protected:
     Vector3 * _pos;

@@ -12,7 +12,7 @@ Cheerio::~Cheerio(){};
 void Cheerio::draw(){
     glPushMatrix();
     glTranslatef(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
-    
+    glScalef(0.8f, 0.8f, 0.8f);
     if(COLISION_SPHERE){
         glColor3f(1.0f, 1.0f, 1.0f);
         glutWireSphere(getRadius(), 10, 10);
