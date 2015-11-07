@@ -90,6 +90,9 @@ public:
 	// initial velocidade of oranges
 	float SPEED_INCREMENT_ORANGES = 0.0025;
 	float MAX_VELOCITY_ORANGES = 0.05;
+    bool LIGHT = false;
+    bool SHADE = false;
+	bool CANDLE = false;
 
 	GameManager();
 	~GameManager();

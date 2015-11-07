@@ -24,6 +24,26 @@ private:
     void _drawCube();
     void _drawHexagon();
     
+    GLfloat amb_wheel[4] ={1.0f,1.0f,1.0f,1.0f};
+    GLfloat diffuse_wheel[4]={1.0f,0.55f,0.07568f,1.0f};
+    GLfloat specular_wheel[4]={0.633f,0.727811f,0.633f,1.0f};
+    GLfloat shine_wheel=76.8f;
+    
+    GLfloat ambright[4] ={0.0f,1.0f,1.0f,1.0f};
+    GLfloat diffuseright[4]={1.0f,0.55f,0.07568f,1.0f};
+    GLfloat specularright[4]={0.633f,0.727811f,0.633f,1.0f};
+    GLfloat shineright=76.8f;
+    
+    GLfloat amb_body[4] ={0.0f,0.0f,1.0f,1.0f};
+    GLfloat diffuse_body[4]={0.0f,0.0f,1.0f,1.0f};
+    GLfloat specular_body[4]={0.0f,0.0f,1.0f,1.0f};
+    GLfloat shine_body=76.8f;
+    
+    GLfloat ambspoiler[4] ={1.0f,0.0f,0.0f,1.0f};
+    GLfloat diffusespoiler[4]={1.0f,0.55f,0.07568f,1.0f};
+    GLfloat specularspoiler[4]={0.633f,0.727811f,0.633f,1.0f};
+    GLfloat shinespoiler=76.8f;
+    
 public:
     Car();
     ~Car();

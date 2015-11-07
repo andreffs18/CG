@@ -13,6 +13,8 @@
 #include "Cheerio.h"
 #include "Orange.h"
 #include "Butter.h"
+#include "Light.h"
+
 
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
@@ -34,8 +36,8 @@ GameManager::GameManager(){
     // Initialize Oranges
     _init_orange();
     // Initialize Butters
-    _init_orange();
-    
+	_init_butter();
+
     // Initalize cameras
     std::vector<Camera *> _cameras;
     // first camera, look from above
@@ -187,7 +189,7 @@ void GameManager::handleColisions() {
 				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
 				car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
 				car->setRotation(0.0f);
-				car->setScale(0.7f);
+				car->setScale(gm.CAR_MAX_SCALE_UP + 0.1f);
 				car->setMoveUp(false);
 			}
 		}
@@ -345,6 +347,10 @@ void GameManager::onDisplay(){
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     // enable depth
     glEnable(GL_DEPTH_TEST);
+    if (gm.SHADE == false)
+        glShadeModel (GL_SMOOTH);
+    else
+        glShadeModel(GL_FLAT);
     // wrapper around model and projection matrix
     gm.camera();
     // draw all objects
@@ -436,6 +442,71 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
     }
+    
+    else  if (key =='N' || key == 'n'){
+        
+        if(gm.LIGHT == true){
+            //if light is on, turns it off
+			if (gm.CANDLE == true) {
+				glDisable(GL_LIGHT1);
+				glDisable(GL_LIGHT2);
+				glDisable(GL_LIGHT3);
+				glDisable(GL_LIGHT4);
+				glDisable(GL_LIGHT5);
+				glDisable(GL_LIGHT6);
+				gm.CANDLE = false;
+			}
+            glDisable(GL_LIGHTING);
+            glDisable(GL_LIGHT0);
+            gm.LIGHT = false;
+        }
+    
+        else{
+            // turns on light
+            gm.LIGHT = true;
+            Light light = Light();
+            glEnable(GL_LIGHTING);
+            glEnable(GL_LIGHT0);
+            glDisable(GL_COLOR);
+        }
+    
+    }
+    
+    else if (key =='G' || key == 'g'){
+        //shade switching - begins with smooth and SHADE = false
+        if (gm.SHADE == true)
+            gm.SHADE = false;
+        else
+            gm.SHADE = true;
+        // not sure how to do this
+    }
+    
+    else if (key =='C' || key == 'c'){
+		if (gm.CANDLE == false) { 
+			if (gm.LIGHT == true) {
+				glDisable(GL_LIGHT0);
+				gm.CANDLE = true;
+				glEnable(GL_LIGHT1);
+				glEnable(GL_LIGHT2);
+				glEnable(GL_LIGHT3);
+				glEnable(GL_LIGHT4);
+				glEnable(GL_LIGHT5);
+				glEnable(GL_LIGHT6);
+			}
+		}
+
+		else {
+			glDisable(GL_LIGHT1);
+			glDisable(GL_LIGHT2);
+			glDisable(GL_LIGHT3);
+			glDisable(GL_LIGHT4);
+			glDisable(GL_LIGHT5);
+			glDisable(GL_LIGHT6);
+			gm.CANDLE = false;
+		}
+    }
+    
+    
     else{
         // changing which camera is on
         switch(key){

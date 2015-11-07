@@ -1,5 +1,5 @@
 //
-//  project_2_entrega - Camera.h
+//  project_3_entrega - Camera.h
 //
 #ifndef __CAMERA_H_INCLUDED__
 #define __CAMERA_H_INCLUDED__

@@ -34,6 +34,8 @@ public:
     void setRotation(GLdouble);
     
     bool collidesWith(GameObject *);
+    
+    void material(GLfloat amb[4], GLfloat diffuse[4], GLfloat specular[4], GLfloat shine[4]);
 };
 
 #endif /* defined(__GAMEOBJECT_H_INCLUDED__) */

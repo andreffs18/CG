@@ -5,8 +5,10 @@
 Orange::Orange() : DynamicObject(){
     setRadius(1.55f);
 	setRotation(0.0f);
+
 };
 Orange::~Orange(){};
+
 
 void Orange::draw(){
     logger.debug("On Orange::draw()");
@@ -18,7 +20,13 @@ void Orange::draw(){
         glColor3f(1.0f, 1.0f, 1.0f);
         glutWireSphere(getRadius(), 10, 10);
     }
+    
+    if (gm.LIGHT == true) {
+        material(amb, diffuse, specular, &shine);
+    }
+    else
     glColor3f(1.0, 0.4, 0.0);
+    
     glScalef(1.5f, 1.5f, 1.5f);
     glutSolidSphere(1.0, 16.0, 16.0);
 

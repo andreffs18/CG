@@ -1,5 +1,5 @@
 //
-//  project_2_entrega - Camera.cpp
+//  project_3_entrega - Camera.cpp
 //
 #include "Game.h"
 #include "Camera.h"

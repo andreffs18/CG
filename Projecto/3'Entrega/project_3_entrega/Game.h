@@ -11,6 +11,7 @@
 #include "Logger.h"
 #include "GameManager.h"
 #include "Vector3.h"
+#include "Material.h"
 
 // WIDTH and HEIGHT size of game window
 extern int VIEWPORT_WIDTH;

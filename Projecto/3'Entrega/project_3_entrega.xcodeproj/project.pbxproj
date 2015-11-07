@@ -24,6 +24,8 @@
 		0E3D323C1BE6C285002DD34E /* StaticObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D32291BE6C285002DD34E /* StaticObject.cpp */; };
 		0E3D323D1BE6C285002DD34E /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D322B1BE6C285002DD34E /* Track.cpp */; };
 		0E3D323E1BE6C285002DD34E /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D322D1BE6C285002DD34E /* Vector3.cpp */; };
+		EF35E8361BE8CFE0004130CF /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF35E8341BE8CFE0004130CF /* Material.cpp */; };
+		EF35E8501BE92015004130CF /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF35E84E1BE92015004130CF /* Light.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,6 +74,10 @@
 		0E3D322C1BE6C285002DD34E /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
 		0E3D322D1BE6C285002DD34E /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
 		0E3D322E1BE6C285002DD34E /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
+		EF35E8341BE8CFE0004130CF /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
+		EF35E8351BE8CFE0004130CF /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
+		EF35E84E1BE92015004130CF /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
+		EF35E84F1BE92015004130CF /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,10 @@
 				0E3D322E1BE6C285002DD34E /* Vector3.h */,
 				0E3D32201BE6C285002DD34E /* Logger.cpp */,
 				0E3D32211BE6C285002DD34E /* Logger.h */,
+				EF35E8341BE8CFE0004130CF /* Material.cpp */,
+				EF35E8351BE8CFE0004130CF /* Material.h */,
+				EF35E84E1BE92015004130CF /* Light.cpp */,
+				EF35E84F1BE92015004130CF /* Light.h */,
 			);
 			path = project_3_entrega;
 			sourceTree = "<group>";
@@ -225,8 +235,10 @@
 				0E3D323B1BE6C285002DD34E /* PerspectiveCamera.cpp in Sources */,
 				0E3D32341BE6C285002DD34E /* Game.cpp in Sources */,
 				0E3D32331BE6C285002DD34E /* DynamicObject.cpp in Sources */,
+				EF35E8361BE8CFE0004130CF /* Material.cpp in Sources */,
 				0E3D323D1BE6C285002DD34E /* Track.cpp in Sources */,
 				0E3D32321BE6C285002DD34E /* Cheerio.cpp in Sources */,
+				EF35E8501BE92015004130CF /* Light.cpp in Sources */,
 				0E3D323A1BE6C285002DD34E /* OrthogonalCamera.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

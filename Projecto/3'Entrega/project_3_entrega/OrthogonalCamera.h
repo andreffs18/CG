@@ -1,5 +1,5 @@
 //
-//  project_2_entrega - OrthogonalCamera.h
+//  project_3_entrega - OrthogonalCamera.h
 //
 #ifndef OrthogonalCamera_h
 #define OrthogonalCamera_h

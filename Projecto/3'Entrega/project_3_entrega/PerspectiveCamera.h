@@ -1,5 +1,5 @@
 //
-//  project_2_entrega - PerspectiveCamera.h
+//  project_3_entrega - PerspectiveCamera.h
 //
 #ifndef __PERSPECTIVECAMERA_H_INCLUDED__
 #define __PERSPECTIVECAMERA_H_INCLUDED__

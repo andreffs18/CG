@@ -1,5 +1,5 @@
 //
-//  project_2_entrega - OrthogonalCamera.cpp
+//  project_3_entrega - OrthogonalCamera.cpp
 //
 //
 #include "OrthogonalCamera.h"

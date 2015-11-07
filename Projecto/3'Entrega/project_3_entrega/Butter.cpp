@@ -17,7 +17,14 @@ void Butter::draw() {
         glutWireSphere(getRadius(), 10, 10);
     }
     
+    if (gm.LIGHT == true) {
+        material(amb, diffuse, specular, &shine);
+    }
+    
+    else
     glColor3f(1.0f, 1.0f, 0.0f);
+    
+    
     glRotatef(getRotation(), 0.0f, 0.0f, 1.0f);
     glScalef(1.8f, 3.0f, 1.0f);
 	glutSolidCube(1);
