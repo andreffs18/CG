@@ -87,7 +87,6 @@ void Orange::update(float delta){
 		gm.XY_DIRECTION[gm.counter][1] = gm.Y_DIRECTION;
 
 		gm.TIME_ORANGES[gm.counter] = glutGet(GLUT_ELAPSED_TIME);
-
 		gm.SET_DIRECTION[gm.counter] = false;
 	}
 
