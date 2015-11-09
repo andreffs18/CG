@@ -54,8 +54,8 @@ public:
     // distance from the car in 3'rd person view
     GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
-    GLdouble TRACK_LIMITS = 18.5f;
-    GLdouble TRACK_SIZE = 20.0f;
+    GLfloat TRACK_LIMITS = 20.5f;
+    GLfloat TRACK_SIZE = 20.0f;
     // track inner circle
     float INNER_CIRCLE_RADIUS = 6.0;
     // track outer circle
@@ -80,25 +80,21 @@ public:
 	double XY_INCREMENT[4][2];
 	// amount of increase for speed of some time spent
 	double INCREASE_FACTOR[4] = { 0.001, 0.001, 0.001, 0.001 };
-	// to decide if speed must be increased
-	bool INCREASE_SPEED[4] = { false, false, false, false };
 	// counter to know which orange is being used
 	int counter = 0;
-	// initial time of each orange
-	int TIME_ORANGES[4];
 	float X_DIRECTION = 0.0f;
 	float Y_DIRECTION = 0.0f;
 	// variable that decides if moves in -x and/or -y
 	float SET_NEG_X;
 	float SET_NEG_Y;
 	// initial velocidade of oranges
-	float SPEED_INCREMENT_ORANGES = 0.0000025;
+	float SPEED_INCREMENT_ORANGES = 0.0025;
 	float MAX_VELOCITY_ORANGES = 0.000005;
     
     // for "G" key press. if false, Shade is "Flat" otherwise "Gouroud"
     bool SHADE = false;
     // amount of candles around the table
-    int QTD_CANDLES = 6;
+    int QTD_CANDLES = 12;
     
 	GameManager();
 	~GameManager();
