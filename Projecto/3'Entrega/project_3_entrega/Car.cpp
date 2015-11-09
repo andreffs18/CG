@@ -7,7 +7,7 @@
 
 Car::Car() : DynamicObject(){
     setRotation(0.0f);
-    setScale(gm.CAR_MAX_SCALE_UP + 0.1f);
+    setScale(gm.CAR_MAX_SCALE_UP - 0.2f);
     setRadius(getScale() * 3);
 
     // car is not moving
@@ -148,12 +148,9 @@ void Car::drawV1(){
     // draw wheels
     glPushMatrix();
     
-    
-    if (gm.LIGHT == true) {
-        material(amb_wheel, diffuse_wheel, specular_wheel, &shine_wheel);
-    }
-    else
-        glColor3d(255, 255, 255);
+    if(glIsEnabled(GL_LIGHTING))
+        material(amb_front_wheel, diffuse_front_wheel, specular_front_wheel, &shine_front_wheel);
+    glColor3f(1.0f, 1.0f, 1.0f);
     
     // front left
     glPushMatrix();
@@ -166,13 +163,9 @@ void Car::drawV1(){
     glutSolidTorus(t_front_inner_size, t_front_outer_size, t_sizes, t_rings);
     glPopMatrix();
     
-
-    
-    if (gm.LIGHT == true) {
-        material(ambright, diffuseright, specularright, &shineright);
-    }
-    else
-        glColor3d(0, 255, 255);
+    if(glIsEnabled(GL_LIGHTING))
+        material(amb_back_wheel, diffuse_back_wheel, specular_back_wheel, &shine_back_wheel);
+    glColor3f(0, 1.0f, 1.0f);
     
     // back left
     glPushMatrix();
@@ -187,14 +180,11 @@ void Car::drawV1(){
     glPopMatrix();
 
     // Draw body
-    
     glPushMatrix();
 
-    if (gm.LIGHT == true) {
-       material(amb_body, diffuse_body, specular_body, &shine_body);
-    }
-    else
-        glColor3d(0, 0, 255);
+    if(glIsEnabled(GL_LIGHTING))
+        material(amb_body, diffuse_body, specular_body, &shine_body);
+    glColor3f(0.0f, 0.0f, 1.0f);
     
     glRotatef(5, 0.0f, 0.0f, 1.0f);
     glTranslatef(0.0f, t_back_height, 0.0f);
@@ -210,12 +200,9 @@ void Car::drawV1(){
     glutSolidCube(1.0f);
     
     // Draw handle for spoiler
-    
-    if (gm.LIGHT == true) {
-        material(ambspoiler, diffusespoiler, specularspoiler, &shinespoiler);
-    }
-    else
-        glColor3d(255, 0, 0);
+    if(glIsEnabled(GL_LIGHTING))
+        material(amb_spoiler, diffuse_spoiler, specular_spoiler, &shine_spoiler);
+    glColor3f(1.0f, 0.0f, 0.0f);
     
     glTranslatef(0.0f, -3.0f, 0.0f);
     glScalef(1.0f, 5.0f, 0.05f);
@@ -227,22 +214,35 @@ void Car::drawV2(){
     // draw body
     glPushMatrix();
     glScalef(5.0f, 0.7f, 3.0f);
+    
+    if(glIsEnabled(GL_LIGHTING))
+        material(amb_body, diffuse_body, specular_body, &shine_body);
+    glColor3f(0.0f, 0.0f, 1.0f);
     _drawCube();
     glPopMatrix();
     
     // draw wheels
+    glPushMatrix();
     static float wheels[4][3] = {
         // front left        // front right
         {-5.0f, .5f, 4.2f}, {-5.0f, .5f, -4.2f},
         // back left        // back right
         {5.0f, .5f, 4.2f}, {5.0f, .5f, -4.2f},
     };
-    glPushMatrix();
     glScalef(0.4f, 0.4f, 0.4f);
     for(int i=0; i<4; i++){
         glPushMatrix();
         glTranslatef(wheels[i][0], wheels[i][1], wheels[i][2]);
+        
+        if(glIsEnabled(GL_LIGHTING))
+            material(amb_back_wheel, diffuse_back_wheel, specular_back_wheel, &shine_back_wheel);
         glColor3f(.2f, .2f, .2f);
+        
+        // if right side of car, rotate wheels
+        if(i%2!=0){
+            glRotatef(180, 0.0f, 1.0f, 0.0f);
+        }
+        
         _drawHexagon();
         glPopMatrix();
     }
@@ -251,12 +251,19 @@ void Car::drawV2(){
     // draw spoiler
     glPushMatrix();
     // Draw top spoiler
+    if(glIsEnabled(GL_LIGHTING))
+        material(amb_spoiler, diffuse_spoiler, specular_spoiler, &shine_spoiler);
+    else
+        glColor3f(1.0f, 0.0f, 0.0f);
+
+    
     glTranslatef(2.5f, 1.5f, 0.0f);
     glScalef(1.0f, 0.1f, 4.0f);
     _drawCube();
     // Draw handle for spoiler
     glTranslatef(0.0f, -3.0f, 0.0f);
     glScalef(1.0f, 5.0f, 0.05f);
+    // Draw handle for spoiler
     _drawCube();
     glPopMatrix();
 };
@@ -264,58 +271,76 @@ void Car::drawV2(){
 void Car::_drawCube(){
     glBegin(GL_QUADS);
     // left
-    glColor3f(.7f, .7f, .7f);
-    glNormal3f(0.0f, 0.0f, 1.0f);
+    // glColor3f(.7f, .7f, .7f);
+    glNormal3fv(normalize(0.5, 0.5, 0.5));
     glVertex3f(0.5f, 0.5f, 0.5f);
+    glNormal3fv(normalize(0.5, -0.5, 0.5));
     glVertex3f(0.5f, -0.5f, 0.5f);
+    glNormal3fv(normalize(-0.5, -0.5, 0.5));
     glVertex3f(-0.5f, -0.5f, 0.5f);
+    glNormal3fv(normalize(-0.5, 0.5, 0.5));
     glVertex3f(-0.5f, 0.5f, 0.5f);
     // right
-    glColor3f(.7f, .7f, .7f);
-    glNormal3f(0.0f, 0.0f, -1.0f);
+    // glColor3f(.7f, .7f, .7f);
+    glNormal3fv(normalize(0.5, 0.5, -0.5));
     glVertex3f(0.5f, 0.5f, -0.5f);
+    glNormal3fv(normalize(0.5, -0.5, -0.5));
     glVertex3f(0.5f, -0.5f, -0.5f);
+    glNormal3fv(normalize(-0.5, -0.5, -0.5));
     glVertex3f(-0.5f, -0.5f, -0.5f);
+    glNormal3fv(normalize(-0.5, 0.5, -0.5));
     glVertex3f(-0.5f, 0.5f, -0.5f);
     
     // top
-    glColor3f(.5f, .5f, .5f);
-    glNormal3f(0.0f, 1.0f, 0.0f);
+    // glColor3f(.5f, .5f, .5f);
+    glNormal3fv(normalize(0.5, 0.5, 0.5));
     glVertex3f(0.5f, 0.5f, 0.5f);
+    glNormal3fv(normalize(-0.5, 0.5, 0.5));
     glVertex3f(-0.5f, 0.5f, 0.5f);
+    glNormal3fv(normalize(-0.5, 0.5, -0.5));
     glVertex3f(-0.5f, 0.5f, -0.5f);
+    glNormal3fv(normalize(0.5, 0.5, -0.5));
     glVertex3f(0.5f, 0.5f, -0.5f);
     
     // bottom
-    glColor3f(.3f, .3f, .3f);
-    glNormal3f(0.0f, -1.0f, 0.0f);
+    // glColor3f(.3f, .3f, .3f);
+    glNormal3fv(normalize(0.5, -0.5, 0.5));
     glVertex3f(0.5f, -0.5f, 0.5f);
+    glNormal3fv(normalize(-0.5, -0.5, 0.5));
     glVertex3f(-0.5f, -0.5f, 0.5f);
+    glNormal3fv(normalize(-0.5, -0.5, -0.5));
     glVertex3f(-0.5f, -0.5f, -0.5f);
+    glNormal3fv(normalize(0.5, -0.5, -0.5));
     glVertex3f(0.5f, -0.5f, -0.5f);
     
     // front
-    glColor3f(.5f, .7f, .9f);
-    glNormal3f(-1.0f, 0.0f, 0.0f);
+    //glColor3f(.5f, .7f, .9f);
+    glNormal3fv(normalize(-0.5, 0.5, 0.5));
     glVertex3f(-0.5f, 0.5f, 0.5f);
+    glNormal3fv(normalize(-0.5, -0.5, 0.5));
     glVertex3f(-0.5f, -0.5f, 0.5f);
+    glNormal3fv(normalize(-0.5, -0.5, -0.5));
     glVertex3f(-0.5f, -0.5f, -0.5f);
+    glNormal3fv(normalize(-0.5, 0.5, -0.5));
     glVertex3f(-0.5f, 0.5f, -0.5f);
     
     //back
-    glColor3f(.5f, .7f, .9f);
-    glNormal3f(1.0f, 0.0f, 0.0f);
+    // glColor3f(.5f, .7f, .9f);
+    glNormal3fv(normalize(0.5, 0.5, 0.5));
     glVertex3f(0.5f, 0.5f, 0.5f);
+    glNormal3fv(normalize(0.5, -0.5, 0.5));
     glVertex3f(0.5f, -0.5f, 0.5f);
+    glNormal3fv(normalize(0.5, -0.5, -0.5));
     glVertex3f(0.5f, -0.5f, -0.5f);
+    glNormal3fv(normalize(0.5, 0.5, -0.5));
     glVertex3f(0.5f, 0.5f, -0.5f);
     glEnd();
 }
 
 void Car::_drawHexagon(){
-    static float hexagonFront[8][3], hexagonBottom[8][3];
+    static float hexagonFront[6][3], hexagonBottom[6][3];
     // init positions
-    for(int angle = 0, i = 0; angle < 360; angle += 360/8, i++){
+    for(int angle = 0, i = 0; angle < 360; angle += 360/6, i++){
         GLdouble _cos = cos(angle*(PI/180));
         GLdouble _sin = sin(angle*(PI/180));
         hexagonFront[i][0] = 2.5 * _cos;
@@ -328,24 +353,36 @@ void Car::_drawHexagon(){
 
     // front
     glBegin(GL_POLYGON);
-    glNormal3f(0.0f, 0.0f, 1.0f);
-    for(int i = 0; i<8; i++){ glVertex3fv(hexagonFront[i]); }
+    for(int i = 0; i<6; i++){
+        glNormal3fv(normalize(hexagonFront[i][0], hexagonFront[i][1], hexagonFront[i][2]));
+        glVertex3fv(hexagonFront[i]);
+    }
     glEnd();
     
     // back
     glBegin(GL_POLYGON);
-    glNormal3f(0.0f, 0.0f, -1.0f);
-    for(int i = 0; i<8; i++){ glVertex3fv(hexagonBottom[i]); }
+    for(int i = 0; i<6; i++){
+        glNormal3fv(normalize(hexagonBottom[i][0], hexagonBottom[i][1], hexagonBottom[i][2]));
+        glVertex3fv(hexagonBottom[i]);
+    }
     glEnd();
-    
     // all 8 quads
+    
     glBegin (GL_QUADS);
-    for (int i = 0, v = 0; i < 8; i++, v = (i + 1) % 8) {
-        //glNormal3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(hexagonBottom[i][0], hexagonBottom[i][1], hexagonBottom[i][2]);
-        glVertex3f(hexagonFront[i][0], hexagonFront[i][1], hexagonFront[i][2]);
+    for (int i = 0, v = 0; i < 6; i++, v = (i + 1) % 6) {
+        
+        glNormal3fv(normalize(hexagonFront[v][0], hexagonFront[v][1], hexagonFront[v][2]));
         glVertex3f(hexagonFront[v][0], hexagonFront[v][1], hexagonFront[v][2]);
+        
+        //glNormal3fv(normalize(hexagonBottom[v][0], hexagonBottom[v][1], hexagonBottom[v][2]));
         glVertex3f(hexagonBottom[v][0], hexagonBottom[v][1], hexagonBottom[v][2]);
+ 
+        //glNormal3fv(normalize(hexagonBottom[i][0], hexagonBottom[i][1], hexagonBottom[i][2]));
+        glVertex3f(hexagonBottom[i][0], hexagonBottom[i][1], hexagonBottom[i][2]);
+        
+        //glNormal3fv(normalize(hexagonFront[i][0], hexagonFront[i][1], hexagonFront[i][2]));
+        glVertex3f(hexagonFront[i][0], hexagonFront[i][1], hexagonFront[i][2]);
+        
     }
     glEnd();
 };

@@ -40,12 +40,16 @@ bool GameObject::collidesWith(GameObject * obj){
     return pow(r2, 2.0) > pow(dx, 2.0) + pow(dy, 2.0);
 };
 
-
 //transforms the objects way of creation to materials
 void GameObject::material(GLfloat amb[4], GLfloat diffuse[4], GLfloat specular[4], GLfloat shine[4]){
-    
-    glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,amb);
-    glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,diffuse);
-    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,specular);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,*shine);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, amb);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, *shine);
+};
+
+GLfloat * GameObject::normalize(GLfloat x, GLfloat y, GLfloat z){
+    float d = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+    GLfloat normal[3] = {x/d, y/d, z/d};
+    return &normal[0];
 };

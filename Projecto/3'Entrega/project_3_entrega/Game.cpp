@@ -18,7 +18,7 @@ bool DEBUG_LOG = false;
 bool INFO_LOG = true;
 bool ERROR_LOG = true;
 
-bool COLISION_SPHERE = false;
+bool COLISION_SPHERE = true;
 
 // initialize global log object
 Log logger = Log();
@@ -56,6 +56,7 @@ int main(int argc, char * argv[]) {
     for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
         glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
     }
+    gm.init();
     // runs forever in a loop to keep the program running
     glutMainLoop();
     return 0;

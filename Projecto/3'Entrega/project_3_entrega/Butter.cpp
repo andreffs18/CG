@@ -17,11 +17,8 @@ void Butter::draw() {
         glutWireSphere(getRadius(), 10, 10);
     }
     
-    if (gm.LIGHT == true) {
+    if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
-    }
-    
-    else
     glColor3f(1.0f, 1.0f, 0.0f);
     
     

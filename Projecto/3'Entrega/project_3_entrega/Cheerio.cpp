@@ -19,11 +19,9 @@ void Cheerio::draw(){
         glutWireSphere(getRadius(), 10, 10);
     }
     
-    if (gm.LIGHT == true) {
+    if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
-    }
-    else
-        glColor3f(1.0f, 0.5f, 0.0f);
+    glColor3f(1.0f, 0.5f, 0.0f);
     
     glutSolidTorus(.2f, 0.4f, 10.0, 100.0f);
     glPopMatrix();

@@ -8,14 +8,6 @@
 #include "Game.h"
 #include "GameManager.h"
 
-#include "Car.h"
-#include "Track.h"
-#include "Cheerio.h"
-#include "Orange.h"
-#include "Butter.h"
-#include "Light.h"
-
-
 GameManager::GameManager(){
     logger.debug("GameManager::GameManager()");
     // init time tracking
@@ -23,7 +15,6 @@ GameManager::GameManager(){
     // init vector of gameobjects, dynamic and static
     std::vector<DynamicObject *> _dynamic_objects;
     std::vector<StaticObject *> _static_objects;
-    
     // init random
     srand((unsigned int)time(NULL));
 
@@ -60,15 +51,23 @@ GameManager::GameManager(){
     cam3->setAt(new Vector3(carx, cary, 2.0f));
     cam3->setUp(new Vector3(0.0f, 0.0f, 1.0f));
     this->_cameras.push_back(cam3);
+    
+    this->lights = new Light();    
 };
+
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
+
+void GameManager::init(){
+    this->lights->init();
+}
+
 
 //  ----------------------------------------------------------_init_<obj>()
 //  aux methods to init objects in game manager
 void GameManager::_init_track(){
     logger.debug("GameManager::_init_track()");
     track = new Track();
-    track->setPosition(new Vector3(0.0f, 0.0f, -0.5f));
+    track->setPosition(new Vector3(0.0f, 0.0f, -.25f));
     this->_static_objects.push_back(track);
 };
 void GameManager::_init_car(){
@@ -183,14 +182,15 @@ void GameManager::handleColisions() {
 		// colision with oranges:
 		if (typeid(Orange) == typeid(*obj)) {
 			if (car->collidesWith(obj)) {
-				logger.info("Touched orange");
-				// TODO
-				GLdouble start_position = -INNER_CIRCLE_RADIUS - 3;
+				logger.info("Touched orange. Killing car reset vars");
 				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-				car->setPosition(new Vector3(start_position, 0.0f, 0.0f));
+				car->setPosition(START_POSITION);
 				car->setRotation(0.0f);
-				car->setScale(gm.CAR_MAX_SCALE_UP + 0.1f);
+				car->setScale(gm.CAR_MAX_SCALE_UP - 0.2f);
 				car->setMoveUp(false);
+				car->setMoveDown(false);
+                car->setMoveLeft(false);
+                car->setMoveRight(false);
 			}
 		}
 	}
@@ -347,10 +347,8 @@ void GameManager::onDisplay(){
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     // enable depth
     glEnable(GL_DEPTH_TEST);
-    if (gm.SHADE == false)
-        glShadeModel (GL_SMOOTH);
-    else
-        glShadeModel(GL_FLAT);
+    // enable shade model
+    glShadeModel((gm.SHADE) ? GL_SMOOTH : GL_FLAT);
     // wrapper around model and projection matrix
     gm.camera();
     // draw all objects
@@ -418,11 +416,13 @@ void GameManager::onTime(int level){
         gm.SPEED_INCREMENT_ORANGES = 0.0045;
         gm.MAX_VELOCITY_ORANGES = 0.07;
     }
-    // force init of objects
-    gm._init_butter();
-    gm._init_orange();
-    gm._init_cheerio();
-
+    
+    if(level != 0){
+        // force init of objects
+        gm._init_butter();
+        gm._init_orange();
+        gm._init_cheerio();
+    }
 };
 
 //  ---------------------------------------------------------- onKeyboard()
@@ -435,80 +435,50 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
         int polygonMode;
         glGetIntegerv(GL_POLYGON_MODE, &polygonMode);
         if (polygonMode == GL_LINE){
-            logger.debug("Changin to GL_FILL (Polygons)");
+            logger.info("Changin to GL_FILL (Polygons)");
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        } else{
-            logger.debug("Changin to GL_LINE (Wireframe)");
+        } else {
+            logger.info("Changin to GL_LINE (Wireframe)");
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
     }
-    
-    else  if (key =='N' || key == 'n'){
-        
-        if(gm.LIGHT == true){
-            //if light is on, turns it off
-			if (gm.CANDLE == true) {
-				glDisable(GL_LIGHT1);
-				glDisable(GL_LIGHT2);
-				glDisable(GL_LIGHT3);
-				glDisable(GL_LIGHT4);
-				glDisable(GL_LIGHT5);
-				glDisable(GL_LIGHT6);
-				gm.CANDLE = false;
-			}
-            glDisable(GL_LIGHTING);
+    // turn On/Off directional Light Source
+    else if (key =='N' || key == 'n'){
+        if(glIsEnabled(GL_LIGHT0)){
+            logger.info("Turn off Directional Light");
             glDisable(GL_LIGHT0);
-            gm.LIGHT = false;
-        }
-    
-        else{
-            // turns on light
-            gm.LIGHT = true;
-            Light light = Light();
-            glEnable(GL_LIGHTING);
+        } else {
+            logger.info("Turn on Directional Light");
             glEnable(GL_LIGHT0);
-            glDisable(GL_COLOR);
         }
-    
     }
-    
-    else if (key =='G' || key == 'g'){
-        //shade switching - begins with smooth and SHADE = false
-        if (gm.SHADE == true)
-            gm.SHADE = false;
-        else
-            gm.SHADE = true;
-        // not sure how to do this
+    // turn shade model between flat/smooth
+    else if (key == 'G' || key == 'g'){
+        logger.info("Toggle Shade model beween Flat/Smooth");
+        gm.SHADE = !gm.SHADE;
     }
-    
-    else if (key =='C' || key == 'c'){
-		if (gm.CANDLE == false) { 
-			if (gm.LIGHT == true) {
-				glDisable(GL_LIGHT0);
-				gm.CANDLE = true;
-				glEnable(GL_LIGHT1);
-				glEnable(GL_LIGHT2);
-				glEnable(GL_LIGHT3);
-				glEnable(GL_LIGHT4);
-				glEnable(GL_LIGHT5);
-				glEnable(GL_LIGHT6);
-			}
-		}
-
-		else {
-			glDisable(GL_LIGHT1);
-			glDisable(GL_LIGHT2);
-			glDisable(GL_LIGHT3);
-			glDisable(GL_LIGHT4);
-			glDisable(GL_LIGHT5);
-			glDisable(GL_LIGHT6);
-			gm.CANDLE = false;
-		}
+    // turn on/off light calc
+    else if (key == 'L' || key == 'l'){
+        if(glIsEnabled(GL_LIGHTING)){
+            logger.info("Turn off Light Calc");
+            glDisable(GL_LIGHTING);
+        } else {
+            logger.info("Turn on Light Calc");
+            glEnable(GL_LIGHTING);
+        }
     }
-    
-    
+    // turn on/off all candles
+    else if (key == 'C' || key == 'c'){
+        if(gm.lights->areCandlesOn()){
+            logger.info("Turn off all candles Calc");
+            gm.lights->turnCandlesOff();
+        } else {
+            logger.info("Turn on all candles Calc");
+            gm.lights->turnCandlesOn();
+        }
+    }
+    // changing which camera is on
     else{
-        // changing which camera is on
         switch(key){
             case '1': gm.ACTIVE_CAMERA = 0; break;
             case '2': gm.ACTIVE_CAMERA = 1; break;

@@ -20,6 +20,8 @@
 #include "Butter.h"
 #include "Cheerio.h"
 
+#include "Light.h"
+
 class GameManager{
 private:
     std::vector<StaticObject *> _static_objects;
@@ -27,6 +29,8 @@ private:
     std::vector<Camera *> _cameras;
     int _current_time, _previous_time;
 
+    Light * lights;
+    
     Car * car;
     Track * track;
     Cheerio * cheerio;
@@ -57,11 +61,11 @@ public:
     // track outer circle
     float OUTER_CIRCLE_RADIUS = 15.0;
     // start position of the car
-    Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 4.0f), 0.0f, 1.0f);
+    Vector3 * START_POSITION = new Vector3((-1)*(INNER_CIRCLE_RADIUS + 4.0f), 0.0f, 2.0f);
     // qtd of object on table
     int QTD_CHEERIOS = 32;
-    int QTD_ORANGES = 0;
-    int QTD_BUTTERS = 1;
+    int QTD_ORANGES = 4;
+    int QTD_BUTTERS = 4;
     // amount of scale that car increments or decrements when
     // on top of cheerios. Also limit of scaling on each cheerio
     float CAR_SCALE_DELTA = 0.005f;
@@ -88,14 +92,18 @@ public:
 	float SET_NEG_X;
 	float SET_NEG_Y;
 	// initial velocidade of oranges
-	float SPEED_INCREMENT_ORANGES = 0.0025;
-	float MAX_VELOCITY_ORANGES = 0.05;
-    bool LIGHT = false;
+	float SPEED_INCREMENT_ORANGES = 0.0000025;
+	float MAX_VELOCITY_ORANGES = 0.000005;
+    
+    // for "G" key press. if false, Shade is "Flat" otherwise "Gouroud"
     bool SHADE = false;
-	bool CANDLE = false;
-
+    // amount of candles around the table
+    int QTD_CANDLES = 6;
+    
 	GameManager();
 	~GameManager();
+    
+    void init();
 
     void camera();
     void drawAll();

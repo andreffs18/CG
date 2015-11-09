@@ -3,31 +3,28 @@
 #include <math.h>
 
 Orange::Orange() : DynamicObject(){
-    setRadius(1.55f);
+    setRadius(0.75f);
 	setRotation(0.0f);
-
+    _rotate_vector = new Vector3(0.0f, 0.0f, 0.0f);
 };
 Orange::~Orange(){};
-
 
 void Orange::draw(){
     logger.debug("On Orange::draw()");
 	glPushMatrix();
     glTranslatef(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
-	glRotatef(getRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(getRotation(), _rotate_vector->getX(), _rotate_vector->getY(), _rotate_vector->getZ());
 
     if(COLISION_SPHERE){
         glColor3f(1.0f, 1.0f, 1.0f);
         glutWireSphere(getRadius(), 10, 10);
     }
     
-    if (gm.LIGHT == true) {
+    if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
-    }
-    else
     glColor3f(1.0, 0.4, 0.0);
     
-    glScalef(1.5f, 1.5f, 1.5f);
+    glScalef(0.75f, 0.75f, 0.75f);
     glutSolidSphere(1.0, 16.0, 16.0);
 
 	//draws a stick over the orange
@@ -42,7 +39,7 @@ void Orange::draw(){
     glPopMatrix();
 };
 void Orange::update(float delta){
-	setRotation(getRotation() + 2.5f);
+	setRotation(getRotation() + 1.5f);
 	GLdouble new_pos_x = _position->getX();
 	GLdouble new_pos_y = _position->getY();
 	GLdouble new_pos_z = _position->getZ();
@@ -98,18 +95,21 @@ void Orange::update(float delta){
 		new_pos_x = _position->getX() + gm.XY_INCREMENT[gm.counter][0] * (glutGet(GLUT_ELAPSED_TIME) - gm.TIME_ORANGES[gm.counter]);
 		new_pos_y = _position->getY() + gm.XY_INCREMENT[gm.counter][1] * (glutGet(GLUT_ELAPSED_TIME) - gm.TIME_ORANGES[gm.counter]);
 		new_pos_z = _position->getZ();
-	}
+        _rotate_vector->setVector3(new Vector3(1.0f, 1.0f, 0.0f));
+    }
 
 	else if (gm.XY_DIRECTION[gm.counter][0]) {
 		new_pos_x = _position->getX() + gm.XY_INCREMENT[gm.counter][0] * (glutGet(GLUT_ELAPSED_TIME) - gm.TIME_ORANGES[gm.counter]);
 		new_pos_y = _position->getY();
 		new_pos_z = _position->getZ();
+        _rotate_vector->setVector3(new Vector3(0.0f, 1.0f, 0.0f));
 	}
 
 	else if (gm.XY_DIRECTION[gm.counter][1]) {
 		new_pos_x = _position->getX();
 		new_pos_y = _position->getY() + gm.XY_INCREMENT[gm.counter][1] * (glutGet(GLUT_ELAPSED_TIME) - gm.TIME_ORANGES[gm.counter]);
 		new_pos_z = _position->getZ();
+        _rotate_vector->setVector3(new Vector3(1.0f, 0.0f, 0.0f));
 	}
 
 	// tests track limits

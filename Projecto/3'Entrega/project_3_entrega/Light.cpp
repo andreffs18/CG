@@ -1,193 +1,95 @@
 //
-//  project_3_entrega - OrthogonalCamera.h
+//  project_3_entrega - Light.cpp
 //
-
 #include "Light.h"
-
-Light::Light(GLfloat ambient[4], GLfloat diffuse[4], GLfloat specular[4]){
-    _ambientLight = ambient;
-    _diffuseLight= diffuse;
-    _specularLight = specular;
-    
-}
+#include "Game.h"
 
 //directional light
 Light::Light(){
-	GLdouble new_pos_x;
-	GLdouble new_pos_y;
-	GLdouble new_dir_x;
-	GLdouble new_dir_y;
-
-    GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
-    GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};
-    GLfloat diffuse[] = {1.0, 1.0, 1.0, 1.0};
-    GLfloat ambient[] = {0.5, 0.5, 0.5, 1.0};
-	GLfloat spotlight_direction[] = {0.0f, 0.0f, 0.0f};
-	// direction determines it's a spotlight due to last value
-	GLfloat position[] = {0.0, 0.0, 2.0, 1.0};
+    // specular, diffuse and ambiente definitions
+    specular[0] = 1.0f;
+    specular[1] = 1.0f;
+    specular[2] = 1.0f;
+    specular[3] = 1.0f;
     
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
-
-	// generates candle's position on the table
-	// set candle's light direction
-	// ----------------------------------------------------------------- 1st candle
-
-	new_pos_x = ((rand() % 41) - 20);
-	new_pos_y = ((rand() % 41) - 20);
-	position[0] = new_pos_x;
-	position[1] = new_pos_y;
-	new_dir_x = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_x *= -1;
-	}
-	new_dir_y = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_y *= -1;
-	}
-	spotlight_direction[0] = new_dir_x;
-	spotlight_direction[1] = new_dir_y;
-
-	glLightfv(GL_LIGHT1, GL_POSITION, position);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
-
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 10.0);
-	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spotlight_direction);
-
-	// ----------------------------------------------------------------- 2nd candle
-
-	new_pos_x = ((rand() % 41) - 20);
-	new_pos_y = ((rand() % 41) - 20);
-	position[0] = new_pos_x;
-	position[1] = new_pos_y;
-	new_dir_x = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_x *= -1;
-	}
-	new_dir_y = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_y *= -1;
-	}
-	spotlight_direction[0] = new_dir_x;
-	spotlight_direction[1] = new_dir_y;
-
-	glLightfv(GL_LIGHT2, GL_POSITION, position);
-	glLightfv(GL_LIGHT2, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT2, GL_AMBIENT, ambient);
-	glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse);
-
-	glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 10.0);
-	glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 2.0);
-	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, spotlight_direction);
-
-	// ----------------------------------------------------------------- 3rd candle
-
-	new_pos_x = ((rand() % 41) - 20);
-	new_pos_y = ((rand() % 41) - 20);
-	position[0] = new_pos_x;
-	position[1] = new_pos_y;
-	new_dir_x = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_x *= -1;
-	}
-	new_dir_y = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_y *= -1;
-	}
-	spotlight_direction[0] = new_dir_x;
-	spotlight_direction[1] = new_dir_y;
-
-	glLightfv(GL_LIGHT3, GL_POSITION, position);
-	glLightfv(GL_LIGHT3, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT3, GL_AMBIENT, ambient);
-	glLightfv(GL_LIGHT3, GL_DIFFUSE, diffuse);
-
-	glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 10.0);
-	glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 2.0);
-	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, spotlight_direction);
-
-	// ----------------------------------------------------------------- 4th candle
-
-	new_pos_x = ((rand() % 41) - 20);
-	new_pos_y = ((rand() % 41) - 20);
-	position[0] = new_pos_x;
-	position[1] = new_pos_y;
-	new_dir_x = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_x *= -1;
-	}
-	new_dir_y = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_y *= -1;
-	}
-	spotlight_direction[0] = new_dir_x;
-	spotlight_direction[1] = new_dir_y;
-
-	glLightfv(GL_LIGHT4, GL_POSITION, position);
-	glLightfv(GL_LIGHT4, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT4, GL_AMBIENT, ambient);
-	glLightfv(GL_LIGHT4, GL_DIFFUSE, diffuse);
-
-	glLightf(GL_LIGHT4, GL_SPOT_CUTOFF, 10.0);
-	glLightf(GL_LIGHT4, GL_SPOT_EXPONENT, 2.0);
-	glLightfv(GL_LIGHT4, GL_SPOT_DIRECTION, spotlight_direction);
-
-	// ----------------------------------------------------------------- 5th candle
-
-	new_pos_x = ((rand() % 41) - 20);
-	new_pos_y = ((rand() % 41) - 20);
-	position[0] = new_pos_x;
-	position[1] = new_pos_y;
-	new_dir_x = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_x *= -1;
-	}
-	new_dir_y = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_y *= -1;
-	}
-	spotlight_direction[0] = new_dir_x;
-	spotlight_direction[1] = new_dir_y;
-
-	glLightfv(GL_LIGHT5, GL_POSITION, position);
-	glLightfv(GL_LIGHT5, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT5, GL_AMBIENT, ambient);
-	glLightfv(GL_LIGHT5, GL_DIFFUSE, diffuse);
-
-	glLightf(GL_LIGHT5, GL_SPOT_CUTOFF, 10.0);
-	glLightf(GL_LIGHT5, GL_SPOT_EXPONENT, 2.0);
-	glLightfv(GL_LIGHT5, GL_SPOT_DIRECTION, spotlight_direction);
-
-	// ----------------------------------------------------------------- 6th candle
-
-	new_pos_x = ((rand() % 41) - 20);
-	new_pos_y = ((rand() % 41) - 20);
-	position[0] = new_pos_x;
-	position[1] = new_pos_y;
-	new_dir_x = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_x *= -1;
-	}
-	new_dir_y = ((double)rand() / (RAND_MAX));
-	if (((double)rand() / (RAND_MAX))) {
-		new_dir_y *= -1;
-	}
-	spotlight_direction[0] = new_dir_x;
-	spotlight_direction[1] = new_dir_y;
-
-	glLightfv(GL_LIGHT6, GL_POSITION, position);
-	glLightfv(GL_LIGHT6, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT6, GL_AMBIENT, ambient);
-	glLightfv(GL_LIGHT6, GL_DIFFUSE, diffuse);
-
-	glLightf(GL_LIGHT6, GL_SPOT_CUTOFF, 10.0);
-	glLightf(GL_LIGHT6, GL_SPOT_EXPONENT, 2.0);
-	glLightfv(GL_LIGHT6, GL_SPOT_DIRECTION, spotlight_direction);
+    diffuse[0] = 1.0f;
+    diffuse[1] = 1.0f;
+    diffuse[2] = 1.0f;
+    diffuse[3] = 1.0f;
+    
+    ambient[0] = 0.5f;
+    ambient[1] = 0.5f;
+    ambient[2] = 0.5f;
+    ambient[3] = 1.0f;
+    
+    // directional position on the table.
+    directional_position[0] = 0.0f;
+    directional_position[1] = 0.0f;
+    directional_position[2] = 5.0f;
+    directional_position[3] = 0.0f;
+    
+    // spotlight position on the table. we want to
+    // setup first (x, y, z) = 0,0,10 for it to be on the center
+    // and 10 units high.
+    spot_position[0] = 0.0f;
+    spot_position[1] = 0.0f;
+    spot_position[2] = 10.0f;
+    spot_position[3] = 1.0f;
 }
 
 Light::~Light(){};
+
+void Light::init(){
+    // apply light properties
+    logger.info("Init Directional Light");
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+    glLightfv(GL_LIGHT0, GL_POSITION, directional_position);
+    
+    // init spotlights (candles)
+    // max of 6 candles because we are using Light0 for the directional and
+    // will be using the Light7 and light8 for the headlights of the car
+    if(gm.QTD_CANDLES > 6) gm.QTD_CANDLES = 6;
+    // always point the spotlight down to the track
+    GLfloat spotlight_direction[3] = {0.0f, 0.0f, -1.0f};
+    // calc pos of the candles. want them to be 2/3 the distance from
+    // center and 1/3 the border of the track.
+    float d_center = 2 * gm.TRACK_SIZE / 3;
+    logger.info("Init Spotlights Light (Candles)");
+    for(double angle = 0.0f, i = 0; angle < 360.0f; angle += 360.0f / (gm.QTD_CANDLES), i++){
+        // if not only one candle. we calc the pos around the track
+        if(gm.QTD_CANDLES != 1){
+            spot_position[0] = d_center * cos(angle*(PI/180));
+            spot_position[1] = d_center * sin(angle*(PI/180));
+        }
+        glLightfv(GL_LIGHT1+i, GL_SPECULAR, specular);
+        glLightfv(GL_LIGHT1+i, GL_AMBIENT,  ambient);
+        glLightfv(GL_LIGHT1+i, GL_DIFFUSE,  diffuse);
+        
+        glLightfv(GL_LIGHT1+i, GL_POSITION, spot_position);
+        glLightfv(GL_LIGHT1+i, GL_SPOT_DIRECTION, spotlight_direction);
+        // we want to redeuce the angle of apperture of the spotligth
+        // for as many candles we have.. this means, if less candles, more
+        // cutoff angle, with a maximum of 120º
+        glLightf(GL_LIGHT1+i, GL_SPOT_CUTOFF, (60.0f * 2/ gm.QTD_CANDLES));
+        glLightf(GL_LIGHT1+i, GL_SPOT_EXPONENT, 2.0f);
+    }
+}
+
+bool Light::areCandlesOn(){
+    // checks if candles are active. we just check for light 1 because
+    // from light1 to ligth 6, those lights are reserved for candles.. so
+    // if one is active the rest is aswell
+    return glIsEnabled(GL_LIGHT1);
+}
+
+void Light::turnCandlesOn(){
+    for(int i=0; i < gm.QTD_CANDLES; i++)
+        glEnable(GL_LIGHT1 + i);
+};
+void Light::turnCandlesOff(){
+    for(int i=0; i < gm.QTD_CANDLES; i++)
+        glDisable(GL_LIGHT1 + i);
+};
+
