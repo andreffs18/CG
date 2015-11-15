@@ -121,7 +121,7 @@ void GameManager::_init_orange(){
     }
     _dynamic_objects.swap(aux);
     
-    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_ORANGES; v=px, i++){
+    for(int i = 0, px = 0, py = 0, v = -1; i < 2; v=px, i++){
         px = (i%2==0) ? (-1)*v : v;
         py = (i%2==0) ? 1 : -1;
         // TRACK_SIZE-2 is for not generate a pos to place oranges
@@ -130,7 +130,7 @@ void GameManager::_init_orange(){
         GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
         
         orange = new Orange();
-        orange->setPosition(new Vector3(pos_x, pos_y, 1.0f)); //orange->_height/2
+        orange->setPosition(new Vector3(pos_x, pos_y, 0.75f)); //orange->_height/2
         orange->setSpeed(new Vector3(SPEED_INCREMENT_ORANGES, SPEED_INCREMENT_ORANGES, 0.0f));
         this->_dynamic_objects.push_back(orange);
     }

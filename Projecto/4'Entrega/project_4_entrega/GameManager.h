@@ -46,7 +46,7 @@ public:
     // active camera pointer, could be 0, 1 or 2
     int ACTIVE_CAMERA = 0;
     // speed increment on car
-    GLdouble SPEED_INCREMENT = 0.00025f;
+    GLdouble SPEED_INCREMENT = 0.0000000025f;
     // max velocity allowed
     GLdouble MAX_VELOCITY = 0.01f;
     // steering direction angle increment
@@ -54,8 +54,8 @@ public:
     // distance from the car in 3'rd person view
     GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
-    GLfloat TRACK_LIMITS = 20.5f;
-    GLfloat TRACK_SIZE = 20.0f;
+	GLfloat TRACK_LIMITS = 19.5f;
+	GLfloat TRACK_SIZE = 20.0f;
     // track inner circle
     float INNER_CIRCLE_RADIUS = 6.0;
     // track outer circle
@@ -80,13 +80,19 @@ public:
 	double XY_INCREMENT[4][2];
 	// amount of increase for speed of some time spent
 	double INCREASE_FACTOR[4] = { 0.001, 0.001, 0.001, 0.001 };
+	// to decide if speed must be increased
+	bool INCREASE_SPEED[4] = { false, false, false, false };
+	GLfloat ROTATION_DIRECTION[4][2] = { {1.0f, 1.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f} };
+	GLboolean DRAW_ORANGE[4] = { true, true, true, true };
 	// counter to know which orange is being used
 	int counter = 0;
+	// initial time of each orange
+	int TIME_ORANGES[4];
 	float X_DIRECTION = 0.0f;
 	float Y_DIRECTION = 0.0f;
 	// variable that decides if moves in -x and/or -y
-	float SET_NEG_X;
-	float SET_NEG_Y;
+	float SET_NEG_X[4];
+	float SET_NEG_Y[4];
 	// initial velocidade of oranges
 	float SPEED_INCREMENT_ORANGES = 0.0025;
 	float MAX_VELOCITY_ORANGES = 0.000005;
