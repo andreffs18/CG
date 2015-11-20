@@ -20,6 +20,14 @@ bool ERROR_LOG = true;
 
 bool COLISION_SPHERE = false;
 
+float GLOBAL1 = 0.0f;
+float GLOBAL2 = 0.0f;
+float GLOBAL3 = 0.0f;
+float GLOBAL4 = 0.0f;
+float GLOBAL5 = 0.0f;
+float GLOBAL6 = 0.0f;
+
+
 // initialize global log object
 Log logger = Log();
 // initialize game manager
@@ -38,7 +46,7 @@ int main(int argc, char * argv[]) {
     // create the window with properties defined before
     glutCreateWindow(WINDOW_NAME);
     // stops continuisly pressing keyboard
-    glutIgnoreKeyRepeat(1);
+    //glutIgnoreKeyRepeat(1);
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);
     // set the callback function to handle changes in screen size

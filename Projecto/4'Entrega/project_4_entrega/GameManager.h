@@ -19,6 +19,7 @@
 #include "Orange.h"
 #include "Butter.h"
 #include "Cheerio.h"
+#include "Life.h"
 
 #include "Light.h"
 
@@ -36,6 +37,7 @@ private:
     Cheerio * cheerio;
     Butter * butter;
     Orange * orange;
+    Life * life;
 public:
     // Global Variables
     // time when each level should start in milliseconds
@@ -96,6 +98,9 @@ public:
     // amount of candles around the table
     int QTD_CANDLES = 6;
     
+    // player variables
+    int PLAYER_LIFES = 5;
+    
 	GameManager();
 	~GameManager();
     
@@ -111,6 +116,7 @@ public:
     void _init_cheerio();
     void _init_orange();
     void _init_butter();
+    void _init_life();
 
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();

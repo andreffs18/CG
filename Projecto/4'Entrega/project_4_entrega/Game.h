@@ -33,4 +33,12 @@ extern GameManager gm;
 extern float PI;
 // Enable collision sphere object to be seen
 extern bool COLISION_SPHERE;
+
+
+extern float GLOBAL1;
+extern float GLOBAL2;
+extern float GLOBAL3;
+extern float GLOBAL4;
+extern float GLOBAL5;
+extern float GLOBAL6;
 #endif /* defined(__GAME_H_INCLUDED__) */

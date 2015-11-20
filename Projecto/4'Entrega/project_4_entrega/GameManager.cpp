@@ -28,6 +28,8 @@ GameManager::GameManager(){
     _init_orange();
     // Initialize Butters
 	_init_butter();
+    // Initialize Heart lifes
+    _init_life();
 
     // Initalize cameras
     std::vector<Camera *> _cameras;
@@ -59,8 +61,7 @@ GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
 void GameManager::init(){
     this->lights->init();
-}
-
+};
 
 //  ----------------------------------------------------------_init_<obj>()
 //  aux methods to init objects in game manager
@@ -161,6 +162,23 @@ void GameManager::_init_butter(){
         this->_static_objects.push_back(butter);
     }
 };
+void GameManager::_init_life(){
+    logger.debug("GameManager::_init_life()");
+    // remove lifes from statiobject
+    std::vector<StaticObject*> aux;
+    for (GameObject * obj : _static_objects) {
+        // colision with cheerios:
+        if (typeid(Life) != typeid(*obj)) {
+            aux.push_back((StaticObject*)obj);
+        }
+    }
+    _static_objects.swap(aux);
+    
+    for(int i = 0; i < PLAYER_LIFES; i++){
+        life = new Life();
+        this->_static_objects.push_back(life);
+    }
+};
 
 //  ------------------------------------------------------------- drawAll()
 //  Method that handles the drawing of all objects in the display
@@ -191,6 +209,7 @@ void GameManager::handleColisions() {
 				car->setMoveDown(false);
                 car->setMoveLeft(false);
                 car->setMoveRight(false);
+                PLAYER_LIFES -= 1;
 			}
 		}
 	}
@@ -281,7 +300,7 @@ void GameManager::updateAll() {
 //  method that handles which camera is active.
 void GameManager::camera(){
     logger.debug("GameManager::camera()");
-    Camera * camera = _cameras.at(ACTIVE_CAMERA);
+    Camera * camera = getActiveCamera();
     
     // look up camera.
     if(ACTIVE_CAMERA == 0){ /* do nothing */ }
@@ -483,6 +502,12 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             case '1': gm.ACTIVE_CAMERA = 0; break;
             case '2': gm.ACTIVE_CAMERA = 1; break;
             case '3': gm.ACTIVE_CAMERA = 2; break;
+            case '4': GLOBAL1 += 1.f; std::cout << "++GLOBAL1: " << GLOBAL1 << std::endl; break;
+            case '5': GLOBAL1 -= 1.f; std::cout << "--GLOBAL1: " << GLOBAL1 << std::endl; break;
+            case '6': GLOBAL2 += 1.f; std::cout << "++GLOBAL2: " << GLOBAL2 << std::endl; break;
+            case '7': GLOBAL2 -= 1.f; std::cout << "--GLOBAL2: " << GLOBAL2 << std::endl; break;
+            case '8': GLOBAL3 += 1.f; std::cout << "++GLOBAL3: " << GLOBAL3 << std::endl; break;
+            case '9': GLOBAL3 -= 1.f; std::cout << "--GLOBAL3: " << GLOBAL3 << std::endl; break;
         }
     }
     glutPostRedisplay();

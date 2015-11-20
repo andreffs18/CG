@@ -31,6 +31,10 @@ public:
     virtual void computeProjectionMatrix();
     virtual void computeVisualizationMatrix();
     
+    Vector3 * getPos();
+    Vector3 * getAt();
+    Vector3 * getUp();
+    
     void setPos(Vector3 * newpos);
     void setAt(Vector3 * newat);
     void setUp(Vector3 * newup);

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E63EA9A1BFDF18900DBE69D /* Life.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E63EA981BFDF18900DBE69D /* Life.cpp */; };
 		0E6C78531BF0E41D0004AFCD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6C78521BF0E41D0004AFCD /* OpenGL.framework */; };
 		0E6C78551BF0E4220004AFCD /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6C78541BF0E4220004AFCD /* GLUT.framework */; };
 		0E6C78781BF0E45D0004AFCD /* Butter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78561BF0E45D0004AFCD /* Butter.cpp */; };
@@ -41,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E63EA981BFDF18900DBE69D /* Life.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Life.cpp; sourceTree = "<group>"; };
+		0E63EA991BFDF18900DBE69D /* Life.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Life.h; sourceTree = "<group>"; };
 		0E6C784A1BF0E4000004AFCD /* project_4_entrega */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = project_4_entrega; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E6C78521BF0E41D0004AFCD /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		0E6C78541BF0E4220004AFCD /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -151,6 +154,8 @@
 				0E6C785D1BF0E45D0004AFCD /* Cheerio.h */,
 				0E6C78561BF0E45D0004AFCD /* Butter.cpp */,
 				0E6C78571BF0E45D0004AFCD /* Butter.h */,
+				0E63EA981BFDF18900DBE69D /* Life.cpp */,
+				0E63EA991BFDF18900DBE69D /* Life.h */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 				0E6C78881BF0E45D0004AFCD /* Vector3.cpp in Sources */,
 				0E6C78821BF0E45D0004AFCD /* Material.cpp in Sources */,
 				0E6C787A1BF0E45D0004AFCD /* Car.cpp in Sources */,
+				0E63EA9A1BFDF18900DBE69D /* Life.cpp in Sources */,
 				0E6C78791BF0E45D0004AFCD /* Camera.cpp in Sources */,
 				0E6C78781BF0E45D0004AFCD /* Butter.cpp in Sources */,
 				0E6C78841BF0E45D0004AFCD /* OrthogonalCamera.cpp in Sources */,
