@@ -11,7 +11,7 @@ private:
     int VERSION = 2;
     // quality, the bigger the better,the heavier it gets
     int QUALITY = 1;
-    GLfloat amb[4]      = {0.4f, 0.2f, 0.0f, 1.0f};
+    GLfloat amb[4]      = {1.0f, 1.0f, 1.0f, 1.0f};
     GLfloat diffuse[4]  = {0.3f, 0.3f, 0.3f, 1.0f};
     GLfloat specular[4] = {0.64f, 0.64f, 0.64f, 1.0f};
     GLfloat shine       = 76.8f;
