@@ -191,30 +191,34 @@ void GameManager::drawAll() {
 //  car and gameobjects
 void GameManager::handleColisions(float delta) {
     logger.debug("GameManager::handleColisions()");
+    
+    // colision car with table boundries
+    if(std::abs(car->getPosition()->getX()) > gm.TRACK_LIMITS ||
+       std::fabs(car->getPosition()->getY()) > gm.TRACK_LIMITS){
+        logger.info("Touched track limits. Killing car reset vars");
+        car->die();
+        player->die();
+    }
+    
 	// colisions with dynamic objects like oranges
 	for (GameObject * obj : _dynamic_objects) {
 		// colision with car:
 		if (typeid(Car) == typeid(*obj)) { /* do nothing */ }
 		// colision with oranges:
 		if (typeid(Orange) == typeid(*obj)) {
+            // car with oranges
 			if (car->collidesWith(obj)) {
 				logger.info("Touched orange. Killing car reset vars");
-				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-				car->setPosition(START_POSITION);
-				car->setRotation(0.0f);
-				car->setScale(gm.CAR_MAX_SCALE_UP - 0.2f);
-				car->setMoveUp(false);
-				car->setMoveDown(false);
-                car->setMoveLeft(false);
-                car->setMoveRight(false);
+                car->die();
                 player->die();
 			}
-		}
+        }
 	}
 	// colisions with static objects like butters and cheerios
 	for (GameObject * obj : _static_objects) {
 		// colision with cheerios:
 		if (typeid(Cheerio) == typeid(*obj)) {
+            // car with cheerio
 			if (car->collidesWith(obj)) {
 				// the detection of which cheerio is touched only works for
 				// this type of track (circular). We just check where the
@@ -247,9 +251,16 @@ void GameManager::handleColisions(float delta) {
                     }
                 } else {/* do nothing */}
             }
+            // cheerio with track limits
+            if(std::abs(obj->getPosition()->getX()) > gm.TRACK_LIMITS ||
+               std::fabs(obj->getPosition()->getY()) > gm.TRACK_LIMITS){
+                logger.info("Touched track limits. Killing cheerio");
+                obj->setPosition(new Vector3(0.0f, 0.0f, -10.0f));
+            }
 		}
 		// colision with butters:
 		if (typeid(Butter) == typeid(*obj)) {
+            // car with butter
 			if (car->collidesWith(obj)) {
 				logger.info("Touched butter");
                 Butter * butter = (Butter*)obj;
@@ -264,6 +275,12 @@ void GameManager::handleColisions(float delta) {
                 GLdouble bounce_z = car->getPosition()->getZ();
                 car->setPosition(new Vector3(bounce_x, bounce_y, bounce_z));
 			}
+            // butter with track limits
+            if(std::abs(obj->getPosition()->getX()) > gm.TRACK_LIMITS ||
+               std::fabs(obj->getPosition()->getY()) > gm.TRACK_LIMITS){
+                logger.info("Touched track limits. Killing butter");
+                obj->setPosition(new Vector3(0.0f, 0.0f, -10.0f));
+            }
 		}
 	}
 };

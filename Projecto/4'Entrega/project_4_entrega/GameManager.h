@@ -58,7 +58,7 @@ public:
     GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
     GLfloat TRACK_LIMITS = 20.5f;
-    GLfloat TRACK_SIZE = 20.0f;
+    GLfloat TRACK_SIZE = 20.5f;
     // track inner circle
     float INNER_CIRCLE_RADIUS = 6.0;
     // track outer circle
@@ -74,7 +74,6 @@ public:
     float CAR_SCALE_DELTA = 0.005f;
     float CAR_MAX_SCALE_UP = 0.5f;
     float CAR_MAX_SCALE_DOWN = 0.1f;
-
 	// array to decide if orange needs direction 
 	bool SET_DIRECTION[4] = { true, true, true, true };
 	// arrays to set which direction to go
@@ -93,15 +92,13 @@ public:
 	// initial velocidade of oranges
 	float SPEED_INCREMENT_ORANGES = 0.0025;
 	float MAX_VELOCITY_ORANGES = 0.000005;
-    
     // for "G" key press. if false, Shade is "Flat" otherwise "Gouroud"
     bool SHADE = false;
     // amount of candles around the table
     int QTD_CANDLES = 6;
-    
     // player variables
     int AMOUNT_PLAYER_LIFES = 5;
-    
+    // state variables for pausing and restarting the game
     bool PAUSE = false;
     bool RESTART = false;
     
