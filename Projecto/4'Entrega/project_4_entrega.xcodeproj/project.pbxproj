@@ -26,6 +26,8 @@
 		0E6C78861BF0E45D0004AFCD /* StaticObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78721BF0E45D0004AFCD /* StaticObject.cpp */; };
 		0E6C78871BF0E45D0004AFCD /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78741BF0E45D0004AFCD /* Track.cpp */; };
 		0E6C78881BF0E45D0004AFCD /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78761BF0E45D0004AFCD /* Vector3.cpp */; };
+		EF837D0E1BFE43D500E9411B /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF837D0C1BFE43D500E9411B /* Texture.cpp */; };
+		EFCCC8791BFF8FEB00F285F5 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFCCC8771BFF8FEB00F285F5 /* Menu.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +80,10 @@
 		0E6C78751BF0E45D0004AFCD /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
 		0E6C78761BF0E45D0004AFCD /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
 		0E6C78771BF0E45D0004AFCD /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
+		EF837D0C1BFE43D500E9411B /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
+		EF837D0D1BFE43D500E9411B /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
+		EFCCC8771BFF8FEB00F285F5 /* Menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
+		EFCCC8781BFF8FEB00F285F5 /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,12 +128,16 @@
 				0E6C78631BF0E45D0004AFCD /* GameManager.h */,
 				0E6C78661BF0E45D0004AFCD /* Light.cpp */,
 				0E6C78671BF0E45D0004AFCD /* Light.h */,
+				EF837D0C1BFE43D500E9411B /* Texture.cpp */,
+				EF837D0D1BFE43D500E9411B /* Texture.h */,
 				0E6C78681BF0E45D0004AFCD /* Logger.cpp */,
 				0E6C78691BF0E45D0004AFCD /* Logger.h */,
 				0E6C786A1BF0E45D0004AFCD /* Material.cpp */,
 				0E6C786B1BF0E45D0004AFCD /* Material.h */,
 				0E6C78761BF0E45D0004AFCD /* Vector3.cpp */,
 				0E6C78771BF0E45D0004AFCD /* Vector3.h */,
+				EFCCC8771BFF8FEB00F285F5 /* Menu.cpp */,
+				EFCCC8781BFF8FEB00F285F5 /* Menu.h */,
 			);
 			path = project_4_entrega;
 			sourceTree = "<group>";
@@ -226,6 +236,7 @@
 				0E6C78861BF0E45D0004AFCD /* StaticObject.cpp in Sources */,
 				0E6C78801BF0E45D0004AFCD /* Light.cpp in Sources */,
 				0E6C78851BF0E45D0004AFCD /* PerspectiveCamera.cpp in Sources */,
+				EF837D0E1BFE43D500E9411B /* Texture.cpp in Sources */,
 				0E6C78811BF0E45D0004AFCD /* Logger.cpp in Sources */,
 				0E6C787F1BF0E45D0004AFCD /* GameObject.cpp in Sources */,
 				0E6C787E1BF0E45D0004AFCD /* GameManager.cpp in Sources */,
@@ -233,6 +244,7 @@
 				0E6C78821BF0E45D0004AFCD /* Material.cpp in Sources */,
 				0E6C787A1BF0E45D0004AFCD /* Car.cpp in Sources */,
 				0E6C78791BF0E45D0004AFCD /* Camera.cpp in Sources */,
+				EFCCC8791BFF8FEB00F285F5 /* Menu.cpp in Sources */,
 				0E6C78781BF0E45D0004AFCD /* Butter.cpp in Sources */,
 				0E6C78841BF0E45D0004AFCD /* OrthogonalCamera.cpp in Sources */,
 				0E6C787D1BF0E45D0004AFCD /* Game.cpp in Sources */,

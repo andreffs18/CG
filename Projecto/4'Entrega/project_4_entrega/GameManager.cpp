@@ -17,7 +17,6 @@ GameManager::GameManager(){
     std::vector<StaticObject *> _static_objects;
     // init random
     srand((unsigned int)time(NULL));
-
     // Initialize Track
     _init_track();
     // Initialize Car
@@ -267,7 +266,6 @@ void GameManager::updateAll() {
 
 	// colisions
 	handleColisions();
-
 	// update
 	_current_time = glutGet(GLUT_ELAPSED_TIME);
 	for (GameObject * obj : _dynamic_objects) {
@@ -362,9 +360,15 @@ void GameManager::onDisplay(){
 //  an event. This runs the updateAll method and forces onDisplay
 void GameManager::onIdle(){
     logger.debug("GameManager::onIdle()");
-    gm.updateAll();
-    glutPostRedisplay();
+    // checks game state, and pauses it
+    if (!gm.PAUSE) {
+        gm.updateAll();
+        glutPostRedisplay();
+    }
+    else
+        m.draw();
 };
+
 
 //  -------------------------------------------------------------- onTime()
 //  Custom timer function used on "glutTimerFunc" events. Sets up
@@ -477,12 +481,18 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             gm.lights->turnCandlesOn();
         }
     }
+    
+    else if (key == 'S' || key == 's'){
+        gm.PAUSE = !gm.PAUSE;
+    }
+    
     // changing which camera is on
     else{
         switch(key){
-            case '1': gm.ACTIVE_CAMERA = 0; break;
-            case '2': gm.ACTIVE_CAMERA = 1; break;
-            case '3': gm.ACTIVE_CAMERA = 2; break;
+            case '1': if (!gm.PAUSE) gm.ACTIVE_CAMERA = 0; break;
+            case '2': if (!gm.PAUSE) gm.ACTIVE_CAMERA = 1; break;
+            case '3': if (!gm.PAUSE) gm.ACTIVE_CAMERA = 2; break;
+            case 27: exit(0); break;
         }
     }
     glutPostRedisplay();
@@ -519,3 +529,4 @@ void GameManager::onSpecialKeysUp(int key, int x, int y) {
     if(key == GLUT_KEY_RIGHT)
         car->setMoveRight(false);
 };
+

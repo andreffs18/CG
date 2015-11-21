@@ -24,6 +24,7 @@ bool COLISION_SPHERE = false;
 Log logger = Log();
 // initialize game manager
 GameManager gm = GameManager();
+Menu m = Menu();
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {
@@ -39,8 +40,16 @@ int main(int argc, char * argv[]) {
     glutCreateWindow(WINDOW_NAME);
     // stops continuisly pressing keyboard
     glutIgnoreKeyRepeat(1);
-    // set the callback function to use to draw our scene
-    glutDisplayFunc(GameManager::onDisplay);
+        // set the callback function to use to draw our scene
+        glutDisplayFunc(GameManager::onDisplay);
+        // init level time configuration
+        // set time event handler for glut. this defines diferent levels p/time
+        for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
+            glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
+        }
+        
+
+
     // set the callback function to handle changes in screen size
     glutReshapeFunc(GameManager::onReshape);
     // set the keyboard function to handle keyboard events
@@ -51,13 +60,10 @@ int main(int argc, char * argv[]) {
     glutSpecialUpFunc(GameManager::onSpecialKeysUp);
     // when glut has no events to proccess
     glutIdleFunc(GameManager::onIdle);
-    // init level time configuration
-    // set time event handler for glut. this defines diferent levels p/time
-    for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
-        glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
-    }
+
     gm.init();
     // runs forever in a loop to keep the program running
     glutMainLoop();
+
     return 0;
 }

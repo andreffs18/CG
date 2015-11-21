@@ -95,6 +95,7 @@ public:
     bool SHADE = false;
     // amount of candles around the table
     int QTD_CANDLES = 6;
+    bool PAUSE = false;
     
 	GameManager();
 	~GameManager();
