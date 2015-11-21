@@ -22,12 +22,14 @@ GameManager::GameManager(){
     // Initialize Car
     _init_car();
     // Initialize Cheerios
-    _init_cheerio();
+    // _init_cheerio();
     // Initialize Oranges
-    _init_orange();
+    // _init_orange();
     // Initialize Butters
-	_init_butter();
-
+	// _init_butter();
+    // Initialize Player lifes
+    _init_player();
+    
     // Initalize cameras
     std::vector<Camera *> _cameras;
     // first camera, look from above
@@ -51,15 +53,16 @@ GameManager::GameManager(){
     cam3->setUp(new Vector3(0.0f, 0.0f, 1.0f));
     this->_cameras.push_back(cam3);
     
-    this->lights = new Light();    
+    this->lights = new Light();
+    this->textures = new Texture();
 };
 
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
 void GameManager::init(){
     this->lights->init();
-}
-
+    this->textures->init();
+};
 
 //  ----------------------------------------------------------_init_<obj>()
 //  aux methods to init objects in game manager
@@ -120,7 +123,7 @@ void GameManager::_init_orange(){
     }
     _dynamic_objects.swap(aux);
     
-    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_ORANGES; v=px, i++){
+    for(int i = 0, px = 0, py = 0, v = -1; i < 2; v=px, i++){
         px = (i%2==0) ? (-1)*v : v;
         py = (i%2==0) ? 1 : -1;
         // TRACK_SIZE-2 is for not generate a pos to place oranges
@@ -129,7 +132,7 @@ void GameManager::_init_orange(){
         GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
         
         orange = new Orange();
-        orange->setPosition(new Vector3(pos_x, pos_y, 1.0f)); //orange->_height/2
+        orange->setPosition(new Vector3(pos_x, pos_y, 0.75f)); //orange->_height/2
         orange->setSpeed(new Vector3(SPEED_INCREMENT_ORANGES, SPEED_INCREMENT_ORANGES, 0.0f));
         this->_dynamic_objects.push_back(orange);
     }
@@ -160,104 +163,143 @@ void GameManager::_init_butter(){
         this->_static_objects.push_back(butter);
     }
 };
+void GameManager::_init_player(){
+    logger.debug("GameManager::_init_player()");
+    // remove player from statiobject
+    std::vector<StaticObject*> aux;
+    for (GameObject * obj : _static_objects) {
+        if (typeid(Player) != typeid(*obj)) {
+            aux.push_back((StaticObject*)obj);
+        }
+    }
+    _static_objects.swap(aux);
+    
+    player = new Player();
+    player->setLifes(AMOUNT_PLAYER_LIFES);
+    this->_static_objects.push_back(player);
+};
+
+GLuint GameManager::getTexture(const char * filename){
+    if(!strcmp(filename, "pause")){
+        return this->textures->pauseTextureUint();
+    } else if(!strcmp(filename, "gameover")){
+        return this->textures->gameoverTextureUint();
+    } else if (!strcmp(filename, "table")){
+        return this->textures->tableTextureUint();
+    }
+    else {
+        logger.error("Texture not found");
+    }
+    // should never happen
+    return 0;
+};
 
 //  ------------------------------------------------------------- drawAll()
 //  Method that handles the drawing of all objects in the display
 void GameManager::drawAll() {
 	logger.debug("GameManager::drawAll()");
-    if (!gm.PAUSE) {
-        for (GameObject * obj : _dynamic_objects) { obj->draw(); }
-        for (GameObject * obj : _static_objects) { obj->draw(); }
-    }
-    else
+    if(PAUSE or GAMEOVER)
         m.draw();
+    
+    for (GameObject * obj : _dynamic_objects) { obj->draw(); }
+    for (GameObject * obj : _static_objects) { obj->draw(); }
 };
 
 //  ----------------------------------------------------- handleColisions()
 //  Method that checks and handles all colisions between
 //  car and gameobjects
-void GameManager::handleColisions() {
+void GameManager::handleColisions(float delta) {
     logger.debug("GameManager::handleColisions()");
+    
 	// colisions with dynamic objects like oranges
 	for (GameObject * obj : _dynamic_objects) {
 		// colision with car:
-		if (typeid(Car) == typeid(*obj)) { /* do nothing */ }
+		if (typeid(Car) == typeid(*obj)) {
+            // colision car with table boundries
+            if(std::abs(car->getPosition()->getX()) > gm.TRACK_LIMITS ||
+               std::fabs(car->getPosition()->getY()) > gm.TRACK_LIMITS){
+                logger.info("Touched track limits. Killing car reset vars");
+                car->die();
+                player->die();
+            }
+        }
 		// colision with oranges:
 		if (typeid(Orange) == typeid(*obj)) {
+            // car with oranges
 			if (car->collidesWith(obj)) {
 				logger.info("Touched orange. Killing car reset vars");
-				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-				car->setPosition(START_POSITION);
-				car->setRotation(0.0f);
-				car->setScale(gm.CAR_MAX_SCALE_UP - 0.2f);
-				car->setMoveUp(false);
-				car->setMoveDown(false);
-                car->setMoveLeft(false);
-                car->setMoveRight(false);
+                car->die();
+                player->die();
 			}
-		}
+        }
 	}
 	// colisions with static objects like butters and cheerios
 	for (GameObject * obj : _static_objects) {
 		// colision with cheerios:
 		if (typeid(Cheerio) == typeid(*obj)) {
+            // car with cheerio
 			if (car->collidesWith(obj)) {
 				// the detection of which cheerio is touched only works for
 				// this type of track (circular). We just check where the
 				// cheerio is, relative to the radius of the cheerio's on the
 				// track. For demonstration purspuses it works.
-				GLdouble cheerio_pos_x = fabs(obj->getPosition()->getX());
-				GLdouble cheerio_pos_y = fabs(obj->getPosition()->getY());
-				bool is_inner_cheerio = cheerio_pos_x <= INNER_CIRCLE_RADIUS && cheerio_pos_y <= INNER_CIRCLE_RADIUS;
-				bool is_outer_cheerio = cheerio_pos_x > INNER_CIRCLE_RADIUS || cheerio_pos_y > INNER_CIRCLE_RADIUS;
+                Cheerio * cheerio = (Cheerio*)obj;
 
-				GLdouble new_cheerio_pos_x = obj->getPosition()->getX() + car->getSpeed()->getX() * 2 * (-sin(car->getRotation() * PI / 180));
-				GLdouble new_cheerio_pos_y = obj->getPosition()->getY() + car->getSpeed()->getX() * 2 * (cos(car->getRotation() * PI / 180));
-
-				obj->setPosition(new Vector3(new_cheerio_pos_x, new_cheerio_pos_y, obj->getPosition()->getZ()));
-
-				// both inner and outer circle
-				// (after scaling car, this can happend)
-				if (is_inner_cheerio && is_outer_cheerio) { /* do nothing */ }
-				// check if colision with inner circle
-				else if (is_inner_cheerio) {
-					logger.info("Touched Inner Cherrio: Decreasing car size");
-					if (car->getScale() > CAR_MAX_SCALE_DOWN) {
-						car->setScale(car->getScale() - CAR_SCALE_DELTA);
-						THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE - CAR_SCALE_DELTA * 4;
-					}
-
-				}
-				// check if colision with outer circle
-				else if (is_outer_cheerio) {
-					logger.info("Touched Outer Cheerio: Increasing car size");
-					if (car->getScale() < CAR_MAX_SCALE_UP) {
-						car->setScale(car->getScale() + CAR_SCALE_DELTA);
-						THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA * 4;
-					}
-				}
-                
+                GLdouble newcposx = cheerio->getPosition()->getX() + car->getSpeed()->getX() * (delta+2) * (-sin(car->getRotation() * PI / 180));
+                GLdouble newcposy = cheerio->getPosition()->getY() + car->getSpeed()->getX() * (delta+2) * ( cos(car->getRotation() * PI / 180));
+                GLdouble newcposz = cheerio->getPosition()->getZ();
+                cheerio->setPosition(new Vector3(newcposx, newcposy, newcposz));
+            
                 GLdouble bounce_r = car->getRotation() - gm.ANGLE_INCREMENT;
-                GLdouble bounce_x = car->getPosition()->getX() + car->getSpeed()->getX() * 30 * (sin(bounce_r * PI / (180)));
-                GLdouble bounce_y = car->getPosition()->getY() + car->getSpeed()->getX() * 30 * (-cos(bounce_r * PI / (180)));
-                car->setMoveUp(false);
-
-                car->setPosition(new Vector3(bounce_x, bounce_y, car->getPosition()->getZ()));
-                car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-			}
+                GLdouble bounce_x = car->getPosition()->getX() + car->getSpeed()->getX() * (sin(bounce_r * PI / (180)));
+                GLdouble bounce_y = car->getPosition()->getY() + car->getSpeed()->getX() * (-cos(bounce_r * PI / (180)));
+                GLdouble bounce_z = car->getPosition()->getZ();
+                car->setPosition(new Vector3(bounce_x, bounce_y, bounce_z));
+                
+                if(cheerio->isInnerCheerio()){
+                    logger.info("Touched Inner Cherrio: Decreasing car size");
+                    if (car->getScale() > CAR_MAX_SCALE_DOWN) {
+                        car->setScale(car->getScale() - CAR_SCALE_DELTA);
+                        THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE - CAR_SCALE_DELTA * 4;
+                    }
+                } else if (cheerio->isOuterCheerio()){
+                    logger.info("Touched Outer Cheerio: Increasing car size");
+                    if (car->getScale() < CAR_MAX_SCALE_UP) {
+                        car->setScale(car->getScale() + CAR_SCALE_DELTA);
+                        THIRDPERSON_DISTANCE = THIRDPERSON_DISTANCE + CAR_SCALE_DELTA * 4;
+                    }
+                } else {/* do nothing */}
+            }
+            // cheerio with track limits
+            if(std::abs(obj->getPosition()->getX()) > gm.TRACK_LIMITS ||
+               std::fabs(obj->getPosition()->getY()) > gm.TRACK_LIMITS){
+                logger.info("Touched track limits. Killing cheerio");
+                obj->setPosition(new Vector3(0.0f, 0.0f, -10.0f));
+            }
 		}
 		// colision with butters:
 		if (typeid(Butter) == typeid(*obj)) {
+            // car with butter
 			if (car->collidesWith(obj)) {
 				logger.info("Touched butter");
-
-				double new_bpos_x = obj->getPosition()->getX() + car->getSpeed()->getX() * 4 * (-sin(car->getRotation() * PI / 180));
-				double new_bpos_y = obj->getPosition()->getY() + car->getSpeed()->getX() * 4 * (cos(car->getRotation() * PI / 180));
-
-				obj->setPosition(new Vector3(new_bpos_x, new_bpos_y, obj->getPosition()->getZ()));
-				car->setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
-				car->setMoveUp(false);
+                Butter * butter = (Butter*)obj;
+				GLdouble newbposx = butter->getPosition()->getX() + car->getSpeed()->getX() * (delta+5) * (-sin(car->getRotation() * PI / 180));
+				GLdouble newbposy = butter->getPosition()->getY() + car->getSpeed()->getX() * (delta+5) * ( cos(car->getRotation() * PI / 180));
+                GLdouble newbposz = butter->getPosition()->getZ();
+				butter->setPosition(new Vector3(newbposx, newbposy, newbposz));
+                
+                GLdouble bounce_r = car->getRotation() - gm.ANGLE_INCREMENT;
+                GLdouble bounce_x = car->getPosition()->getX() + car->getSpeed()->getX() * 2 * (sin(bounce_r * PI / (180)));
+                GLdouble bounce_y = car->getPosition()->getY() + car->getSpeed()->getX() * 2 *(-cos(bounce_r * PI / (180)));
+                GLdouble bounce_z = car->getPosition()->getZ();
+                car->setPosition(new Vector3(bounce_x, bounce_y, bounce_z));
 			}
+            // butter with track limits
+            if(std::abs(obj->getPosition()->getX()) > gm.TRACK_LIMITS ||
+               std::fabs(obj->getPosition()->getY()) > gm.TRACK_LIMITS){
+                logger.info("Touched track limits. Killing butter");
+                obj->setPosition(new Vector3(0.0f, 0.0f, -10.0f));
+            }
 		}
 	}
 };
@@ -268,22 +310,40 @@ void GameManager::handleColisions() {
 void GameManager::updateAll() {
 	logger.debug("GameManager::updateAll()");
 
-	// colisions
-	handleColisions();
-	// update
-	_current_time = glutGet(GLUT_ELAPSED_TIME);
-	for (GameObject * obj : _dynamic_objects) {
-		obj->update(_current_time - _previous_time);
-	}
-	_previous_time = glutGet(GLUT_ELAPSED_TIME);
+    if(PAUSE){ // check if paused
+        logger.info("Game Paused. To unpause press 'S'.");
+        _previous_time = glutGet(GLUT_ELAPSED_TIME);
+        // draw pause menu on draw()
+    } else {  // otherwise, just play game
+        if(player->isDead()){ // check if dead
+            // show restart message
+            logger.info("Player reached 0 lifes. Do you want to restart? Press 'R'.");
+            GAMEOVER = true;
+            
+        } else { // otherwise, just play game
+            // update
+            _current_time = glutGet(GLUT_ELAPSED_TIME);
+            // colisions
+            handleColisions(_current_time - _previous_time);
+            for (GameObject * obj : _dynamic_objects) {
+                obj->update(_current_time - _previous_time);
+            }
+            _previous_time = glutGet(GLUT_ELAPSED_TIME);
+        }
+    }
+};
 
+//  -------------------------------------------------------------- getCamera()
+//  method returns respective camera object.
+Camera * GameManager::getCamera(int idx){
+    return this->_cameras.at(idx);
 };
 
 //  -------------------------------------------------------------- camera()
 //  method that handles which camera is active.
 void GameManager::camera(){
     logger.debug("GameManager::camera()");
-    Camera * camera = _cameras.at(ACTIVE_CAMERA);
+    Camera * camera = getCamera(ACTIVE_CAMERA);
     
     // look up camera.
     if(ACTIVE_CAMERA == 0){ /* do nothing */ }
@@ -364,10 +424,8 @@ void GameManager::onDisplay(){
 //  an event. This runs the updateAll method and forces onDisplay
 void GameManager::onIdle(){
     logger.debug("GameManager::onIdle()");
-    // checks game state, and pauses it
-
-        gm.updateAll();
-        glutPostRedisplay();
+    gm.updateAll();
+    glutPostRedisplay();
 };
 
 
@@ -380,14 +438,26 @@ void GameManager::onTime(int level){
     gm.CURRENT_LEVEL = level;
     if(level == 0) {
         logger.info("Setting up level #1");
-        /* don't do nothing */
+        gm.ACTIVE_CAMERA = 0;
+        gm.SPEED_INCREMENT = 0.00025f;
+        gm.MAX_VELOCITY = 0.01f;
+        gm.ANGLE_INCREMENT = 1.5f;
+        gm.THIRDPERSON_DISTANCE = 5.0f;
+        gm.QTD_CHEERIOS = 32;
+        gm.QTD_ORANGES = 4;
+        gm.QTD_BUTTERS = 4;
+        gm.CAR_SCALE_DELTA = 0.005f;
+        gm.CAR_MAX_SCALE_UP = 0.5f;
+        gm.CAR_MAX_SCALE_DOWN = 0.1f;
+        gm.counter = 0;
+        gm.SPEED_INCREMENT_ORANGES = 0.0025;
+        gm.MAX_VELOCITY_ORANGES = 0.000005;
     } else if(level == 1) {
         logger.info("Setting up level #2");
         gm.SPEED_INCREMENT = 0.00035f;
         gm.MAX_VELOCITY = 0.02f;
         gm.ANGLE_INCREMENT = 2.0f;
         gm.THIRDPERSON_DISTANCE = 4.0f;
-        // qtd of object on table
         gm.QTD_CHEERIOS = 64;
         gm.QTD_ORANGES = 3;
         gm.QTD_BUTTERS = 1;
@@ -422,12 +492,9 @@ void GameManager::onTime(int level){
         gm.MAX_VELOCITY_ORANGES = 0.07;
     }
     
-    if(level != 0){
-        // force init of objects
-        gm._init_butter();
-        gm._init_orange();
-        gm._init_cheerio();
-    }
+    gm._init_butter();
+    gm._init_orange();
+    gm._init_cheerio();
 };
 
 //  ---------------------------------------------------------- onKeyboard()
@@ -472,6 +539,16 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             glEnable(GL_LIGHTING);
         }
     }
+    // turn on/off spotlights calc
+    else if (key == 'H' || key == 'h'){
+        if(gm.lights->areSpotlightsOn()){
+            logger.info("Turn off Car Spotlights");
+            gm.lights->turnSpotlightsOff();
+        } else {
+            logger.info("Turn on Light Calc");
+            gm.lights->turnSpotlightsOn();
+        }
+    }
     // turn on/off all candles
     else if (key == 'C' || key == 'c'){
         if(gm.lights->areCandlesOn()){
@@ -482,17 +559,36 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             gm.lights->turnCandlesOn();
         }
     }
-    
-    else if (key == 'S' || key == 's'){
+    // pause/unpause
+    else if (!gm.player->isDead() && (key == 'S' || key == 's')){
+        logger.info("Pausing or Unpausing");
+        // change state variable PAUSE
         gm.PAUSE = !gm.PAUSE;
     }
-    
+    // if player dead and R pressed, restart game
+    else if (gm.player->isDead() && (key == 'R' || key == 'r')){
+        logger.info("Restart Game");
+        // change state variables
+        gm.player->setLifes(gm.AMOUNT_PLAYER_LIFES);
+        gm.CURRENT_LEVEL = 0;
+        gm.GAMEOVER = false;
+        // set time event handler for glut. this defines diferent levels p/time
+        for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
+            glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
+        }
+    }
     // changing which camera is on
     else{
         switch(key){
-            case '1': if (!gm.PAUSE) gm.ACTIVE_CAMERA = 0; break;
-            case '2': if (!gm.PAUSE) gm.ACTIVE_CAMERA = 1; break;
-            case '3': if (!gm.PAUSE) gm.ACTIVE_CAMERA = 2; break;
+            case '1': gm.ACTIVE_CAMERA = 0; break;
+            case '2': gm.ACTIVE_CAMERA = 1; break;
+            case '3': gm.ACTIVE_CAMERA = 2; break;
+            case '4': GLOBAL1 += 1.f; std::cout << "++GLOBAL1: " << GLOBAL1 << std::endl; break;
+            case '5': GLOBAL1 -= 1.f; std::cout << "--GLOBAL1: " << GLOBAL1 << std::endl; break;
+            case '6': GLOBAL2 += 1.f; std::cout << "++GLOBAL2: " << GLOBAL2 << std::endl; break;
+            case '7': GLOBAL2 -= 1.f; std::cout << "--GLOBAL2: " << GLOBAL2 << std::endl; break;
+            case '8': GLOBAL3 += 1.f; std::cout << "++GLOBAL3: " << GLOBAL3 << std::endl; break;
+            case '9': GLOBAL3 -= 1.f; std::cout << "--GLOBAL3: " << GLOBAL3 << std::endl; break;
             case 27: exit(0); break;
         }
     }

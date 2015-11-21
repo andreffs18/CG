@@ -93,3 +93,14 @@ void Light::turnCandlesOff(){
         glDisable(GL_LIGHT1 + i);
 };
 
+
+bool Light::areSpotlightsOn(){
+    // TODO
+    return false;
+};
+void Light::turnSpotlightsOn(){
+    // TODO
+};
+void Light::turnSpotlightsOff(){
+    // TODO
+};

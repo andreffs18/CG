@@ -13,8 +13,6 @@
 #include "Vector3.h"
 #include "Material.h"
 #include "Menu.h"
-
-typedef std::bitset<8> BYTE;
 // WIDTH and HEIGHT size of game window
 extern int VIEWPORT_WIDTH;
 extern int VIEWPORT_HEIGHT;
@@ -36,5 +34,9 @@ extern Menu m;
 extern float PI;
 // Enable collision sphere object to be seen
 extern bool COLISION_SPHERE;
-//Initialize Menu object
+// aux vars for testing
+extern float GLOBAL1;
+extern float GLOBAL2;
+extern float GLOBAL3;
+
 #endif /* defined(__GAME_H_INCLUDED__) */

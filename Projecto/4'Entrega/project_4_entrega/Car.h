@@ -51,6 +51,8 @@ public:
     void draw();
     void update(float);
     
+    void die();
+    
     void setMoveUp(bool);
     void setMoveDown(bool);
     void setMoveLeft(bool);

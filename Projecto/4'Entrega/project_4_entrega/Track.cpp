@@ -69,19 +69,17 @@ void Track::drawV1(){
 };
 
 void Track::drawV2(){
-    glPushMatrix();
-    
-    GLuint image = t.loadTexture("mesa.bmp");
-    glBindTexture(GL_TEXTURE_2D, image);
-    glEnable(GL_TEXTURE_2D);
-    glActiveTexture(GL_TEXTURE0);
-
     
     glPushMatrix();
     if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
-    glColor3f(0.55f, 0.35f, 0.05f);
-
+    glColor3f(1.0f, 1.0f, 1.0f);
+    
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE0);
+    
+    m.drawTableTexture();
+    glPushMatrix();
     // the scale is the factor of reduction from the actual table size
     // 1 means no reduction where gm.TABLE_SIZE means full reduction
     float scale = 1.0f;
@@ -113,8 +111,8 @@ void Track::drawV2(){
                 // creates line for gl triangle strip
                 for(int j = 0; j < 2; j++){
                     // defines x and y line and records vertex
-                    GLfloat x = (posx_ini + size * w)/scale * mult[times][0],
-                            y = (posy_ini + size * j)/scale * mult[times][1],
+                    GLfloat y = (posx_ini + size * w)/scale * mult[times][0],
+                            x = (posy_ini + size * j)/scale * mult[times][1],
                             z = 0.0f;
                     
                     glNormal3fv(normalize(x, y, z));

@@ -17,6 +17,9 @@ public:
     Cheerio();
     ~Cheerio();
     void draw();
+    
+    bool isInnerCheerio();
+    bool isOuterCheerio();
 };
 
 #endif /* defined(__CHEERIO_H_INCLUDED__) */

@@ -3,7 +3,6 @@
 //  project_4_entrega
 //
 
-
 #include "Menu.h"
 #include "Game.h"
 #include "Texture.h"
@@ -11,53 +10,74 @@
 Menu::Menu(){};
 Menu::~Menu(){};
 
-void Menu::draw(){
-    Texture t;
+void Menu::drawPlaneForTexture(){
+    GLfloat size_x = 25.0f;
+    GLfloat size_y = 23.5f;
+    GLfloat pos_z = 20.0f;
+    bool _light = false;
     
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
+    // hack for making sure the objects are not affected by global light
+    if(glIsEnabled(GL_LIGHTING)){ glDisable(GL_LIGHTING); _light = true; }
     
-    glOrtho(-25, 25, -25, 25, -20, 5);
-    glMatrixMode(GL_MODELVIEW);
+    glColor3f(1.0f, 1.0f, 1.0f);
     
-    glPushMatrix();
-    glLoadIdentity();
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0);
+    glVertex3f(-size_x, -size_y, pos_z);
+    glTexCoord2f(0, 1);
+    glVertex3f(-size_x, size_y, pos_z);
+    glTexCoord2f(1, 1);
+    glVertex3f(size_x, size_y, pos_z);
+    glTexCoord2f(1, 0);
+    glVertex3f(size_x, -size_y, pos_z);
+    glEnd();
     
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_TEXTURE_2D);
-    glDisable(GL_LIGHTING);
-    glColor3f(1, 1, 1);
-    
+    // hack for making sure the objects are not affected by global light
+    if(_light) glEnable(GL_LIGHTING);
+}
 
-    GLuint image = t.loadTexture("pausa.bmp");
-    glBindTexture(GL_TEXTURE_2D, image);
+void Menu::drawPauseScreen(){
+    glLoadIdentity();
+    glBindTexture(GL_TEXTURE_2D, gm.getTexture("pause"));
+    drawPlaneForTexture();
+};
+
+void Menu::drawGameOverScreen(){
+    glLoadIdentity();
+    glBindTexture(GL_TEXTURE_2D, gm.getTexture("gameover"));
+    drawPlaneForTexture();
+};
+
+void Menu::drawTableTexture(){
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    glBindTexture(GL_TEXTURE_2D, gm.getTexture("table"));
+}
+
+void Menu::draw(){
+    logger.debug("On Menu::draw()");
+    Camera * c = gm.getCamera(0);
+    glPushMatrix();
+    c->computeProjectionMatrix();
+    glPushMatrix();
+    c->computeVisualizationMatrix();
     glEnable(GL_TEXTURE_2D);
     glActiveTexture(GL_TEXTURE0);
     
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
+    // if pause
+    if (gm.PAUSE)
+        drawPauseScreen();
+    // if gameover
+    else if (gm.GAMEOVER)
+        drawGameOverScreen();
     
-    
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 1); glVertex3f(-15.0f, 10.0f, 0.0f);
-    glTexCoord2f(0, 0); glVertex3f(-15.0f, -10.0f, 0.0f);
-    glTexCoord2f(1, 0); glVertex3f(15.0f, -10.0f, 0.0f);
-    glTexCoord2f(1, 1); glVertex3f(15.0f, 10.0f, 0.0f);
-    glEnd();
     
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE0);
     glDisable(GL_TEXTURE_2D);
-    glPopMatrix();
-    
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
-    
     glMatrixMode(GL_MODELVIEW);
-    glEnable(GL_DEPTH_TEST);
-    glutSwapBuffers();
-    
-    
-}
+    glPopMatrix();}
 

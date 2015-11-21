@@ -9,12 +9,16 @@
 #include <stdio.h>
 
 class Menu{
-    
 private:
+    void drawPauseScreen();
+    void drawGameOverScreen();
+    void drawPlaneForTexture();
+    
+    
 public:
     Menu();
     ~Menu();
-    void pauseMode();
     void draw();
+    void drawTableTexture();
 };
 #endif /* Menu_h */

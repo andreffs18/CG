@@ -34,9 +34,12 @@ public:
     void init();
     
     bool areCandlesOn();
+    bool areSpotlightsOn();
     
     void turnCandlesOn();
     void turnCandlesOff();
+    void turnSpotlightsOn();
+    void turnSpotlightsOff();
     
     void turnOn();
     void turnOff();

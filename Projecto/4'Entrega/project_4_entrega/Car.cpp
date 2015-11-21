@@ -69,18 +69,10 @@ void Car::update(float delta){
             getSpeed()->setX(getSpeed()->getX() + gm.SPEED_INCREMENT/2);
     }
 
-    double new_pos_x = getPosition()->getX() + getSpeed()->getX() * delta * (-sin(getRotation() * PI/180));
-    double new_pos_y = getPosition()->getY() + getSpeed()->getX() * delta * ( cos(getRotation() * PI/180));
-    double new_pos_z = 0.0f;
-    
-     //define car limits on map
-    if(std::abs(new_pos_x) > gm.TRACK_LIMITS){
-        new_pos_x = getPosition()->getX();
-    }
-    if(std::abs(new_pos_y) > gm.TRACK_LIMITS){
-        new_pos_y = getPosition()->getY();
-    }
-    
+    GLfloat new_pos_x = getPosition()->getX() + getSpeed()->getX() * delta * (-sin(getRotation() * PI/180));
+    GLfloat new_pos_y = getPosition()->getY() + getSpeed()->getX() * delta * ( cos(getRotation() * PI/180));
+    GLfloat new_pos_z = 0.0f;
+  
     setPosition(new Vector3(new_pos_x, new_pos_y, new_pos_z));
 };
 
@@ -106,8 +98,20 @@ void Car::draw(){
     glScalef(_scale, _scale, _scale);
     
     drawCarModel();
+
     glPopMatrix();
 };
+
+void Car::die(){
+    setSpeed(new Vector3(0.0f, 0.0f, 0.0f));
+    setPosition(gm.START_POSITION);
+	setRotation(0.0f);
+	setScale(gm.CAR_MAX_SCALE_UP - 0.2f);
+	setMoveUp(false);
+	setMoveDown(false);
+    setMoveLeft(false);
+    setMoveRight(false);
+}
 
 void Car::setMoveUp(bool b){ _move_up = b; };
 void Car::setMoveDown(bool b){ _move_down = b; };
@@ -119,7 +123,6 @@ void Car::setScale(GLdouble s){
     setRadius(s * 3);
 };
 GLdouble Car::getScale(){ return _scale; };
-
 
 void Car::drawV1(){
     // the size of the tores (depth) and the

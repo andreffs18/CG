@@ -1,12 +1,11 @@
 //
-//  project_1_entrega
+//  project_4_entrega
 //  Created by Ana Galvão, André Silva, Daniel Pinho on CG-2015.
 //
 // description of each global var in Game.h
 #include "Game.h"
 #include <vector>
-
-const char * WINDOW_NAME = "Projecto #2 Entrega";
+const char * WINDOW_NAME = "Projecto #4 Entrega";
 int VIEWPORT_WIDTH = 800;
 int VIEWPORT_HEIGHT = 800;
 int WINDOW_X_POS = -1;
@@ -20,14 +19,19 @@ bool ERROR_LOG = true;
 
 bool COLISION_SPHERE = false;
 
+float GLOBAL1 = 0.0f;
+float GLOBAL2 = 0.0f;
+float GLOBAL3 = 0.0f;
 // initialize global log object
 Log logger = Log();
 // initialize game manager
 GameManager gm = GameManager();
+// initalize mennu object
 Menu m = Menu();
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {
+
     // initialise glut library
     glutInit(&argc, argv);
     // request a RGBA display mode, and we want single buffering
@@ -40,16 +44,8 @@ int main(int argc, char * argv[]) {
     glutCreateWindow(WINDOW_NAME);
     // stops continuisly pressing keyboard
     glutIgnoreKeyRepeat(1);
-        // set the callback function to use to draw our scene
-        glutDisplayFunc(GameManager::onDisplay);
-        // init level time configuration
-        // set time event handler for glut. this defines diferent levels p/time
-        for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
-            glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
-        }
-        
-
-
+    // set the callback function to use to draw our scene
+    glutDisplayFunc(GameManager::onDisplay);
     // set the callback function to handle changes in screen size
     glutReshapeFunc(GameManager::onReshape);
     // set the keyboard function to handle keyboard events
@@ -60,7 +56,11 @@ int main(int argc, char * argv[]) {
     glutSpecialUpFunc(GameManager::onSpecialKeysUp);
     // when glut has no events to proccess
     glutIdleFunc(GameManager::onIdle);
-
+    // init level time configuration
+    // set time event handler for glut. this defines diferent levels p/time
+    for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
+        glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
+    }
     gm.init();
     // runs forever in a loop to keep the program running
     glutMainLoop();

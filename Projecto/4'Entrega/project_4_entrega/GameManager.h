@@ -19,8 +19,10 @@
 #include "Orange.h"
 #include "Butter.h"
 #include "Cheerio.h"
+#include "Player.h"
 
 #include "Light.h"
+#include "Texture.h"
 
 class GameManager{
 private:
@@ -30,12 +32,15 @@ private:
     int _current_time, _previous_time;
 
     Light * lights;
+    Texture * textures;
     
     Car * car;
     Track * track;
     Cheerio * cheerio;
     Butter * butter;
     Orange * orange;
+    Player * player;
+    
 public:
     // Global Variables
     // time when each level should start in milliseconds
@@ -55,7 +60,7 @@ public:
     GLdouble THIRDPERSON_DISTANCE = 5.0f;
     // car limits on track
     GLfloat TRACK_LIMITS = 20.5f;
-    GLfloat TRACK_SIZE = 20.0f;
+    GLfloat TRACK_SIZE = 20.5f;
     // track inner circle
     float INNER_CIRCLE_RADIUS = 6.0;
     // track outer circle
@@ -71,7 +76,6 @@ public:
     float CAR_SCALE_DELTA = 0.005f;
     float CAR_MAX_SCALE_UP = 0.5f;
     float CAR_MAX_SCALE_DOWN = 0.1f;
-
 	// array to decide if orange needs direction 
 	bool SET_DIRECTION[4] = { true, true, true, true };
 	// arrays to set which direction to go
@@ -80,38 +84,50 @@ public:
 	double XY_INCREMENT[4][2];
 	// amount of increase for speed of some time spent
 	double INCREASE_FACTOR[4] = { 0.001, 0.001, 0.001, 0.001 };
+	// to decide if speed must be increased
+	bool INCREASE_SPEED[4] = { false, false, false, false };
+	GLfloat ROTATION_DIRECTION[4][2] = { {1.0f, 1.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f} };
+	GLboolean DRAW_ORANGE[4] = { true, true, true, true };
 	// counter to know which orange is being used
 	int counter = 0;
+	// initial time of each orange
+	int TIME_ORANGES[4];
 	float X_DIRECTION = 0.0f;
 	float Y_DIRECTION = 0.0f;
 	// variable that decides if moves in -x and/or -y
-	float SET_NEG_X;
-	float SET_NEG_Y;
+	float SET_NEG_X[4];
+	float SET_NEG_Y[4];
 	// initial velocidade of oranges
 	float SPEED_INCREMENT_ORANGES = 0.0025;
 	float MAX_VELOCITY_ORANGES = 0.000005;
-    
     // for "G" key press. if false, Shade is "Flat" otherwise "Gouroud"
     bool SHADE = false;
     // amount of candles around the table
     int QTD_CANDLES = 6;
+    // player variables
+    int AMOUNT_PLAYER_LIFES = 5;
+    // state variables for pausing and restarting the game
     bool PAUSE = false;
+    bool GAMEOVER = false;
     
 	GameManager();
 	~GameManager();
     
     void init();
-
+    
+    GLuint getTexture(const char * filename);
     void camera();
+    Camera * getCamera(int);
     void drawAll();
     void updateAll();
-    void handleColisions();
+    void handleColisions(float delta);
     
     void _init_car();
     void _init_track();
     void _init_cheerio();
     void _init_orange();
     void _init_butter();
+    void _init_player();
 
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();

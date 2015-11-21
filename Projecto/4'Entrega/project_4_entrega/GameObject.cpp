@@ -13,6 +13,8 @@ GameObject::GameObject(){
     _radius = 0.0f;
     // defines rotation of object in z axis
     _rotation = 0.0f;
+    // boo var to check if object was "bumped"
+    _bump = false;
 };
 GameObject::~GameObject(){};
 
@@ -31,6 +33,12 @@ void GameObject::setRadius(GLdouble radius){ _radius = radius; };
 // rotation getter and setter
 GLdouble GameObject::getRotation(){ return _rotation; }
 void GameObject::setRotation(GLdouble rot){ _rotation = rot; };
+
+// dump getter, setter and modifier
+bool GameObject::getBump(){ return _bump; };
+void GameObject::setBump(bool b){ _bump = b;};
+void GameObject::bump(){ setBump(!getBump()); };
+bool GameObject::wasBumped(){ return getBump() == true; };
 
 // colision method to handle collision for all objects.
 bool GameObject::collidesWith(GameObject * obj){
