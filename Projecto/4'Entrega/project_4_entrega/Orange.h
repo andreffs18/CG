@@ -20,6 +20,7 @@ public:
 
     void draw();
     void update(float);
+	static void timer(int);
 };
 
 #endif /* defined(__ORANGE_H_INCLUDED__) */

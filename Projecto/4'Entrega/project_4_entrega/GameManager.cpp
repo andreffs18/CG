@@ -22,11 +22,11 @@ GameManager::GameManager(){
     // Initialize Car
     _init_car();
     // Initialize Cheerios
-    _init_cheerio();
+    // _init_cheerio();
     // Initialize Oranges
-    _init_orange();
+    // _init_orange();
     // Initialize Butters
-	_init_butter();
+	// _init_butter();
     // Initialize Player lifes
     _init_player();
     
@@ -123,7 +123,7 @@ void GameManager::_init_orange(){
     }
     _dynamic_objects.swap(aux);
     
-    for(int i = 0, px = 0, py = 0, v = -1; i < QTD_ORANGES; v=px, i++){
+    for(int i = 0, px = 0, py = 0, v = -1; i < 2; v=px, i++){
         px = (i%2==0) ? (-1)*v : v;
         py = (i%2==0) ? 1 : -1;
         // TRACK_SIZE-2 is for not generate a pos to place oranges
@@ -132,7 +132,7 @@ void GameManager::_init_orange(){
         GLdouble pos_y = (rand() % 95)/100.0 * py * (TRACK_SIZE - 2);
         
         orange = new Orange();
-        orange->setPosition(new Vector3(pos_x, pos_y, 1.0f)); //orange->_height/2
+        orange->setPosition(new Vector3(pos_x, pos_y, 0.75f)); //orange->_height/2
         orange->setSpeed(new Vector3(SPEED_INCREMENT_ORANGES, SPEED_INCREMENT_ORANGES, 0.0f));
         this->_dynamic_objects.push_back(orange);
     }
@@ -309,6 +309,7 @@ void GameManager::updateAll() {
 
     if(PAUSE){ // check if paused
         logger.info("Game Paused. To unpause press 'S'.");
+        _previous_time = glutGet(GLUT_ELAPSED_TIME);
         // draw pause menu on draw()
     } else {  // otherwise, just play game
         if(player->isDead()){ // check if dead
@@ -434,14 +435,26 @@ void GameManager::onTime(int level){
     gm.CURRENT_LEVEL = level;
     if(level == 0) {
         logger.info("Setting up level #1");
-        /* don't do nothing */
+        gm.ACTIVE_CAMERA = 0;
+        gm.SPEED_INCREMENT = 0.00025f;
+        gm.MAX_VELOCITY = 0.01f;
+        gm.ANGLE_INCREMENT = 1.5f;
+        gm.THIRDPERSON_DISTANCE = 5.0f;
+        gm.QTD_CHEERIOS = 32;
+        gm.QTD_ORANGES = 4;
+        gm.QTD_BUTTERS = 4;
+        gm.CAR_SCALE_DELTA = 0.005f;
+        gm.CAR_MAX_SCALE_UP = 0.5f;
+        gm.CAR_MAX_SCALE_DOWN = 0.1f;
+        gm.counter = 0;
+        gm.SPEED_INCREMENT_ORANGES = 0.0025;
+        gm.MAX_VELOCITY_ORANGES = 0.000005;
     } else if(level == 1) {
         logger.info("Setting up level #2");
         gm.SPEED_INCREMENT = 0.00035f;
         gm.MAX_VELOCITY = 0.02f;
         gm.ANGLE_INCREMENT = 2.0f;
         gm.THIRDPERSON_DISTANCE = 4.0f;
-        // qtd of object on table
         gm.QTD_CHEERIOS = 64;
         gm.QTD_ORANGES = 3;
         gm.QTD_BUTTERS = 1;
@@ -476,12 +489,9 @@ void GameManager::onTime(int level){
         gm.MAX_VELOCITY_ORANGES = 0.07;
     }
     
-    if(level != 0){
-        // force init of objects
-        gm._init_butter();
-        gm._init_orange();
-        gm._init_cheerio();
-    }
+    gm._init_butter();
+    gm._init_orange();
+    gm._init_cheerio();
 };
 
 //  ---------------------------------------------------------- onKeyboard()
@@ -557,8 +567,12 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
         logger.info("Restart Game");
         // change state variables
         gm.player->setLifes(gm.AMOUNT_PLAYER_LIFES);
+        gm.CURRENT_LEVEL = 0;
         gm.GAMEOVER = false;
-        
+        // set time event handler for glut. this defines diferent levels p/time
+        for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
+            glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
+        }
     }
     // changing which camera is on
     else{

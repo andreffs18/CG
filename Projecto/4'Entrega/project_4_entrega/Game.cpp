@@ -23,17 +23,14 @@ float GLOBAL1 = 0.0f;
 float GLOBAL2 = 0.0f;
 float GLOBAL3 = 0.0f;
 // initialize global log object
-Log logger;
+Log logger = Log();
 // initialize game manager
-GameManager gm;
+GameManager gm = GameManager();
 // initalize mennu object
-Menu m;
+Menu m = Menu();
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {
-    logger = Log();
-    gm = GameManager();
-    m = Menu();
 
     // initialise glut library
     glutInit(&argc, argv);

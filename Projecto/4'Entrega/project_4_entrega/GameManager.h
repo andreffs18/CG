@@ -84,13 +84,19 @@ public:
 	double XY_INCREMENT[4][2];
 	// amount of increase for speed of some time spent
 	double INCREASE_FACTOR[4] = { 0.001, 0.001, 0.001, 0.001 };
+	// to decide if speed must be increased
+	bool INCREASE_SPEED[4] = { false, false, false, false };
+	GLfloat ROTATION_DIRECTION[4][2] = { {1.0f, 1.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f} };
+	GLboolean DRAW_ORANGE[4] = { true, true, true, true };
 	// counter to know which orange is being used
 	int counter = 0;
+	// initial time of each orange
+	int TIME_ORANGES[4];
 	float X_DIRECTION = 0.0f;
 	float Y_DIRECTION = 0.0f;
 	// variable that decides if moves in -x and/or -y
-	float SET_NEG_X;
-	float SET_NEG_Y;
+	float SET_NEG_X[4];
+	float SET_NEG_Y[4];
 	// initial velocidade of oranges
 	float SPEED_INCREMENT_ORANGES = 0.0025;
 	float MAX_VELOCITY_ORANGES = 0.000005;
