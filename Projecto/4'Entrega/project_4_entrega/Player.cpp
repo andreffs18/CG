@@ -40,33 +40,30 @@ void Player::draw(){
     logger.debug("On Life::draw()");
     Camera * c = gm.getCamera(0);
     glPushMatrix();
-    
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
     c->computeProjectionMatrix();
-    
-    glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     c->computeVisualizationMatrix();
     
-    glPushMatrix();
     setupColor();
-    for(int i = 0; i < _lifes; i++){
+    for(int i = 0, _light = 0; i < _lifes; i++){
         glPushMatrix();
         glLoadIdentity();
-        glTranslatef(-22.5f + 2.5*i, 22.0f, 20.0f);
+        
+        // hack for making sure the objects are not affected by global light
+        if(glIsEnabled(GL_LIGHTING)){ glDisable(GL_LIGHTING); _light = 1; }
+        
+        glTranslatef(-22.5f + 2.5*i, 22.0f, 10.0f);
         drawLifeObject();
+        
+        // hack for making sure the objects are not affected by global light
+        if(_light!=0) glEnable(GL_LIGHTING);
+        
         glPopMatrix();
     }
-    glPopMatrix();
-    
     
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
-    
     glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
-    
     glPopMatrix();
 }
 

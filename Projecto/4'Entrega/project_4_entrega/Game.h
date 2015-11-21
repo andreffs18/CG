@@ -12,7 +12,7 @@
 #include "GameManager.h"
 #include "Vector3.h"
 #include "Material.h"
-
+#include "Menu.h"
 // WIDTH and HEIGHT size of game window
 extern int VIEWPORT_WIDTH;
 extern int VIEWPORT_HEIGHT;
@@ -29,16 +29,14 @@ extern bool ERROR_LOG;
 extern Log logger;
 // Initialize GameManager object
 extern GameManager gm;
+extern Menu m;
 // PI 3.1415.. constant
 extern float PI;
 // Enable collision sphere object to be seen
 extern bool COLISION_SPHERE;
-
-
+// aux vars for testing
 extern float GLOBAL1;
 extern float GLOBAL2;
 extern float GLOBAL3;
-extern float GLOBAL4;
-extern float GLOBAL5;
-extern float GLOBAL6;
+
 #endif /* defined(__GAME_H_INCLUDED__) */

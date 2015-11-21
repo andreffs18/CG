@@ -1,12 +1,11 @@
 //
-//  project_1_entrega
+//  project_4_entrega
 //  Created by Ana Galvão, André Silva, Daniel Pinho on CG-2015.
 //
 // description of each global var in Game.h
 #include "Game.h"
 #include <vector>
-
-const char * WINDOW_NAME = "Projecto #2 Entrega";
+const char * WINDOW_NAME = "Projecto #4 Entrega";
 int VIEWPORT_WIDTH = 800;
 int VIEWPORT_HEIGHT = 800;
 int WINDOW_X_POS = -1;
@@ -23,18 +22,19 @@ bool COLISION_SPHERE = false;
 float GLOBAL1 = 0.0f;
 float GLOBAL2 = 0.0f;
 float GLOBAL3 = 0.0f;
-float GLOBAL4 = 0.0f;
-float GLOBAL5 = 0.0f;
-float GLOBAL6 = 0.0f;
-
-
 // initialize global log object
-Log logger = Log();
+Log logger;
 // initialize game manager
-GameManager gm = GameManager();
+GameManager gm;
+// initalize mennu object
+Menu m;
 
 //  ---------------------------------------------------------------- main()
 int main(int argc, char * argv[]) {
+    logger = Log();
+    gm = GameManager();
+    m = Menu();
+
     // initialise glut library
     glutInit(&argc, argv);
     // request a RGBA display mode, and we want single buffering
@@ -67,5 +67,6 @@ int main(int argc, char * argv[]) {
     gm.init();
     // runs forever in a loop to keep the program running
     glutMainLoop();
+
     return 0;
 }

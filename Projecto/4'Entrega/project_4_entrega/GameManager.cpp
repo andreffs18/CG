@@ -17,7 +17,6 @@ GameManager::GameManager(){
     std::vector<StaticObject *> _static_objects;
     // init random
     srand((unsigned int)time(NULL));
-
     // Initialize Track
     _init_track();
     // Initialize Car
@@ -54,13 +53,15 @@ GameManager::GameManager(){
     cam3->setUp(new Vector3(0.0f, 0.0f, 1.0f));
     this->_cameras.push_back(cam3);
     
-    this->lights = new Light();    
+    this->lights = new Light();
+    this->textures = new Texture();
 };
 
 GameManager::~GameManager(){logger.debug("GameManager::~GameManager()");};
 
 void GameManager::init(){
     this->lights->init();
+    this->textures->init();
 };
 
 //  ----------------------------------------------------------_init_<obj>()
@@ -178,12 +179,27 @@ void GameManager::_init_player(){
     this->_static_objects.push_back(player);
 };
 
+GLuint GameManager::getTexture(const char * filename){
+    if(!strcmp(filename, "pause")){
+        return this->textures->pauseTextureUint();
+    } else if(!strcmp(filename, "gameover")){
+        return this->textures->gameoverTextureUint();
+    } else {
+        logger.error("Texture not found");
+    }
+    // should never happen
+    return 0;
+};
+
 //  ------------------------------------------------------------- drawAll()
 //  Method that handles the drawing of all objects in the display
 void GameManager::drawAll() {
 	logger.debug("GameManager::drawAll()");
-	for (GameObject * obj : _dynamic_objects) { obj->draw(); }
-	for (GameObject * obj : _static_objects) { obj->draw(); }
+    if(PAUSE or GAMEOVER)
+        m.draw();
+    
+    for (GameObject * obj : _dynamic_objects) { obj->draw(); }
+    for (GameObject * obj : _static_objects) { obj->draw(); }
 };
 
 //  ----------------------------------------------------- handleColisions()
@@ -192,18 +208,18 @@ void GameManager::drawAll() {
 void GameManager::handleColisions(float delta) {
     logger.debug("GameManager::handleColisions()");
     
-    // colision car with table boundries
-    if(std::abs(car->getPosition()->getX()) > gm.TRACK_LIMITS ||
-       std::fabs(car->getPosition()->getY()) > gm.TRACK_LIMITS){
-        logger.info("Touched track limits. Killing car reset vars");
-        car->die();
-        player->die();
-    }
-    
 	// colisions with dynamic objects like oranges
 	for (GameObject * obj : _dynamic_objects) {
 		// colision with car:
-		if (typeid(Car) == typeid(*obj)) { /* do nothing */ }
+		if (typeid(Car) == typeid(*obj)) {
+            // colision car with table boundries
+            if(std::abs(car->getPosition()->getX()) > gm.TRACK_LIMITS ||
+               std::fabs(car->getPosition()->getY()) > gm.TRACK_LIMITS){
+                logger.info("Touched track limits. Killing car reset vars");
+                car->die();
+                player->die();
+            }
+        }
 		// colision with oranges:
 		if (typeid(Orange) == typeid(*obj)) {
             // car with oranges
@@ -293,28 +309,24 @@ void GameManager::updateAll() {
 
     if(PAUSE){ // check if paused
         logger.info("Game Paused. To unpause press 'S'.");
-        //menu->pause();
-        // draw pause menu
+        // draw pause menu on draw()
     } else {  // otherwise, just play game
         if(player->isDead()){ // check if dead
             // show restart message
             logger.info("Player reached 0 lifes. Do you want to restart? Press 'R'.");
+            GAMEOVER = true;
             
         } else { // otherwise, just play game
             // update
             _current_time = glutGet(GLUT_ELAPSED_TIME);
-
             // colisions
             handleColisions(_current_time - _previous_time);
-            
             for (GameObject * obj : _dynamic_objects) {
                 obj->update(_current_time - _previous_time);
             }
             _previous_time = glutGet(GLUT_ELAPSED_TIME);
         }
-    
     }
-    
 };
 
 //  -------------------------------------------------------------- getCamera()
@@ -411,6 +423,7 @@ void GameManager::onIdle(){
     gm.updateAll();
     glutPostRedisplay();
 };
+
 
 //  -------------------------------------------------------------- onTime()
 //  Custom timer function used on "glutTimerFunc" events. Sets up
@@ -534,7 +547,7 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
         }
     }
     // pause/unpause
-    else if (key == 'S' || key == 's'){
+    else if (!gm.player->isDead() && (key == 'S' || key == 's')){
         logger.info("Pausing or Unpausing");
         // change state variable PAUSE
         gm.PAUSE = !gm.PAUSE;
@@ -543,7 +556,8 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
     else if (gm.player->isDead() && (key == 'R' || key == 'r')){
         logger.info("Restart Game");
         // change state variables
-        gm.RESTART = !gm.RESTART;
+        gm.player->setLifes(gm.AMOUNT_PLAYER_LIFES);
+        gm.GAMEOVER = false;
         
     }
     // changing which camera is on
@@ -558,6 +572,7 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             case '7': GLOBAL2 -= 1.f; std::cout << "--GLOBAL2: " << GLOBAL2 << std::endl; break;
             case '8': GLOBAL3 += 1.f; std::cout << "++GLOBAL3: " << GLOBAL3 << std::endl; break;
             case '9': GLOBAL3 -= 1.f; std::cout << "--GLOBAL3: " << GLOBAL3 << std::endl; break;
+            case 27: exit(0); break;
         }
     }
     glutPostRedisplay();
@@ -594,3 +609,4 @@ void GameManager::onSpecialKeysUp(int key, int x, int y) {
     if(key == GLUT_KEY_RIGHT)
         car->setMoveRight(false);
 };
+

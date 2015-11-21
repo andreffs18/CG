@@ -22,6 +22,7 @@
 #include "Player.h"
 
 #include "Light.h"
+#include "Texture.h"
 
 class GameManager{
 private:
@@ -31,6 +32,7 @@ private:
     int _current_time, _previous_time;
 
     Light * lights;
+    Texture * textures;
     
     Car * car;
     Track * track;
@@ -100,13 +102,14 @@ public:
     int AMOUNT_PLAYER_LIFES = 5;
     // state variables for pausing and restarting the game
     bool PAUSE = false;
-    bool RESTART = false;
+    bool GAMEOVER = false;
     
 	GameManager();
 	~GameManager();
     
     void init();
     
+    GLuint getTexture(const char * filename);
     void camera();
     Camera * getCamera(int);
     void drawAll();

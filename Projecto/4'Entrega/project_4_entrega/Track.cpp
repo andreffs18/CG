@@ -3,6 +3,7 @@
 //
 #include "Game.h"
 #include "Track.h"
+#include "Texture.h"
 
 Track::Track() : StaticObject(){};
 Track::~Track(){};
@@ -10,7 +11,7 @@ Track::~Track(){};
 void Track::drawV1(){
     // draw cube with 1unit as size
     glPushMatrix();
-    
+
     if(COLISION_SPHERE){
         glColor3f(1.0f, 1.0f, 1.0f);
         glutWireSphere(getRadius(), 10, 10);
@@ -19,53 +20,63 @@ void Track::drawV1(){
     if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
     glColor3f(0.55f, 0.35f, 0.05f);
-    
-    glBegin(GL_POLYGON);
-    glVertex3f(-1.0, -1.0, 1.0);
-    glVertex3f(1.0, -1.0, 1.0);
-    glVertex3f(1.0, 1.0, 1.0);
-    glVertex3f(-1.0, 1.0, 1.0);
+
+    glBegin ( GL_POLYGON );
+    // Front Face
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+    glEnd();
+    // Back Face
+    glBegin ( GL_POLYGON );
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
+    glEnd();
+    // Top Face
+    glBegin ( GL_POLYGON );
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+    glEnd();
+    // Bottom Face
+    glBegin ( GL_POLYGON );
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
+    glEnd();
+    // Right face
+    glBegin ( GL_POLYGON );
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
+    glEnd();
+    // Left Face
+    glBegin ( GL_POLYGON );
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
     glEnd();
     
-    glBegin(GL_POLYGON);
-    glVertex3f(-1.0, 1.0, 1.0);
-    glVertex3f(1.0, 1.0, 1.0);
-    glVertex3f(1.0, 1.0, -1.0);
-    glVertex3f(-1.0, -1.0, 1.0);
-    glEnd();
-    
-    glBegin(GL_POLYGON);
-    glVertex3f(-1.0, 1.0, -1.0);
-    glVertex3f(1.0, 1.0, -1.0);
-    glVertex3f(1.0, -1.0, -1.0);
-    glVertex3f(-1.0, -1.0, -1.0);
-    glEnd();
-    
-    glBegin(GL_POLYGON);
-    glVertex3f(-1.0, -1.0, -1.0);
-    glVertex3f(1.0, -1.0, -1.0);
-    glVertex3f(1.0, -1.0, 1.0);
-    glVertex3f(-1.0, -1.0, 1.0);
-    glEnd();
-    
-    glBegin(GL_POLYGON);
-    glVertex3f(1.0, -1.0, 1.0);
-    glVertex3f(1.0, -1.0, -1.0);
-    glVertex3f(1.0, 1.0, -1.0);
-    glVertex3f(1.0, 1.0, 1.0);
-    glEnd();
-    
-    glBegin(GL_POLYGON);
-    glVertex3f(-1.0, -1.0,-1.0);
-    glVertex3f(-1.0, -1.0, 1.0);
-    glVertex3f(-1.0, 1.0, 1.0);
-    glVertex3f(-1.0, 1.0, -1.0);
-    glEnd();
     glPopMatrix();
 };
 
 void Track::drawV2(){
     glPushMatrix();
+
+//    glEnable(GL_TEXTURE_2D);
+//    Texture t;
+//    t.loadTexture("mesa.bmp");
+//    glTexCoord2f(0.0f, 0.0f);
+//    glTexCoord2f(1.0f, 1.0f);
+//    glTexCoord2f(1.0f, 0.0f);
+//    glTexCoord2f(0.0f, 1.0f);
     
     if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
