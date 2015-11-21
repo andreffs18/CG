@@ -165,8 +165,12 @@ void GameManager::_init_butter(){
 //  Method that handles the drawing of all objects in the display
 void GameManager::drawAll() {
 	logger.debug("GameManager::drawAll()");
-	for (GameObject * obj : _dynamic_objects) { obj->draw(); }
-	for (GameObject * obj : _static_objects) { obj->draw(); }
+    if (!gm.PAUSE) {
+        for (GameObject * obj : _dynamic_objects) { obj->draw(); }
+        for (GameObject * obj : _static_objects) { obj->draw(); }
+    }
+    else
+        m.draw();
 };
 
 //  ----------------------------------------------------- handleColisions()
@@ -361,12 +365,9 @@ void GameManager::onDisplay(){
 void GameManager::onIdle(){
     logger.debug("GameManager::onIdle()");
     // checks game state, and pauses it
-    if (!gm.PAUSE) {
+
         gm.updateAll();
         glutPostRedisplay();
-    }
-    else
-        m.draw();
 };
 
 

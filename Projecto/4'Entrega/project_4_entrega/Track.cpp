@@ -7,6 +7,7 @@
 
 Track::Track() : StaticObject(){};
 Track::~Track(){};
+    Texture t;
 
 void Track::drawV1(){
     // draw cube with 1unit as size
@@ -20,7 +21,7 @@ void Track::drawV1(){
     if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
     glColor3f(0.55f, 0.35f, 0.05f);
-
+    
     glBegin ( GL_POLYGON );
     // Front Face
     glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
@@ -69,15 +70,14 @@ void Track::drawV1(){
 
 void Track::drawV2(){
     glPushMatrix();
-
-//    glEnable(GL_TEXTURE_2D);
-//    Texture t;
-//    t.loadTexture("mesa.bmp");
-//    glTexCoord2f(0.0f, 0.0f);
-//    glTexCoord2f(1.0f, 1.0f);
-//    glTexCoord2f(1.0f, 0.0f);
-//    glTexCoord2f(0.0f, 1.0f);
     
+    GLuint image = t.loadTexture("mesa.bmp");
+    glBindTexture(GL_TEXTURE_2D, image);
+    glEnable(GL_TEXTURE_2D);
+    glActiveTexture(GL_TEXTURE0);
+
+    
+    glPushMatrix();
     if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
     glColor3f(0.55f, 0.35f, 0.05f);
@@ -99,6 +99,7 @@ void Track::drawV2(){
         {-1.0f, -1.0f},
         {-1.0f, 1.0f},
     };
+    
     // for each quadrant
     for(int times = 0; times < 4; times++){
         // for the amount gltrangles strips (height)
@@ -115,13 +116,20 @@ void Track::drawV2(){
                     GLfloat x = (posx_ini + size * w)/scale * mult[times][0],
                             y = (posy_ini + size * j)/scale * mult[times][1],
                             z = 0.0f;
+                    
                     glNormal3fv(normalize(x, y, z));
-                    glVertex3f(x, y, z);
+                    glTexCoord2f(x,y); glVertex3f(x, y, z);
+                    
+
                 }
             }
             glEnd();
         }
     }
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE0);
+    glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 };
 

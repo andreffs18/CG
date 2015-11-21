@@ -30,18 +30,24 @@ void Menu::draw(){
     glDisable(GL_LIGHTING);
     glColor3f(1, 1, 1);
     
-    glEnable(GL_TEXTURE_2D);
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
-    t.loadTexture("pausa.bmp");
+    GLuint image = t.loadTexture("pausa.bmp");
+    glBindTexture(GL_TEXTURE_2D, image);
+    glEnable(GL_TEXTURE_2D);
+    glActiveTexture(GL_TEXTURE0);
+    
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    
     
     glBegin(GL_QUADS);
-    glTexCoord2f(0, 0); glVertex3f(-15.0f, 10.0f, 0.0f);
-    glTexCoord2f(0, 1); glVertex3f(-15.0f, -10.0f, 0.0f);
+    glTexCoord2f(0, 1); glVertex3f(-15.0f, 10.0f, 0.0f);
+    glTexCoord2f(0, 0); glVertex3f(-15.0f, -10.0f, 0.0f);
     glTexCoord2f(1, 0); glVertex3f(15.0f, -10.0f, 0.0f);
     glTexCoord2f(1, 1); glVertex3f(15.0f, 10.0f, 0.0f);
     glEnd();
     
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_TEXTURE0);
     glDisable(GL_TEXTURE_2D);
     glPopMatrix();
     
