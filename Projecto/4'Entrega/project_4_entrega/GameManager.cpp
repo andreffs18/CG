@@ -17,18 +17,8 @@ GameManager::GameManager(){
     std::vector<StaticObject *> _static_objects;
     // init random
     srand((unsigned int)time(NULL));
-    // Initialize Track
-    _init_track();
-    // Initialize Car
-    _init_car();
-    // Initialize Cheerios
-    // _init_cheerio();
-    // Initialize Oranges
-    // _init_orange();
-    // Initialize Butters
-	// _init_butter();
-    // Initialize Player lifes
-    _init_player();
+   
+    init_gameobjects();
     
     // Initalize cameras
     std::vector<Camera *> _cameras;
@@ -66,6 +56,22 @@ void GameManager::init(){
 
 //  ----------------------------------------------------------_init_<obj>()
 //  aux methods to init objects in game manager
+
+void GameManager::init_gameobjects(){
+    // Initialize Track
+    _init_track();
+    // Initialize Car
+    _init_car();
+    // Initialize Cheerios
+    _init_cheerio();
+    // Initialize Oranges
+    _init_orange();
+    // Initialize Butters
+    _init_butter();
+    // Initialize Player lifes
+    _init_player();
+};
+
 void GameManager::_init_track(){
     logger.debug("GameManager::_init_track()");
     track = new Track();
@@ -425,7 +431,6 @@ void GameManager::onIdle(){
     glutPostRedisplay();
 };
 
-
 //  -------------------------------------------------------------- onTime()
 //  Custom timer function used on "glutTimerFunc" events. Sets up
 //  different level configurations through out the game
@@ -435,20 +440,20 @@ void GameManager::onTime(int level){
     gm.CURRENT_LEVEL = level;
     if(level == 0) {
         logger.info("Setting up level #1");
-        gm.ACTIVE_CAMERA = 0;
-        gm.SPEED_INCREMENT = 0.00025f;
-        gm.MAX_VELOCITY = 0.01f;
-        gm.ANGLE_INCREMENT = 1.5f;
-        gm.THIRDPERSON_DISTANCE = 5.0f;
-        gm.QTD_CHEERIOS = 32;
-        gm.QTD_ORANGES = 4;
-        gm.QTD_BUTTERS = 4;
-        gm.CAR_SCALE_DELTA = 0.005f;
-        gm.CAR_MAX_SCALE_UP = 0.5f;
-        gm.CAR_MAX_SCALE_DOWN = 0.1f;
-        gm.counter = 0;
-        gm.SPEED_INCREMENT_ORANGES = 0.0025;
-        gm.MAX_VELOCITY_ORANGES = 0.000005;
+//        gm.ACTIVE_CAMERA = 0;
+//        gm.SPEED_INCREMENT = 0.00025f;
+//        gm.MAX_VELOCITY = 0.01f;
+//        gm.ANGLE_INCREMENT = 1.5f;
+//        gm.THIRDPERSON_DISTANCE = 5.0f;
+//        gm.QTD_CHEERIOS = 32;
+//        gm.QTD_ORANGES = 4;
+//        gm.QTD_BUTTERS = 4;
+//        gm.CAR_SCALE_DELTA = 0.005f;
+//        gm.CAR_MAX_SCALE_UP = 0.5f;
+//        gm.CAR_MAX_SCALE_DOWN = 0.1f;
+//        gm.counter = 0;
+//        gm.SPEED_INCREMENT_ORANGES = 0.0025;
+//        gm.MAX_VELOCITY_ORANGES = 0.000005;
     } else if(level == 1) {
         logger.info("Setting up level #2");
         gm.SPEED_INCREMENT = 0.00035f;
@@ -488,10 +493,11 @@ void GameManager::onTime(int level){
         gm.SPEED_INCREMENT_ORANGES = 0.0045;
         gm.MAX_VELOCITY_ORANGES = 0.07;
     }
-    
-    gm._init_butter();
-    gm._init_orange();
-    gm._init_cheerio();
+    if(level != 0){
+        gm._init_butter();
+        gm._init_orange();
+        gm._init_cheerio();
+    }
 };
 
 //  ---------------------------------------------------------- onKeyboard()
@@ -569,10 +575,12 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
         gm.player->setLifes(gm.AMOUNT_PLAYER_LIFES);
         gm.CURRENT_LEVEL = 0;
         gm.GAMEOVER = false;
-        // set time event handler for glut. this defines diferent levels p/time
-        for(int i = 0; i < sizeof(gm.LEVEL_LIFE)/sizeof(gm.LEVEL_LIFE[0]); i++){
-            glutTimerFunc(gm.LEVEL_LIFE[i], GameManager::onTime, i);
-        }
+
+        gm._dynamic_objects.clear();
+        gm._static_objects.clear();
+        
+        gm.init_gameobjects();
+
     }
     // changing which camera is on
     else{

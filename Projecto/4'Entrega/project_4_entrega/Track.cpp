@@ -122,33 +122,6 @@ void Track::drawV2(){
             glEnd();
         }
     }
-    
-//    // draw limits
-//    // left
-//    glPushMatrix();
-//    glTranslatef(-1.0f, 0.0f, 2.0f);
-//    glScalef(0.01f, 1.0f, 1.5f);
-//    glutSolidCube(2);
-//    glPopMatrix();
-//    // right
-//    glPushMatrix();
-//    glTranslatef(1.0f, 0.0f, 2.0f);
-//    glScalef(0.01f, 1.0f, 1.5f);
-//    glutSolidCube(2);
-//    glPopMatrix();
-//    // top
-//    glPushMatrix();
-//    glTranslatef(0.0f, 1.0f, 2.0f);
-//    glScalef(1.0f, 0.01f, 1.5f);
-//    glutSolidCube(2);
-//    glPopMatrix();
-//    // bottom 
-//    glPushMatrix();
-//    glTranslatef(0.0f, -1.0f, 2.0f);
-//    glScalef(1.0f, 0.01f, 1.5f);
-//    glutSolidCube(2);
-//    glPopMatrix();
-//    
     glPopMatrix();
 };
 

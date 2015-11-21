@@ -122,6 +122,8 @@ public:
     void updateAll();
     void handleColisions(float delta);
     
+    void init_gameobjects();
+    
     void _init_car();
     void _init_track();
     void _init_cheerio();
