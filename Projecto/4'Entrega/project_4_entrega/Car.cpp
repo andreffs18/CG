@@ -106,6 +106,7 @@ void Car::draw(){
     glScalef(_scale, _scale, _scale);
     
     drawCarModel();
+
     glPopMatrix();
 };
 
@@ -119,7 +120,6 @@ void Car::setScale(GLdouble s){
     setRadius(s * 3);
 };
 GLdouble Car::getScale(){ return _scale; };
-
 
 void Car::drawV1(){
     // the size of the tores (depth) and the

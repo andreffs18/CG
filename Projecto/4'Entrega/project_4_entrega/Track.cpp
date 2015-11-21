@@ -101,8 +101,8 @@ void Track::drawV2(){
                 // creates line for gl triangle strip
                 for(int j = 0; j < 2; j++){
                     // defines x and y line and records vertex
-                    GLfloat x = (posx_ini + size * w)/scale * mult[times][0],
-                            y = (posy_ini + size * j)/scale * mult[times][1],
+                    GLfloat y = (posx_ini + size * w)/scale * mult[times][0],
+                            x = (posy_ini + size * j)/scale * mult[times][1],
                             z = 0.0f;
                     glNormal3fv(normalize(x, y, z));
                     glVertex3f(x, y, z);
@@ -111,6 +111,33 @@ void Track::drawV2(){
             glEnd();
         }
     }
+    
+//    // draw limits
+//    // left
+//    glPushMatrix();
+//    glTranslatef(-1.0f, 0.0f, 2.0f);
+//    glScalef(0.01f, 1.0f, 1.5f);
+//    glutSolidCube(2);
+//    glPopMatrix();
+//    // right
+//    glPushMatrix();
+//    glTranslatef(1.0f, 0.0f, 2.0f);
+//    glScalef(0.01f, 1.0f, 1.5f);
+//    glutSolidCube(2);
+//    glPopMatrix();
+//    // top
+//    glPushMatrix();
+//    glTranslatef(0.0f, 1.0f, 2.0f);
+//    glScalef(1.0f, 0.01f, 1.5f);
+//    glutSolidCube(2);
+//    glPopMatrix();
+//    // bottom 
+//    glPushMatrix();
+//    glTranslatef(0.0f, -1.0f, 2.0f);
+//    glScalef(1.0f, 0.01f, 1.5f);
+//    glutSolidCube(2);
+//    glPopMatrix();
+//    
     glPopMatrix();
 };
 

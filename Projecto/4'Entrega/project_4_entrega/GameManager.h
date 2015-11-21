@@ -19,7 +19,7 @@
 #include "Orange.h"
 #include "Butter.h"
 #include "Cheerio.h"
-#include "Life.h"
+#include "Player.h"
 
 #include "Light.h"
 
@@ -37,7 +37,8 @@ private:
     Cheerio * cheerio;
     Butter * butter;
     Orange * orange;
-    Life * life;
+    Player * player;
+    
 public:
     // Global Variables
     // time when each level should start in milliseconds
@@ -99,24 +100,28 @@ public:
     int QTD_CANDLES = 6;
     
     // player variables
-    int PLAYER_LIFES = 5;
+    int AMOUNT_PLAYER_LIFES = 5;
+    
+    bool PAUSE = false;
+    bool RESTART = false;
     
 	GameManager();
 	~GameManager();
     
     void init();
-
+    
     void camera();
+    Camera * getCamera(int);
     void drawAll();
     void updateAll();
-    void handleColisions();
+    void handleColisions(float delta);
     
     void _init_car();
     void _init_track();
     void _init_cheerio();
     void _init_orange();
     void _init_butter();
-    void _init_life();
+    void _init_player();
 
     static void onReshape(GLsizei w, GLsizei h);
     static void onDisplay();

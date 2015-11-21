@@ -26,3 +26,17 @@ void Cheerio::draw(){
     glutSolidTorus(.2f, 0.4f, 10.0, 100.0f);
     glPopMatrix();
 };
+
+bool Cheerio::isInnerCheerio(){
+    GLdouble cheerio_pos_x = fabs(getPosition()->getX());
+    GLdouble cheerio_pos_y = fabs(getPosition()->getY());
+    
+    return cheerio_pos_x <= (3*gm.INNER_CIRCLE_RADIUS/2) && cheerio_pos_y <= (3*gm.INNER_CIRCLE_RADIUS/2);
+};
+
+bool Cheerio::isOuterCheerio(){
+    GLdouble cheerio_pos_x = fabs(getPosition()->getX());
+    GLdouble cheerio_pos_y = fabs(getPosition()->getY());
+    
+    return cheerio_pos_x > (3*gm.INNER_CIRCLE_RADIUS/2) || cheerio_pos_y > (3*gm.INNER_CIRCLE_RADIUS/2);
+};

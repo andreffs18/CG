@@ -46,7 +46,7 @@ int main(int argc, char * argv[]) {
     // create the window with properties defined before
     glutCreateWindow(WINDOW_NAME);
     // stops continuisly pressing keyboard
-    //glutIgnoreKeyRepeat(1);
+    glutIgnoreKeyRepeat(1);
     // set the callback function to use to draw our scene
     glutDisplayFunc(GameManager::onDisplay);
     // set the callback function to handle changes in screen size

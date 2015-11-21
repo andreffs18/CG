@@ -17,6 +17,7 @@ protected:
     Vector3 * _position;
     GLdouble _rotation;
     GLdouble _radius;
+    bool _bump;
     
 public:
     GameObject();
@@ -26,6 +27,11 @@ public:
     
     Vector3 * getPosition();
     void setPosition(Vector3 *);
+    
+    bool getBump();
+    void setBump(bool);
+    void bump();
+    bool wasBumped();
     
     GLdouble getRadius();
     void setRadius(GLdouble);

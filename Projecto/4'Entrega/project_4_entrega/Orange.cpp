@@ -42,7 +42,7 @@ void Orange::update(float delta){
 	setRotation(getRotation() + 1.5f);
 	GLdouble new_pos_x = _position->getX();
 	GLdouble new_pos_y = _position->getY();
-	GLdouble new_pos_z = _position->getZ();
+	// GLdouble new_pos_z = _position->getZ();
 
 	if (gm.SET_DIRECTION[gm.counter]) {
 		// randomly decides if moves in -x and/or -y
