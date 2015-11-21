@@ -19,8 +19,6 @@ public:
     void setY(GLdouble y);
     void setZ(GLdouble z);
 
-    //Vector3 crossProduct(Vector3, Vector3);
-    //Vector3 getSurfaceNormal(Vector3 *, Vector3 *, Vector3 *);
     Vector3 operator*(GLdouble num);
     Vector3 operator=(Vector3 * pos);
     Vector3 operator+(Vector3 * pos);

@@ -13,9 +13,11 @@ private:
     void drawPauseScreen();
     void drawGameOverScreen();
     void drawPlaneForTexture();
+    
 public:
     Menu();
     ~Menu();
     void draw();
+    void drawTableTexture();
 };
 #endif /* Menu_h */

@@ -30,26 +30,6 @@ void Vector3::setVector3(Vector3 * pos) {
     _z = pos->getZ();
 }
 
-//Vector3 Vector3::crossProduct(Vector3 v1, Vector3 v2){
-//    Vector3 cross = {
-//        v1.getY() * v2.getZ() - v1.getZ() * v2.getY(),
-//        v1.getZ() * v2.getX() - v1.getX() * v2.getZ(),
-//        v1.getX() * v2.getY() - v1.getY() * v2.getX()
-//    };
-//    return cross;
-//}
-//
-//Vector3 Vector3::getSurfaceNormal(Vector3 * v1, Vector3 * v2, Vector3 * v3){
-//    Vector3 polyVector1 = {v2->getX() - v1->getX(), v2->getY() - v1->getY(), v2->getZ() - v1->getZ()};
-//    Vector3 polyVector2 = {v3->getX() - v1->getX(), v3->getY() - v1->getY(), v3->getZ() - v1->getZ()};
-//    
-//    Vector3 cross = crossProduct(polyVector1, polyVector2);
-//    
-//    //normalize(cross);
-//    
-//    return cross;
-//}
-
 // equals operation
 Vector3 Vector3::operator=(Vector3 * other) {
     _x = other->getX();

@@ -20,12 +20,15 @@ private:
     int * imagedata;
     GLuint _gameover_texture;
     GLuint _pause_texture;
+    GLuint _table_texture;
+    
 public:
     Texture();
     ~Texture();
     
     GLuint pauseTextureUint();
     GLuint gameoverTextureUint();
+    GLuint tableTextureUint();
 
     void init();
     int * loadTexture(const char * filename);

@@ -190,6 +190,8 @@ GLuint GameManager::getTexture(const char * filename){
         return this->textures->pauseTextureUint();
     } else if(!strcmp(filename, "gameover")){
         return this->textures->gameoverTextureUint();
+    } else if (!strcmp(filename, "table")){
+        return this->textures->tableTextureUint();
     } else {
         logger.error("Texture not found");
     }

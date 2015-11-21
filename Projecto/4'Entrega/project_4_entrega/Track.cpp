@@ -7,6 +7,7 @@
 
 Track::Track() : StaticObject(){};
 Track::~Track(){};
+    Texture t;
 
 void Track::drawV1(){
     // draw cube with 1unit as size
@@ -20,7 +21,7 @@ void Track::drawV1(){
     if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
     glColor3f(0.55f, 0.35f, 0.05f);
-
+    
     glBegin ( GL_POLYGON );
     // Front Face
     glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
@@ -69,19 +70,13 @@ void Track::drawV1(){
 
 void Track::drawV2(){
     glPushMatrix();
-
-//    glEnable(GL_TEXTURE_2D);
-//    Texture t;
-//    t.loadTexture("mesa.bmp");
-//    glTexCoord2f(0.0f, 0.0f);
-//    glTexCoord2f(1.0f, 1.0f);
-//    glTexCoord2f(1.0f, 0.0f);
-//    glTexCoord2f(0.0f, 1.0f);
-    
     if(glIsEnabled(GL_LIGHTING))
         material(amb, diffuse, specular, &shine);
-    glColor3f(0.55f, 0.35f, 0.05f);
-
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glEnable(GL_TEXTURE_2D);
+    
+    m.drawTableTexture();
+    glPushMatrix();
     // the scale is the factor of reduction from the actual table size
     // 1 means no reduction where gm.TABLE_SIZE means full reduction
     float scale = 1.0f;
@@ -114,14 +109,18 @@ void Track::drawV2(){
                     // defines x and y line and records vertex
                     GLfloat y = (posx_ini + size * w)/scale * mult[times][0],
                             x = (posy_ini + size * j)/scale * mult[times][1],
-                            z = 0.0f;
+                            z = 0.0f + GLOBAL1;
+                    
                     glNormal3fv(normalize(x, y, z));
+                    glTexCoord2f(x, y);
                     glVertex3f(x, y, z);
                 }
             }
             glEnd();
         }
     }
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 };
 

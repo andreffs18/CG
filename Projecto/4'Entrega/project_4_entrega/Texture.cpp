@@ -13,9 +13,11 @@ Texture::~Texture(){}
 GLuint Texture::pauseTextureUint(){
     return _pause_texture;
 };
-
 GLuint Texture::gameoverTextureUint(){
     return _gameover_texture;
+};
+GLuint Texture::tableTextureUint(){
+    return _table_texture;
 };
 
 void Texture::init(){
@@ -35,6 +37,17 @@ void Texture::init(){
     imagedata = loadTexture("pause.bmp");
     glGenTextures(1, &_pause_texture);
     glBindTexture(GL_TEXTURE_2D, _pause_texture);
+    glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, imagedata);
+    free(imagedata);
+    
+    imagedata = loadTexture("table.bmp");
+    glGenTextures(1, &_table_texture);
+    glBindTexture(GL_TEXTURE_2D, _table_texture);
     glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

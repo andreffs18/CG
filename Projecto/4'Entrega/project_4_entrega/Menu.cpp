@@ -48,6 +48,10 @@ void Menu::drawGameOverScreen(){
     drawPlaneForTexture();
 };
 
+void Menu::drawTableTexture(){
+    glBindTexture(GL_TEXTURE_2D, gm.getTexture("table"));
+}
+
 void Menu::draw(){
     logger.debug("On Menu::draw()");
     Camera * c = gm.getCamera(0);
@@ -56,7 +60,7 @@ void Menu::draw(){
     glPushMatrix();
     c->computeVisualizationMatrix();
     glEnable(GL_TEXTURE_2D);
-    
+
     // if pause
     if (gm.PAUSE)
         drawPauseScreen();
