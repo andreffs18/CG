@@ -239,7 +239,7 @@ void Car::drawV2(){
         
         if(glIsEnabled(GL_LIGHTING))
             material(amb_back_wheel, diffuse_back_wheel, specular_back_wheel, &shine_back_wheel);
-        glColor3f(.2f, .2f, .2f);
+        glColor3f(0.15f, 1.0f, 1.0f);
         
         // if right side of car, rotate wheels
         if(i%2!=0){
