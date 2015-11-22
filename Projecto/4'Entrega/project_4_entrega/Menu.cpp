@@ -48,10 +48,6 @@ void Menu::drawGameOverScreen(){
     drawPlaneForTexture();
 };
 
-void Menu::drawTableTexture(){
-    glBindTexture(GL_TEXTURE_2D, gm.getTexture("table"));
-}
-
 void Menu::draw(){
     logger.debug("On Menu::draw()");
     Camera * c = gm.getCamera(0);

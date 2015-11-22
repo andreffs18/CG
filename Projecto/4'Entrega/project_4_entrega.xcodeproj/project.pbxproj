@@ -30,6 +30,7 @@
 		0EC87F061C00EC7D00B2F64E /* gameover.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0EC87F041C00EC7D00B2F64E /* gameover.bmp */; };
 		0EC87F071C00EC7D00B2F64E /* pause.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0EC87F051C00EC7D00B2F64E /* pause.bmp */; };
 		0EC87F091C01341500B2F64E /* table.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0EC87F081C01341500B2F64E /* table.bmp */; };
+		0EC87F0D1C01405700B2F64E /* orange.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0EC87F0C1C01405700B2F64E /* orange.bmp */; };
 		EF837D0E1BFE43D500E9411B /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF837D0C1BFE43D500E9411B /* Texture.cpp */; };
 		EFCCC8791BFF8FEB00F285F5 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFCCC8771BFF8FEB00F285F5 /* Menu.cpp */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				0EC87F0D1C01405700B2F64E /* orange.bmp in CopyFiles */,
 				0EC87F091C01341500B2F64E /* table.bmp in CopyFiles */,
 				0EC87F061C00EC7D00B2F64E /* gameover.bmp in CopyFiles */,
 				0EC87F071C00EC7D00B2F64E /* pause.bmp in CopyFiles */,
@@ -92,6 +94,7 @@
 		0EC87F041C00EC7D00B2F64E /* gameover.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = gameover.bmp; path = project_4_entrega/gameover.bmp; sourceTree = "<group>"; };
 		0EC87F051C00EC7D00B2F64E /* pause.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = pause.bmp; path = project_4_entrega/pause.bmp; sourceTree = "<group>"; };
 		0EC87F081C01341500B2F64E /* table.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = table.bmp; path = project_4_entrega/table.bmp; sourceTree = "<group>"; };
+		0EC87F0C1C01405700B2F64E /* orange.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = orange.bmp; path = project_4_entrega/orange.bmp; sourceTree = "<group>"; };
 		EF837D0C1BFE43D500E9411B /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		EF837D0D1BFE43D500E9411B /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		EFCCC8771BFF8FEB00F285F5 /* Menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		0E6C783F1BF0E3C00004AFCD = {
 			isa = PBXGroup;
 			children = (
+				0EC87F0C1C01405700B2F64E /* orange.bmp */,
 				0EC87F081C01341500B2F64E /* table.bmp */,
 				0EC87F041C00EC7D00B2F64E /* gameover.bmp */,
 				0EC87F051C00EC7D00B2F64E /* pause.bmp */,

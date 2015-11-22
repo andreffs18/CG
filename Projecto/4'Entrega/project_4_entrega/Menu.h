@@ -18,6 +18,5 @@ public:
     Menu();
     ~Menu();
     void draw();
-    void drawTableTexture();
 };
 #endif /* Menu_h */

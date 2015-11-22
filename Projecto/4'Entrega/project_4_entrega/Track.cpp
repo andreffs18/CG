@@ -75,7 +75,7 @@ void Track::drawV2(){
     glColor3f(1.0f, 1.0f, 1.0f);
     glEnable(GL_TEXTURE_2D);
     
-    m.drawTableTexture();
+    glBindTexture(GL_TEXTURE_2D, gm.getTexture("table"));
     glPushMatrix();
     // the scale is the factor of reduction from the actual table size
     // 1 means no reduction where gm.TABLE_SIZE means full reduction

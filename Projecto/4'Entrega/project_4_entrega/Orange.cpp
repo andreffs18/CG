@@ -25,8 +25,7 @@ void Orange::draw(){
 		glColor3f(1.0, 0.4, 0.0);
 
 		glScalef(0.75f, 0.75f, 0.75f);
-		glutSolidSphere(1.0, 16.0, 16.0);
-
+        drawOrangeModel();
 		//draws a stick over the orange
 		glPushMatrix();
 		glColor3f(0.0f, 0.0f, 0.02f);
@@ -43,6 +42,56 @@ void Orange::draw(){
 	if (gm.counter == 2) gm.counter = 0;
 };
 
+void Orange::drawOrangeModel(){
+    switch (VERSION) {
+        case 1: drawV1(); break;
+        case 2: drawV2(); break;
+        default: logger.error("Orange version not available. Only V1 or V2");
+            throw 0;
+            break;
+    }
+};
+void Orange::drawV1(){
+    glutSolidSphere(1.0, 16.0, 16.0);
+};
+
+void Orange::drawV2(){
+    double r = 1.0f;
+    int lats = 16.0f;
+    int longs =  16.0f;
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, gm.getTexture("orange"));
+    
+    int i, j;
+    for(i = 0; i <= lats; i++) {
+        double lat0 = M_PI * (-0.5 + (double) (i - 1) / lats);
+        double z0  = sin(lat0);
+        double zr0 =  cos(lat0);
+        
+        double lat1 = M_PI * (-0.5 + (double) i / lats);
+        double z1 = sin(lat1);
+        double zr1 = cos(lat1);
+        
+        glBegin(GL_QUAD_STRIP);
+        for(j = 0; j <= longs; j++) {
+            double lng = 2 * M_PI * (double) (j - 1) / longs;
+            double x = cos(lng);
+            double y = sin(lng);
+            
+            glNormal3f(x * zr0, y * zr0, z0);
+            glTexCoord2f(0 , 0);
+            glVertex3f(x * zr0, y * zr0, z0);
+
+            glNormal3f(x * zr1, y * zr1, z1);
+            glTexCoord2f(1, 1);
+            glVertex3f(x * zr1, y * zr1, z1);
+        }
+        glEnd();
+    }
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+};
 
 void Orange::timer(int counter) {
 	gm.DRAW_ORANGE[counter] = true;

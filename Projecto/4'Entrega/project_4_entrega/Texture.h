@@ -21,6 +21,7 @@ private:
     GLuint _gameover_texture;
     GLuint _pause_texture;
     GLuint _table_texture;
+    GLuint _orange_texture;
     
 public:
     Texture();
@@ -29,6 +30,7 @@ public:
     GLuint pauseTextureUint();
     GLuint gameoverTextureUint();
     GLuint tableTextureUint();
+    GLuint orangeTextureUint();
 
     void init();
     int * loadTexture(const char * filename);

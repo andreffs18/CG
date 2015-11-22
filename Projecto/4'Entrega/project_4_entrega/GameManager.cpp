@@ -192,6 +192,8 @@ GLuint GameManager::getTexture(const char * filename){
         return this->textures->gameoverTextureUint();
     } else if (!strcmp(filename, "table")){
         return this->textures->tableTextureUint();
+    } else if (!strcmp(filename, "orange")){
+        return this->textures->orangeTextureUint();
     } else {
         logger.error("Texture not found");
     }
@@ -414,6 +416,8 @@ void GameManager::onDisplay(){
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     // enable depth
     glEnable(GL_DEPTH_TEST);
+    // forgot to normalize vectors.. or something
+    glEnable(GL_NORMALIZE);
     // enable shade model
     glShadeModel((gm.SHADE) ? GL_SMOOTH : GL_FLAT);
     // wrapper around model and projection matrix
