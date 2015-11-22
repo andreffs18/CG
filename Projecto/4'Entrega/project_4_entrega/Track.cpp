@@ -109,7 +109,7 @@ void Track::drawV2(){
                     // defines x and y line and records vertex
                     GLfloat y = (posx_ini + size * w)/scale * mult[times][0],
                             x = (posy_ini + size * j)/scale * mult[times][1],
-                            z = 0.0f + GLOBAL1;
+                            z = 0.0f;
                     
                     glNormal3fv(normalize(x, y, z));
                     glTexCoord2f(x, y);

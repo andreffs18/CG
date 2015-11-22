@@ -6,17 +6,23 @@ Player::Player() : StaticObject() {
 };
 Player::~Player() {};
 
-
 void Player::drawLifeObject(){
-    glBegin(GL_POINTS);
-    for (float x = -1.139; x <= 1.139; x += 0.001) {
-        float delta = cbrt(x*x) * cbrt(x*x) - 4*x*x + 4;
-        float y1 = (cbrt(x*x) + sqrt(delta)) / 2;
-        float y2 = (cbrt(x*x) - sqrt(delta)) / 2;
-        glVertex2f(x, y1);
-        glVertex2f(x, y2);
+    
+    if(VERSION == 1){
+        Car * c = new Car();
+        c->draw();
+    } else if(VERSION == 2){
+        glBegin(GL_POINTS);
+        for (float x = -1.139; x <= 1.139; x += 0.001) {
+            float delta = cbrt(x*x) * cbrt(x*x) - 4*x*x + 4;
+            float y1 = (cbrt(x*x) + sqrt(delta)) / 2;
+            float y2 = (cbrt(x*x) - sqrt(delta)) / 2;
+            glVertex2f(x, y1);
+            glVertex2f(x, y2);
+        }
+        glEnd();
     }
-    glEnd();
+
 };
 
 void Player::die(){ setLifes(getLifes() - 1); };

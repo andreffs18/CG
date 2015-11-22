@@ -11,6 +11,7 @@
 
 class Player : public StaticObject{
 private:
+    int VERSION = 1; // 1 - car; 2 - hearts
     int _lifes;
     
     void setupColor();
