@@ -41,7 +41,7 @@ private:
     
     GLfloat amb_spoiler[4]      = {1.0f, 0.0f, 0.0f, 1.0f};
     GLfloat diffuse_spoiler[4]  = {1.0f, 0.55f, 0.07568f, 1.0f};
-    GLfloat specular_spoiler[4] = {0.633f, 0.727811f, 0.633f, 1.0f};
+    GLfloat specular_spoiler[4] = {0.633f, 0, 0, 1.0f};
     GLfloat shine_spoiler       = 76.8f;
     
 public:
