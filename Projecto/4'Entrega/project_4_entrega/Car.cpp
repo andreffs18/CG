@@ -22,19 +22,26 @@ Car::~Car(){};
 //  updates car's position, velocity and rotation
 void Car::update(float delta){
     logger.debug("Car::update()");
+	bool rotation = false;
     
     // if right is clicked
     if(_move_right){
         // if is moving forward, then rotate (+)
         if(_move_up || getSpeed()->getX() > 0)
             // to drift when starts to speed up
-            if(getSpeed()->getX() < gm.SPEED_INCREMENT * 4)
-                setRotation(getRotation() - gm.ANGLE_INCREMENT / 2);
-            else
+			if (getSpeed()->getX() < gm.SPEED_INCREMENT * 4) {
+				setRotation(getRotation() - gm.ANGLE_INCREMENT / 2);
+				rotation = true;
+			}
+			else {
 				setRotation(getRotation() - gm.ANGLE_INCREMENT);
+				rotation = true;
+			}
         // if is moving backward, then rotate (-)
-        else if(_move_down || getSpeed()->getX() < 0)
-            setRotation(getRotation() + gm.ANGLE_INCREMENT);
+		else if (_move_down || getSpeed()->getX() < 0) {
+			setRotation(getRotation() + gm.ANGLE_INCREMENT);
+			rotation = true;
+		}
     }
 
     // if left is clicked
@@ -42,13 +49,19 @@ void Car::update(float delta){
         // if is moving forward, then rotate (-)
         if(_move_up || getSpeed()->getX() > 0)
             // to drift when starts to speed up
-            if(getSpeed()->getX() < gm.SPEED_INCREMENT * 4)
+			if (getSpeed()->getX() < gm.SPEED_INCREMENT * 4) {
 				setRotation(getRotation() + gm.ANGLE_INCREMENT / 2);
-            else
+				rotation = true;
+			}
+			else {
 				setRotation(getRotation() + gm.ANGLE_INCREMENT);
+				rotation = true;
+			}
         // if is moving backward, then rotate (+)
-        else if(_move_down || getSpeed()->getX() < 0)
+		else if (_move_down || getSpeed()->getX() < 0) {
 			setRotation(getRotation() - gm.ANGLE_INCREMENT);
+			rotation = true;
+		}
     }
     
     // if moving forward and not max velocity
@@ -82,6 +95,19 @@ void Car::update(float delta){
     }
     
     setPosition(new Vector3(new_pos_x, new_pos_y, new_pos_z));
+
+	gm.headlight_pos[0] = new_pos_x - 0.5f;
+	gm.headlight_pos[1] = new_pos_y + 1.0f;
+
+	glLightfv(GL_LIGHT7, GL_POSITION, gm.headlight_pos);
+
+	gm.headlight_direction[0] = 1.0f;
+		glLightfv(GL_LIGHT7, GL_SPOT_DIRECTION, gm.headlight_direction);
+		
+	if(rotation) {
+		gm.headlight_direction[1] = 0.0f;
+		glLightfv(GL_LIGHT7, GL_SPOT_DIRECTION, gm.headlight_direction);
+	}
 };
 
 //  ------------------------------------------------------------------ draw()

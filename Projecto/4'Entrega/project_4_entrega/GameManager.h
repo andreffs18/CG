@@ -46,9 +46,9 @@ public:
     // active camera pointer, could be 0, 1 or 2
     int ACTIVE_CAMERA = 0;
     // speed increment on car
-    GLdouble SPEED_INCREMENT = 0.0000000025f;
+    GLdouble SPEED_INCREMENT = 0.00025f;
     // max velocity allowed
-    GLdouble MAX_VELOCITY = 0.01f;
+    GLfloat MAX_VELOCITY = 0.01f;
     // steering direction angle increment
     GLdouble ANGLE_INCREMENT = 1.5f;
     // distance from the car in 3'rd person view
@@ -101,6 +101,10 @@ public:
     bool SHADE = false;
     // amount of candles around the table
     int QTD_CANDLES = 6;
+
+	GLfloat headlight_pos[4] = { (-1)*(INNER_CIRCLE_RADIUS + 4.0f) - 0.5f, 1.0f, 0.0f, 1.0f };
+	GLfloat headlight_direction[3] = { 0.0f, 1.0f, 0.0f };
+	bool moved = false;
     
 	GameManager();
 	~GameManager();

@@ -147,18 +147,18 @@ void Orange::update(float delta) {
 			new_pos_x = ((rand() % 41) - 20);
 			new_pos_y = ((rand() % 41) - 20);
 			setRotation(0.0f);
-			gm.DRAW_ORANGE[gm.counter] = false;
+			//gm.DRAW_ORANGE[gm.counter] = false;
 			int time_to_wait = rand() % 10000 + 1;
-			glutTimerFunc(time_to_wait, Orange::timer, gm.counter);
+			//glutTimerFunc(time_to_wait, Orange::timer, gm.counter);
 			gm.SET_DIRECTION[gm.counter] = true;
 		}
 		else if (fabs(new_pos_y) >= gm.TRACK_LIMITS) {
 			new_pos_x = ((rand() % 41) - 20);
 			new_pos_y = ((rand() % 41) - 20);
 			setRotation(0.0f);
-			gm.DRAW_ORANGE[gm.counter] = false;
+			//gm.DRAW_ORANGE[gm.counter] = false;
 			int time_to_wait = rand() % 10000 + 1;
-			glutTimerFunc(time_to_wait, Orange::timer, gm.counter);
+			//glutTimerFunc(time_to_wait, Orange::timer, gm.counter);
 			gm.SET_DIRECTION[gm.counter] = true;
 		}
 

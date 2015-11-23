@@ -32,11 +32,16 @@ public:
     ~Light();
     
     void init();
+
+	void update_headlights();
     
     bool areCandlesOn();
     
     void turnCandlesOn();
     void turnCandlesOff();
+
+	void turnHeadlightOn();
+	void turnHeadlightOff();
     
     void turnOn();
     void turnOff();

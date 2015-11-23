@@ -477,6 +477,17 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
             gm.lights->turnCandlesOn();
         }
     }
+	// turn on/off headlight
+	else if (key == 'H' || key == 'h') {
+		if (glIsEnabled(GL_LIGHT7)) {
+			logger.info("Turn off headlight Calc");
+			gm.lights->turnHeadlightOff();
+		} else {
+			logger.info("Turn on headlight Calc");
+			gm.lights->turnHeadlightOn();
+		}
+
+	}
     // changing which camera is on
     else{
         switch(key){

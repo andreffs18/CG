@@ -64,18 +64,33 @@ void Light::init(){
             spot_position[1] = d_center * sin(angle*(PI/180));
         }
         glLightfv(GL_LIGHT1+i, GL_SPECULAR, specular);
-        glLightfv(GL_LIGHT1+i, GL_AMBIENT,  ambient);
+		glLightfv(GL_LIGHT1+i, GL_AMBIENT,  ambient);
         glLightfv(GL_LIGHT1+i, GL_DIFFUSE,  diffuse);
         
         glLightfv(GL_LIGHT1+i, GL_POSITION, spot_position);
-        glLightfv(GL_LIGHT1+i, GL_SPOT_DIRECTION, spotlight_direction);
+        //glLightfv(GL_LIGHT1+i, GL_SPOT_DIRECTION, spotlight_direction);
         // we want to redeuce the angle of apperture of the spotligth
         // for as many candles we have.. this means, if less candles, more
         // cutoff angle, with a maximum of 120º
+		//glLightf(GL_LIGHT1+i, GL_CONSTANT_ATTENUATION,1.0f);
+		//glLightf(GL_LIGHT1+i, GL_LINEAR_ATTENUATION, 1.25f);
+		//glLightf(GL_LIGHT1+i, GL_QUADRATIC_ATTENUATION, 2.56f);
         glLightf(GL_LIGHT1+i, GL_SPOT_CUTOFF, (60.0f * 2/ gm.QTD_CANDLES));
         glLightf(GL_LIGHT1+i, GL_SPOT_EXPONENT, 2.0f);
     }
+
+	glLightfv(GL_LIGHT7, GL_SPECULAR, specular);
+	glLightfv(GL_LIGHT7, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT7, GL_DIFFUSE, diffuse);
+
+	glLightfv(GL_LIGHT7, GL_POSITION, gm.headlight_pos);
+	glLightfv(GL_LIGHT7, GL_SPOT_DIRECTION, gm.headlight_direction);
+	glLightf(GL_LIGHT7, GL_SPOT_CUTOFF, (60.0f * 2 / gm.QTD_CANDLES));
+	glLightf(GL_LIGHT7, GL_SPOT_EXPONENT, 2.0f); 
 }
+
+
+
 
 bool Light::areCandlesOn(){
     // checks if candles are active. we just check for light 1 because
@@ -93,3 +108,10 @@ void Light::turnCandlesOff(){
         glDisable(GL_LIGHT1 + i);
 };
 
+void Light::turnHeadlightOn(){
+	glEnable(GL_LIGHT7);
+};
+
+void Light::turnHeadlightOff(){
+	glDisable(GL_LIGHT7);
+};
