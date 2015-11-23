@@ -212,6 +212,10 @@ void GameManager::drawAll() {
     for (GameObject * obj : _static_objects) { obj->draw(); }
 };
 
+Light * GameManager::getLights(){
+    return gm.lights;
+};
+
 //  ----------------------------------------------------- handleColisions()
 //  Method that checks and handles all colisions between
 //  car and gameobjects
@@ -526,11 +530,11 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
     // turn On/Off directional Light Source
     else if (key =='N' || key == 'n'){
         if(glIsEnabled(GL_LIGHT0)){
-            logger.info("Turn off Directional Light");
-            glDisable(GL_LIGHT0);
+            logger.info("Turn off Lights");
+            gm.lights->nightTime();
         } else {
-            logger.info("Turn on Directional Light");
-            glEnable(GL_LIGHT0);
+            logger.info("Turn on Lights");
+            gm.lights->dayTime();
         }
     }
     // turn shade model between flat/smooth
@@ -550,12 +554,12 @@ void GameManager::onKeyboard(unsigned char key, int x, int y){
     }
     // turn on/off spotlights calc
     else if (key == 'H' || key == 'h'){
-        if(gm.lights->areSpotlightsOn()){
+        if(glIsEnabled(GL_LIGHT7)){
             logger.info("Turn off Car Spotlights");
-            gm.lights->turnSpotlightsOff();
+            gm.lights->turnHeadlightsOff();
         } else {
             logger.info("Turn on Light Calc");
-            gm.lights->turnSpotlightsOn();
+            gm.lights->turnHeadlightsOn();
         }
     }
     // turn on/off all candles

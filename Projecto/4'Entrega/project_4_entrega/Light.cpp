@@ -73,9 +73,38 @@ void Light::init(){
         // for as many candles we have.. this means, if less candles, more
         // cutoff angle, with a maximum of 120º
         glLightf(GL_LIGHT1+i, GL_SPOT_CUTOFF, (60.0f * 2/ gm.QTD_CANDLES));
-        glLightf(GL_LIGHT1+i, GL_SPOT_EXPONENT, 2.0f);
+        glLightf(GL_LIGHT1+i, GL_SPOT_EXPONENT, 20.0f);
     }
 }
+
+void Light::init_headlights(Car * car){
+    GLfloat directionx = -sin(car->getRotation() * PI/180);
+    GLfloat directiony = cos(car->getRotation() * PI/180);
+    
+    GLfloat new_pos_x = car->getPosition()->getX();
+    GLfloat new_pos_y = car->getPosition()->getY();
+    GLfloat new_pos_z = 0.0f;
+
+    GLfloat headlight_position[4] = {new_pos_x, new_pos_y, new_pos_z, 1.0f};
+    GLfloat headlight_direction[3] = {directionx, directiony, 0.0f};
+    glLightfv(GL_LIGHT7, GL_SPECULAR, specular);
+    glLightfv(GL_LIGHT7, GL_AMBIENT, ambient);
+    glLightfv(GL_LIGHT7, GL_DIFFUSE, diffuse);
+    glLightfv(GL_LIGHT7, GL_POSITION, headlight_position);
+    glLightfv(GL_LIGHT7, GL_SPOT_DIRECTION, headlight_direction);
+    // we want to redeuce the angle of apperture of the spotligth
+    // for as many candles we have.. this means, if less candles, more
+    // cutoff angle, with a maximum of 120º
+    glLightf(GL_LIGHT7, GL_SPOT_CUTOFF, gm.TRACK_SIZE);
+    glLightf(GL_LIGHT7, GL_SPOT_EXPONENT, 50.0f);
+};
+
+void Light::turnHeadlightsOn(){
+    glEnable(GL_LIGHT7);
+};
+void Light::turnHeadlightsOff(){
+    glDisable(GL_LIGHT7);
+};
 
 bool Light::areCandlesOn(){
     // checks if candles are active. we just check for light 1 because
@@ -93,14 +122,14 @@ void Light::turnCandlesOff(){
         glDisable(GL_LIGHT1 + i);
 };
 
+void Light::nightTime(){
+    glDisable(GL_LIGHT0);
+    turnCandlesOn();
+    turnHeadlightsOn();
+};
 
-bool Light::areSpotlightsOn(){
-    // TODO
-    return false;
-};
-void Light::turnSpotlightsOn(){
-    // TODO
-};
-void Light::turnSpotlightsOff(){
-    // TODO
+void Light::dayTime(){
+    glEnable(GL_LIGHT0);
+    turnCandlesOff();
+    turnHeadlightsOff();
 };

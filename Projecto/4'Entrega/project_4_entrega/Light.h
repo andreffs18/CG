@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <complex>
+#include "Car.h"
 
 class Light{
 private:
@@ -33,16 +34,17 @@ public:
     
     void init();
     
-    bool areCandlesOn();
-    bool areSpotlightsOn();
+    void init_headlights(Car *);
     
+    bool areCandlesOn();
     void turnCandlesOn();
     void turnCandlesOff();
-    void turnSpotlightsOn();
-    void turnSpotlightsOff();
+
+    void turnHeadlightsOn();
+    void turnHeadlightsOff();
     
-    void turnOn();
-    void turnOff();
+    void nightTime();
+    void dayTime();
     
 };
 #endif /* Light_h */

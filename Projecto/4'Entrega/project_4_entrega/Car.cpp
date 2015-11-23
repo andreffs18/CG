@@ -74,6 +74,10 @@ void Car::update(float delta){
     GLfloat new_pos_z = 0.0f;
   
     setPosition(new Vector3(new_pos_x, new_pos_y, new_pos_z));
+    
+    Light * l = gm.getLights();
+    l->init_headlights(this);
+    
 };
 
 //  ------------------------------------------------------------------ draw()

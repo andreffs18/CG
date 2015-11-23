@@ -114,7 +114,7 @@ public:
 	~GameManager();
     
     void init();
-    
+    Light * getLights();
     GLuint getTexture(const char * filename);
     void camera();
     Camera * getCamera(int);
